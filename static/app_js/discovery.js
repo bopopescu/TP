@@ -47,16 +47,8 @@ under Contract DE-EE0006352
 
 **/
 
-//TODO: improve the hue approval logic to allow for possibility of having multiple HUEs
-var can_approve_hue;
-
 $( document ).ready(function() {
     $.csrftoken();
-    if (username_exists == 'yes'){
-        can_approve_hue = true;
-    }else{
-        can_approve_hue = false;
-    }
     var ws = new WebSocket("ws://" + window.location.host + "/socket_misc");
      ws.onopen = function () {
          ws.send("WS opened from html page");
@@ -75,17 +67,18 @@ $( document ).ready(function() {
                  message_upd = JSON.parse(message_upd);
                  if (message_upd['flag']==1) {
                      //change_values_on_success_submit(_values_on_submit);
-                     can_approve_hue = true;
                       $("#lighting_tbl").find('tr').each(function (rowIndex, r) {
                             row_cells = $(this)[0];
                             model = row_cells.cells[2].innerHTML;
+                            mac_addr = row_cells.cells[3].innerHTML.toLowerCase();
                             if (model.toLowerCase().indexOf('philips hue bridge') >= 0){
-                                $(this).find(".app_stat_lt").text("Approved")
-
+                                if (mac_addr == message_upd['mac']){
+                                    $(this).find(".app_stat_lt").text("Approved")
+                                }
                             }
-
                         });
-                     var hueAuthButton = document.getElementsByName('hue_auth')[0];
+                     var buttonID = 'identify-2HUE' + message_upd['mac']
+                     var hueAuthButton = document.getElementById(buttonID);
                      hueAuthButton.parentNode.removeChild(hueAuthButton);
                      $('.bottom-right').notify({
                         message: { text: 'You can approve Philips Hue Now !'},
@@ -1033,11 +1026,11 @@ $( document ).ready(function() {
             if (model.toLowerCase().indexOf('philips hue bridge') < 0){
                 $(this).find(".app_stat_lt").text("Approved")
             }else{
-                if (can_approve_hue == true){
+                if (row_cells.cells[5].innerHTML.toLowerCase().indexOf('get username') == -1){
                     $(this).find(".app_stat_lt").text("Approved")
                 }else{
                     $('.bottom-right').notify({
-                        message: { text: 'Philips Hue cannot be approved now. Please press Get Username'},
+                        message: { text: 'At least one Philips Hue cannot be approved now. Please press Get Username button(s)'},
                         type: 'blackgloss',
 
                          fadeOut: { enabled: true, delay: 10000 }

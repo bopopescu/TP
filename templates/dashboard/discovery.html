@@ -330,7 +330,7 @@
           <td>{{ lighting.mac_address }}</td>
             <td>{{ lighting.date_added }}</td>
              <td>{% if lighting.identifiable  %}
-                    {% if lighting.device_model_id.device_model_id == '2HUE' and username_exists == 'no' %}  <button class="btn btn-warning btn-xs"
+                    {% if lighting.device_model_id.device_model_id == '2HUE' and lighting.mac_address not in username_exists %}  <button class="btn btn-warning btn-xs"
                          data-backdrop="false" data-target="#{{ lighting.device_id }}" data-toggle="modal" id="identify-{{ lighting.device_id }}" name ="hue_auth">
                      <i class="icon-search" id="{{ lighting.device_id }}-spin"></i>
                          Get Username</button>{% endif %}
@@ -391,9 +391,9 @@
                                 <li><a href="#" id="{{ lighting.id }}-{{ lighting.approval_status.lower.split|join:'_' }}">{{ lighting.approval_status }}</a></li>
                                 {% for a_key, a_value in lighting.approval_status_choices %}
                                     {% ifnotequal a_value.lower lighting.approval_status.lower %}
-                                        {% if lighting.device_model_id.device_model_id == '2HUE' and username_exists != 'no' or lighting.device_model_id.device_model_id != '2HUE'%}
+                                        {% if lighting.device_model_id.device_model_id == '2HUE' and lighting.mac_address in username_exists or lighting.device_model_id.device_model_id != '2HUE'%}
                                         <li><a href="#" id="{{ lighting.id }}-{{ lighting.approval_status.lower.split|join:'_' }}">{{ a_value }}</a></li>
-                                        {% elif lighting.device_model_id.device_model_id == '2HUE' and username_exists == 'no' and a_value.lower != 'approved' %}
+                                        {% elif lighting.device_model_id.device_model_id == '2HUE' and lighting.mac_address not in username_exists and a_value.lower != 'approved' %}
                                         <li><a href="#" id="{{ lighting.id }}-{{ lighting.approval_status.lower.split|join:'_' }}">{{ a_value }}</a></li>
                                         {% endif %}
                                     {% endifnotequal %}

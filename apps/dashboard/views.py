@@ -330,7 +330,7 @@ def discover(request):
 
     # Check Philips Hue Username Exists or not:
     # Set default value as no:
-    hue_username_exists = 'no'
+    hue_username_exists = list()
     DIR = os.path.dirname(__file__)
     DIR = DIR.replace('/bemoss_web_ui/apps/dashboard', '/bemoss_os/')
 
@@ -342,7 +342,7 @@ def discover(request):
             f = open(_launch_file, 'r')
             data = json.load(f)
             if 'username' in data.keys():
-                hue_username_exists = 'yes'
+                hue_username_exists.append(data['macaddress'])
 
 
     if request.user.get_profile().group.name.lower() == 'admin':
