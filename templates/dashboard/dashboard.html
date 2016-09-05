@@ -1,252 +1,921 @@
- <!--
- Copyright (c) 2016, Virginia Tech
- All rights reserved.
-
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
-  following conditions are met:
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- disclaimer in the documentation and/or other materials provided with the distribution.
-
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
- The views and conclusions contained in the software and documentation are those of the authors and should not be
- interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
-
- This material was prepared as an account of work sponsored by an agency of the United States Government. Neither the
- United States Government nor the United States Department of Energy, nor Virginia Tech, nor any of their employees,
- nor any jurisdiction or organization that has cooperated in the development of these materials, makes any warranty,
- express or implied, or assumes any legal liability or responsibility for the accuracy, completeness, or usefulness or
- any information, apparatus, product, software, or process disclosed, or represents that its use would not infringe
- privately owned rights.
-
- Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or
- otherwise does not necessarily constitute or imply its endorsement, recommendation, favoring by the United States
- Government or any agency thereof, or Virginia Tech - Advanced Research Institute. The views and opinions of authors
- expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof.
-
- VIRGINIA TECH – ADVANCED RESEARCH INSTITUTE
- under Contract DE-EE0006352
-
- #__author__ = "BEMOSS Team"
- #__credits__ = ""
- #__version__ = "2.0"
- #__maintainer__ = "BEMOSS Team"
- #__email__ = "aribemoss@gmail.com"
- #__website__ = "www.bemoss.org"
- #__created__ = "2014-09-12 12:04:50"
- #__lastUpdated__ = "2016-03-14 11:23:33" -->
-
-{% load dashboard_extras %}
-{% load switch_case %}
-{% load timedelta %}
-{% load device_count_in_zone %}
 <!DOCTYPE html>
-<html>
-<head>
-<title>BEMOSS Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap -->
-<link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
-<link href="/static/css/thin-admin.css" rel="stylesheet" media="screen">
-<link href="/static/css/font-awesome.css" rel="stylesheet" media="screen">
-<link media="screen" rel="stylesheet" href="/static/font-awesome-4.0.3/css/font-awesome.min.css">
-    <link href="/static/weathericons/css/weather-icons.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" type="text/css" href="/static/css/fam-icons/fam-icons.css">
-<link href="/static/style/style.css" rel="stylesheet">
-<link href="/static/css/alerts.css" rel="stylesheet">
-<link href="/static/css/demo_page.css" rel="stylesheet">
-<link href="/static/css/demo_table.css" rel="stylesheet">
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"><!--<![endif]--><!-- BEGIN HEAD --><head>
+        <meta charset="utf-8">
+        <title>PEA Smart Home</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="PEA Smart Home" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+        <link href="./static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="./static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="./static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="./static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="./static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="./static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="./static/newassets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="./static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="./static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
 
+        <link href="./static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="./static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+        <script>
+//User Information
+const Username = "admin";
 
-<!-- Notify CSS -->
-<link href="/static/css/bootstrap-notify/bootstrap-notify.css" rel="stylesheet">
+//Current Rate
+const Cur_rate = 4.32;
 
-<!-- Custom Styles -->
-<link href="/static/css/bootstrap-notify/styles/alert-bangtidy.css" rel="stylesheet">
-<link href="/static/css/bootstrap-notify/styles/alert-blackgloss.css" rel="stylesheet">
-    <link href="/static/css/jquery-ui.css" rel="stylesheet" type="text/css">
-   <link rel="stylesheet" type="text/css" href="/static/assets/slider_enhancer/jquery-ui-slider-pips.css">
- <script class="include" type="text/javascript" src="/static/javascript/jquery-1.10.2.js"></script>
-<script class="include" type="text/javascript" src="/static/javascript/ui/jquery-ui.js"></script>
-<script src="/static/assets/slider_enhancer/jquery-ui-slider-pips.min.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>
-          <script class="include" type="text/javascript" src="/static/app_js/bootstrap-notify.js"></script>
-    <style>
-        a.disabled_me {
-           pointer-events: none;
-           cursor: default;
-        }
-    </style>
-<script>
-   // var ther_count = {{ th_count }} + {{ rtu_count }} + {{ vav_count }};
-       var role = "{{ request.user.get_profile.group.name|lower }}";
-    {% ifnotequal request.user.get_profile.zone.zone_id None %}
-var uzone = {{ request.user.get_profile.zone.zone_id }};
-{% else  %}
-var uzone = 9999;
-{% endifnotequal %}
-</script>
-</head>
-<body>
-{% include 'top_nav.html' %}
-<div class="wrapper">
-{% include 'side_nav.html' %}
-  <div class="page-content" id="dashboard_content">
-    <form action="" method="post">
-  	{% csrf_token %}
-    <div class="content container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2 class="page-title">BEMOSS Dashboard</h2>
-        </div>
-      </div>
+//Cost Prediction
+//@CPx_comp can be negative for down symbol
+//—Today
+const CPT_kwh = 22.69;
+const CPT_baht = 71.25;
+const CPT_comp = 16.47;
+const CPT_max = 20.54;
+//—This Month
+const CPM_kwh = 250.48;
+const CPM_baht = 1200.25;
+const CPM_comp = 216.25;
+const CPM_max = 312.24;
+//Load consumption
+//@Lxx_bar value between 0 to 100
+//@Lxx_comp value between -100 to 100
+//—Today
+const LT1_bar = 20;
+const LT1_comp = 40;
+const LT1_baht = 10;
 
-      <div class="widget">
-            <div class="widget-header"> <i class="icon-ok-sign"></i>
-              <h3>Devices Connected to BEMOSS</h3>
-            </div>
+const LT2_bar = 50;
+const LT2_comp = 30;
+const LT2_baht = 15.75;
 
-            <div class="widget-content">
-              <div id="accordion3" class="panel-group">
-                  {% for zone in zones_p %}
-                        <div class="panel">
-                          <div class="panel-heading"> <a href="#collapse_{{ zone.id }}" data-toggle="collapse" class="accordion-toggle collapsed"> {{ zone.zone_nickname|capfirst }} </a> </div>
-                          <div class="panel-collapse collapse
-                          {% if zone.id == 999 %} in {% endif %}
-                          " id="collapse_{{ zone.id }}" style="height: auto;">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="widget-header text-center">
-                                           <h3>{{ zone.zone_nickname }}</h3>
-                                           {% if request.user.get_profile.group.name|lower == 'admin' %}
-                                                <button data-backdrop="false" data-target="#zone_edit-{{ zone.id }}" data-toggle="modal" class="btn btn-small btn-success" type="button"> Edit <i class="btn-icon-only icon-pencil"> </i></button>
-                                           {% endif %}
+const LT3_bar = 65;
+const LT3_comp = -80;
+const LT3_baht = 25.25;
 
-                                            <div style="display: none;" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade to_close" id="zone_edit-{{ zone.id }}">
-	                  <div class="modal-dialog">
-	                    <div class="modal-content">
-	                      <div class="modal-header">
-	                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
-	                        <h4 id="myModalLabel" class="modal-title">Edit Zone Information</h4>
-	                      </div>
-                      <div class="modal-body">
-                         <table class="table table-condensed">
-			                <thead>
-				                <tr>
-				                <th></th>
-				                <th></th>
-				                <th></th>
-			                	</tr>
-			                </thead>
-			                <tbody>
-			                  <tr>
-			                    <td>Zone Nickname</td>
-			                    <td id="{{ zone.id }}_znick">{{ zone.zone_nickname }}</td>
-			                    <td><a href="javascript:;" class="znickname_edit" ><i class="icon-small icon-edit" id="{{zone.id}}_znick_edit"></i></a></td>
-			                    <script>
-			                    $( "#{{zone.id}}_znick_edit" ).click(function() {
-			                    	//alert("testing");
-			                    	var newtest = document.getElementById(this.id.replace("_edit",""));
-			                    	newtest.innerHTML = '<input type="text" id="{{zone.id}}_znickname" placeholder="{{zone.zone_nickname}}"></input>'
-			                    });
-			                    </script>
-			                  </tr>
-			                </tbody>
-                             <tfoot>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          </tr>
-        </tfoot>
-			              </table>
+const LT4_bar = 80;
+const LT4_comp = 60;
+const LT4_baht = 20.25;
 
-			              <p class="attribution left-align">Note: The nickname should have between 6 and 15 characters with alphabets or numbers or underscore (_). No spaces or special characters.</p>
-			               <p class = "attribution" id="zonenickname_{{zone.id}}" style="color:red;"></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button data-dismiss="modal" onclick="javascript:window.location.reload()"  class="btn btn-default" type="button">Close</button>
-                           {% if request.user.get_profile.group.name|lower == 'admin' %}
-                        <button class="btn btn-primary save_changes_zn" id="#savechanges-{{zone.id}}" type="button">Save changes</button>
-                          {% endif %}
-                      </div>
+//—This month
+const LM1_bar = 5;
+const LM1_comp = 6;
+const LM1_baht =12;
+
+const LM2_bar = 40;
+const LM2_comp = 30;
+const LM2_baht = 18;
+
+const LM3_bar = 90;
+const LM3_comp = 32;
+const LM3_baht = 23.25;
+
+const LM4_bar = 30;
+const LM4_comp = 20;
+const LM4_baht = 30.25;
+
+//Total Annual Energy Consumption
+const AEC_gen = 840;
+const AEC_use = 640;
+
+//Load
+const LOAD1_on = 6;
+const LOAD1_all = 13;
+
+const LOAD2_on = 2;
+const LOAD2_all = 3;
+
+const LOAD3_on = 6;
+const LOAD3_all = 13;
+
+//Grid
+//@GRID_kw can be negative for down symbol
+const GRID_status = "Feeding now";
+const GRID_kw = 20.23;
+
+//Solar Generation
+//@SOLAR_kw can be negative for down symbol
+const SOLAR_status = "Feeding now";
+const SOLAR_kw = 7.01;
+
+//Mode
+//@MODE_baht can be negative for down symbol
+const MODE = "Eco mode";
+const MODE_status = "Saving cost";
+const MODE_baht = -57.82;
+
+//EV Car
+//@EV_percent can be negative for down symbol
+const EV_status = "Charging";
+const EV_percent = 62;
+        </script>
+      </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="/">
+                        <img src="./static/newassets/layouts/layout4/img/logo-light.png" alt="logo" class="logo-default"> </a>
+                    <!--<div class="menu-toggler sidebar-toggler">-->
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    <!--</div>-->
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                                <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
+                                  <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
+                                    <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
+                                    <span class="" style="color:#eeeeee">Current Rate </span>
+                                    <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
+                                  </span>
+                                </a>
+                            </li>
+                            <!-- BEGIN USER LOGIN DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username username-hide-on-mobile"> Signed in as <span id="Username"></span> </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <img alt="" class="img-circle"> </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="/usr_mngr"><i class="icon-user"></i> My Profile </a>
+                                        <a href="/logout"><i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+                        </ul>
                     </div>
-                          </div>
-                                                </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                    <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                        <li class="nav-item start active open">
+                            <a href="/" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">Dashboard</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                        </li>
+                        <li class="heading">
+                            <h3 class="uppercase">Appliances</h3>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-bulb"></i>
+                                <span class="title">Test</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                </div>
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height: 981px;">
+                    <!-- BEGIN PAGE HEAD-->
+                    <!--<div class="page-head">-->
+                        <!-- BEGIN PAGE TITLE -->
+                        <!--<div class="page-title">
+                            <h1>Dashboard
+                            </h1>
+                        </div>-->
+                        <!-- END PAGE TITLE -->
 
-
-
-                                            </div>
+                    <!--</div>-->
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE BREADCRUMB -->
+                    <!--<ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span class="active">Dashboard</span>
+                        </li>
+                    </ul>-->
+                    <!-- END PAGE BREADCRUMB -->
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12 col-sm-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="portlet light bordered">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption">
+                                        <i class="icon-bubbles font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Cost Prediction</span>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#portlet_cost_1" data-toggle="tab" aria-expanded="true"> Today </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="#portlet_cost_2" data-toggle="tab" aria-expanded="false"> This Month </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="portlet_cost_1">
+                                            test
+                                        </div>
+                                        <div class="tab-pane" id="portlet_cost_2">
+                                            test
+                                        </div>
                                     </div>
                                 </div>
-                                <br/>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                    <div class="widget-content text-center">
-                                    <div class="col-md-1"></div>
-                                     <div class="col-md-3"><a class="btn btn-s-md btn-primary {% if zone.id|all_count <= 0 %}
-                                                disabled_me
-                                             {% endif %}" href="/all_devices/{{ zone.id }}" >All Devices ({{ zone.id|all_count }})</a></div>
-                                        <div class="col-md-3"><a class="btn btn-s-md btn-primary {% if zone.t_count <= 0 %}
-                                                disabled_me
-                                             {% endif %}" href="/devices/{{ zone.id }}_th">HVAC ({{ zone.t_count }})</a></div>
-                                    <div class="col-md-3"><a class="btn btn-s-md btn-primary {% if zone.lt_count <= 0 %}
-                                                disabled_me
-                                             {% endif %}" href="/devices/{{ zone.id }}_lt">Lighting Loads ({{ zone.lt_count }})</a></div>
-
-                                    </div></div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                        <div class="col-lg-6 col-xs-12 col-sm-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="portlet light bordered">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption">
+                                        <i class="icon-bubbles font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Load Consumption</span>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#portlet_load_1" data-toggle="tab" aria-expanded="true"> Today </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="#portlet_load_2" data-toggle="tab" aria-expanded="false"> This Month </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                    <div class="widget-content"><div class="col-md-1"></div>
-                                     <div class="col-md-3"><a class="btn btn-s-md btn-primary {% if zone.pl_count <= 0 %}
-                                                disabled_me
-                                             {% endif %}" href="/devices/{{ zone.id }}_pl">Plug Loads ({{ zone.pl_count }})</a></div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="portlet_load_1">
+                                          <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="dashboard-stat2 bordered">
+                                                    <div class="display">
+                                                        <div class="number">
+                                                            <h3 class="font-green-sharp">
+                                                                <span id="LT1_baht"></span>
+                                                                <small class="font-green-sharp">฿</small>
+                                                            </h3>
+                                                            <small>Lightings</small>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="icon-bulb font-green-sharp"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress-info">
+                                                        <div class="progress">
+                                                            <span id="LT1_bar" class="progress-bar progress-bar-success green-sharp">
+                                                            </span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <div class="status-title"> <i id="LT1_comp_direction" class="glyphicon"></i> <span id="LT1_comp"></span>% from yesterday </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="dashboard-stat2 bordered">
+                                                    <div class="display">
+                                                        <div class="number">
+                                                            <h3 class="font-red-haze">
+                                                              <span id="LT2_baht"></span>
+                                                              <small class="font-red-haze">฿</small>
+                                                            </h3>
+                                                            <small>Air Condition</small>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fa fa-asterisk font-red-haze"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress-info">
+                                                        <div class="progress">
+                                                            <span id="LT2_bar" class="progress-bar progress-bar-success red-haze">
+                                                            </span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <div class="status-title"> <i id="LT2_comp_direction" class="glyphicon"></i> <span id="LT2_comp"></span>% from yesterday </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="dashboard-stat2 bordered">
+                                                    <div class="display">
+                                                        <div class="number">
+                                                            <h3 class="font-blue-sharp">
+                                                              <span id="LT3_baht"></span>
+                                                              <small class="font-blue-sharp">฿</small>
+                                                            </h3>
+                                                            <small>Plug (Appliances)</small>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fa fa-plug font-blue-sharp"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress-info">
+                                                        <div class="progress">
+                                                            <span id="LT3_bar" class="progress-bar progress-bar-success blue-sharp">
+                                                            </span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <div class="status-title"> <i id="LT3_comp_direction" class="glyphicon"></i> <span id="LT3_comp"></span>% from yesterday </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="dashboard-stat2 bordered">
+                                                    <div class="display">
+                                                        <div class="number">
+                                                            <h3 class="font-purple-soft">
+                                                              <span id="LT4_baht"></span>
+                                                              <small class="font-purple-soft">฿</small>
+                                                            </h3>
+                                                            <small>EV Car</small>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fa fa-car font-purple-soft"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress-info">
+                                                        <div class="progress">
+                                                            <span id="LT4_bar" class="progress-bar progress-bar-success purple-soft">
+                                                            </span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <div class="status-title"> <i id="LT4_comp_direction" class="glyphicon"></i> <span id="LT4_comp"></span>% from yesterday </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="tab-pane" id="portlet_load_2">
+                                        <div class="row">
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                              <div class="dashboard-stat2 bordered">
+                                                  <div class="display">
+                                                      <div class="number">
+                                                          <h3 class="font-green-sharp">
+                                                              <span id="LM1_baht"></span>
+                                                              <small class="font-green-sharp">฿</small>
+                                                          </h3>
+                                                          <small>Lightings</small>
+                                                      </div>
+                                                      <div class="icon">
+                                                          <i class="icon-bulb font-green-sharp"></i>
+                                                      </div>
+                                                  </div>
+                                                  <div class="progress-info">
+                                                      <div class="progress">
+                                                          <span id="LM1_bar" class="progress-bar progress-bar-success green-sharp">
+                                                          </span>
+                                                      </div>
+                                                      <div class="status">
+                                                          <div class="status-title"> <i id="LM1_comp_direction" class="glyphicon"></i> <span id="LM1_comp"></span>% from last month </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                              <div class="dashboard-stat2 bordered">
+                                                  <div class="display">
+                                                      <div class="number">
+                                                          <h3 class="font-red-haze">
+                                                            <span id="LM2_baht"></span>
+                                                            <small class="font-red-haze">฿</small>
+                                                          </h3>
+                                                          <small>Air Condition</small>
+                                                      </div>
+                                                      <div class="icon">
+                                                          <i class="fa fa-asterisk font-red-haze"></i>
+                                                      </div>
+                                                  </div>
+                                                  <div class="progress-info">
+                                                      <div class="progress">
+                                                          <span id="LM2_bar" class="progress-bar progress-bar-success red-haze">
+                                                          </span>
+                                                      </div>
+                                                      <div class="status">
+                                                          <div class="status-title"> <i id="LM2_comp_direction" class="glyphicon"></i> <span id="LM2_comp"></span>% from last month </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                              <div class="dashboard-stat2 bordered">
+                                                  <div class="display">
+                                                      <div class="number">
+                                                          <h3 class="font-blue-sharp">
+                                                            <span id="LM3_baht"></span>
+                                                            <small class="font-blue-sharp">฿</small>
+                                                          </h3>
+                                                          <small>Plug (Appliances)</small>
+                                                      </div>
+                                                      <div class="icon">
+                                                          <i class="fa fa-plug font-blue-sharp"></i>
+                                                      </div>
+                                                  </div>
+                                                  <div class="progress-info">
+                                                      <div class="progress">
+                                                          <span id="LM3_bar" class="progress-bar progress-bar-success blue-sharp">
+                                                          </span>
+                                                      </div>
+                                                      <div class="status">
+                                                          <div class="status-title"> <i id="LM3_comp_direction" class="glyphicon"></i> <span id="LM3_comp"></span>% from last month </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                              <div class="dashboard-stat2 bordered">
+                                                  <div class="display">
+                                                      <div class="number">
+                                                          <h3 class="font-purple-soft">
+                                                            <span id="LM4_baht"></span>
+                                                            <small class="font-purple-soft">฿</small>
+                                                          </h3>
+                                                          <small>EV Car</small>
+                                                      </div>
+                                                      <div class="icon">
+                                                          <i class="fa fa-car font-purple-soft"></i>
+                                                      </div>
+                                                  </div>
+                                                  <div class="progress-info">
+                                                      <div class="progress">
+                                                          <span id="LM4_bar" class="progress-bar progress-bar-success purple-soft">
+                                                          </span>
+                                                      </div>
+                                                      <div class="status">
+                                                          <div class="status-title"> <i id="LM4_comp_direction" class="glyphicon"></i> <span id="LM4_comp"></span>% from last month </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12 col-sm-12">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-directions font-green hide"></i>
+                                        <span class="caption-subject bold font-dark uppercase "> Total Annual Energy Consumption</span>
+                                    </div>
 
-                                    </div></div>
                                 </div>
-                                <br/>
-
+                                <div class="portlet-body">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div style="margin-left:80px;font-weight:600;" id="AEC_message"></div>
+                                      <div class="chart-gauge"></div>
+                                    </div>
+                                    <div class="col-md-6" style="font-size:30px">
+                                      <div>
+                                        <span class="flaticon-plug icon-size-big font-red"></span>
+                                        <div style="display:inline-block">
+                                          <span style="font-size:20px;font-weight:600">Consumption</span>
+                                          <span style="font-size:20px;display:block"><span id="AEC_use"></span> kWh</span>
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <span class="flaticon-sunlight icon-size-big font-green"></span>
+                                        <div style="display:inline-block">
+                                          <span style="font-size:20px;font-weight:600">Generation</span>
+                                          <span style="font-size:20px;display:block"><span id="AEC_gen"></span> kWh</span>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
+                                  <script>
+                                  var useplusgen = AEC_use+AEC_gen;
+                                  var overgen = AEC_gen-AEC_use;
+                                  percent = 0.50 + overgen/useplusgen/2;
+                                  window.onload = function() {
+                                  (function () {
+                                    var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, radius, ref, sectionIndx, sectionPerc, startPadRad, startingPercent, svg, totalPercent, width;
+                                    startingPercent = 0.5;
+                                    barWidth = 50;
+                                    numSections = 10;
+                                    sectionPerc = 1 / numSections / 2;
+                                    padRad = 0.05;
+                                    chartInset = 10;
+                                    totalPercent = 0.75;
+                                    el = d3.select('.chart-gauge');
+                                    margin = {
+                                        top: 0,
+                                        right: 20,
+                                        bottom: 30,
+                                        left: 20
+                                    };
+                                    width = 240 - margin.left - margin.right;
+                                    height = width;
+                                    radius = Math.min(width, height) / 2;
+                                    percToDeg = function (perc) {
+                                        return perc * 360;
+                                    };
+                                    percToRad = function (perc) {
+                                        return degToRad(percToDeg(perc));
+                                    };
+                                    degToRad = function (deg) {
+                                        return deg * Math.PI / 180;
+                                    };
+                                    svg = el.append('svg').attr('width', width + margin.left + margin.right).attr('height', height / 2 + margin.top + margin.bottom);
+                                    chart = svg.append('g').attr('transform', 'translate(' + (width + margin.left) / 2 + ', ' + (height + margin.top) / 2 + ')');
+                                    for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
+                                        arcStartRad = percToRad(totalPercent);
+                                        arcEndRad = arcStartRad + percToRad(sectionPerc);
+                                        totalPercent += sectionPerc;
+                                        startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
+                                        endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
+                                        arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
+                                        chart.append('path').attr('class', 'arc chart-color' + sectionIndx).attr('d', arc);
+                                    }
+                                    Needle = function () {
+                                        function Needle(len, radius1) {
+                                            this.len = len;
+                                            this.radius = radius1;
+                                        }
+                                        Needle.prototype.drawOn = function (el, perc) {
+                                            this.startingPerc = perc;
+                                            el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this.radius);
+                                            return el.append('path').attr('class', 'needle').attr('d', this.mkCmd(perc));
+                                        };
+                                        Needle.prototype.animateOn = function (el, perc) {
+                                            var self;
+                                            self = this;
+                                            return el.attr('d', self.mkCmd(this.startingPerc)).transition().delay(500).ease('elastic').duration(3000).selectAll('.needle').tween('progress', function () {
+                                                return function (percentOfPercent) {
+                                                    var progress;
+                                                    if (perc > self.startingPerc) {
+                                                        progress = self.startingPerc + percentOfPercent * (perc - self.startingPerc);
+                                                    } else {
+                                                        progress = self.startingPerc - percentOfPercent * (self.startingPerc - perc);
+                                                    }
+                                                    return d3.select(this).attr('d', self.mkCmd(progress));
+                                                };
+                                            });
+                                        };
+                                        Needle.prototype.mkCmd = function (perc) {
+                                            var centerX, centerY, leftX, leftY, rightX, rightY, thetaRad, topX, topY;
+                                            thetaRad = percToRad(perc / 2);
+                                            centerX = 0;
+                                            centerY = 0;
+                                            topX = centerX - this.len * Math.cos(thetaRad);
+                                            topY = centerY - this.len * Math.sin(thetaRad);
+                                            leftX = centerX - this.radius * Math.cos(thetaRad - Math.PI / 2);
+                                            leftY = centerY - this.radius * Math.sin(thetaRad - Math.PI / 2);
+                                            rightX = centerX - this.radius * Math.cos(thetaRad + Math.PI / 2);
+                                            rightY = centerY - this.radius * Math.sin(thetaRad + Math.PI / 2);
+                                            return 'M ' + leftX + ' ' + leftY + ' L ' + topX + ' ' + topY + ' L ' + rightX + ' ' + rightY;
+                                        };
+                                        return Needle;
+                                    }();
+                                    needle = new Needle(90, 15);
+                                    needle.drawOn(chart, startingPercent);
+                                    needle.animateOn(chart, percent);
+                                  }.call(this));
+                                  }
+                                  </script>
                                 </div>
-                  {% endfor %}
-              </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12 col-sm-12">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-directions font-green hide"></i>
+                                        <span class="caption-subject bold font-dark uppercase"> Devices status</span>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                  <div class="row widget-row">
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <!-- BEGIN WIDGET THUMB -->
+                                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
+                                            <h4 class="widget-thumb-heading">Lightings</h4>
+                                            <div class="widget-thumb-wrap">
+                                                <i class="widget-thumb-icon bg-green icon-bulb"></i>
+                                                <div class="widget-thumb-body">
+                                                    <span class="widget-thumb-subtitle">Active</span>
+                                                    <span class="widget-thumb-body-stat"><span id="LOAD1_on"></span>/<span id="LOAD1_all"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END WIDGET THUMB -->
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <!-- BEGIN WIDGET THUMB -->
+                                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
+                                            <h4 class="widget-thumb-heading">Air Condition</h4>
+                                            <div class="widget-thumb-wrap">
+                                                <i class="widget-thumb-icon bg-purple fa fa-asterisk"></i>
+                                                <div class="widget-thumb-body">
+                                                    <span class="widget-thumb-subtitle">Active</span>
+                                                    <span class="widget-thumb-body-stat"><span id="LOAD2_on"></span>/<span id="LOAD2_all"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END WIDGET THUMB -->
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <!-- BEGIN WIDGET THUMB -->
+                                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
+                                            <h4 class="widget-thumb-heading">Appliances</h4>
+                                            <div class="widget-thumb-wrap">
+                                                <i class="widget-thumb-icon bg-blue fa fa-plug"></i>
+                                                <div class="widget-thumb-body">
+                                                    <span class="widget-thumb-subtitle">Active</span>
+                                                    <span class="widget-thumb-body-stat"><span id="LOAD3_on"></span>/<span id="LOAD3_all"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END WIDGET THUMB -->
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-blue"><i class="glyphicon glyphicon-flash font-white"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text1">Grid</span>
+                            <span class="info-box-text2" id="GRID_status"></span>
+                            <span class="info-box-number"><span class="glyphicon" id="GRID_kw_direction"></span> <span id="GRID_kw"></span> <small>kW</small></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-red"><i class="fa fa-sun-o font-white"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text1">Solar Generation</span>
+                            <span class="info-box-text2" id="SOLAR_status"></span>
+                            <span class="info-box-number"><span class="glyphicon" id="SOLAR_kw_direction"></span> <span id="SOLAR_kw"></span> <small>kW</small></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-green"><i class="fa fa-sliders font-white"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text1" id="MODE">Eco Mode</span>
+                            <span class="info-box-text2" id="MODE_status"></span>
+                            <span class="info-box-number"><span class="glyphicon" id="MODE_baht_direction"></span> <span id="MODE_baht"></span> <small>฿</small></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-purple"><i class="fa fa-car font-white"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text1">EV Car</span>
+                            <span class="info-box-text2" id="EV_status"></span>
+                            <span class="info-box-number"><span class="glyphicon" id="EV_percent_direction"></span> <span id="EV_percent"></span> <small>%</small></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
             </div>
-          </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!--[if lt IE 9]>
+<script src="./static/newassets/global/plugins/respond.min.js"></script>
+<script src="./static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="./static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="./static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="./static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="./static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="./static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="./static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 
-      </div>
-    </form>
-  </div>
-</div>
+        <script type="text/javascript">
+          $("#Username").text(String(Username));
 
-<div class="bottom-nav footer"> 2013-2015 &copy; Building Energy Management Open Source Software. </div>
+          $("#Cur_rate").text(String(Cur_rate));
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/static/js/jquery.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/left_nav_slider.js"></script>
+          /*CPT_kwh
+          $("#CPT_baht").text(String(CPT_baht));
+          $("#CPT_comp").text(String(Math.abs(CPT_comp)));
+          if(CPT_comp > 0 ) {
 
-<script type="text/javascript" src="/static/app_js/home_dash.js"></script>
-<script type="text/javascript" src="/static/app_js/make_current.js"></script>
+          } else if(CPT_comp < 0) {
 
-<!--switcher html start-->
-{% include 'theme_changer.html' %}
+          }
+          CPT_max*/
 
-</body>
+          $("#LT1_bar").css("width", LT1_bar+"%");
+          if(LT1_comp > 0)
+            $("#LT1_comp_direction").addClass("up");
+          else if(LT1_comp < 0)
+            $("#LT1_comp_direction").addClass("down");
+          $("#LT1_comp").text(String(Math.abs(LT1_comp)));
+          $("#LT1_baht").text(String(LT1_baht));
+
+          $("#LT2_bar").css("width", LT2_bar+"%");
+          if(LT2_comp > 0)
+            $("#LT2_comp_direction").addClass("up");
+          else if(LT2_comp < 0)
+            $("#LT2_comp_direction").addClass("down");
+          $("#LT2_comp").text(String(Math.abs(LT2_comp)));
+          $("#LT2_baht").text(String(LT2_baht));
+
+          $("#LT3_bar").css("width", LT3_bar+"%");
+          if(LT3_comp > 0)
+            $("#LT3_comp_direction").addClass("up");
+          else if(LT3_comp < 0)
+            $("#LT3_comp_direction").addClass("down");
+          $("#LT3_comp").text(String(Math.abs(LT3_comp)));
+          $("#LT3_baht").text(String(LT3_baht));
+
+          $("#LT4_bar").css("width", LT4_bar+"%");
+          if(LT4_comp > 0)
+            $("#LT4_comp_direction").addClass("up");
+          else if(LT4_comp < 0)
+            $("#LT4_comp_direction").addClass("down");
+          $("#LT4_comp").text(String(Math.abs(LT4_comp)));
+          $("#LT4_baht").text(String(LT4_baht));
+
+          $("#LM1_bar").css("width", LM1_bar+"%");
+          if(LM1_comp > 0)
+            $("#LM1_comp_direction").addClass("up");
+          else if(LM1_comp < 0)
+            $("#LM1_comp_direction").addClass("down");
+          $("#LM1_comp").text(String(Math.abs(LM1_comp)));
+          $("#LM1_baht").text(String(LM1_baht));
+
+          $("#LM2_bar").css("width", LM2_bar+"%");
+          if(LM2_comp > 0)
+            $("#LM2_comp_direction").addClass("up");
+          else if(LM2_comp < 0)
+            $("#LM2_comp_direction").addClass("down");
+          $("#LM2_comp").text(String(Math.abs(LM2_comp)));
+          $("#LM2_baht").text(String(LM2_baht));
+
+          $("#LM3_bar").css("width", LM3_bar+"%");
+          if(LM3_comp > 0)
+            $("#LM3_comp_direction").addClass("up");
+          else if(LM3_comp < 0)
+            $("#LM3_comp_direction").addClass("down");
+          $("#LM3_comp").text(String(Math.abs(LM3_comp)));
+          $("#LM3_baht").text(String(LM3_baht));
+
+          $("#LM4_bar").css("width", LM4_bar+"%");
+          if(LM4_comp > 0)
+            $("#LM4_comp_direction").addClass("up");
+          else if(LM4_comp < 0)
+            $("#LM4_comp_direction").addClass("down");
+          $("#LM4_comp").text(String(Math.abs(LM4_comp)));
+          $("#LM4_baht").text(String(LM4_baht));
+
+          $("#AEC_gen").text(String(AEC_gen));
+          $("#AEC_use").text(String(AEC_use));
+
+          if(percent == 0) {
+            $("#AEC_message").text("Net Zero");
+            $("#AEC_message").css("margin-left","80px");
+            $("#AEC_message").addClass("font-green-sharp");
+          }
+          else if(percent > 0) {
+            $("#AEC_message").text("Over Generation");
+            $("#AEC_message").css("margin-left","60px");
+            $("#AEC_message").addClass("font-green");
+          }
+          else {
+            $("#AEC_message").text("Over Consumption");
+            $("#AEC_message").css("margin-left","60px");
+            $("#AEC_message").addClass("font-red");
+          }
+
+          $("#LOAD1_on").text(String(LOAD1_on));
+          $("#LOAD1_all").text(String(LOAD1_all));
+          $("#LOAD2_on").text(String(LOAD2_on));
+          $("#LOAD2_all").text(String(LOAD2_all));
+          $("#LOAD3_on").text(String(LOAD3_on));
+          $("#LOAD3_all").text(String(LOAD3_all));
+
+          $("#GRID_status").text(String(GRID_status));
+          $("#GRID_kw").text(String(Math.abs(GRID_kw)));
+          $("#SOLAR_status").text(String(SOLAR_status));
+          $("#SOLAR_kw").text(String(Math.abs(SOLAR_kw)));
+          $("#MODE").text(String(MODE));
+          $("#MODE_status").text(String(MODE_status));
+          $("#MODE_baht").text(String(Math.abs(MODE_baht)));
+          $("#EV_status").text(String(EV_status));
+          $("#EV_percent").text(String(Math.abs(EV_percent)));
+
+          if(GRID_kw > 0) {
+            $("#GRID_kw_direction").addClass("up2");
+          } else if(GRID_kw < 0) {
+            $("#GRID_kw_direction").addClass("down2");
+          }
+          if(SOLAR_kw > 0) {
+            $("#SOLAR_kw_direction").addClass("up2");
+          } else if(SOLAR_kw < 0) {
+            $("#SOLAR_kw_direction").addClass("down2");
+          }
+          if(MODE_baht > 0) {
+            $("#MODE_baht_direction").addClass("up2");
+          } else if(MODE_baht < 0) {
+            $("#MODE_baht_direction").addClass("down2");
+          }
+          if(EV_percent > 0) {
+            $("#EV_percent_direction").addClass("up2");
+          } else if(EV_percent < 0) {
+            $("#EV_percent_direction").addClass("down2");
+          }
+
+        </script>
+    </body>
+
 </html>
