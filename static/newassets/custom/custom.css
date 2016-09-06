@@ -159,3 +159,18 @@
 .icon-size-big:before {
   font-size: 50px;
 }
+/* cost prediction */
+.inside {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 30px;
+}
+
+.data {
+    font-size: 12px;
+    color: grey;
+}
+
+svg .arc {
+    stroke: #c0c0c0;
+    stroke-width: 1.5px;
+}

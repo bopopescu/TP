@@ -43,12 +43,12 @@ const Cur_rate = 4.32;
 //—Today
 const CPT_kwh = 22.69;
 const CPT_baht = 71.25;
-const CPT_comp = 16.47;
+const CPT_comp = -16.47;
 const CPT_max = 20.54;
 //—This Month
 const CPM_kwh = 250.48;
 const CPM_baht = 1200.25;
-const CPM_comp = 216.25;
+const CPM_comp = -216.25;
 const CPM_max = 312.24;
 //Load consumption
 //@Lxx_bar value between 0 to 100
@@ -270,10 +270,288 @@ const EV_percent = 62;
                                 <div class="portlet-body">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="portlet_cost_1">
-                                            test
+                                          <div class="row">
+                                             <div class="col-lg-5 col-xs-12 col-sm-5" style=" display: flex;"  >
+                                                 <div style="margin: auto">
+                                                     <svg class="cp-donut-day"  height="200" width="250"></svg>
+                                                     <script >
+                                                        renderCP1 = function() {
+                                                         if(CPT_comp < 0) {
+                                                           var dataset = {
+                                                               hddrives: [CPT_baht*85.0/(CPT_baht-CPT_comp),Math.abs(CPT_comp)*85.0/(CPT_baht-CPT_comp),15],
+                                                           };
+                                                         } else if(CPT_comp > 0) {
+                                                           var dataset = {
+                                                               hddrives: [100,0,15],
+                                                           };
+                                                         } else {
+                                                           var dataset = {
+                                                               hddrives: [100,0,15],
+                                                           };
+                                                         }
+
+                                                         var width = 250,
+                                                                 height = 250,
+                                                                 radius = Math.min(width, height) / 2;
+
+
+                                                         var color = d3.scale.ordinal().range(["cornflowerblue", "white","lightgreen"]);
+                                                         //d3.scale.ordinal()
+                                                         // .range(["#2DA7E2"]);
+
+                                                         var pie = d3.layout.pie()
+                                                                 .sort(null);
+
+
+
+                                                         var arc = d3.svg.arc()
+                                                                 .innerRadius(radius - 70)
+                                                                 .outerRadius(radius - 50);
+
+                                                         var svg = d3.select(".cp-donut-day");
+
+                                                         svg = svg.attr("width", width)
+                                                                 .attr("height", height)
+                                                                 .append("g")
+                                                                 .attr("transform", "translate(" + width / 2 + "," + height / 2.5 + ") ");
+
+                                                         svg.append("circle")
+                                                                 .attr("cx", 0)
+                                                                 .attr("cy", 0)
+                                                                 .attr("r", 40)
+                                                                 .attr("fill", "gold");
+
+                                                         var path = svg.selectAll("path")
+                                                                 .data(pie(dataset.hddrives))
+                                                                 .enter().append("path")
+                                                                 .attr("class", "arc")
+                                                                 .style("opacity", function(d, i) {
+                                                                     return i == dataset.hddrives.length -1 ? 0 : 1;
+                                                                 })
+                                                                 .attr("fill", function(d, i) {
+                                                                     return color(i);
+                                                                 })
+                                                                 .attr("d", arc)
+                                                                 .attr("transform", "translate(" + 0 + "," + 0 + ")  rotate(207)");
+                                                         svg.append("text")
+                                                                 .attr("dy", "0.3em")
+                                                                 .attr("dx", "0.15em")
+                                                                 .style("text-anchor", "end")
+                                                                 .style("fill", "#777777")
+                                                                 .style("font-size", "25px")
+                                                                 .attr("class", "inside")
+                                                                 .text(function(d) {
+                                                                     return String(Math.floor(CPT_kwh));
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "0.25em")
+                                                                 .attr("dx", "0.3em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .style("fill", "#777777")
+                                                                 .attr("class", "inside")
+                                                                 .text(function(d) {
+                                                                     return '.';
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "0.52em")
+                                                                 .attr("dx", "1.55em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .style("fill", "#777777")
+                                                                 .style("font-size", "14px")
+                                                                 .attr("class", "inside")
+                                                                 .text(function(d) {
+                                                                     return String(Math.floor((CPT_kwh-Math.floor(CPT_kwh))*100));
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "2.5em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .style("fill", "#888888")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return 'kWh';
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "5.5em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return String(CPT_max);
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "7em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return 'Maximum Usage';
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "8.25em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return 'from yesterday';
+                                                                 });
+                                                        }
+                                                     </script>
+                                                 </div>
+                                             </div>
+                                             <div class="col-lg-7 col-xs-12 col-sm-7 tab-pane" style=" display: flex;" >
+                                                 <div style="margin: auto;line-height:10px">
+                                                   <br><br><br>
+                                                   <h4>Today's usage</h4>
+                                                   <br>
+                                                   <div style="font-weight: bold; font-size: 50px;"><span id="CPT_baht"></span> ฿</div>
+                                                   <br><br><br>
+                                                   <div style="line-height:20px;" id="CPT_comp_color">
+                                                       <p>
+                                                       <i class="glyphicon" id="CPT_comp_direction"></i><span style="font-size: 30px;"> <span id="CPT_comp"></span> ฿</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>from yesterday</span>
+                                                       </p>
+                                                    </div>
+                                                 </div>
+                                             </div>
+                                           </div>
                                         </div>
                                         <div class="tab-pane" id="portlet_cost_2">
-                                            test
+                                          <div class="row">
+                                             <div class="col-lg-5 col-xs-12 col-sm-5" style=" display: flex;"  >
+                                                 <div style="margin: auto">
+                                                     <svg class="cp-donut-day2"  height="200" width="250"></svg>
+                                                     <script >
+                                                        renderCP2 = function() {
+                                                          if(CPM_comp < 0) {
+                                                            var dataset = {
+                                                                hddrives: [CPM_baht*85.0/(CPM_baht-CPM_comp),Math.abs(CPM_comp)*85.0/(CPM_baht-CPM_comp),15],
+                                                            };
+                                                          } else if(CPM_comp > 0) {
+                                                            var dataset = {
+                                                                hddrives: [100,0,15],
+                                                            };
+                                                          } else {
+                                                            var dataset = {
+                                                                hddrives: [100,0,15],
+                                                            };
+                                                          }
+
+                                                         var width = 250,
+                                                                 height = 250,
+                                                                 radius = Math.min(width, height) / 2;
+
+
+                                                         var color = d3.scale.ordinal().range(["cornflowerblue", "white","lightgreen"]);
+                                                         //d3.scale.ordinal()
+                                                         // .range(["#2DA7E2"]);
+
+                                                         var pie = d3.layout.pie()
+                                                                 .sort(null);
+
+
+
+                                                         var arc = d3.svg.arc()
+                                                                 .innerRadius(radius - 70)
+                                                                 .outerRadius(radius - 50);
+
+                                                         var svg = d3.select(".cp-donut-day2");
+
+                                                         svg = svg.attr("width", width)
+                                                                 .attr("height", height)
+                                                                 .append("g")
+                                                                 .attr("transform", "translate(" + width / 2 + "," + height / 2.5 + ") ");
+
+                                                         svg.append("circle")
+                                                                 .attr("cx", 0)
+                                                                 .attr("cy", 0)
+                                                                 .attr("r", 40)
+                                                                 .attr("fill", "gold");
+
+                                                         var path = svg.selectAll("path")
+                                                                 .data(pie(dataset.hddrives))
+                                                                 .enter().append("path")
+                                                                 .attr("class", "arc")
+                                                                 .style("opacity", function(d, i) {
+                                                                     return i == dataset.hddrives.length -1 ? 0 : 1;
+                                                                 })
+                                                                 .attr("fill", function(d, i) {
+                                                                     return color(i);
+                                                                 })
+                                                                 .attr("d", arc)
+                                                                 .attr("transform", "translate(" + 0 + "," + 0 + ")  rotate(207)");
+                                                         svg.append("text")
+                                                                 .attr("dy", "0.3em")
+                                                                 .attr("dx", "0.15em")
+                                                                 .style("text-anchor", "end")
+                                                                 .style("fill", "#777777")
+                                                                 .style("font-size", "25px")
+                                                                 .attr("class", "inside")
+                                                                 .text(function(d) {
+                                                                     return String(Math.floor(CPM_kwh));
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "0.25em")
+                                                                 .attr("dx", "0.3em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .style("fill", "#777777")
+                                                                 .attr("class", "inside")
+                                                                 .text(function(d) {
+                                                                     return '.';
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "0.52em")
+                                                                 .attr("dx", "1.55em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .style("fill", "#777777")
+                                                                 .style("font-size", "14px")
+                                                                 .attr("class", "inside")
+                                                                 .text(function(d) {
+                                                                     return String(Math.floor((CPM_kwh-Math.floor(CPM_kwh))*100));
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "2.5em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .style("fill", "#888888")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return 'kWh';
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "5.5em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return String(CPM_max);
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "7em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return 'Maximum Usage';
+                                                                 });
+                                                         svg.append("text")
+                                                                 .attr("dy", "8.25em")
+                                                                 .style("text-anchor", "middle")
+                                                                 .attr("class", "data")
+                                                                 .text(function(d) {
+                                                                     return 'from last month';
+                                                                 });
+                                                        }
+                                                     </script>
+                                                 </div>
+                                             </div>
+                                             <div class="col-lg-7 col-xs-12 col-sm-7 tab-pane" style=" display: flex;" >
+                                                 <div style="margin: auto;line-height:10px">
+                                                   <br><br><br>
+                                                   <h4>This month's usage</h4>
+                                                   <br>
+                                                   <div style="font-weight: bold; font-size: 50px;"><span id="CPM_baht"></span> ฿</div>
+                                                   <br><br><br>
+                                                   <div style="line-height:20px;" id="CPM_comp_color">
+                                                       <p>
+                                                       <i class="glyphicon" id="CPM_comp_direction"></i><span style="font-size: 30px;"> <span id="CPM_comp"></span> ฿</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>from last month</span>
+                                                       </p>
+                                                    </div>
+                                                 </div>
+                                             </div>
+                                           </div>
                                         </div>
                                     </div>
                                 </div>
@@ -551,7 +829,7 @@ const EV_percent = 62;
                                   var useplusgen = AEC_use+AEC_gen;
                                   var overgen = AEC_gen-AEC_use;
                                   percent = 0.5 + (overgen/useplusgen)/2;
-                                  window.onload = function() {
+                                  renderGauge = function() {
                                   (function () {
                                     var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, radius, ref, sectionIndx, sectionPerc, startPadRad, startingPercent, svg, totalPercent, width;
                                     startingPercent = 0.5;
@@ -784,15 +1062,25 @@ const EV_percent = 62;
 
           $("#Cur_rate").text(String(Cur_rate));
 
-          /*CPT_kwh
           $("#CPT_baht").text(String(CPT_baht));
           $("#CPT_comp").text(String(Math.abs(CPT_comp)));
           if(CPT_comp > 0 ) {
-
+            $("#CPT_comp_direction").addClass("up");
+            $("#CPT_comp_color").css("color", "#e7505a");
           } else if(CPT_comp < 0) {
-
+            $("#CPT_comp_direction").addClass("down");
+            $("#CPT_comp_color").css("color", "#26C281");
           }
-          CPT_max*/
+
+          $("#CPM_baht").text(String(CPM_baht));
+          $("#CPM_comp").text(String(Math.abs(CPM_comp)));
+          if(CPM_comp > 0 ) {
+            $("#CPM_comp_direction").addClass("up");
+            $("#CPM_comp_color").css("color", "#e7505a");
+          } else if(CPM_comp < 0) {
+            $("#CPM_comp_direction").addClass("down");
+            $("#CPM_comp_color").css("color", "#26C281");
+          }
 
           $("#LT1_bar").css("width", LT1_bar+"%");
           if(LT1_comp > 0)
@@ -915,6 +1203,11 @@ const EV_percent = 62;
             $("#EV_percent_direction").addClass("down2");
           }
 
+          window.onload = function () {
+            renderCP1();
+            renderCP2();
+            renderGauge();
+          }
         </script>
     </body>
 
