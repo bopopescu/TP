@@ -88,8 +88,8 @@ const LM4_comp = 20;
 const LM4_baht = 30.25;
 
 //Total Annual Energy Consumption
-const AEC_gen = 840;
-const AEC_use = 640;
+const AEC_gen = 2000;
+const AEC_use = 1000;
 
 //Load
 const LOAD1_on = 6;
@@ -550,7 +550,7 @@ const EV_percent = 62;
                                   <script>
                                   var useplusgen = AEC_use+AEC_gen;
                                   var overgen = AEC_gen-AEC_use;
-                                  percent = 0.50 + overgen/useplusgen/2;
+                                  percent = 0.5 + (overgen/useplusgen)/2;
                                   window.onload = function() {
                                   (function () {
                                     var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, radius, ref, sectionIndx, sectionPerc, startPadRad, startingPercent, svg, totalPercent, width;
@@ -861,12 +861,12 @@ const EV_percent = 62;
           $("#AEC_gen").text(String(AEC_gen));
           $("#AEC_use").text(String(AEC_use));
 
-          if(percent == 0) {
+          if(percent == 0.5) {
             $("#AEC_message").text("Net Zero");
             $("#AEC_message").css("margin-left","80px");
             $("#AEC_message").addClass("font-green-sharp");
           }
-          else if(percent > 0) {
+          else if(percent > 0.5) {
             $("#AEC_message").text("Over Generation");
             $("#AEC_message").css("margin-left","60px");
             $("#AEC_message").addClass("font-green");
