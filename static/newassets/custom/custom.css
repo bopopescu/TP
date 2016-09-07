@@ -98,10 +98,6 @@
 .up2:before {
     content: "\e253";
 }
-/* fix flaticon */
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
-    margin-left: 0px;
-}
 
 /* gauge */
 .chart-gauge {
