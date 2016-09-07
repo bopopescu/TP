@@ -48,9 +48,31 @@ under Contract DE-EE0006352
 **/
 
 $( document ).ready(function() {
-    $.csrftoken();
+    // $.csrftoken();
 
-    var ws = new WebSocket("ws://" + window.location.host + "/socket_misc");
+    // var ws = new WebSocket("ws://" + window.location.host + "/socket_misc");
+    //
+    //  ws.onopen = function () {
+    //      ws.send("WS opened from html page");
+    //  };
+    //
+    //  ws.onmessage = function (event) {
+    //      var _data = event.data;
+    //      _data = $.parseJSON(_data);
+    //      var topic = _data['topic'];
+    //      // ["", "ui", "web", "misc", "auto_discovery", "status"]
+    //      var message = _data['message'];
+    //      if (topic) {
+    //          topic = topic.split('/');
+    //          //console.log(topic);
+    //          if (topic[4] == 'auto_discovery' && topic[5] == 'status') {
+    //              update_discovery_status(message);
+    //          }
+    //      }
+    //  };
+
+     var ws = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
+     //var ws = new WebSocket("ws://localhost:8000/socket_powermeter");
 
      ws.onopen = function () {
          ws.send("WS opened from html page");
@@ -59,16 +81,22 @@ $( document ).ready(function() {
      ws.onmessage = function (event) {
          var _data = event.data;
          _data = $.parseJSON(_data);
-         var topic = _data['topic'];
-         // ["", "ui", "web", "misc", "auto_discovery", "status"]
-         var message = _data['message'];
-         if (topic) {
-             topic = topic.split('/');
-             //console.log(topic);
-             if (topic[4] == 'auto_discovery' && topic[5] == 'status') {
-                 update_discovery_status(message);
-             }
-         }
+         console.log(_data);
+         var _message = $.parseJSON(_data['message']);
+         // console.log(_message.grid_activePower);
+         document.getElementById("GRID_kw").innerHTML = _message.grid_activePower;
+         document.getElementById("SOLAR_kw").innerHTML = _message.solar_activePower;
+         document.getElementById("LOAD_kw").innerHTML = _message.load_activePower;
+         // var topic = _data['topic'];
+         // // ["", "ui", "web", "misc", "auto_discovery", "status"]
+         // var message = _data['message'];
+         // if (topic) {
+         //     topic = topic.split('/');
+         //     //console.log(topic);
+         //     if (topic[4] == 'auto_discovery' && topic[5] == 'status') {
+         //         update_discovery_status(message);
+         //     }
+         // }
      };
 
 
