@@ -112,6 +112,11 @@ const GRID_kw = 20.23;
 const SOLAR_status = "Feeding now";
 const SOLAR_kw = 7.01;
 
+//Load consumption
+//@LOAD_kw always positive
+const LOAD_status = "Consuming";
+const LOAD_kw = 2.02;
+
 //Mode
 //@MODE_baht can be negative for down symbol
 const MODE = "Eco mode";
@@ -995,7 +1000,7 @@ const EV_percent = 62;
                           <div class="info-box-content">
                             <span class="info-box-text1">Grid</span>
                             <span class="info-box-text2" id="GRID_status"></span>
-                            <span class="info-box-number"><span class="glyphicon" id="GRID_kw_direction"></span> <span id="GRID_kw"></span> <small>kW</small></span>
+                            <span class="info-box-number"><span class="glyphicon" id="GRID_kw_direction"></span> <span id="GRID_kw"></span> <small>W</small></span>
                           </div>
                         </div>
                       </div>
@@ -1006,7 +1011,18 @@ const EV_percent = 62;
                           <div class="info-box-content">
                             <span class="info-box-text1">Solar Generation</span>
                             <span class="info-box-text2" id="SOLAR_status"></span>
-                            <span class="info-box-number"><span class="glyphicon" id="SOLAR_kw_direction"></span> <span id="SOLAR_kw"></span> <small>kW</small></span>
+                            <span class="info-box-number"><span class="glyphicon" id="SOLAR_kw_direction"></span> <span id="SOLAR_kw"></span> <small>W</small></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-red"><i class="fa fa-sun-o font-white"></i></span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text1">Load</span>
+                            <span class="info-box-text2" id="LOAD_status"></span>
+                            <span class="info-box-number"><span class="glyphicon" id="LOAD_kw_direction"></span> <span id="LOAD_kw"></span> <small>W</small></span>
                           </div>
                         </div>
                       </div>
@@ -1190,6 +1206,9 @@ const EV_percent = 62;
           $("#MODE_baht").text(String(Math.abs(MODE_baht)));
           $("#EV_status").text(String(EV_status));
           $("#EV_percent").text(String(Math.abs(EV_percent)));
+
+          $("#LOAD_status").text(String(LOAD_status));
+          $("#LOAD_kw").text(String(Math.abs(LOAD_kw)));
 
           if(GRID_kw > 0) {
             $("#GRID_kw_direction").addClass("up2");
