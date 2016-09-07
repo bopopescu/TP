@@ -102,6 +102,7 @@ def main():
             (r"/socket_lighting_scheduler", LightingSchedulerHandler),
             (r"/socket_plugload_scheduler", PlugloadSchedulerHandler),
             (r"/socket_thermostat_scheduler", ThermostatSchedulerHandler),
+            (r"/socket_powermeter", PowermeterEventHandler),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': PROJECT_DIR +
                                                                       "/static/"}),
             ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
@@ -238,6 +239,10 @@ class LightingSchedulerHandler(MainHandler):
     def zmq_subscribe(self):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/app/ui/lighting_scheduler/')
 
+class PowermeterEventHandler(MainHandler):
+    def zmq_subscribe(self):
+        self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/power_meter/')
+
 application = web.Application([
     (r"/", WebHandler),
     (r"/socket_thermostat", ThermostatEventHandler),
@@ -250,6 +255,7 @@ application = web.Application([
     (r"/socket_lighting_scheduler", LightingSchedulerHandler),
     (r"/socket_plugload_scheduler", PlugloadSchedulerHandler),
     (r"/socket_thermostat_scheduler", ThermostatSchedulerHandler),
+    (r"/socket_powermeter", PowermeterEventHandler),
 ])
 
 
