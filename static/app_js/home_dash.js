@@ -72,6 +72,7 @@ $( document ).ready(function() {
     //  };
 
      var ws = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
+     //var ws = new WebSocket("ws://localhost:8000/socket_powermeter");
 
      ws.onopen = function () {
          ws.send("WS opened from html page");
@@ -82,8 +83,10 @@ $( document ).ready(function() {
          _data = $.parseJSON(_data);
          console.log(_data);
          var _message = $.parseJSON(_data['message']);
-         console.log(_message.activePower);
-         document.getElementById("GRID_kw").innerHTML = _message.activePower;
+         // console.log(_message.grid_activePower);
+         document.getElementById("GRID_kw").innerHTML = _message.grid_activePower;
+         document.getElementById("SOLAR_kw").innerHTML = _message.solar_activePower;
+         document.getElementById("LOAD_kw").innerHTML = _message.load_activePower;
          // var topic = _data['topic'];
          // // ["", "ui", "web", "misc", "auto_discovery", "status"]
          // var message = _data['message'];
