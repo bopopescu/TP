@@ -72,7 +72,6 @@ $( document ).ready(function() {
     //  };
 
      var ws = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
-     //var ws = new WebSocket("ws://localhost:8000/socket_powermeter");
 
      ws.onopen = function () {
          ws.send("WS opened from html page");
@@ -99,6 +98,72 @@ $( document ).ready(function() {
          // }
      };
 
+
+     var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
+
+     ws_dashboard.onopen = function () {
+         ws_dashboard.send("WS opened from html page");
+     };
+
+     ws_dashboard.onmessage = function (event) {
+         var _data = event.data;
+         _data = $.parseJSON(_data);
+         console.log(_data);
+         var _topic = _data['topic'];
+         console.log(_topic);
+         var _headers = _data['headers'];
+         console.log(_headers.data_source);
+         var _message = $.parseJSON(_data['message']);
+
+
+         if (_headers.data_source == 'gridApp') {
+             console.log(_message.current_electricity_price);
+            document.getElementById("Cur_rate").innerHTML = _message.current_electricity_price;
+         } else if (_headers.data_source == 'powermeterApp') {
+            document.getElementById("CPT_baht").innerHTML = _message.monthly_electricity_bill;
+            document.getElementById("CPT_comp").innerHTML = _message.last_day_bill;
+            document.getElementById("LT1_baht").innerHTML = _message.daily_bill_light;
+            document.getElementById("LT1_comp").innerHTML = _message.daily_bill_light_compare_percent;
+            document.getElementById("LT2_baht").innerHTML = _message.daily_bill_AC;
+            document.getElementById("LT2_comp").innerHTML = _message.daily_bill_AC_compare_percent;
+            document.getElementById("LT3_baht").innerHTML = _message.daily_bill_plug;
+            document.getElementById("LT3_comp").innerHTML = _message.daily_bill_plug_compare_percent;
+            document.getElementById("LT4_baht").innerHTML = _message.daily_bill_EV;
+            document.getElementById("LT4_comp").innerHTML = _message.daily_bill_EV_compare_percent;
+            document.getElementById("AEC_gen").innerHTML = _message.netzero_onsite_generation;
+            document.getElementById("AEC_use").innerHTML = _message.netzero_energy_consumption;
+
+         } else if (_headers.data_source == 'EVApp') {
+             document.getElementById("EV_percent").innerHTML = _message.percentage_charge;
+             document.getElementById("EV_status").innerHTML = _message.EV_mode;
+
+         }  else if (_headers.data_source == 'modeApp') {
+            document.getElementById("MODE").innerHTML = _message.home_mode;
+            document.getElementById("MODE_baht").innerHTML = _message.ECO_saving_cost;
+
+         } else if (_headers.data_source == 'devicesStatus') {
+            document.getElementById("LOAD1_on").innerHTML = _message.number_lamp_working;
+            document.getElementById("LOAD1_all").innerHTML = _message.total_lamp;
+            document.getElementById("LOAD2_on").innerHTML = _message.number_AC_working;
+            document.getElementById("LOAD2_all").innerHTML = _message.total_AC;
+            document.getElementById("LOAD3_on").innerHTML = _message.number_plug_working;
+            document.getElementById("LOAD3_all").innerHTML = _message.total_plug;
+         }
+
+
+         // document.getElementById("SOLAR_kw").innerHTML = _message.solar_activePower;
+         // document.getElementById("LOAD_kw").innerHTML = _message.load_activePower;
+         // var topic = _data['topic'];
+         // // ["", "ui", "web", "misc", "auto_discovery", "status"]
+         // var message = _data['message'];
+         // if (topic) {
+         //     topic = topic.split('/');
+         //     //console.log(topic);
+         //     if (topic[4] == 'auto_discovery' && topic[5] == 'status') {
+         //         update_discovery_status(message);
+         //     }
+         // }
+     };
 
     function update_discovery_status(message){
         if (role == 'admin' || zone == uzone){
