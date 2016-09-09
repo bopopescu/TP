@@ -55,36 +55,28 @@ const CPM_max = 312.24;
 //@Lxx_bar value between 0 to 100
 //@Lxx_comp value between -100 to 100
 //—Today
-const LT1_bar = 20;
 const LT1_comp = 40;
 const LT1_baht = 10;
 
-const LT2_bar = 50;
 const LT2_comp = 30;
 const LT2_baht = 15.75;
 
-const LT3_bar = 65;
 const LT3_comp = -80;
 const LT3_baht = 25.25;
 
-const LT4_bar = 80;
 const LT4_comp = 60;
 const LT4_baht = 20.25;
 
 //—This month
-const LM1_bar = 5;
 const LM1_comp = 6;
 const LM1_baht =12;
 
-const LM2_bar = 40;
 const LM2_comp = 30;
 const LM2_baht = 18;
 
-const LM3_bar = 90;
 const LM3_comp = 32;
 const LM3_baht = 23.25;
 
-const LM4_bar = 30;
 const LM4_comp = 20;
 const LM4_baht = 30.25;
 
@@ -587,24 +579,20 @@ const EV_percent = 62;
                                           <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>Lightings</small>
                                                             <h3 class="font-green-sharp">
                                                                 <span id="LT1_baht"></span>
                                                                 <small class="font-green-sharp">฿</small>
                                                             </h3>
-                                                            <small>Lightings</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="icon-bulb font-green-sharp"></i>
+                                                            <i class="icon-bulb font-green-sharp" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT1_bar" class="progress-bar progress-bar-success green-sharp">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT1_comp_direction" class="glyphicon"></i> <span id="LT1_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -612,24 +600,20 @@ const EV_percent = 62;
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>Air Condition</small>
                                                             <h3 class="font-red-haze">
                                                               <span id="LT2_baht"></span>
                                                               <small class="font-red-haze">฿</small>
                                                             </h3>
-                                                            <small>Air Condition</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-asterisk font-red-haze"></i>
+                                                            <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT2_bar" class="progress-bar progress-bar-success red-haze">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT2_comp_direction" class="glyphicon"></i> <span id="LT2_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -637,24 +621,20 @@ const EV_percent = 62;
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>Plug (Appliances)</small>
                                                             <h3 class="font-blue-sharp">
                                                               <span id="LT3_baht"></span>
                                                               <small class="font-blue-sharp">฿</small>
                                                             </h3>
-                                                            <small>Plug (Appliances)</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-plug font-blue-sharp"></i>
+                                                            <i class="fa fa-plug font-blue-sharp" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT3_bar" class="progress-bar progress-bar-success blue-sharp">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT3_comp_direction" class="glyphicon"></i> <span id="LT3_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -662,24 +642,20 @@ const EV_percent = 62;
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>EV Car</small>
                                                             <h3 class="font-purple-soft">
                                                               <span id="LT4_baht"></span>
                                                               <small class="font-purple-soft">฿</small>
                                                             </h3>
-                                                            <small>EV Car</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-car font-purple-soft"></i>
+                                                            <i class="fa fa-car font-purple-soft" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT4_bar" class="progress-bar progress-bar-success purple-soft">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT4_comp_direction" class="glyphicon"></i> <span id="LT4_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -691,24 +667,20 @@ const EV_percent = 62;
                                         <div class="row">
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>Lightings</small>
                                                           <h3 class="font-green-sharp">
                                                               <span id="LM1_baht"></span>
                                                               <small class="font-green-sharp">฿</small>
                                                           </h3>
-                                                          <small>Lightings</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="icon-bulb font-green-sharp"></i>
+                                                          <i class="icon-bulb font-green-sharp" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM1_bar" class="progress-bar progress-bar-success green-sharp">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM1_comp_direction" class="glyphicon"></i> <span id="LM1_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -716,24 +688,20 @@ const EV_percent = 62;
                                           </div>
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>Air Condition</small>
                                                           <h3 class="font-red-haze">
                                                             <span id="LM2_baht"></span>
                                                             <small class="font-red-haze">฿</small>
                                                           </h3>
-                                                          <small>Air Condition</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="fa fa-asterisk font-red-haze"></i>
+                                                          <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM2_bar" class="progress-bar progress-bar-success red-haze">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM2_comp_direction" class="glyphicon"></i> <span id="LM2_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -741,24 +709,20 @@ const EV_percent = 62;
                                           </div>
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>Plug (Appliances)</small>
                                                           <h3 class="font-blue-sharp">
                                                             <span id="LM3_baht"></span>
                                                             <small class="font-blue-sharp">฿</small>
                                                           </h3>
-                                                          <small>Plug (Appliances)</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="fa fa-plug font-blue-sharp"></i>
+                                                          <i class="fa fa-plug font-blue-sharp" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM3_bar" class="progress-bar progress-bar-success blue-sharp">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM3_comp_direction" class="glyphicon"></i> <span id="LM3_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -766,24 +730,20 @@ const EV_percent = 62;
                                           </div>
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>EV Car</small>
                                                           <h3 class="font-purple-soft">
                                                             <span id="LM4_baht"></span>
                                                             <small class="font-purple-soft">฿</small>
                                                           </h3>
-                                                          <small>EV Car</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="fa fa-car font-purple-soft"></i>
+                                                          <i class="fa fa-car font-purple-soft" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM4_bar" class="progress-bar progress-bar-success purple-soft">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM4_comp_direction" class="glyphicon"></i> <span id="LM4_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -1113,7 +1073,6 @@ const EV_percent = 62;
             $("#CPM_comp_color").css("color", "#26C281");
           }
 
-          $("#LT1_bar").css("width", LT1_bar+"%");
           if(LT1_comp > 0)
             $("#LT1_comp_direction").addClass("up");
           else if(LT1_comp < 0)
@@ -1121,7 +1080,6 @@ const EV_percent = 62;
           $("#LT1_comp").text(String(Math.abs(LT1_comp)));
           $("#LT1_baht").text(String(LT1_baht));
 
-          $("#LT2_bar").css("width", LT2_bar+"%");
           if(LT2_comp > 0)
             $("#LT2_comp_direction").addClass("up");
           else if(LT2_comp < 0)
@@ -1129,7 +1087,6 @@ const EV_percent = 62;
           $("#LT2_comp").text(String(Math.abs(LT2_comp)));
           $("#LT2_baht").text(String(LT2_baht));
 
-          $("#LT3_bar").css("width", LT3_bar+"%");
           if(LT3_comp > 0)
             $("#LT3_comp_direction").addClass("up");
           else if(LT3_comp < 0)
@@ -1137,7 +1094,6 @@ const EV_percent = 62;
           $("#LT3_comp").text(String(Math.abs(LT3_comp)));
           $("#LT3_baht").text(String(LT3_baht));
 
-          $("#LT4_bar").css("width", LT4_bar+"%");
           if(LT4_comp > 0)
             $("#LT4_comp_direction").addClass("up");
           else if(LT4_comp < 0)
@@ -1145,7 +1101,6 @@ const EV_percent = 62;
           $("#LT4_comp").text(String(Math.abs(LT4_comp)));
           $("#LT4_baht").text(String(LT4_baht));
 
-          $("#LM1_bar").css("width", LM1_bar+"%");
           if(LM1_comp > 0)
             $("#LM1_comp_direction").addClass("up");
           else if(LM1_comp < 0)
@@ -1153,7 +1108,6 @@ const EV_percent = 62;
           $("#LM1_comp").text(String(Math.abs(LM1_comp)));
           $("#LM1_baht").text(String(LM1_baht));
 
-          $("#LM2_bar").css("width", LM2_bar+"%");
           if(LM2_comp > 0)
             $("#LM2_comp_direction").addClass("up");
           else if(LM2_comp < 0)
@@ -1161,7 +1115,6 @@ const EV_percent = 62;
           $("#LM2_comp").text(String(Math.abs(LM2_comp)));
           $("#LM2_baht").text(String(LM2_baht));
 
-          $("#LM3_bar").css("width", LM3_bar+"%");
           if(LM3_comp > 0)
             $("#LM3_comp_direction").addClass("up");
           else if(LM3_comp < 0)
@@ -1169,7 +1122,6 @@ const EV_percent = 62;
           $("#LM3_comp").text(String(Math.abs(LM3_comp)));
           $("#LM3_baht").text(String(LM3_baht));
 
-          $("#LM4_bar").css("width", LM4_bar+"%");
           if(LM4_comp > 0)
             $("#LM4_comp_direction").addClass("up");
           else if(LM4_comp < 0)
