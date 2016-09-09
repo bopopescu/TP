@@ -178,3 +178,21 @@ svg .arc {
     stroke: #c0c0c0;
     stroke-width: 1.5px;
 }
+/* page breadcrumb */
+.page-breadcrumb {
+    float: left;
+    margin: 0;
+    list-style: none;
+    padding: 0px;
+}
+.page-breadcrumb>li {
+    display: inline-block;
+}
+.page-breadcrumb>li>i[class*=icon-], .page-bar .page-breadcrumb>li>i[class^=icon-] {
+    color: #8c8c8c;
+}
+.page-breadcrumb>li>i {
+    color: #aaa;
+    font-size: 14px;
+    text-shadow: none;
+}
