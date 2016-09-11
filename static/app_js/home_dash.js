@@ -123,7 +123,7 @@ $( document ).ready(function() {
             update_CPT_baht(_message.monthly_electricity_bill);
             update_CPT_comp(_message.last_day_bill);
             update_LT1_baht(_message.daily_bill_light);
-            update_LT1_comp( _message.daily_bill_light_compare_percent;);
+            update_LT1_comp(_message.daily_bill_light_compare_percent);
             update_LT2_baht(_message.daily_bill_AC);
             update_LT2_comp(_message.daily_bill_AC_compare_percent);
             update_LT3_baht(_message.daily_bill_plug);
