@@ -83,9 +83,9 @@ $( document ).ready(function() {
          console.log(_data);
          var _message = $.parseJSON(_data['message']);
          // console.log(_message.grid_activePower);
-         document.getElementById("GRID_kw").innerHTML = _message.grid_activePower;
-         document.getElementById("SOLAR_kw").innerHTML = _message.solar_activePower;
-         document.getElementById("LOAD_kw").innerHTML = _message.load_activePower;
+         update_GRID_kw(_message.grid_activePower);
+         update_SOLAR_kw(_message.solar_activePower);
+         update_LOAD_kw(_message.load_activePower);
          // var topic = _data['topic'];
          // // ["", "ui", "web", "misc", "auto_discovery", "status"]
          // var message = _data['message'];
@@ -118,36 +118,36 @@ $( document ).ready(function() {
 
          if (_headers.data_source == 'gridApp') {
              console.log(_message.current_electricity_price);
-            document.getElementById("Cur_rate").innerHTML = _message.current_electricity_price;
+            update_Cur_rate(_message.current_electricity_price);
          } else if (_headers.data_source == 'powermeterApp') {
-            document.getElementById("CPT_baht").innerHTML = _message.monthly_electricity_bill;
-            document.getElementById("CPT_comp").innerHTML = _message.last_day_bill;
-            document.getElementById("LT1_baht").innerHTML = _message.daily_bill_light;
-            document.getElementById("LT1_comp").innerHTML = _message.daily_bill_light_compare_percent;
-            document.getElementById("LT2_baht").innerHTML = _message.daily_bill_AC;
-            document.getElementById("LT2_comp").innerHTML = _message.daily_bill_AC_compare_percent;
-            document.getElementById("LT3_baht").innerHTML = _message.daily_bill_plug;
-            document.getElementById("LT3_comp").innerHTML = _message.daily_bill_plug_compare_percent;
-            document.getElementById("LT4_baht").innerHTML = _message.daily_bill_EV;
-            document.getElementById("LT4_comp").innerHTML = _message.daily_bill_EV_compare_percent;
-            document.getElementById("AEC_gen").innerHTML = _message.netzero_onsite_generation;
-            document.getElementById("AEC_use").innerHTML = _message.netzero_energy_consumption;
+            update_CPT_baht(_message.monthly_electricity_bill);
+            update_CPT_comp(_message.last_day_bill);
+            update_LT1_baht(_message.daily_bill_light);
+            update_LT1_comp(_message.daily_bill_light_compare_percent);
+            update_LT2_baht(_message.daily_bill_AC);
+            update_LT2_comp(_message.daily_bill_AC_compare_percent);
+            update_LT3_baht(_message.daily_bill_plug);
+            update_LT3_comp(_message.daily_bill_plug_compare_percent);
+            update_LT4_baht(_message.daily_bill_EV);
+            update_LT4_comp(_message.daily_bill_EV_compare_percent);
+            update_AEC_use(_message.netzero_onsite_generation);
+            update_AEC_gen(_message.netzero_energy_consumption);
 
          } else if (_headers.data_source == 'EVApp') {
-             document.getElementById("EV_percent").innerHTML = _message.percentage_charge;
-             document.getElementById("EV_status").innerHTML = _message.EV_mode;
+             update_EV_percent(_message.percentage_charge);
+             update_EV_status(_message.EV_mode);
 
          }  else if (_headers.data_source == 'modeApp') {
-            document.getElementById("MODE").innerHTML = _message.home_mode;
-            document.getElementById("MODE_baht").innerHTML = _message.ECO_saving_cost;
+            update_MODE(_message.home_mode);
+            update_MODE_baht(_message.ECO_saving_cost);
 
          } else if (_headers.data_source == 'devicesStatus') {
-            document.getElementById("LOAD1_on").innerHTML = _message.number_lamp_working;
-            document.getElementById("LOAD1_all").innerHTML = _message.total_lamp;
-            document.getElementById("LOAD2_on").innerHTML = _message.number_AC_working;
-            document.getElementById("LOAD2_all").innerHTML = _message.total_AC;
-            document.getElementById("LOAD3_on").innerHTML = _message.number_plug_working;
-            document.getElementById("LOAD3_all").innerHTML = _message.total_plug;
+            update_LOAD1_on(_message.number_lamp_working);
+            update_LOAD1_all(_message.total_lamp);
+            update_LOAD2_on(_message.number_AC_working);
+            update_LOAD2_all(_message.total_AC);
+            update_LOAD3_on(_message.number_plug_working);
+            update_LOAD3_all(_message.total_plug);
          }
 
 

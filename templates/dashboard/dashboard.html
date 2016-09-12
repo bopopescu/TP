@@ -32,101 +32,95 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
         <script>
-//User Information
-const Username = "admin";
+function setValue() {
+  //User Information
+  update_Username("admin");
 
-//Current Rate
-const Cur_rate = 4.32;
+  //Current Rate
+  update_Cur_rate("4.32");
 
-//Cost Prediction
-//@CPx_comp can be negative for down symbol
-//@CPx_kwh <= CPx_max
-//—Today
-const CPT_kwh = 22.69;
-const CPT_baht = 71.25;
-const CPT_comp = -16.47;
-const CPT_max = 23.54;
-//—This Month
-const CPM_kwh = 250.48;
-const CPM_baht = 1200.25;
-const CPM_comp = -216.25;
-const CPM_max = 312.24;
-//Load consumption
-//@Lxx_bar value between 0 to 100
-//@Lxx_comp value between -100 to 100
-//—Today
-const LT1_bar = 20;
-const LT1_comp = 40;
-const LT1_baht = 10;
+  //Cost Prediction
+  //@CPx_comp can be negative for down symbol
+  //@CPx_kwh <= CPx_max
+  //—Today
+  update_CPT_kwh("22.69");
+  update_CPT_max("23.54");
+  update_CPT_baht("71.25");
+  update_CPT_comp("-16.47");
+  //—This Month
+  update_CPM_kwh("250.48");
+  update_CPM_max("312.24");
+  update_CPM_baht("1200.25");
+  update_CPM_comp("-216.25");
+  //Load consumption
+  //@Lxx_bar value between 0 to 100
+  //@Lxx_comp value between -100 to 100
+  //—Today
+  update_LT1_comp("40");
+  update_LT1_baht("10");
 
-const LT2_bar = 50;
-const LT2_comp = 30;
-const LT2_baht = 15.75;
+  update_LT2_comp("30");
+  update_LT2_baht("15.75");
 
-const LT3_bar = 65;
-const LT3_comp = -80;
-const LT3_baht = 25.25;
+  update_LT3_comp("-80");
+  update_LT3_baht("25.25");
 
-const LT4_bar = 80;
-const LT4_comp = 60;
-const LT4_baht = 20.25;
+  update_LT4_comp("60");
+  update_LT4_baht("20.25");
 
-//—This month
-const LM1_bar = 5;
-const LM1_comp = 6;
-const LM1_baht =12;
+  //—This month
+  update_LM1_comp("6");
+  update_LM1_baht("12");
 
-const LM2_bar = 40;
-const LM2_comp = 30;
-const LM2_baht = 18;
+  update_LM2_comp("30");
+  update_LM2_baht("18");
 
-const LM3_bar = 90;
-const LM3_comp = 32;
-const LM3_baht = 23.25;
+  update_LM3_comp("32");
+  update_LM3_baht("23.25");
 
-const LM4_bar = 30;
-const LM4_comp = 20;
-const LM4_baht = 30.25;
+  update_LM4_comp("20");
+  update_LM4_baht("30.25");
 
-//Total Annual Energy Consumption
-const AEC_gen = 2000;
-const AEC_use = 1000;
+  //Total Annual Energy Consumption
+  update_AEC_gen("2000");
+  update_AEC_use("1000");
 
-//Load
-const LOAD1_on = 6;
-const LOAD1_all = 13;
+  //Load
+  update_LOAD1_on("6");
+  update_LOAD1_all("13");
 
-const LOAD2_on = 2;
-const LOAD2_all = 3;
+  update_LOAD2_on("2");
+  update_LOAD2_all("3");
 
-const LOAD3_on = 6;
-const LOAD3_all = 13;
+  update_LOAD3_on("6");
+  update_LOAD3_all("13");
 
-//Grid
-//@GRID_kw can be negative for down symbol
-const GRID_status = "Feeding now";
-const GRID_kw = 20.23;
+  //Grid
+  //@GRID_kw can be negative for down symbol
+  update_GRID_status("Feeding now");
+  update_GRID_kw("20.23");
 
-//Solar Generation
-//@SOLAR_kw can be negative for down symbol
-const SOLAR_status = "Feeding now";
-const SOLAR_kw = 7.01;
+  //Solar Generation
+  //@SOLAR_kw can be negative for down symbol
+  update_SOLAR_status("Feeding now");
+  update_SOLAR_kw("7.01");
 
-//Load consumption
-//@LOAD_kw always positive
-const LOAD_status = "Consuming";
-const LOAD_kw = 2.02;
+  //Load consumption
+  //@LOAD_kw always positive
+  update_LOAD_status("Consuming");
+  update_LOAD_kw("2.02");
 
-//Mode
-//@MODE_baht can be negative for down symbol
-const MODE = "Eco mode";
-const MODE_status = "Saving cost";
-const MODE_baht = -57.82;
+  //Mode
+  //@MODE_baht can be negative for down symbol
+  update_MODE("Eco mode");
+  update_MODE_status("Saving cost");
+  update_MODE_baht("-57.82");
 
-//EV Car
-//@EV_percent can be negative for down symbol
-const EV_status = "Charging";
-const EV_percent = 62;
+  //EV Car
+  //@EV_percent can be negative for down symbol
+  update_EV_status("Charging");
+  update_EV_percent("62");
+}
         </script>
       </head>
     <!-- END HEAD -->
@@ -139,9 +133,10 @@ const EV_percent = 62;
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
                     <a href="/">
-{#                        <img src="/static/images/pea/PEA.png" width="57" height="66"  margin-top: 5px alt="logo" class="logo-default"> </a>#}
+{#                        <img src="/static/images/pea/PEA.png" width="57" height="66"  margin-top: 5px alt="logo" class="logo-default">#}
                     <img src="/static/images/pea/PEA.png" width="57" height="66" alt="logo" class="logo-default" style="
                     margin-top: 5px;">
+                    </a>
                     <!--<div class="menu-toggler sidebar-toggler">-->
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     <!--</div>-->
@@ -155,7 +150,7 @@ const EV_percent = 62;
                     <!-- BEGIN TOP NAVIGATION MENU -->
                     <div class="top-menu">
                         <ul class="nav navbar-nav pull-right">
-                            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                            <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
                                 <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
                                   <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
                                     <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
@@ -163,12 +158,12 @@ const EV_percent = 62;
                                     <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
                                   </span>
                                 </a>
-                            </li>
+                            </li>-->
                             <!-- BEGIN USER LOGIN DROPDOWN -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                             <li class="dropdown dropdown-user dropdown-dark">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username username-hide-on-mobile"> Signed in as <span id="Username"></span> </span>
+                                    <span class="username"> Signed in as <span id="Username"></span> </span>
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                     <img alt="" class="img-circle"> </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
@@ -235,6 +230,28 @@ const EV_percent = 62;
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content" style="min-height: 981px;">
+                    <div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="/">Home</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Dashboard</span>
+                            </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 visible-xs-block">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
+
+                    </div>
+                    <br>
                     <!-- BEGIN PAGE HEAD-->
                     <!--<div class="page-head">-->
                         <!-- BEGIN PAGE TITLE -->
@@ -281,7 +298,7 @@ const EV_percent = 62;
                                           <div class="row">
                                              <div class="col-lg-5 col-xs-12 col-sm-5" style=" display: flex;"  >
                                                  <div style="margin: auto">
-                                                     <svg class="cp-donut-day"  height="200" width="250"></svg>
+                                                     <svg class="cp-donut-day" style="margin-top:-40px"></svg>
                                                      <script >
                                                         renderCP1 = function() {
                                                          if(CPT_comp < 0) {
@@ -317,11 +334,12 @@ const EV_percent = 62;
                                                                  .outerRadius(radius - 50);
 
                                                          var svg = d3.select(".cp-donut-day");
+                                                         svg.selectAll("*").remove();
 
                                                          svg = svg.attr("width", width)
                                                                  .attr("height", height)
                                                                  .append("g")
-                                                                 .attr("transform", "translate(" + width / 2 + "," + height / 2.5 + ") ");
+                                                                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ") ");
 
                                                          /*svg.append("circle")
                                                                  .attr("cx", 0)
@@ -405,7 +423,6 @@ const EV_percent = 62;
                                              </div>
                                              <div class="col-lg-7 col-xs-12 col-sm-7 tab-pane" style=" display: flex;" >
                                                  <div style="margin: auto;line-height:10px">
-                                                   <br><br><br>
                                                    <h4>Today's usage</h4>
                                                    <br>
                                                    <div style="font-weight: bold; font-size: 50px;"><span id="CPT_baht"></span> ฿</div>
@@ -423,7 +440,7 @@ const EV_percent = 62;
                                           <div class="row">
                                              <div class="col-lg-5 col-xs-12 col-sm-5" style=" display: flex;"  >
                                                  <div style="margin: auto">
-                                                     <svg class="cp-donut-day2"  height="200" width="250"></svg>
+                                                     <svg class="cp-donut-day2" style="margin-top:-40px"></svg>
                                                      <script >
                                                         renderCP2 = function() {
                                                           if(CPM_comp < 0) {
@@ -459,11 +476,12 @@ const EV_percent = 62;
                                                                  .outerRadius(radius - 50);
 
                                                          var svg = d3.select(".cp-donut-day2");
+                                                         svg.selectAll("*").remove();
 
                                                          svg = svg.attr("width", width)
                                                                  .attr("height", height)
                                                                  .append("g")
-                                                                 .attr("transform", "translate(" + width / 2 + "," + height / 2.5 + ") ");
+                                                                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ") ");
 
                                                          /*svg.append("circle")
                                                                  .attr("cx", 0)
@@ -547,7 +565,6 @@ const EV_percent = 62;
                                              </div>
                                              <div class="col-lg-7 col-xs-12 col-sm-7 tab-pane" style=" display: flex;" >
                                                  <div style="margin: auto;line-height:10px">
-                                                   <br><br><br>
                                                    <h4>This month's usage</h4>
                                                    <br>
                                                    <div style="font-weight: bold; font-size: 50px;"><span id="CPM_baht"></span> ฿</div>
@@ -589,24 +606,20 @@ const EV_percent = 62;
                                           <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>Lightings</small>
                                                             <h3 class="font-green-sharp">
                                                                 <span id="LT1_baht"></span>
                                                                 <small class="font-green-sharp">฿</small>
                                                             </h3>
-                                                            <small>Lightings</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="icon-bulb font-green-sharp"></i>
+                                                            <i class="icon-bulb font-green-sharp" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT1_bar" class="progress-bar progress-bar-success green-sharp">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT1_comp_direction" class="glyphicon"></i> <span id="LT1_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -614,24 +627,20 @@ const EV_percent = 62;
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>Air Condition</small>
                                                             <h3 class="font-red-haze">
                                                               <span id="LT2_baht"></span>
                                                               <small class="font-red-haze">฿</small>
                                                             </h3>
-                                                            <small>Air Condition</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-asterisk font-red-haze"></i>
+                                                            <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT2_bar" class="progress-bar progress-bar-success red-haze">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT2_comp_direction" class="glyphicon"></i> <span id="LT2_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -639,24 +648,20 @@ const EV_percent = 62;
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>Plug (Appliances)</small>
                                                             <h3 class="font-blue-sharp">
                                                               <span id="LT3_baht"></span>
                                                               <small class="font-blue-sharp">฿</small>
                                                             </h3>
-                                                            <small>Plug (Appliances)</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-plug font-blue-sharp"></i>
+                                                            <i class="fa fa-plug font-blue-sharp" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT3_bar" class="progress-bar progress-bar-success blue-sharp">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT3_comp_direction" class="glyphicon"></i> <span id="LT3_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -664,24 +669,20 @@ const EV_percent = 62;
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
-                                                    <div class="display">
+                                                    <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
+                                                            <small>EV Car</small>
                                                             <h3 class="font-purple-soft">
                                                               <span id="LT4_baht"></span>
                                                               <small class="font-purple-soft">฿</small>
                                                             </h3>
-                                                            <small>EV Car</small>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-car font-purple-soft"></i>
+                                                            <i class="fa fa-car font-purple-soft" style="font-size:36px"></i>
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
-                                                        <div class="progress">
-                                                            <span id="LT4_bar" class="progress-bar progress-bar-success purple-soft">
-                                                            </span>
-                                                        </div>
-                                                        <div class="status">
+                                                        <div class="status" style="margin-top:0px">
                                                             <div class="status-title"> <i id="LT4_comp_direction" class="glyphicon"></i> <span id="LT4_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
@@ -693,24 +694,20 @@ const EV_percent = 62;
                                         <div class="row">
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>Lightings</small>
                                                           <h3 class="font-green-sharp">
                                                               <span id="LM1_baht"></span>
                                                               <small class="font-green-sharp">฿</small>
                                                           </h3>
-                                                          <small>Lightings</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="icon-bulb font-green-sharp"></i>
+                                                          <i class="icon-bulb font-green-sharp" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM1_bar" class="progress-bar progress-bar-success green-sharp">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM1_comp_direction" class="glyphicon"></i> <span id="LM1_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -718,24 +715,20 @@ const EV_percent = 62;
                                           </div>
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>Air Condition</small>
                                                           <h3 class="font-red-haze">
                                                             <span id="LM2_baht"></span>
                                                             <small class="font-red-haze">฿</small>
                                                           </h3>
-                                                          <small>Air Condition</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="fa fa-asterisk font-red-haze"></i>
+                                                          <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM2_bar" class="progress-bar progress-bar-success red-haze">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM2_comp_direction" class="glyphicon"></i> <span id="LM2_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -743,24 +736,20 @@ const EV_percent = 62;
                                           </div>
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>Plug (Appliances)</small>
                                                           <h3 class="font-blue-sharp">
                                                             <span id="LM3_baht"></span>
                                                             <small class="font-blue-sharp">฿</small>
                                                           </h3>
-                                                          <small>Plug (Appliances)</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="fa fa-plug font-blue-sharp"></i>
+                                                          <i class="fa fa-plug font-blue-sharp" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM3_bar" class="progress-bar progress-bar-success blue-sharp">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM3_comp_direction" class="glyphicon"></i> <span id="LM3_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -768,24 +757,20 @@ const EV_percent = 62;
                                           </div>
                                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                               <div class="dashboard-stat2 bordered">
-                                                  <div class="display">
+                                                  <div class="display" style="margin-bottom:0px">
                                                       <div class="number">
+                                                          <small>EV Car</small>
                                                           <h3 class="font-purple-soft">
                                                             <span id="LM4_baht"></span>
                                                             <small class="font-purple-soft">฿</small>
                                                           </h3>
-                                                          <small>EV Car</small>
                                                       </div>
                                                       <div class="icon">
-                                                          <i class="fa fa-car font-purple-soft"></i>
+                                                          <i class="fa fa-car font-purple-soft" style="font-size:36px"></i>
                                                       </div>
                                                   </div>
                                                   <div class="progress-info">
-                                                      <div class="progress">
-                                                          <span id="LM4_bar" class="progress-bar progress-bar-success purple-soft">
-                                                          </span>
-                                                      </div>
-                                                      <div class="status">
+                                                      <div class="status" style="margin-top:0px">
                                                           <div class="status-title"> <i id="LM4_comp_direction" class="glyphicon"></i> <span id="LM4_comp"></span>% from last month </div>
                                                       </div>
                                                   </div>
@@ -836,9 +821,6 @@ const EV_percent = 62;
                                     </div>
                                   </div>
                                   <script>
-                                  var useplusgen = AEC_use+AEC_gen;
-                                  var overgen = AEC_gen-AEC_use;
-                                  percent = 0.5 + (overgen/useplusgen)/2;
                                   renderGauge = function() {
                                   (function () {
                                     var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, i, margin, needle, numSections, padRad, percToDeg, percToRad, radius, ref, sectionIndx, sectionPerc, startPadRad, startingPercent, svg, totalPercent, width;
@@ -850,6 +832,7 @@ const EV_percent = 62;
                                     chartInset = 10;
                                     totalPercent = 0.75;
                                     el = d3.select('.chart-gauge');
+                                    el.selectAll("*").remove();
                                     margin = {
                                         top: 0,
                                         right: 20,
@@ -930,8 +913,7 @@ const EV_percent = 62;
                                         return Needle;
                                     }();
                                     needle = new Needle(90, 15);
-                                    needle.drawOn(chart, startingPercent);
-                                    needle.animateOn(chart, percent);
+                                    needle.drawOn(chart, percent);
                                   }.call(this));
                                   }
                                   </script>
@@ -1088,160 +1070,333 @@ const EV_percent = 62;
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 
-        <script type="text/javascript" src="/static/app_js/home_dash.js"></script>
-
         <script type="text/javascript">
-          $("#Username").text(String(Username));
+          window.CPT_kwh = 0;
+          window.CPT_max = 0;
+          window.CPM_kwh = 0;
+          window.CPM_max = 0;
+          window.AEC_use = 0;
+          window.AEC_gen = 0;
 
-          $("#Cur_rate").text(String(Cur_rate));
+          function startTime() {
+            var now = new Date();
+            var monthNames = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ];
 
-          $("#CPT_baht").text(String(CPT_baht));
-          $("#CPT_comp").text(String(Math.abs(CPT_comp)));
-          if(CPT_comp > 0 ) {
-            $("#CPT_comp_direction").addClass("up");
-            $("#CPT_comp_color").css("color", "#e7505a");
-          } else if(CPT_comp < 0) {
-            $("#CPT_comp_direction").addClass("down");
-            $("#CPT_comp_color").css("color", "#26C281");
+            var date = new Date();
+            var day = now.getDate();
+            var monthIndex = now.getMonth();
+            var year = now.getFullYear();
+
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            h = checkTime(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+            var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
           }
 
-          $("#CPM_baht").text(String(CPM_baht));
-          $("#CPM_comp").text(String(Math.abs(CPM_comp)));
-          if(CPM_comp > 0 ) {
-            $("#CPM_comp_direction").addClass("up");
-            $("#CPM_comp_color").css("color", "#e7505a");
-          } else if(CPM_comp < 0) {
-            $("#CPM_comp_direction").addClass("down");
-            $("#CPM_comp_color").css("color", "#26C281");
+          function update_Username(Username) {
+            $("#Username").text(String(Username));
           }
 
-          $("#LT1_bar").css("width", LT1_bar+"%");
-          if(LT1_comp > 0)
-            $("#LT1_comp_direction").addClass("up");
-          else if(LT1_comp < 0)
-            $("#LT1_comp_direction").addClass("down");
-          $("#LT1_comp").text(String(Math.abs(LT1_comp)));
-          $("#LT1_baht").text(String(LT1_baht));
-
-          $("#LT2_bar").css("width", LT2_bar+"%");
-          if(LT2_comp > 0)
-            $("#LT2_comp_direction").addClass("up");
-          else if(LT2_comp < 0)
-            $("#LT2_comp_direction").addClass("down");
-          $("#LT2_comp").text(String(Math.abs(LT2_comp)));
-          $("#LT2_baht").text(String(LT2_baht));
-
-          $("#LT3_bar").css("width", LT3_bar+"%");
-          if(LT3_comp > 0)
-            $("#LT3_comp_direction").addClass("up");
-          else if(LT3_comp < 0)
-            $("#LT3_comp_direction").addClass("down");
-          $("#LT3_comp").text(String(Math.abs(LT3_comp)));
-          $("#LT3_baht").text(String(LT3_baht));
-
-          $("#LT4_bar").css("width", LT4_bar+"%");
-          if(LT4_comp > 0)
-            $("#LT4_comp_direction").addClass("up");
-          else if(LT4_comp < 0)
-            $("#LT4_comp_direction").addClass("down");
-          $("#LT4_comp").text(String(Math.abs(LT4_comp)));
-          $("#LT4_baht").text(String(LT4_baht));
-
-          $("#LM1_bar").css("width", LM1_bar+"%");
-          if(LM1_comp > 0)
-            $("#LM1_comp_direction").addClass("up");
-          else if(LM1_comp < 0)
-            $("#LM1_comp_direction").addClass("down");
-          $("#LM1_comp").text(String(Math.abs(LM1_comp)));
-          $("#LM1_baht").text(String(LM1_baht));
-
-          $("#LM2_bar").css("width", LM2_bar+"%");
-          if(LM2_comp > 0)
-            $("#LM2_comp_direction").addClass("up");
-          else if(LM2_comp < 0)
-            $("#LM2_comp_direction").addClass("down");
-          $("#LM2_comp").text(String(Math.abs(LM2_comp)));
-          $("#LM2_baht").text(String(LM2_baht));
-
-          $("#LM3_bar").css("width", LM3_bar+"%");
-          if(LM3_comp > 0)
-            $("#LM3_comp_direction").addClass("up");
-          else if(LM3_comp < 0)
-            $("#LM3_comp_direction").addClass("down");
-          $("#LM3_comp").text(String(Math.abs(LM3_comp)));
-          $("#LM3_baht").text(String(LM3_baht));
-
-          $("#LM4_bar").css("width", LM4_bar+"%");
-          if(LM4_comp > 0)
-            $("#LM4_comp_direction").addClass("up");
-          else if(LM4_comp < 0)
-            $("#LM4_comp_direction").addClass("down");
-          $("#LM4_comp").text(String(Math.abs(LM4_comp)));
-          $("#LM4_baht").text(String(LM4_baht));
-
-          $("#AEC_gen").text(String(AEC_gen));
-          $("#AEC_use").text(String(AEC_use));
-
-          if(percent == 0.5) {
-            AEC_message = "Net Zero";
-            AEC_color = "#26C281";
-          }
-          else if(percent > 0.5) {
-            AEC_message = "Over Generation";
-            AEC_color = "#32c5d2";
-          }
-          else {
-            AEC_message = "Over Consumption";
-            AEC_color = "#e7505a";
+          function update_Cur_rate(Cur_rate) {
+            $("#Cur_rate").text(String(Cur_rate));
+            $("#Cur_rate2").text(String(Cur_rate));
           }
 
-          $("#LOAD1_on").text(String(LOAD1_on));
-          $("#LOAD1_all").text(String(LOAD1_all));
-          $("#LOAD2_on").text(String(LOAD2_on));
-          $("#LOAD2_all").text(String(LOAD2_all));
-          $("#LOAD3_on").text(String(LOAD3_on));
-          $("#LOAD3_all").text(String(LOAD3_all));
-
-          $("#GRID_status").text(String(GRID_status));
-          $("#GRID_kw").text(String(Math.abs(GRID_kw)));
-          $("#SOLAR_status").text(String(SOLAR_status));
-          $("#SOLAR_kw").text(String(Math.abs(SOLAR_kw)));
-          $("#MODE").text(String(MODE));
-          $("#MODE_status").text(String(MODE_status));
-          $("#MODE_baht").text(String(Math.abs(MODE_baht)));
-          $("#EV_status").text(String(EV_status));
-          $("#EV_percent").text(String(Math.abs(EV_percent)));
-
-          $("#LOAD_status").text(String(LOAD_status));
-          $("#LOAD_kw").text(String(Math.abs(LOAD_kw)));
-
-          if(GRID_kw > 0) {
-            $("#GRID_kw_direction").addClass("up2");
-          } else if(GRID_kw < 0) {
-            $("#GRID_kw_direction").addClass("down2");
+          function update_CPT_kwh(CPT_kwh) {
+            window.CPT_kwh = Number(CPT_kwh);
+            renderCP1();
           }
-          if(SOLAR_kw > 0) {
-            $("#SOLAR_kw_direction").addClass("up2");
-          } else if(SOLAR_kw < 0) {
-            $("#SOLAR_kw_direction").addClass("down2");
+
+          function update_CPT_max(CPT_max) {
+            window.CPT_max = Number(CPT_max);
+            renderCP1();
           }
-          if(MODE_baht > 0) {
-            $("#MODE_baht_direction").addClass("up2");
-          } else if(MODE_baht < 0) {
-            $("#MODE_baht_direction").addClass("down2");
+
+          function update_CPT_baht(CPT_baht) {
+            $("#CPT_baht").text(String(CPT_baht));
           }
-          if(EV_percent > 0) {
-            $("#EV_percent_direction").addClass("up2");
-          } else if(EV_percent < 0) {
-            $("#EV_percent_direction").addClass("down2");
+
+          function update_CPT_comp(CPT_comp) {
+            window.CPT_comp = CPT_comp;
+            $("#CPT_comp").text(String(Math.abs(CPT_comp)));
+            if(CPT_comp > 0 ) {
+              $("#CPT_comp_direction").removeClass("up down").addClass("up");
+              $("#CPT_comp_color").css("color", "#e7505a");
+            } else if(CPT_comp < 0) {
+              $("#CPT_comp_direction").removeClass("up down").addClass("down");
+              $("#CPT_comp_color").css("color", "#26C281");
+            }
+            renderCP1();
+          }
+
+          function update_CPM_kwh(CPM_kwh) {
+            window.CPM_kwh = Number(CPM_kwh);
+            renderCP2();
+          }
+
+          function update_CPM_max(CPM_max) {
+            window.CPM_max = Number(CPM_max);
+            renderCP2();
+          }
+
+          function update_CPM_baht(CPM_baht) {
+            $("#CPM_baht").text(String(CPM_baht));
+          }
+
+          function update_CPM_comp(CPM_comp) {
+            window.CPM_comp = CPM_comp;
+            $("#CPM_comp").text(String(Math.abs(CPM_comp)));
+            if(CPM_comp > 0 ) {
+              $("#CPM_comp_direction").removeClass("up down").addClass("up");
+              $("#CPM_comp_color").css("color", "#e7505a");
+            } else if(CPM_comp < 0) {
+              $("#CPM_comp_direction").removeClass("up down").addClass("down");
+              $("#CPM_comp_color").css("color", "#26C281");
+            }
+            renderCP2();
+          }
+
+          function update_LT1_comp(LT1_comp) {
+            if(LT1_comp > 0)
+              $("#LT1_comp_direction").removeClass("up down").addClass("up");
+            else if(LT1_comp < 0)
+              $("#LT1_comp_direction").removeClass("up down").addClass("down");
+            $("#LT1_comp").text(String(Math.abs(LT1_comp)));
+          }
+
+          function update_LT1_baht(LT1_baht) {
+            $("#LT1_baht").text(String(LT1_baht));
+          }
+
+          function update_LT2_comp(LT2_comp) {
+            if(Number(LT2_comp) > 0)
+              $("#LT2_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LT2_comp) < 0)
+              $("#LT2_comp_direction").removeClass("up down").addClass("down");
+            $("#LT2_comp").text(String(Math.abs(LT2_comp)));
+          }
+
+          function update_LT2_baht(LT2_baht) {
+            $("#LT2_baht").text(String(LT2_baht));
+          }
+
+          function update_LT3_comp(LT3_comp) {
+            if(Number(LT3_comp) > 0)
+              $("#LT3_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LT3_comp) < 0)
+              $("#LT3_comp_direction").removeClass("up down").addClass("down");
+            $("#LT3_comp").text(String(Math.abs(LT3_comp)));
+          }
+
+          function update_LT3_baht(LT3_baht) {
+            $("#LT3_baht").text(String(LT3_baht));
+          }
+
+          function update_LT4_comp(LT4_comp) {
+            if(Number(LT4_comp) > 0)
+              $("#LT4_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LT4_comp) < 0)
+              $("#LT4_comp_direction").removeClass("up down").addClass("down");
+            $("#LT4_comp").text(String(Math.abs(LT4_comp)));
+          }
+
+          function update_LT4_baht(LT4_baht) {
+            $("#LT4_baht").text(String(LT4_baht));
+          }
+
+          function update_LM1_comp(LM1_comp) {
+            if(Number(LM1_comp) > 0)
+              $("#LM1_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LM1_comp) < 0)
+              $("#LM1_comp_direction").removeClass("up down").addClass("down");
+            $("#LM1_comp").text(String(Math.abs(LM1_comp)));
+          }
+
+          function update_LM1_baht(LM1_baht) {
+            $("#LM1_baht").text(String(LM1_baht));
+          }
+
+          function update_LM2_comp(LM2_comp) {
+            if(Number(LM2_comp) > 0)
+              $("#LM2_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LM2_comp) < 0)
+              $("#LM2_comp_direction").removeClass("up down").addClass("down");
+            $("#LM2_comp").text(String(Math.abs(LM2_comp)));
+          }
+
+          function update_LM2_baht(LM2_baht) {
+            $("#LM2_baht").text(String(LM2_baht));
+          }
+
+          function update_LM3_comp(LM3_comp) {
+            if(Number(LM3_comp) > 0)
+              $("#LM3_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LM3_comp) < 0)
+              $("#LM3_comp_direction").removeClass("up down").addClass("down");
+            $("#LM3_comp").text(String(Math.abs(LM3_comp)));
+          }
+
+          function update_LM3_baht(LM3_baht) {
+            $("#LM3_baht").text(String(LM3_baht));
+          }
+
+          function update_LM4_comp(LM4_comp) {
+            if(Number(LM4_comp) > 0)
+              $("#LM4_comp_direction").removeClass("up down").addClass("up");
+            else if(Number(LM4_comp) < 0)
+              $("#LM4_comp_direction").removeClass("up down").addClass("down");
+            $("#LM4_comp").text(String(Math.abs(LM4_comp)));
+          }
+
+          function update_LM4_baht(LM4_baht) {
+            $("#LM4_baht").text(String(LM4_baht));
+          }
+
+          function update_AEC_gen(AEC_gen) {
+            window.AEC_gen = Number(AEC_gen);
+            $("#AEC_gen").text(String(AEC_gen));
+            updateGuage();
+          }
+
+          function update_AEC_use(AEC_use) {
+            window.AEC_use = Number(AEC_use);
+            $("#AEC_use").text(String(AEC_use));
+            updateGuage();
+          }
+
+          function updateGuage() {
+            var useplusgen = AEC_use+AEC_gen;
+            var overgen = AEC_gen-AEC_use;
+            percent = 0.5 + (overgen/useplusgen)/2;
+            if(percent == 0.5) {
+              AEC_message = "Net Zero";
+              AEC_color = "#26C281";
+            }
+            else if(percent > 0.5) {
+              AEC_message = "Over Generation";
+              AEC_color = "#32c5d2";
+            }
+            else {
+              AEC_message = "Over Consumption";
+              AEC_color = "#e7505a";
+            }
+            renderGauge();
+          }
+
+          function update_LOAD1_on(LOAD1_on) {
+            $("#LOAD1_on").text(String(LOAD1_on));
+          }
+          function update_LOAD1_all(LOAD1_all) {
+            $("#LOAD1_all").text(String(LOAD1_all));
+          }
+          function update_LOAD2_on(LOAD2_on) {
+            $("#LOAD2_on").text(String(LOAD2_on));
+          }
+          function update_LOAD2_all(LOAD2_all) {
+            $("#LOAD2_all").text(String(LOAD2_all));
+          }
+          function update_LOAD3_on(LOAD3_on) {
+            $("#LOAD3_on").text(String(LOAD3_on));
+          }
+          function update_LOAD3_all(LOAD3_all) {
+            $("#LOAD3_all").text(String(LOAD3_all));
+          }
+
+          function update_GRID_status(GRID_status) {
+            $("#GRID_status").text(String(GRID_status));
+          }
+
+          function update_GRID_kw(GRID_kw) {
+            $("#GRID_kw").text(String(Math.abs(Number(GRID_kw))));
+            if(Number(GRID_kw) > 0) {
+              $("#GRID_kw_direction").removeClass("up2 down2").addClass("up2");
+            } else if(Number(GRID_kw) < 0) {
+              $("#GRID_kw_direction").removeClass("up2 down2").addClass("down2");
+            }
+          }
+
+          function update_SOLAR_status(SOLAR_status) {
+            $("#SOLAR_status").text(String(SOLAR_status));
+          }
+
+          function update_SOLAR_kw(SOLAR_kw) {
+            $("#SOLAR_kw").text(String(Math.abs(Number(SOLAR_kw))));
+            if(Number(SOLAR_kw) > 0) {
+              $("#SOLAR_kw_direction").removeClass("up2 down2").addClass("up2");
+            } else if(Number(SOLAR_kw) < 0) {
+              $("#SOLAR_kw_direction").removeClass("up2 down2").addClass("down2");
+            }
+          }
+
+          function update_MODE(MODE) {
+            $("#MODE").text(String(MODE));
+          }
+
+          function update_MODE_status(MODE_status) {
+            $("#MODE_status").text(String(MODE_status));
+          }
+
+          function update_MODE_baht(MODE_baht) {
+            $("#MODE_baht").text(String(Math.abs(Number(MODE_baht))));
+            if(Number(MODE_baht) > 0) {
+              $("#MODE_baht_direction").removeClass("up2 down2").addClass("up2");
+            } else if(Number(MODE_baht) < 0) {
+              $("#MODE_baht_direction").removeClass("up2 down2").addClass("down2");
+            }
+          }
+
+          function update_EV_status(EV_status) {
+            $("#EV_status").text(String(EV_status));
+          }
+
+          function update_EV_percent(EV_percent) {
+            $("#EV_percent").text(String(Math.abs(Number(EV_percent))));
+            if(Number(EV_percent) > 0) {
+              $("#EV_percent_direction").removeClass("up2 down2").addClass("up2");
+            } else if(Number(EV_percent) < 0) {
+              $("#EV_percent_direction").removeClass("up2 down2").addClass("down2");
+            }
+          }
+
+          function update_LOAD_status(LOAD_status) {
+            $("#LOAD_status").text(String(LOAD_status));
+          }
+
+          function update_LOAD_kw(LOAD_kw) {
+            $("#LOAD_kw").text(String(Math.abs(Number(LOAD_kw))));
+            if(Number(LOAD_kw) > 0) {
+              $("#LOAD_kw_direction").removeClass("up2 down2").addClass("up2");
+            } else if(Number(LOAD_kw) < 0) {
+              $("#LOAD_kw_direction").removeClass("up2 down2").addClass("down2");
+            }
           }
 
           window.onload = function () {
-            renderCP1();
-            renderCP2();
-            renderGauge();
+            startTime();
+            setValue();
+            //renderCP1();
+            //renderCP2();
+            //renderGauge();
           }
         </script>
+
+        <script type="text/javascript" src="/static/app_js/home_dash.js"></script>
     </body>
 
 </html>
