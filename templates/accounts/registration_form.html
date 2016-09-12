@@ -1,160 +1,145 @@
- <!--
- Copyright (c) 2016, Virginia Tech
- All rights reserved.
-
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
-  following conditions are met:
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- disclaimer in the documentation and/or other materials provided with the distribution.
-
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
- The views and conclusions contained in the software and documentation are those of the authors and should not be
- interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
-
- This material was prepared as an account of work sponsored by an agency of the United States Government. Neither the
- United States Government nor the United States Department of Energy, nor Virginia Tech, nor any of their employees,
- nor any jurisdiction or organization that has cooperated in the development of these materials, makes any warranty,
- express or implied, or assumes any legal liability or responsibility for the accuracy, completeness, or usefulness or
- any information, apparatus, product, software, or process disclosed, or represents that its use would not infringe
- privately owned rights.
-
- Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or
- otherwise does not necessarily constitute or imply its endorsement, recommendation, favoring by the United States
- Government or any agency thereof, or Virginia Tech - Advanced Research Institute. The views and opinions of authors
- expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof.
-
- VIRGINIA TECH – ADVANCED RESEARCH INSTITUTE
- under Contract DE-EE0006352
-
- #__author__ = "BEMOSS Team"
- #__credits__ = ""
- #__version__ = "2.0"
- #__maintainer__ = "BEMOSS Team"
- #__email__ = "aribemoss@gmail.com"
- #__website__ = "www.bemoss.org"
- #__created__ = "2014-09-12 12:04:50"
- #__lastUpdated__ = "2016-03-14 11:23:33" -->
-
-{% extends "base_registration.html" %}
 {% load i18n %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
 
-{% block title %}{% trans "Register for an account" %}{% endblock %}
-
-{% block content %}
-<form method="post" action="">
-    {% csrf_token %}
-    <div class="content container">
-          <div class="row">
-              <div class="col-lg-5">
-          <div class="widget">
-            <div class="widget-header"><div class="text-center"> <i class="icon-user"></i>
-              <h3>Sign Up!</h3></div>
-            </div>
-            <div class="widget-content" style="padding-bottom:0;">
-             <div class="body">
-                  <fieldset>
-
-                    <div class="control-group required">
-                    <div class="col-md-3 ">
-                      <label for="id_first_name" class="control-label">First Name </label>
-                      </div>
-                      <div class="col-md-9">
-                      <div class="form-group">
-                        <input type="text" class="col-xs-6"  name="first_name" id="id_first_name">
-                      </div>
-                      </div>
-                    </div>
-                    <div class="control-group required">
-                    <div class="col-md-3 ">
-                      <label for="id_last_name" class="control-label">Last Name</label>
-                      </div>
-                      <div class="col-md-9">
-                      <div class="form-group">
-                        <input type="text" class="col-xs-6"  name="last_name" id="id_last_name">
-                      </div>
-                      </div>
-                    </div>
-                    <div class="control-group required">
-                    <div class="col-md-3 ">
-                      <label for="id_username" class="control-label">Username </label>
-                      </div>
-                      <div class="col-md-9">
-                      <div class="form-group">
-                        <input type="text"  name="username" class="col-xs-6" id="id_username">
-
-                      </div>
-                      </div>
-                    </div>
-                  <div class="control-group required">
-                  <div class="col-md-3 ">
-                    <label for="id_password1" class="control-label" > Password </label>
-                    </div>
-                    <div class="col-md-9">
-                    <div class="form-group">
-                      <input type="password" id="id_password1" class="col-xs-6" name="password1"  >
-
-                    </div>
-                    </div>
-                  </div>
-                      <div class="control-group required">
-                      <div class="col-md-3">
-                          <label class="control-label" for="id_password2"> Password Again </label>
-                      </div>
-                      <div class="col-md-9">
-                    <div class="form-group">
-                      <input type="password" id="id_password2" name="password2" class="col-xs-6">
-                    </div>
-                    </div>
-                      </div>
-                      <div class="control-group required">
-                    <div class="col-md-3">
-                      <label class="control-label" for="id_email" >Email </label>
-                      </div>
-                      <div class="col-md-9">
-                      <div class="form-group">
-                                <input type="email" name="email"  id="id_email" class="col-xs-6">
-                        </div>
-                      </div>
-                    </div>
-
-                  </fieldset>
-                 <br/><br/><div>
-                          <strong>Note:</strong> Password should contain 6 to 20 characters, minimum 1 upper case letter, minimum 1 lower case letter, and one of !#$%&?
-                      </div>
-                  <div class="form-actions text-center">
-                    <input class="btn btn-primary" type="submit" value="{% trans 'Register' %}" />
-                      &nbsp;&nbsp;&nbsp;
-                      <button class="btn btn-warning"><a href="/login/">
-				Back to Login <i class="m-icon-swapright m-icon-white"></i></a>
-				</button>
-                  </div>
-              </div>
-            </div>
-          </div>
+    <head>
+        <meta charset="utf-8" />
+        <title>Register</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="#1 selling multi-purpose bootstrap admin theme sold in themeforest marketplace packed with angularjs, material design, rtl support with over thausands of templates and ui elements and plugins to power any type of web applications including saas and admin dashboards. Preview page of Theme #1 for "
+            name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="/static/newassets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <!-- END HEAD -->
+    <style>
+        video#bgvid {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            background-size: cover;
+          }
+          #formvid {
+            background-color: #ffffff;
+            opacity: 0.8;
+            filter: alpha(opacity=60); /* For IE8 and earlier */
+          }
+    </style>
+    <body class=" login">
+        <!-- BEGIN LOGO -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="/static/images/pea/PEA.png" alt="" height="100" /> </a>
         </div>
-      </div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN-->
+        <video playsinline autoplay muted loop  id="bgvid">
+          <source src="{Insert .webm video here}" type="video/webm">
+          <source src="{Insert .mp4 video here}"type="video/mp4">
+      </video>
 
+
+        <div class="content" id="formvid">
+            <!-- BEGIN LOGIN FORM -->
+
+
+            <!-- END LOGIN FORM -->
+            <!-- BEGIN REGISTRATION FORM -->
+            <form class="register-form" style="display: block;" action="" method="post">
+		{% csrf_token %}
+                <h3 class="font-green">Register</h3>
+                <p class="hint"> Enter your personal details below: </p>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">First Name</label>
+                    <input class="form-control placeholder-no-fix" type="text" placeholder="First Name" name="first_name" /> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Last Name</label>
+                    <input class="form-control placeholder-no-fix" type="text" placeholder="Last Name" name="last_name" /> </div>
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">Email</label>
+                    <input class="form-control placeholder-no-fix" type="email" placeholder="Email" name="email" /> </div>
+
+
+
+                <p class="hint"> Enter your account details below: </p>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Username</label>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" /> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Password</label>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="Password" name="password1" /> </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Re-type Your Password" name="password2" /> </div>
+                <div class="form-group margin-top-20 margin-bottom-20">
+                    <div id="register_tnc_error"> </div>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <span class="help-block font-red">{{ message }}</span>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+                <div class="form-actions">
+                    <a href="/login" id="register-back-btn" class="btn green btn-outline">Back</a>
+                    <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">Submit</button>
+                </div>
+            </form>
+            <!-- END REGISTRATION FORM -->
         </div>
-</form>
-{% endblock %}
+        <div class="copyright">  </div>
+        <!--[if lt IE 9]>
+<script src="/static/newassets/global/plugins/respond.min.js"></script>
+<script src="/static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <!--<script src="/static/newassets/pages/scripts/login.js" type="text/javascript"></script>-->
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <!-- END THEME LAYOUT SCRIPTS -->
+    </body>
 
-{% comment %}
-**registration/registration_form.html**
-Used to show the form users will fill out to register. By default, has
-the following context:
-
-``form``
-    The registration form. This will be an instance of some subclass
-    of ``django.forms.Form``; consult `Django's forms documentation
-    <http://docs.djangoproject.com/en/dev/topics/forms/>`_ for
-    information on how to display this in a template.
-{% endcomment %}
+</html>
