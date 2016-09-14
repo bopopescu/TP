@@ -4,7 +4,7 @@
 	<div class="page-sidebar navbar-collapse collapse">
 		<!-- BEGIN SIDEBAR MENU -->
 		<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-			<li class="nav-item start active open">
+			<li class="nav-item{% if request.path == '/' or request.path == '/home/' %} active open{% endif %}">
 				<a href="/" class="nav-link nav-toggle">
 					<i class="icon-home"></i>
 					<span class="title">Dashboard</span>
@@ -12,26 +12,26 @@
 					<span class="arrow open"></span>
 				</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item{% if '/all_devices/' in request.path or '/devices/' in request.path %} active open{% endif %}">
 				<a href="/devices" class="nav-link nav-toggle">
 					<i class="icon-bulb"></i>
 					<span class="title">Devices</span>
 					<span class="arrow"></span>
 				</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item{% if request.path == '/statistics/consumption/' or request.path == '/statistics/load/' %} active open{% endif %}">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-graph"></i>
 					<span class="title">Statistics</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item">
+					<li class="nav-item{% if request.path == '/statistics/consumption/' %} active open{% endif %}">
 						<a href="/statistics/consumption" class="nav-link ">
 							<span class="title">Consumption</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item{% if request.path == '/statistics/load/' %} active open{% endif %}">
 						<a href="/statistics/load" class="nav-link ">
 							<span class="title">Load</span>
 						</a>
@@ -39,33 +39,33 @@
 				</ul>
 			</li>
 			{% ifequal request.user.get_profile.group.name|lower 'zone manager' %}
-			<li class="nav-item">
-				<a href="/usr_mgr" class="nav-link nav-toggle">
+			<li class="nav-item{% if request.path == '/usr_mngr/' %} active open{% endif %}">
+				<a href="/usr_mngr" class="nav-link nav-toggle">
 					<i class="icon-settings"></i>
 					<span class="title">User Settings</span>
 					<span class="arrow"></span>
 				</a>
 			</li>
-			{% endifnotequal %}
-			{% equal request.user.get_profile.group.name|lower 'admin' %}
-			<li class="nav-item">
+			{% endifequal %}
+			{% ifequal request.user.get_profile.group.name|lower 'admin' %}
+			<li class="nav-item{% if request.path == '/usr_mngr/' or request.path == '/home_settings/' or request.path == '/user_manager/' %} active open{% endif %}">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-settings"></i>
 					<span class="title">Settings</span>
 					<span class="arrow"></span>
 				</a>
 				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item">
+					<li class="nav-item{% if request.path == '/usr_mngr/' %} active open{% endif %}">
 						<a href="/usr_mgr" class="nav-link ">
 							<span class="title">User Settings</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item{% if request.path == '/home_settings/' %} active open{% endif %}">
 						<a href="/home_settings" class="nav-link ">
 							<span class="title">Home Settings</span>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item{% if request.path == '/user_manager/' %} active open{% endif %}">
 						<a href="/user_manager" class="nav-link ">
 							<span class="title">Manage Users</span>
 						</a>
