@@ -1,327 +1,585 @@
- <!--
- Copyright (c) 2016, Virginia Tech
- All rights reserved.
-
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
-  following conditions are met:
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- disclaimer in the documentation and/or other materials provided with the distribution.
-
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
- The views and conclusions contained in the software and documentation are those of the authors and should not be
- interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
-
- This material was prepared as an account of work sponsored by an agency of the United States Government. Neither the
- United States Government nor the United States Department of Energy, nor Virginia Tech, nor any of their employees,
- nor any jurisdiction or organization that has cooperated in the development of these materials, makes any warranty,
- express or implied, or assumes any legal liability or responsibility for the accuracy, completeness, or usefulness or
- any information, apparatus, product, software, or process disclosed, or represents that its use would not infringe
- privately owned rights.
-
- Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or
- otherwise does not necessarily constitute or imply its endorsement, recommendation, favoring by the United States
- Government or any agency thereof, or Virginia Tech - Advanced Research Institute. The views and opinions of authors
- expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof.
-
- VIRGINIA TECH – ADVANCED RESEARCH INSTITUTE
- under Contract DE-EE0006352
-
- #__author__ = "BEMOSS Team"
- #__credits__ = ""
- #__version__ = "2.0"
- #__maintainer__ = "BEMOSS Team"
- #__email__ = "aribemoss@gmail.com"
- #__website__ = "www.bemoss.org"
- #__created__ = "2014-09-12 12:04:50"
- #__lastUpdated__ = "2016-03-14 11:23:33" -->
-
 {% load dashboard_extras %}
 {% load switch_case %}
 {% load timedelta %}
 {% load device_count_in_zone %}
 {% load check_false %}
 <!DOCTYPE html>
-<html>
-<head>
-<title>User Manager</title>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"><!--<![endif]--><!-- BEGIN HEAD --><head>
+        <meta charset="utf-8">
+        <title>PEA Smart Home</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="PEA Smart Home" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+	<link href="/static/newassets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="/static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/static/newassets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="/static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
 
+        <link href="/static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+        <script>
+function setValue() {
+  //User Information
+  update_Username("admin");
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap -->
-<link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
-<link href="/static/css/thin-admin.css" rel="stylesheet" media="screen">
-<link href="/static/css/font-awesome.css" rel="stylesheet" media="screen">
-<link media="screen" rel="stylesheet" href="/static/font-awesome-4.0.3/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/static/css/fam-icons/fam-icons.css">
-<link href="/static/style/style.css" rel="stylesheet">
-<link href="/static/css/alerts.css" rel="stylesheet">
-<link href="/static/css/demo_page.css" rel="stylesheet">
-<link href="/static/css/demo_table.css" rel="stylesheet">
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-       <script src="../../assets/js/html5shiv.js"></script>
-       <script src="../../assets/js/respond.min.js"></script>
-<![endif]-->
+  //Current Rate
+  update_Cur_rate("4.32");
+}
+        </script>
+      </head>
+    <!-- END HEAD -->
 
-<!-- Notify CSS -->
-<link href="/static/css/bootstrap-notify/bootstrap-notify.css" rel="stylesheet">
-
-<!-- Custom Styles -->
-<link href="/static/css/bootstrap-notify/styles/alert-bangtidy.css" rel="stylesheet">
-<link href="/static/css/bootstrap-notify/styles/alert-blackgloss.css" rel="stylesheet">
-
-<script class="include" type="text/javascript" src="/static/javascript/jquery.min.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="/static/app_js/make_current.js"></script>
-    <!--[if IE]><script type="text/javascript" src="/static/assets/jqueryknobdial/excanvas.js"></script><![endif]-->
-
-</head>
-<body >
-{% include 'top_nav.html' %}
-<div class="wrapper">
-{% include 'side_nav.html' %}
-  <div class="page-content" id="dashboard_content">
-    <form action="" method="post">
-  	{% csrf_token %}
-    <div class="content container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2 class="page-title">Manage Users</h2>
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="/">
+{#                        <img src="/static/images/pea/PEA.png" width="57" height="66"  margin-top: 5px alt="logo" class="logo-default">#}
+                    <img src="/static/images/pea/PEA.png" width="57" height="66" alt="logo" class="logo-default" style="
+                    margin-top: 5px;">
+                    </a>
+                    <!--<div class="menu-toggler sidebar-toggler">-->
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    <!--</div>-->
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                                <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
+                                  <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
+                                    <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
+                                    <span class="" style="color:#eeeeee">Current Rate </span>
+                                    <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
+                                  </span>
+                                </a>
+                            </li>-->
+                            <!-- BEGIN USER LOGIN DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username"> Signed in as <span id="Username"></span> </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <img alt="" class="img-circle"> </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="/usr_mngr"><i class="icon-user"></i> My Profile </a>
+                                        <a href="/logout"><i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
         </div>
-      </div>
-    <div class="row">
-          <div class="col-lg-12">
-        <div class="widget">
-            <div class="widget-header"> <i class="icon-group"></i>
-                <h3>Active User Registration Requests</h3>
-            </div>
-            <div class="widget-content">
-            <div class="example_alt_pagination">
-              <div id="container">
-                <div class="full_width big"></div>
-          <div id="demo">
-    <table cellpadding="0" cellspacing="0" border="0" class="display" id="newusrs_tbl">
-      <thead>
-        <tr>
-          <th class="col-md-2">Name</th>
-          <th class="col-md-2">Email</th>
-          <th class="col-md-2">Role</th>
-          <th class="col-md-2">Zone</th>
-          <th class="col-md-2">User Registration Date</th>
-          <th class="col-md-1">Approve</th>
-        </tr>
-        </thead>
-      <tbody>
-      {% for usr in users %}
-          {% if usr.is_active|is_false %}
-        <tr  {% ifequal usr.get_profile.group.id 1 %}
-                class="gradeA"
-            {% endifequal %}
-            {% ifequal usr.get_profile.group.id 2 %}
-                class="gradeC"
-            {% endifequal %}
-            {% ifequal usr.get_profile.group.id 3 %}
-                class="gradeX"
-            {% endifequal %}>
-          <td>{{ usr.first_name }} {{ usr.last_name }}</td>
-          <td>{{ usr.email }}</td>
-            <td>
-            <div class="btn-group btn-input clearfix" >
-                 <button type="button" id="drop_role-{{ usr.id }}" class="btn btn-xs btn-default dropdown-toggle form-control" data-toggle="dropdown">
-                   <span data-bind="label" id="role-{{ usr.id }}">{{ usr.get_profile.group.name }}</span>&nbsp;<span class="caret"></span>
-                 </button>
-                 <ul class="dropdown-menu" role="menu">
-                    {% for grp in groups %}
-                        {% ifnotequal zone.id 999 %}
-                        <li><a href="#" id="{{ grp.name|lower|cut:" " }}-{{ usr.id }}">{{ grp.name }}</a></li>
-                        {% endifnotequal %}
-                    {% endfor %}
-                 </ul>
-             </div></td>
-            <td><div class="btn-group btn-sm btn-input clearfix" style="display:none;" id="ca_req-{{ usr.id }}">
-                All zones monitor and control
-            </div></td>
-
-            <td>{{ usr.date_joined }}</td>
-            <td class="text-center"><input type="checkbox" value="" required="" id="approve_{{ usr.id }}" name="approve_users"></td>
-        </tr>
-          {% endif %}
-      {%  endfor  %}
-        </tbody>
-      <tfoot>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </tfoot>
-  </table></div></div></div><br/>
-            <div class="row">
-            <div class="col-lg-offset-4">
-                  <div class="text-center">
-                    <button class="btn btn-primary" id="approve_users" type="submit">Activate New Users</button>
-                  </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                    <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">Dashboard</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                        </li>
+                        <li class="heading">
+                            <h3 class="uppercase">Appliances</h3>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-bulb"></i>
+                                <span class="title">Test</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
                 </div>
+                <!-- END SIDEBAR -->
             </div>
-            </div><br/>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height: 981px;">
+                    <div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="/">Home</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Manage Users</span>
+                            </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 visible-xs-block">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
 
-            </div>
-            </div>
-              </div>
-        <div class="row">
-          <div class="col-lg-12">
-        <div class="widget">
-            <div class="widget-header"> <i class="icon-group"></i>
-                <h3>BEMOSS Users</h3>
-            </div>
-            <div class="widget-content">
-            <div class="example_alt_pagination">
-              <div id="container">
-                <div class="full_width big"></div>
-          <div id="demo">
-    <table cellpadding="0" cellspacing="0" border="0" class="display" id="allusrs_tbl">
-      <thead>
-        <tr>
-            <th></th>
-          <th class="col-md-2">Name</th>
-          <th class="col-md-2">Email</th>
-          <th class="col-md-2">Role</th>
-          <th class="col-md-2">Zone</th>
-          <th class="col-md-2">Registered On</th>
-          <th class="col-md-2">Last Login</th>
-            <th></th>
-        </tr>
-        </thead>
-      <tbody>
-      {% for usr in users %}
-          {% if usr.is_active %}
-        <tr  {% ifequal usr.get_profile.group.id 1 %}
-                class="gradeA"
-            {% endifequal %}
-            {% ifequal usr.get_profile.group.id 2 %}
-                class="gradeC"
-            {% endifequal %}
-            {% ifequal usr.get_profile.group.id 3 %}
-                class="gradeX"
-            {% endifequal %}
-             {% if usr.is_superuser %}
-                class="gradeX"
-            {% endif %}>
-          <td class="text-center"><input type="checkbox" value="" checked required="" id="modify_{{ usr.id }}" name="modify_role"></td>
-            <td>{{ usr.first_name }} {{ usr.last_name }}</td>
-          <td>{{ usr.email }}</td>
-            <td>
-            <div class="btn-group btn-input clearfix" >
-                 <button type="button" {% if usr.username == 'admin' and usr.username != request.user %}
-                    disabled
-                    {% endif %} id="drop_role-{{ usr.id }}" class="btn btn-xs btn-default dropdown-toggle form-control" data-toggle="dropdown">
-                   <span data-bind="label" id="role-{{ usr.id }}">{{ usr.get_profile.group.name }}</span>&nbsp;<span class="caret"></span>
-                 </button>
-                 <ul class="dropdown-menu" role="menu">
-                    {% for grp in groups %}
-                        {% ifnotequal zone.id 999 %}
-                        <li><a href="#" id="{{ grp.name|lower|cut:" " }}-{{ usr.id }}">{{ grp.name }}</a></li>
-                        {% endifnotequal %}
-                    {% endfor %}
-                 </ul>
-             </div></td>
-            <td>
-                <div class="btn-group btn-sm btn-input clearfix"
-                 {% ifnotequal usr.get_profile.group.name|lower|cut:" " 'zonemanager' %}
-                 style="display:none;"
-                  {% endifnotequal %}
-                 id="ca_panel-{{ usr.id }}">
-                All zones monitor and control
-            </div></td>
+                    </div>
+                    <br>
+                    <!-- BEGIN PAGE HEAD-->
+                    <!--<div class="page-head">-->
+                        <!-- BEGIN PAGE TITLE -->
+                        <!--<div class="page-title">
+                            <h1>Dashboard
+                            </h1>
+                        </div>-->
+                        <!-- END PAGE TITLE -->
 
-            <td>{{ usr.date_joined }}</td>
-            <td>{{ usr.last_login }}</td>
+                    <!--</div>-->
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE BREADCRUMB -->
+                    <!--<ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span class="active">Dashboard</span>
+                        </li>
+                    </ul>-->
+                    <!-- END PAGE BREADCRUMB -->
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12 col-sm-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="portlet light bordered">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption">
+                                        <i class="icon-bubbles font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Manage Users</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+					{% csrf_token %}
+                                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                            <thead>
+                                                <tr>
+                                                    <th> Name </th>
+                                                    <th> Email </th>
+                                                    <th> Role </th>
+                                                    <th style="max-width:125px"> Registered On </th>
+                                                    <th style="max-width:125px"> Last Login </th>
+                                                    <th style="min-width:70px"> Edit </th>
+                                                    <th style="max-width:30px"> Delete </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+						{% for usr in users %}
+                                                <tr style="height:45px" id="id-{{ usr.id }}">
+                                                    <td> {{ usr.first_name }} {{ usr.last_name }} </td>
+                                                    <td> {{ usr.email }} </td>
+                                                    <td>
+{% if usr.is_active|is_false %}
+    Unapproved
+{% elif usr.get_profile.group.name == "Admin" %}
+    Admin
+{% elif usr.get_profile.group.name == "Zone Manager" %}
+    Tenant
+{% elif usr.get_profile.group.name == "Tenant" %}
+    Guest
+{% endif %}
+</td>
+                                                    <td> {{ usr.date_joined }} </td>
+                                                    <td> {{ usr.last_login }} </td>
+                                                    <td>
+                                                        <a class="btn yellow-saffron btn-xs edit" href="javascript:;" {% if usr.username == 'admin' and usr.username != request.user %}
+                    disabled="disabled"
+                    {% endif %}> Edit </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn red btn-xs delete" href="javascript:;" {% if usr.username == 'admin' and usr.username != request.user %}
+                    disabled="disabled"
+                    {% endif %}> Delete </a>
+                                                    </td>
+                                                </tr>
+						{%  endfor  %}
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
 
-        <td class="text-center">
-
-            <button class="btn btn-sm btn-warning delete_user" id="del_{{ usr.id }}"
-                    {% if usr.username == 'admin' and usr.username != request.user %}
-                    disabled
-                    {% endif %}>
-                Delete User
-            </button></td>
-        </tr>
-          {% endif %}
-      {%  endfor  %}
-        </tbody>
-      <tfoot>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </tfoot>
-  </table></div></div></div><br/>
-             <div class="row">
-            <div class="col-lg-offset-4">
-                  <div class="text-center">
-                    <button class="btn btn-primary" id="modify_roles" type="submit">Modify Permissions for Selected Users</button>
-                  </div>
                 </div>
+                <!-- END CONTENT BODY -->
             </div>
-            </div><br/>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!--[if lt IE 9]>
+<script src="/static/newassets/global/plugins/respond.min.js"></script>
+<script src="/static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script src="/static/newassets/global/scripts/datatable.js" type="text/javascript"></script>
+	<script src="/static/newassets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+	<script src="/static/newassets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+	<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.js"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+	
 
-            </div>
-            </div>
-              </div>
-          </div>
-    </form>
-  </div>
-</div>
+        <script type="text/javascript">
+          function startTime() {
+            var now = new Date();
+            var monthNames = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ];
 
-<div class="bottom-nav footer"> 2013-2015 &copy; Building Energy Management Open Source Software. </div>
+            var date = new Date();
+            var day = now.getDate();
+            var monthIndex = now.getMonth();
+            var year = now.getFullYear();
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/static/js/jquery.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/left_nav_slider.js"></script>
-           <script type="text/javascript" language="javascript" src="/static/js/jquery.js"></script>
-          <script type="text/javascript" language="javascript" src="/static/js/jquery.dataTables.js"></script>
-		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {
-				$('#newusrs_tbl').dataTable( {
-					"sPaginationType": "full_numbers",
-                    "oLanguage": {
-			          "sEmptyTable": "All users active."
-			        }
-				} );
-                $('#allusrs_tbl').dataTable( {
-					"sPaginationType": "full_numbers",
-                    "oLanguage": {
-			          "sEmptyTable": "No users!"
-			        }
-				} );
-			} );
-		</script>
-<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="/static/app_js/make_current.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/user_manager.js"></script>
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            h = checkTime(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+            var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+          }
 
-<!--switcher html start-->
-{% include 'theme_changer.html' %}
-</body>
+          function update_Username(Username) {
+            $("#Username").text(String(Username));
+          }
+
+          function update_Cur_rate(Cur_rate) {
+            $("#Cur_rate").text(String(Cur_rate));
+            $("#Cur_rate2").text(String(Cur_rate));
+          }
+
+          window.onload = function () {
+            startTime();
+            setValue();
+            //renderCP1();
+            //renderCP2();
+            //renderGauge();
+          }
+        </script>
+	<script>
+var TableDatatablesEditable = function () {
+
+    var handleTable = function () {
+
+        function restoreRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                oTable.fnUpdate(aData[i], nRow, i, false);
+            }
+
+            oTable.fnDraw();
+        }
+
+        function editRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            jqTds[2].innerHTML = '<select id ="role"><option value="Admin"'+(aData[2]=="Admin" ? " selected":"")+'>Admin</option><option value="Tenant"'+(aData[2]=="Tenant" ? " selected":"")+'>Tenant</option><option value="Guest"'+(aData[2]=="Guest" ? " selected":"")+'>Guest</option>'+(aData[2] == "Unapproved" ? '<option value="Unapproved" selected>Unapproved</option>' : "")+'</select>';
+            jqTds[5].innerHTML = '<a class="btn green btn-xs edit" href="">Save</a><a class=" btn blue btn-xs cancel" href="">Cancel</a>';
+        }
+
+        function saveRow(oTable, nRow) {
+            var jqInputs = $('select', nRow);
+
+	    var values = [];
+		var jqInputs = $('select', nRow);
+		
+		var from = oTable.fnGetData(nRow)[2];
+		var to = jqInputs.val();
+		var newto = to;
+
+		var modify = (from != to);
+
+		if(to == "Guest") {
+			newto = "Tenant";		
+		}
+		else if(to == "Tenant") {
+			newto = "Zone Manager";		
+		}
+
+		if(modify && (from != "Unapproved"))
+		{
+			var values = {
+			       "data": [[nRow.id.substr(3), newto]]
+			   };
+
+			var jsonText = JSON.stringify(values);
+
+			    console.log(jsonText);
+			    $.ajax({
+			      url : '/modify_user_permissions/',
+			      type: 'POST',
+			      data: jsonText,
+			      contentType: "application/json; charset=utf-8",
+			      dataType: 'json',
+			      success : function(data) {
+				oTable.fnUpdate(to, nRow, 2, false);
+			      },
+			      error: function(data) {
+			          alert("Change role error");
+				  oTable.fnUpdate(from, nRow, 2, false);
+			      }
+			     });
+		}
+		else if(modify && (from == "Unapproved"))
+		{
+			var values = {
+			       "data": [[nRow.id.substr(3), "true", newto]]
+			   };
+
+			var jsonText = JSON.stringify(values);
+
+		    	console.log(jsonText);
+
+			$.ajax({
+			  url : '/approve_users/',
+			  type: 'POST',
+			  data: jsonText,
+			  contentType: "application/json; charset=utf-8",
+			  dataType: 'json',
+			  success : function(data) {
+				oTable.fnUpdate(to, nRow, 2, false);
+			  },
+			  error: function(data) {
+				alert("Change role error");
+				oTable.fnUpdate(from, nRow, 2, false);
+			  }
+			 });
+			    
+		}
+
+            oTable.fnUpdate('<a class="btn yellow-saffron btn-xs edit" href="">Edit</a>', nRow, 5, false);
+            oTable.fnUpdate('<a class="btn red btn-xs delete" href="">Delete</a>', nRow, 6, false);
+            oTable.fnDraw();
+        }
+
+
+        var table = $('#sample_editable_1');
+
+        var oTable = table.dataTable({
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+
+            // Or you can use remote translation file
+            //"language": {
+            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
+            //},
+
+            // set the initial value
+            "pageLength": 5,
+
+            "language": {
+                "lengthMenu": " _MENU_ records"
+            },
+            "columnDefs": [{ // set default column settings
+                'orderable': true,
+                'targets': [0]
+            }, {
+                "searchable": true,
+                "targets": [0]
+            }],
+            "order": [
+                [0, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+        var tableWrapper = $("#sample_editable_1_wrapper");
+
+        var nEditing = null;
+        var nNew = false;
+
+
+        table.on('click', '.delete', function (e) {
+            e.preventDefault();
+
+            if($(this).attr("disabled"))
+		return;
+
+            if (confirm("Are you sure to delete this row ?") == false) {
+                return;
+            }
+
+            var nRow = $(this).parents('tr')[0];
+	    
+            values = {
+               "id": nRow.id.substr(3)
+            };
+            var jsonText = JSON.stringify(values);
+
+            console.log(jsonText);
+            $.ajax({
+			  url : '/delete_user/',
+			  type: 'POST',
+			  data: jsonText,
+			  contentType: "application/json; charset=utf-8",
+			  dataType: 'json',
+			  success : function(data) {
+				oTable.fnDeleteRow(nRow);
+				alert("User successfully deleted");
+			  },
+			  error: function(data) {
+				alert("User delete error");
+			  }
+			 });
+        });
+
+        table.on('click', '.cancel', function (e) {
+            e.preventDefault();
+            if (nNew) {
+                oTable.fnDeleteRow(nEditing);
+                nEditing = null;
+                nNew = false;
+            } else {
+                restoreRow(oTable, nEditing);
+                nEditing = null;
+            }
+        });
+
+        table.on('click', '.edit', function (e) {
+            e.preventDefault();
+            nNew = false;
+
+	    if($(this).attr("disabled"))
+		return;
+
+            /* Get the row as a parent of the link that was clicked on */
+            var nRow = $(this).parents('tr')[0];
+
+            if (nEditing !== null && nEditing != nRow) {
+                /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                restoreRow(oTable, nEditing);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+            } else if (nEditing == nRow && this.innerHTML == "Save") {
+                /* Editing this row and want to save it */
+                saveRow(oTable, nEditing);
+                nEditing = null;
+            } else {
+                /* No edit in progress - let's start one */
+                editRow(oTable, nRow);
+                nEditing = nRow;
+            }
+        });
+    }
+
+    return {
+
+        //main function to initiate the module
+        init: function () {
+            handleTable();
+        }
+
+    };
+
+}();
+
+jQuery(document).ready(function() {
+    TableDatatablesEditable.init();
+	$.csrftoken();
+});
+	</script>
+    </body>
+
 </html>
