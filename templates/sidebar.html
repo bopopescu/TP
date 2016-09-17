@@ -1,7 +1,7 @@
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
 	<!-- BEGIN SIDEBAR -->
-	<div class="page-sidebar navbar-collapse collapse">
+	<div class="page-sidebar navbar-collapse collapse{% if '/all_devices/' in request.path or '/devices/' in request.path or '/add_device/' in request.path %} page-sidebar-menu-closed{% endif %}">
 		<!-- BEGIN SIDEBAR MENU -->
 		<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 			<li class="nav-item{% if request.path == '/' or request.path == '/home/' %} active open{% endif %}">
@@ -13,7 +13,7 @@
 				</a>
 			</li>
 			<li class="nav-item{% if '/all_devices/' in request.path or '/devices/' in request.path or '/add_device/' in request.path %} active open{% endif %}">
-				<a href="/all_devices" class="nav-link nav-toggle">
+				<a href="/all_devices/999" class="nav-link nav-toggle">
 					<i class="icon-bulb"></i>
 					<span class="title">Devices</span>
 					<span class="arrow"></span>
