@@ -188,6 +188,10 @@ urlpatterns = patterns('',
     (r'^submit_vav_data/', 'apps.VAV.views.submit_vav_data'),
     #bemoss_settings
     (r'^bemoss_settings/', 'apps.admin.views.bemoss_settings'),
+    # user_settings
+    (r'^user_settings/', 'apps.admin.views.user_settings'),
+    # home_settings
+    (r'^home_settings/', 'apps.admin.views.home_settings'),
     # delete holiday
     (r'^delete_holiday/', 'apps.admin.views.delete_holiday'),
     # add holiday
