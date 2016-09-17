@@ -192,6 +192,54 @@ def bemoss_settings(request):
     else:
         return HttpResponseRedirect('/home/')
 
+@login_required(login_url='/login/')
+def user_settings(request):
+    print 'BEMOSS USER Settings page load'
+    context = RequestContext(request)
+    if request.session.get('last_visit'):
+    # The session has a value for the last visit
+        last_visit_time = request.session.get('last_visit')
+
+        visits = request.session.get('visits', 0)
+
+        if (datetime.now() - datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days > 0:
+            request.session['visits'] = visits + 1
+    else:
+        # The get returns None, and the session does not have a value for the last visit.
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = 1
+
+    if request.user.get_profile().group.name.lower() == 'admin':
+        return render_to_response(
+            'settings/user_settings.html', context)
+    else:
+        return HttpResponseRedirect('/home/')
+
+@login_required(login_url='/login/')
+def home_settings(request):
+    print 'BEMOSS HOME Settings page load'
+    context = RequestContext(request)
+    if request.session.get('last_visit'):
+    # The session has a value for the last visit
+        last_visit_time = request.session.get('last_visit')
+
+        visits = request.session.get('visits', 0)
+
+        if (datetime.now() - datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days > 0:
+            request.session['visits'] = visits + 1
+    else:
+        # The get returns None, and the session does not have a value for the last visit.
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = 1
+
+    if request.user.get_profile().group.name.lower() == 'admin':
+        return render_to_response(
+            'settings/home_settings.html', context)
+    else:
+        return HttpResponseRedirect('/home/')
+
+
+
 
 @login_required(login_url='/login/')
 def delete_holiday(request):
