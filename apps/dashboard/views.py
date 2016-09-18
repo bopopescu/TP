@@ -719,7 +719,7 @@ def zone_device_all_listing(request, zone_dev):
     if len(plugloads) != 0:
         zone_nickname = plugloads[0]['zone']['zone_nickname']
 
-
+    zone_nickname = "BEMOSS Core"
 
     return render_to_response(
         'dashboard/zone_devices_all.html',
