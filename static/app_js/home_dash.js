@@ -120,8 +120,10 @@ $( document ).ready(function() {
              console.log(_message.current_electricity_price);
             update_Cur_rate(_message.current_electricity_price);
          } else if (_headers.data_source == 'powermeterApp') {
-            update_CPT_baht(_message.monthly_electricity_bill);
-            update_CPT_comp(_message.last_day_bill);
+            update_CPT_kwh(_message.daily_energy_usage);
+            update_CPT_baht(_message.daily_electricity_bill);
+            update_CPT_comp(_message.last_day_bill_compare);
+            update_CPT_max(_message.last_day_energy_usage);
             update_LT1_baht(_message.daily_bill_light);
             update_LT1_comp(_message.daily_bill_light_compare_percent);
             update_LT2_baht(_message.daily_bill_AC);
