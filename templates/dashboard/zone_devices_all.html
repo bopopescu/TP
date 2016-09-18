@@ -1,801 +1,658 @@
- <!--
- Copyright (c) 2016, Virginia Tech
- All rights reserved.
-
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
-  following conditions are met:
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- disclaimer in the documentation and/or other materials provided with the distribution.
-
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
- The views and conclusions contained in the software and documentation are those of the authors and should not be
- interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
-
- This material was prepared as an account of work sponsored by an agency of the United States Government. Neither the
- United States Government nor the United States Department of Energy, nor Virginia Tech, nor any of their employees,
- nor any jurisdiction or organization that has cooperated in the development of these materials, makes any warranty,
- express or implied, or assumes any legal liability or responsibility for the accuracy, completeness, or usefulness or
- any information, apparatus, product, software, or process disclosed, or represents that its use would not infringe
- privately owned rights.
-
- Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or
- otherwise does not necessarily constitute or imply its endorsement, recommendation, favoring by the United States
- Government or any agency thereof, or Virginia Tech - Advanced Research Institute. The views and opinions of authors
- expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof.
-
- VIRGINIA TECH – ADVANCED RESEARCH INSTITUTE
- under Contract DE-EE0006352
-
- #__author__ = "BEMOSS Team"
- #__credits__ = ""
- #__version__ = "2.0"
- #__maintainer__ = "BEMOSS Team"
- #__email__ = "aribemoss@gmail.com"
- #__website__ = "www.bemoss.org"
- #__created__ = "2014-09-12 12:04:50"
- #__lastUpdated__ = "2016-03-14 11:23:33" -->
-
-{% load check_false %}
-{% load dashboard_extras %}
-{% load switch_case %}
-{% load device_count_in_zone %}
-{% load timedelta %}
 <!DOCTYPE html>
-<html>
-<head>
-<title>All Devices - {{ zone_nickname|capfirst }}</title>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"><!--<![endif]--><!-- BEGIN HEAD --><head>
+        <meta charset="utf-8">
+        <title>PEA Smart Home</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="PEA Smart Home" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="/static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/static/newassets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="/static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<!-- Bootstrap -->
-<link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
-<link href="/static/css/thin-admin.css" rel="stylesheet" media="screen">
-<link href="/static/css/font-awesome.css" rel="stylesheet" media="screen">
-<link media="screen" rel="stylesheet" href="/static/font-awesome-4.0.3/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/static/css/fam-icons/fam-icons.css">
-<link href="/static/style/style.css" rel="stylesheet">
-<link href="/static/style/dashboard.css" rel="stylesheet">
-<!-- Testing Sortable -->
-<link href="/static/css/jquery-ui.css" rel="stylesheet">
-<script class="include" type="text/javascript" src="/static/javascript/jquery-1.10.2.js"></script>
-<script class="include" type="text/javascript" src="/static/javascript/jquery-ui.js"></script>
+        <link href="/static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+        <script>
+function setValue() {
+  //User Information
+  update_Username("admin");
 
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-<!-- Notify CSS -->
-<link href="/static/css/bootstrap-notify/bootstrap-notify.css" rel="stylesheet">
+  //Current Rate
+  update_Cur_rate("4.32");
+}
+        </script>
+		<style>
+		
+/*--Basic style*/
+.h10{ height:10px;  }
+.h20{ height:20px;  }
+.h30{ height:30px;  }
+.h40{ height:40px;  }
+.h50{ height:50px;  }
 
-<!-- Custom Styles -->
-<link href="/static/css/bootstrap-notify/styles/alert-bangtidy.css" rel="stylesheet">
-<link href="/static/css/bootstrap-notify/styles/alert-blackgloss.css" rel="stylesheet">
+.sub-title {
+    font-weight: bold;
+    color: darkslategrey;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.information-image{
+    height: 75%; display: flex;
+}
+
+.information-image img{
+    height: 100%; width: 100%; margin: auto
+}
+
+/*-- load device stylesheet*/
+.device-name{
+    padding-bottom: 7px;
+    padding-top: 0 ;
+    color: darkslategrey ;
+    font-weight: bold;
+    font-size: 15px;
+
+}
 
 
-<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/bootstrap-notify.js"></script>
+.device-consumption{
+    color: #999     ;
+    height: 50px;
+}
+.device-watt, .device-hour-usage{
+    font-size: 11px;
+    /*height: 50px;*/
+    padding-bottom: 0;
+}
 
-<script class="include" type="text/javascript" src="/static/app_js/dashboard_common.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/common_fn.js"></script>
-<script class="include" type="text/javascript" src="/static/javascript/gauge.min.js"></script>
-<script type="text/javascript" src="/static/assets/jqueryknobdial/excanvas.js"></script>
+.widget-thumb-wrap:hover{
+    background-color: #eee;
+}
 
-<script class="include" type="text/javascript" src="/static/javascript/gauge.min.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/lt_dashboard.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/pl_dashboard.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/ss_dashboard.js"></script>
-<script class="include" type="text/javascript" src="/static/app_js/pm_dashboard.js"></script>
-    <script type="text/javascript" src="/static/app_js/make_current.js"></script>
-<!--[if IE]><script type="text/javascript" src="/static/assets/jqueryknobdial/excanvas.js"></script><![endif]-->
+.widget-thumb-wrap a{
+    color: #000;
+}
 
 
-<script>
-    var this_id = {{ zone_id }};
-</script>
+.float_r{
+    float: right;
+}
 
-</head>
-<body>
-{% include 'top_nav.html' %}
-<div class="wrapper">
-{% include 'side_nav.html' %}
-  <div class="page-content" id="dashboard_content">
-    <form action="../" method="post">
-  	{% csrf_token %}
-    <div class="content container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2 class="page-title">All Devices - {{ zone_nickname|capfirst }}</h2>
+.float_l{
+    float: left;
+}
+
+.device-btt-status, .add-device-form{
+    line-height: 15px;
+    padding-bottom: 5px;
+}
+
+.add-device-form .addDevice-text{
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.device-btt-status, .add-device-form i{
+    font-size: 25px;
+}
+
+/*--  Lighting Controller--*/
+.device-status-form{
+    width:100%;
+    border: 1px solid #EEE;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding:10px;
+}
+
+
+
+.device-controller-form {
+    background-color: white;
+    color :grey;
+    border:1px #EEE solid;
+    padding:10px;
+    height:auto;
+}
+
+.set-schedule-form{
+    color:blue;
+    background-color: skyblue;
+    width:100%;
+    padding-left: 0;
+    border: 1px solid blue;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding-bottom: 5px;
+    display: flex;
+}
+
+
+
+
+
+.brightness-form, .colors-form, .airCond-row1-form, .airCond-row2-form, .ac-temperature-form, .ac-swing-form
+, .fan-row1-form, .fan-row2-form, .fan-row3-form, .fan-row4-form{
+    margin-bottom: 15px;
+    min-height: 102px;
+    height: auto;
+    border: 1px #EEE solid;
+    padding:10px;
+}
+
+
+
+
+
+.brightness-slider {
+    background: rgba(54,198,211,1); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* Standard syntax */
+}
+
+.progress{
+    height: 20px !important;
+}
+
+.progress .sr-only{
+    position: relative;}
+
+/*-------Lighting Data--------*/
+
+
+.row table{
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 0;
+    color: grey;
+    border:none;
+}
+
+.row table .detail {
+    font-weight: bold;
+    color: darkslategrey;
+}
+
+
+
+.topic {
+    font-size: 13px;
+    color: lightslategray;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.value {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+/*-------------Pong's Stylesheet-----------------*/
+
+
+.info-box-icon {
+    display: block;
+    float: left;
+    height: 65px;
+    width: 65px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 20px;
+    background: rgba(0,0,0,0.2);
+	border-radius: 50%!important;
+	border-style: solid;
+	border-color: #aaaaaa;
+}
+
+.info-box-icon i{
+    line-height: 65px;
+    font-size: 40px;
+}
+
+
+
+.info-box-content {
+    padding: 0 10px;
+    margin-left: 70px;
+}
+
+.progress-description, .info-box-text1 {
+    display: block;
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.progress-description, .info-box-text2 {
+    display: block;
+    color: #666666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info-box-number {
+    display: block;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.info-box-number small {
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.info-box-number span {
+    font-size: 18px;
+}
+
+
+/******* Add Device StyleSheet*******/
+
+.dtl-on{ width: 100%; background-color: skyblue; color: white;}
+.dtl-off{width: 100%; background-color: lightgrey; color: white;}
+.dtl-online{width: 100%; background-color: lightgreen; color: white;}
+.dtl-offline{width: 100%; background-color: red; color: white;}
+
+
+.device-data{
+
+}
+
+.device-data table tbody tr td {
+    padding: 5px;
+    border:none;
+}
+
+.device-data table tbody tr td input{
+    width:100%;
+    width:100%;
+}
+
+
+/*-----air conditioner stylesheet------*/
+
+
+.ac-mode-setting, .ac-fanSpeed-setting {
+    border: 1px #EEE solid;
+    padding:10px;
+    min-height: 51px;
+    margin-bottom: 15px;
+    display: flex;
+
+}
+
+.forAC-btt button{
+    width:auto;
+}
+
+.ac-temperature-setting, .ac-swing-setting {
+    padding: 10px;
+    /*display: flex;*/
+    min-height: 150px;
+    height: auto;
+    /*width:100%;*/
+    border: 1px     #EEE solid;
+    margin-bottom: 15px;
+
+}
+
+
+
+.ac-swing-arrow{
+    min-height:60px;
+}
+
+.ac-swing-arrow button{
+    margin:4px;
+    width: auto;
+    border:3px solid #EEE;
+    background-color: white;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before {
+	font-size: 45px;
+}
+
+/**----------Standing Fan StyleSheet-------------*/
+
+
+		</style>
+      </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed page-sidebar-closed">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="/">
+                    <img src="/static/images/pea/PEA.png" width="57" height="66" alt="logo" class="logo-default" style="
+                    margin-top: 5px;">
+                    </a>
+                    <!--<div class="menu-toggler sidebar-toggler">-->
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    <!--</div>-->
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                                <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
+                                  <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
+                                    <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
+                                    <span class="" style="color:#eeeeee">Current Rate </span>
+                                    <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
+                                  </span>
+                                </a>
+                            </li>-->
+                            <!-- BEGIN USER LOGIN DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username"> Signed in as <span id="Username"></span> </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <img alt="" class="img-circle"> </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="/user_settings"><i class="icon-user"></i> My Profile </a>
+                                        <a href="/logout"><i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
         </div>
-      </div>
-      <div class="row" id="#unassigned_devices_th">
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            {% include 'sidebar.html' %}
+			
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height: 981px;">
+                    <div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="/">Home</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Dashboard</span>
+                            </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 visible-xs-block">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
 
-        <div class="col-lg-12">
+                    </div>
+                    <br>
+					
+					<div class="row ">
+						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12  ">
+							<!-- BEGIN PORTLET-->
+							<div class="portlet light bordered">
+								<div class="portlet-title tabbable-line">
+									<div class="caption">
+										<i class="icon-bar-chart font-dark hide"></i>
+										<span class="caption-subject font-dark bold uppercase">Load Devices</span>
+									</div>
 
-          <div class="widget">
-            <div class="widget-header"> <i class="icon-cog"></i>
-              <h3>HVAC Controllers</h3>
+
+								</div>
+								<div class="portlet-body">
+									<div class="tab-content">
+										<div class="scroller">
+											<div class="widget-thumb widget-bg-color-white  margin-bottom-20 bordered" style="padding: 0;">
+												<a href="./zone_devices_all.html">
+													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
+														<div class="col-lg-10 col-sm-10 col-xs-10">
+															<span class="info-box-icon" style="background-color: white"><i class="icon-bulb" style="color:black"></i> </span>
+															<div class="info-box-content ">
+																<div class="device-name">Light</div>
+																<div class="device-consumption ">
+																	<div class="device-watt">
+																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
+																	</div>
+																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2 col-sm-2 col-xs-2">
+															<div class="float_r">
+																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
+																<div style="text-align: center;"> On</div>
+															</div>
+														</div>
+													</div>
+												</a>
+												<a href="./zone_devices_all.html">
+													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
+														<div class="col-lg-10 col-sm-10 col-xs-10">
+															<span class="info-box-icon" style="background-color: white"><i class="fa fa-plug" style="font-size:35px;margin-top:23px;color:black"></i> </span>
+															<div class="info-box-content ">
+																<div class="device-name">Plug</div>
+																<div class="device-consumption ">
+																	<div class="device-watt">
+																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
+																	</div>
+																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2 col-sm-2 col-xs-2">
+															<div class="float_r" style="color: #666666">
+																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
+																<div style="text-align: center;"> Off</div>
+															</div>
+														</div>
+													</div>
+												</a>
+												<a href="./zone_devices_all.html">
+													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
+														<div class="col-lg-10 col-sm-10 col-xs-10">
+															<span class="info-box-icon" style="background-color: white"><i class="flaticon-thermometer" style="color:black"></i> </span>
+															<div class="info-box-content ">
+																<div class="device-name">Air Conditioner</div>
+																<div class="device-consumption ">
+																	<div class="device-watt">
+																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
+																	</div>
+																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2 col-sm-2 col-xs-2">
+															<div class="float_r" style="color: #666666">
+																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
+																<div style="text-align: center;"> Off</div>
+															</div>
+														</div>
+													</div>
+												</a>
+												<a href="./zone_devices_all.html">
+													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
+														<div class="col-lg-10 col-sm-10 col-xs-10">
+															<span class="info-box-icon" style="background-color: white"><i class="flaticon-wind-mill" style="color:black"></i> </span>
+															<div class="info-box-content ">
+																<div class="device-name">Fan</div>
+																<div class="device-consumption ">
+																	<div class="device-watt">
+																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
+																	</div>
+																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-2 col-sm-2 col-xs-2">
+															<div class="float_r" style="color: #666666">
+																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
+																<div style="text-align: center;"> Off</div>
+															</div>
+														</div>
+													</div>
+												</a>
+												
+
+											</div>
+										</div>
+										<div class="add-device-form">
+											<a href="addDevice.html">
+												<span><i class="fa fa-plus-circle"></i></span>
+												<span class="add-text">Add device</span>
+											</a>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+                    
+                </div>
+                <!-- END CONTENT BODY -->
             </div>
-            <!-- /widget-header -->
-            <div class="widget-content connectedSortable" id="sortable1">
-
-               {%for th in thermostats %}
-                    <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{th.id}}_divopen" style="height:280px;">
-                    <a href="/tstat/{{th.mac_address}}" class="stats-container">
-                      <div class="stats-heading" id="{{th.id}}_nickname_header">{{th.nickname}}</div>
-                      <div class="stats-body-alt" >
-                        <h2></h2>
-
-                      <div class="text-center h5">{{ th.thermostat_mode }}</div>
-                      <div class="text-center"><span class="h1">{{ th.temperature }}&deg;F</span></div>
-                        <div class="text-center" style = "margin-top: 20px;"><h5>{{th.device_type|replace_|capfirst }}</h5>	</div>
-                          {% ifequal th.thermostat_mode 'HEAT' %}
-                            <div class="text-center"><h5>Set Point:{{th.heat_setpoint}}&deg;F</h5></div>
-                          {% else %}
-                            <div class="text-center"><h5>Set Point:{{th.cool_setpoint}}&deg;F</h5></div>
-                          {% endifequal %}
-                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                          {% if th.identifiable %}
-                         <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify"
-                                style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ th.id }}"><i class="icon-search" id="{{ th.id }}-spin"></i> Identify Device</button></div>
-                            {% endif %}
-                        {% endifequal %}
-                        </div>
-                              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ th.id }}" data-toggle="modal">View/Edit Information</div>
-                        </a>
-                        </div>
-
-
-
-              	<div style="display: none;" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="{{ th.id }}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
-                        <h4 id="myModalLabel" class="modal-title">{{th.nickname}} Information</h4>
-                      </div>
-                      <div class="modal-body">
-                         <table class="table table-condensed">
-			                <thead>
-				                <tr>
-				                <th></th>
-				                <th></th>
-				                <th></th>
-			                	</tr>
-			                </thead>
-			                <tbody>
-			                  <tr>
-			                    <td>Device Nickname</td>
-			                    <td id="{{th.id}}_nick">{{th.nickname}}</td>
-			                    <td>{% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                    <a href="javascript:;" class="nickname_edit" ><i class="icon-small icon-edit" id="{{th.id}}_nick_edit"></i></a>
-                                {% endifequal %}</td>
-			                    <script>
-                                    {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-			                    $( "#{{th.id}}_nick_edit" ).click(function() {
-			                    	//alert("testing");
-			                    	var newtest = document.getElementById(this.id.replace("_edit",""));
-			                    	newtest.innerHTML = '<input type="text" id="{{th.id}}_nickname" placeholder="{{th.nickname}}"></input>'
-			                    });
-                                    {% endifequal %}
-			                    </script>
-			                  </tr>
-			                  <tr>
-			                    <td>Zone</td>
-			                    <td>{{th.zone.zone_nickname}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Device Type	</td>
-			                    <td>{{th.device_type|replace_|capfirst}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Vendor Name</td>
-			                    <td>{{th.vendor_name}}</td>
-			                    <td></td>
-			                  </tr>
-                              <tr>
-			                    <td>Device Model</td>
-			                    <td>{{th.device_model}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                  	<td>MAC Address</td>
-			                    <td>{{th.mac_address}}</td>
-			                    <td></td>
-			                  </tr>
-			                </tbody>
-			              </table>
-
-                          <p class = "attribution">Note: The nickname should have between 6 and 15 characters with alphabets or numbers or underscore (_). No spaces or special characters.</p>
-                          <p class = "attribution" id="viewediterror_{{th.id}}" style="color:red;"></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                           {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                        <button class="btn btn-primary save_changes" id="#savechanges-{{th.id}}-{{ th.device_model_id }}" type="button">Save changes</button>
-                      {% endifequal %}
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-
-               {% endfor %}
-            {%for vav_this in vav %}
-                    <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{vav_this.id}}_divopen" style="height:280px;">
-                    <a href="/vav/{{vav_this.mac_address}}" class="stats-container">
-                      <div class="stats-heading" id="{{vav_this.id}}_nickname_header">{{vav_this.nickname}}</div>
-                      <div class="stats-body-alt"
-                           style="height:197px;"
-
-                              >
-
-                      <div class="text-center"><h1 style="margin-top: -20px;"><img src="/static/images/vav_on.png" width="150" height="150" ></h1></div>
-                            <div class="text-center"><h5>Flap Position: {{vav_this.flap_position}} %</h5></div>
-                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                          {% if vav_this.identifiable %}
-                         <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify"
-                                style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ vav_this.id }}"><i class="icon-search" id="{{ vav_this.id }}-spin"></i> Identify Device</button></div>
-
-                          {% endif %}
-
-                        {% endifequal %}
-                        </div>
-                              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ vav_this.id }}" data-toggle="modal">View/Edit Information</div>
-                        </a>
-                        </div>
-
-
-
-              	<div style="display: none;" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="{{ vav_this.id }}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
-                        <h4 id="myModalLabel" class="modal-title">{{vav_this.nickname}} Information</h4>
-                      </div>
-                      <div class="modal-body">
-                         <table class="table table-condensed">
-			                <thead>
-				                <tr>
-				                <th></th>
-				                <th></th>
-				                <th></th>
-			                	</tr>
-			                </thead>
-			                <tbody>
-			                  <tr>
-			                    <td>Device Nickname</td>
-			                    <td id="{{vav_this.id}}_nick">{{vav_this.nickname}}</td>
-			                    <td>{% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                    <a href="javascript:;" class="nickname_edit" ><i class="icon-small icon-edit" id="{{vav_this.id}}_nick_edit"></i></a>
-                                {% endifequal %}</td>
-			                    <script>
-                                    {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-			                    $( "#{{vav_this.id}}_nick_edit" ).click(function() {
-			                    	//alert("testing");
-			                    	var newtest = document.getElementById(this.id.replace("_edit",""));
-			                    	newtest.innerHTML = '<input type="text" id="{{vav_this.id}}_nickname" placeholder="{{vav_this.nickname}}"></input>'
-			                    });
-                                    {% endifequal %}
-			                    </script>
-			                  </tr>
-			                  <tr>
-			                    <td>Zone</td>
-			                    <td>{{vav_this.zone.zone_nickname}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Device Type	</td>
-			                    <td>{{vav_this.device_type|replace_|capfirst}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Vendor Name</td>
-			                    <td>{{vav_this.vendor_name}}</td>
-			                    <td></td>
-			                  </tr>
-                              <tr>
-			                    <td>Device Model</td>
-			                    <td>{{vav_this.device_model}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                  	<td>MAC Address</td>
-			                    <td>{{vav_this.mac_address}}</td>
-			                    <td></td>
-			                  </tr>
-			                </tbody>
-			              </table>
-
-                          <p class = "attribution">Note: The nickname should have between 6 and 15 characters with alphabets or numbers or underscore (_). No spaces or special characters.</p>
-                          <p class = "attribution" id="viewediterror_{{vav_this.id}}" style="color:red;"></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                           {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                        <button class="btn btn-primary save_changes" id="#savechanges-{{vav_this.id}}-{{ vav_this.device_model_id }}" type="button">Save changes</button>
-                      {% endifequal %}
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-
-               {% endfor %}
-               {%for rtu_this in rtu %}
-                    <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{rtu_this.id}}_divopen" style="height:280px;">
-                    <a href="/rtu/{{rtu_this.mac_address}}" class="stats-container">
-                      <div class="stats-heading" id="{{rtu_this.id}}_nickname_header">{{rtu_this.nickname}}</div>
-                      <div class="stats-body-alt"
-                           style="height:197px;">
-
-                      <div class="text-center"><h1 style="margin-top: 7px;"><img src="/static/images/rtu_on.png" width="100" height="100" ></h1></div>
-                            <div class="text-center"><h5
-                                    {% if rtu_this.identifiable|is_false %}
-                                        style="margin-top: 30px;"
-                                    {% endif %}
-                                    >Heat Set Point: {{rtu_this.heat_setpoint}} &deg;F</h5></div>
-                      <div class="text-center"><h5>Cool Set Point: {{rtu_this.cool_setpoint}} &deg;F</h5></div>
-                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                          {% if rtu_this.identifiable %}
-                         <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify"
-                                style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ rtu_this.id }}"><i class="icon-search" id="{{ rtu_this.id }}-spin"></i> Identify Device</button></div>
-
-                          {% endif %}
-
-                        {% endifequal %}
-                        </div>
-                              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ rtu_this.id }}" data-toggle="modal">View/Edit Information</div>
-                        </a>
-                        </div>
-
-
-
-              	<div style="display: none;" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="{{ rtu_this.id }}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
-                        <h4 id="myModalLabel" class="modal-title">{{rtu_this.nickname}} Information</h4>
-                      </div>
-                      <div class="modal-body">
-                         <table class="table table-condensed">
-			                <thead>
-				                <tr>
-				                <th></th>
-				                <th></th>
-				                <th></th>
-			                	</tr>
-			                </thead>
-			                <tbody>
-			                  <tr>
-			                    <td>Device Nickname</td>
-			                    <td id="{{rtu_this.id}}_nick">{{rtu_this.nickname}}</td>
-			                    <td>{% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                    <a href="javascript:;" class="nickname_edit" ><i class="icon-small icon-edit" id="{{rtu_this.id}}_nick_edit"></i></a>
-                                {% endifequal %}</td>
-			                    <script>
-                                    {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-			                    $( "#{{rtu_this.id}}_nick_edit" ).click(function() {
-			                    	//alert("testing");
-			                    	var newtest = document.getElementById(this.id.replace("_edit",""));
-			                    	newtest.innerHTML = '<input type="text" id="{{rtu_this.id}}_nickname" placeholder="{{rtu_this.nickname}}"></input>'
-			                    });
-                                    {% endifequal %}
-			                    </script>
-			                  </tr>
-			                  <tr>
-			                    <td>Zone</td>
-			                    <td>{{rtu_this.zone.zone_nickname}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Device Type	</td>
-			                    <td>{{rtu_this.device_type|replace_|capfirst}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Vendor Name</td>
-			                    <td>{{rtu_this.vendor_name}}</td>
-			                    <td></td>
-			                  </tr>
-                              <tr>
-			                    <td>Device Model</td>
-			                    <td>{{rtu_this.device_model}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                  	<td>MAC Address</td>
-			                    <td>{{rtu_this.mac_address}}</td>
-			                    <td></td>
-			                  </tr>
-			                </tbody>
-			              </table>
-
-                          <p class = "attribution">Note: The nickname should have between 6 and 15 characters with alphabets or numbers or underscore (_). No spaces or special characters.</p>
-                          <p class = "attribution" id="viewediterror_{{rtu_this.id}}" style="color:red;"></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                           {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                        <button class="btn btn-primary save_changes" id="#savechanges-{{rtu_this.id}}-{{ rtu_this.device_model_id }}" type="button">Save changes</button>
-                      {% endifequal %}
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-
-               {% endfor %}
-
-              <!-- /shortcuts -->
-            </div>
-            <!-- /widget-content -->
-          </div>
-
+            <!-- END CONTENT -->
         </div>
-      </div>
-   <div class="row" id="#unassigned_devices_lt">
+        <!-- END CONTAINER -->
+        <!--[if lt IE 9]>
+<script src="/static/newassets/global/plugins/respond.min.js"></script>
+<script src="/static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 
-        <div class="col-lg-12">
+        <script type="text/javascript">
 
-          <div class="widget">
-            <div class="widget-header"> <i class="fa fa-lightbulb-o" style="margin-left: 13px;"></i>
-              <h3>Lighting Loads</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content connectedSortable" id="sortable1">
+          function startTime() {
+            var now = new Date();
+            var monthNames = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ];
 
-               {%for lt in lighting_loads %}
-                   {% switch lt.device_model_id.device_model_id %}
+            var date = new Date();
+            var day = now.getDate();
+            var monthIndex = now.getMonth();
+            var year = now.getFullYear();
 
-						            {% case '2HUE' %}
-						            <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{lt.id}}_divopen" style="height:280px;">
-						            <a href="/light/{{lt.mac_address}}" class="stats-container" >
-						              <div class="stats-heading" id="{{lt.id}}_nickname_header">{{lt.nickname}}</div>
-						              <div class="stats-body-alt" >
-						            <h2></h2>
-						            	<h5  class="hue" id="{{lt.id}}_lights">{{ lt.multiple_on_off}}</h5>
-						            	 <div class="text-center" id="huelights_{{lt.id}}"></div>
-						            	{% if lt.status == 'ON' %}
-						                <div class="text-center"><h1><img src="/static/images/bulbon.png" width="50" height="80" alt="{{lt.status}}"></h1></div>
-						                {% else %}
-						                <div class="text-center"><img src="/static/images/bulboff.png" width="50" height="80" alt="{{lt.status}}"></div>
-						                {% endif %}
-						                <div class="text-center" style = "margin-top: 20px; "><h5>{{lt.device_type|replace_|capfirst}}</h5></div>
-						                <div class="text-center" style = "margin-bottom:25px;"><h5>{{ lt.multiple_on_off|length}} Connected Lights</h5></div>
-                                     {% ifequal request.user.get_profile.group.name|lower  'admin' %}{% if lt.identifiable %}
-                                      <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify" style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ lt.id }}">
-                                          <i class="icon-search" id="{{ lt.id }}-spin"></i> Identify Device</button></div>{% endif %}{% endifequal %}
-						                </div>
-							              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ lt.id }}" data-toggle="modal">View/Edit Information</div>
-				              		</a>
-				              		</div>
-						            {% case '2WL' %}
-						            <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{lt.id}}_divopen" style="height:280px;">
-						            <a href="/light/{{lt.mac_address}}" class="stats-container" >
-						              <div class="stats-heading" id="{{lt.id}}_nickname_header">{{lt.nickname}}</div>
-						              <div class="stats-body-alt" >
-									            <h2></h2>
-						               {% if lt.status == 'ON' %}
-						                <div class="text-center"><h1><img src="/static/images/wemoon.jpg" width="70" height="100" alt="{{lt.status}}"></h1></div>
-						                {% else %}
-						                <div class="text-center"><img src="/static/images/wemooff.jpg" style="-webkit-filter:opacity(30%);" width="70" height="100"alt="{{lt.status}}"></div>
-						                {% endif %}
-						                <div class="text-center" style = "margin-top: 0px;"><h5>{{lt.device_type|replace_|capfirst}}</h5></div>
-						                <div class="text-center" style = "margin-top: 5px; margin-bottom:-10px;"><h5>Status: {{lt.status}}</h5></div>
-                                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}{% if lt.identifiable %}
-                                          <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify" style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ lt.id }}">
-                                          <i class="icon-search" id="{{ lt.id }}-spin"></i> Identify Device</button></div>{% endif %}{% endifequal %}
-						                </div>
-							              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ lt.id }}" data-toggle="modal">View/Edit Information</div>
-				              		</a>
-				              		</div>
-                                    {% case '2WSL' %}
-						            <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{lt.id}}_divopen" style="height:280px;">
-						            <a href="/light/{{lt.mac_address}}" class="stats-container" >
-						              <div class="stats-heading" id="{{lt.id}}_nickname_header">{{lt.nickname}}</div>
-						              <div class="stats-body-alt" >
-									            <h2></h2>
-						               {% if lt.status == 'ON' %}
-						                <div class="text-center"><h1><img src="/static/images/wattstopper_on.png" width="100" height="100" alt="{{lt.status}}"></h1></div>
-						                {% else %}
-						                <div class="text-center"><img src="/static/images/wattstopper_off.png" style="-webkit-filter:opacity(30%);" width="100" height="100"alt="{{lt.status}}"></div>
-						                {% endif %}
-						                <div class="text-center" style = "margin-top: 0px;"><h5>{{lt.device_type|replace_|capfirst}}</h5></div>
-						                <div class="text-center" style = "margin-top: 5px; margin-bottom:-10px;"><h5>Status: {{lt.status}}</h5></div>
-                                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}{% if lt.identifiable %}
-                                          <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify" style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ lt.id }}">
-                                              <i class="icon-search" id="{{ lt.id }}-spin"></i> Identify Device</button></div>{% endif %}
-                                      {% endifequal %}
-						                </div>
-							              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ lt.id }}" data-toggle="modal">View/Edit Information</div>
-				              		</a>
-				              		</div>
-                        {% endswitch %}
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            h = checkTime(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+            var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+          }
 
-              	<div style="display: none;" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="{{ lt.id }}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
-                        <h4 id="myModalLabel" class="modal-title">{{lt.nickname}} Information</h4>
-                      </div>
-                      <div class="modal-body">
-                         <table class="table table-condensed">
-			                <thead>
-				                <tr>
-				                <th></th>
-				                <th></th>
-				                <th></th>
-			                	</tr>
-			                </thead>
-			                <tbody>
-			                  <tr>
-			                    <td>Device Nickname</td>
-			                    <td id="{{lt.id}}_nick">{{lt.nickname}}</td>
-			                    <td>{% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                    <a href="javascript:;" class="nickname_edit" ><i class="icon-small icon-edit" id="{{lt.id}}_nick_edit"></i></a>
-                                {% endifequal %}</td>
-			                    <script>
-                                    {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-			                    $( "#{{lt.id}}_nick_edit" ).click(function() {
-			                    	//alert("testing");
-			                    	var newtest = document.getElementById(this.id.replace("_edit",""));
-			                    	newtest.innerHTML = '<input type="text" id="{{lt.id}}_nickname" placeholder="{{lt.nickname}}"></input>'
-			                    });
-                                    {% endifequal %}
-			                    </script>
-			                  </tr>
-			                  <tr>
-			                    <td>Zone</td>
-			                    <td>{{lt.zone.zone_nickname}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Device Type	</td>
-			                    <td>{{lt.device_type|replace_|capfirst}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Vendor Name</td>
-			                    <td>{{lt.vendor_name}}</td>
-			                    <td></td>
-			                  </tr>
-                              <tr>
-			                    <td>Device Model</td>
-			                    <td>{{lt.device_model}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                  	<td>MAC Address</td>
-			                    <td>{{lt.mac_address}}</td>
-			                    <td></td>
-			                  </tr>
-			                </tbody>
-			              </table>
+          function update_Username(Username) {
+            $("#Username").text(String(Username));
+          }
 
-                          <p class = "attribution">Note: The nickname should have between 6 and 15 characters with alphabets or numbers or underscore (_). No spaces or special characters.</p>
-                          <p class = "attribution" id="viewediterror_{{lt.id}}" style="color:red;"></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                          {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                        <button class="btn btn-primary save_changes" id="#savechanges-{{lt.id}}-{{ lt.device_model_id }}" type="button">Save changes</button>
-                          {% endifequal %}
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
+          function update_Cur_rate(Cur_rate) {
+            $("#Cur_rate").text(String(Cur_rate));
+            $("#Cur_rate2").text(String(Cur_rate));
+          }
 
-               {% endfor %}
+          window.onload = function () {
+            startTime();
+            setValue();
+            //renderCP1();
+            //renderCP2();
+            //renderGauge();
+          }
+        </script>
+    </body>
 
-              <!-- /shortcuts -->
-            </div>
-            <!-- /widget-content -->
-          </div>
-
-        </div>
-      </div>
-     <div class="row" id="#unassigned_devices_pl">
-
-        <div class="col-lg-12">
-
-          <div class="widget">
-            <div class="widget-header"> <i class="fa fa-power-off" style="margin-left: 13px;"></i>
-              <h3>Plugloads</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content connectedSortable" id="sortable1">
-
-               {%for pl in plugloads %}
-                    {% switch pl.device_model_id.device_model_id %}
-                    {% case '3WSP' %}
-						            <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{pl.id}}_divopen" style="height:280px;">
-						            <a href="/plug/{{pl.mac_address}}" class="stats-container" >
-						              <div class="stats-heading" id="{{pl.id}}_nickname_header">{{pl.nickname}}</div>
-						              <div class="stats-body-alt" >
-						            <h2></h2>
-						                {% if pl.status == 'ON' %}
-						               <div class="text-center"><img src="/static/images/wemo_plug.png" width="70" height="100" alt="{{pl.status}}"></div>
-						                {% else %}
-						               <div class="text-center"><img src="/static/images/wemo_plug.png" style="-webkit-filter:opacity(30%);" width="70" height="100" alt="{{pl.status}}"></div>
-						                {% endif %}
-						                <div class="text-center" style = "margin-top: 15px; "><h5>{{pl.device_type|replace_|capfirst}}</h5></div>
-						                <div class="text-center" style = "margin-bottom:-10px;"><h5>Status: {{pl.status}}</h5></div>
-                                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                          {% if pl.identifiable %}
-                                          <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify" style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ pl.id }}">
-                                          <i class="icon-search" id="{{ pl.id }}-spin"></i> Identify Device</button></div>{% endif %}{% endifequal %}
-						                </div>
-							              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ pl.id }}" data-toggle="modal">View/Edit Information</div>
-				              		</a>
-				              		</div>
-                                    {% case '3WP' %}
-						            <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{pl.id}}_divopen" style="height:280px;">
-						            <a href="/plug/{{pl.mac_address}}" class="stats-container" >
-						              <div class="stats-heading" id="{{pl.id}}_nickname_header">{{pl.nickname}}</div>
-						              <div class="stats-body-alt" >
-									            <h2></h2>
-						               {% if pl.status == 'ON' %}
-						                <div class="text-center"><h1><img src="/static/images/wattstopper_on.png" width="100" height="100" alt="{{pl.status}}"></h1></div>
-						                {% else %}
-						                <div class="text-center"><img src="/static/images/wattstopper_off.png" style="-webkit-filter:opacity(30%);" width="100" height="100" alt="{{pl.status}}"></div>
-						                {% endif %}
-						                <div class="text-center" style = "margin-top: 0px;"><h5>{{pl.device_type|replace_|capfirst}}</h5></div>
-						                <div class="text-center" style = "margin-top: 5px; margin-bottom:-10px;"><h5>Status: {{pl.power}} W</h5></div>
-                                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                          <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify" style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ pl.id }}">
-                                          <i class="icon-search" id="{{ pl.id }}-spin"></i> Identify Device</button></div>{% endifequal %}
-						                </div>
-							              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ pl.id }}" data-toggle="modal">View/Edit Information</div>
-				              		</a>
-				              		</div>
-                                    {% case '3WIS' %}
-						            <div class="col-md-3 col-xs-12 col-sm-6 device_view" id="{{pl.id}}_divopen" style="height:280px;">
-						            <a href="/plug/{{pl.mac_address}}" class="stats-container" >
-						              <div class="stats-heading" id="{{pl.id}}_nickname_header">{{pl.nickname}}</div>
-						              <div class="stats-body-alt" >
-									            <h2></h2>
-						               {% if pl.status == 'ON' %}
-						                <div class="text-center"><h1><img src="/static/images/wis_on.png" width="100" height="100" alt="{{pl.status}}"></h1></div>
-						                {% else %}
-						                <div class="text-center"><img src="/static/images/wis_off.png" style="-webkit-filter:opacity(30%);" width="100" height="100" alt="{{pl.status}}"></div>
-						                {% endif %}
-						                <div class="text-center" style = "margin-top: 0px;"><h5>{{pl.device_type|replace_|capfirst}}</h5></div>
-						                <div class="text-center" style = "margin-top: 5px; margin-bottom:-10px;"><h5>Status: {{pl.power}} W</h5></div>
-                                      {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                                          <div class="text-center" style="height: 23px;"> <button class="btn btn-warning btn-xs identify" style="margin-top: -40px; margin-bottom: 7px" id="identify-{{ pl.id }}">
-                                          <i class="icon-search" id="{{ pl.id }}-spin"></i> Identify Device</button></div>{% endifequal %}
-						                </div>
-							              <div class="stats-footer text-center" data-backdrop="false" data-target="#{{ pl.id }}" data-toggle="modal">View/Edit Information</div>
-				              		</a>
-				              		</div>
-
-                    {% endswitch %}
-
-
-              	<div style="display: none;" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="{{ pl.id }}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
-                        <h4 id="myModalLabel" class="modal-title">{{pl.nickname}} Information</h4>
-                      </div>
-                      <div class="modal-body">
-                         <table class="table table-condensed">
-			                <thead>
-				                <tr>
-				                <th></th>
-				                <th></th>
-				                <th></th>
-			                	</tr>
-			                </thead>
-			                <tbody>
-			                  <tr>
-			                    <td>Device Nickname</td>
-			                    <td id="{{pl.id}}_nick">{{pl.nickname}}</td>
-			                    <td>{% ifequal request.user.get_profile.group.name|lower  'admin' %}<a href="javascript:;" class="nickname_edit" >
-                                <i class="icon-small icon-edit" id="{{pl.id}}_nick_edit"></i></a>{% endifequal %}</td>
-			                    <script>
-                                    {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-			                    $( "#{{pl.id}}_nick_edit" ).click(function() {
-			                    	//alert("testing");
-			                    	var newtest = document.getElementById(this.id.replace("_edit",""));
-			                    	newtest.innerHTML = '<input type="text" id="{{pl.id}}_nickname" placeholder="{{pl.nickname}}"></input>'
-			                    });
-                                    {% endifequal %}
-			                    </script>
-			                  </tr>
-			                  <tr>
-			                    <td>Zone</td>
-			                    <td>{{pl.zone.zone_nickname}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Device Type	</td>
-			                    <td>{{pl.device_type|replace_|capfirst}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                    <td>Vendor Name</td>
-			                    <td>{{pl.vendor_name}}</td>
-			                    <td></td>
-			                  </tr>
-                              <tr>
-			                    <td>Device Model</td>
-			                    <td>{{pl.device_model}}</td>
-			                    <td></td>
-			                  </tr>
-			                  <tr>
-			                  	<td>MAC Address</td>
-			                    <td>{{pl.mac_address}}</td>
-			                    <td></td>
-			                  </tr>
-			                </tbody>
-			              </table>
-
-                          <p class = "attribution">Note: The nickname should have between 6 and 15 characters with alphabets or numbers or underscore (_). No spaces or special characters.</p>
-                          <p class = "attribution" id="viewediterror_{{pl.id}}" style="color:red;"></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                          {% ifequal request.user.get_profile.group.name|lower  'admin' %}
-                        <button class="btn btn-primary save_changes" id="#savechanges-{{pl.id}}-{{ pl.device_model_id }}" type="button">Save changes</button>
-                          {% endifequal %}
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-
-               {% endfor %}
-
-              <!-- /shortcuts -->
-            </div>
-            <!-- /widget-content -->
-          </div>
-
-        </div>
-      </div>
-
-  </div></form>
-
-  </div>
-
-</div>
-
-<div class="bottom-nav footer"> 2013-2015 &copy; Building Energy Management Open Source Software. </div>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/static/js/jquery.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/left_nav_slider.js"></script>
-<script>
-    var pathh = window.location.pathname;
-    pathh = pathh.slice(0, -1);
-    //$('li a[href*="' + pathh + '"]').parent().parent().parent().addClass("current");
-</script>
-<!--switcher html start-->
-{% include 'theme_changer.html' %}
-
-</body>
 </html>
