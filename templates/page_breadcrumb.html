@@ -1,0 +1,73 @@
+<!-- BEGIN Page-Breadcrumb -->
+<div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            <a href="/">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span id="pb_2">Name Page</span>
+        </li>
+    </ul>
+  </div>
+  <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
+    <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> THB/kWh</span>&nbsp; <span class="current_time"></span>
+  </div>
+  <div class="col-md-8 col-sm-8 visible-xs-block">
+    <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> THB/kWh</span>&nbsp; <span class="current_time"></span>
+  </div>
+</div>
+<!-- END Page-Breadcrumb -->
+
+<script type="text/javascript">
+
+          function startTime() {
+            var now = new Date();
+            var monthNames = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ];
+
+            var date = new Date();
+            var day = now.getDate();
+            var monthIndex = now.getMonth();
+            var year = now.getFullYear();
+
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            h = checkTime(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+            var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+          }
+
+          function update_Username(Username) {
+            $("#Username").text(String(Username));
+          }
+
+          function update_Cur_rate(Cur_rate) {
+            $("#Cur_rate").text(String(Cur_rate));
+            $("#Cur_rate2").text(String(Cur_rate));
+          }
+
+          window.onload = function () {
+            startTime();
+            setValue();
+            //renderCP1();
+            //renderCP2();
+            //renderGauge();
+          }
+        </script>

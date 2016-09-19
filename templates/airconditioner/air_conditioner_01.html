@@ -356,7 +356,7 @@ a:hover {
 
 		</style>
       </head>
-    <!-- END HEAD -->
+<!-- END HEAD -->
 
     <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
         <!-- BEGIN HEADER -->
@@ -387,28 +387,31 @@ a:hover {
 						<div class="col-lg-8 col-md-7  col-sm-7 col-xs-12">
 							<!-- BEGIN PORTLET-->
 							<div class="portlet light bordered">
+
 								<div class="portlet-title">
 									<div class="caption">
 										<i class="icon-share font-red-sunglo hide"></i>
-										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Lighting</strong></span>
+										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Air Conditioner</strong></span>
 										<!--<span class="caption-helper">monthly stats...</span>-->
 									</div>
 								</div>
+
 								<div class="portlet-body">
+									<!--BEGIN Air Conditioner Controller Box-->
 									<div class="portlet light bordered" style="padding-top: 0;">
 										<div class="portlet-title ">
 											<div class="caption">
-												<span class="caption-subject font-grey-cascade bold">Lighting Controllers</span>
-
+												<span class="caption-subject font-grey-cascade bold">Air Conditioner Controllers</span>
 											</div>
 										</div>
 										<div class="portlet-body">
 											<div class="row">
+												<!-- BEGIN Left Col -->
 												<div class="col-lg-3 col-md-5 col-sm-4 col-xs-12 ">
+													<!--BEGIN ON-OFF Box-->
 													<div class="device-status-form">
 														<div class="sub-title">Status</div>
-														<div style="display: flex; "><i class="fa fa-lightbulb-o"
-																						style="margin: auto;line-height: 85px;font-size: 85px; height:100px;color: lightskyblue;"></i></div>
+														<div style="display: flex; "><i class="fa fa-lightbulb-o" style="margin: auto;line-height: 85px;font-size: 85px; height:100px;color: lightskyblue;"></i></div>
 														<div style="display: flex ">
 															<div style=" margin: auto;  ">
 
@@ -419,13 +422,20 @@ a:hover {
 															 </div>
 														</div>
 													</div>
+													<!--END ON-OFF Box-->
+													<!--BEGIN Set Schedule Box-->
 													<div class="btn btn-default" style="width: 100%">
 														<i class="fa fa-clock-o clockSchedule"></i> Set Schedule
 													</div>
+													<!--END Set Schedule Box-->
 												</div>
+												<!-- END Left Col -->
+
+												<!-- BEGIN Right Col -->
 												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
+													<!--BEGIN Temperature Control Box-->
 													<div class="brightness-form">
-														<div class="sub-title hidden-xs">Brightness</div>
+														<div class="sub-title hidden-xs">Temperature</div>
 														<div style="display: flex;width:100%;">
 															<div class="row" style="margin: auto">
 																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
@@ -446,8 +456,11 @@ a:hover {
 
 															</div>
 														</div>
-														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
-														 <script>
+														 <div style="padding: 0px 20px 0px 20px;">
+															 <div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div>
+														 </div>
+														<!--BEGIN Temperature Control Script  -->
+														<script>
 															 function setB(amount) {
 																 softSlider.noUiSlider.set(amount);
 															 }
@@ -492,9 +505,13 @@ a:hover {
 																 });
 															 }
 														 </script>
+														<!--BEGIN Temperature Control Script  -->
 													</div>
+													<!--END Temperature Control Box-->
+
+													<!--BEGIN Mode Control Box-->
 													<div class="colors-form">
-														<div class="sub-title">Colors</div>
+														<div class="sub-title">Mode</div>
 														<div style="width:100%; display: flex;" >
 															<div class="row" style="margin: auto">
 															<style>
@@ -522,6 +539,7 @@ a:hover {
 																<div style="border: 3px solid #eee;box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
 																	<input id="colorSelector" id="hidden-input" type="hidden" value="#000">
 															</div>
+															<!--BEGIN Mode Control Script  -->
 															<script>
 																function setColor(color) {
 																	$("#colorSelector").minicolors('value', color);
@@ -550,303 +568,400 @@ a:hover {
 																	});
 																}
 															</script>
+															<!--END Mode Control Script  -->
+														</div>
 														</div>
 													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="portlet-body">
-									<div class="portlet light bordered">
-									<div class="portlet-title tabbable-line">
-										<div class="caption">
-											<span class="caption-subject font-grey-cascade bold ">Lighting Data</span>
-										</div>
-										<ul class="nav nav-tabs">
-											<li class="active">
-												<a href="#dataRealTime" data-toggle="tab"> Real Time </a>
-											</li>
-											<li>
-												<a href="#dataInformation" data-toggle="tab"> Information </a>
-											</li>
-											<li>
-												<a href="#dataDataLog" data-toggle="tab"> Data Log </a>
-											</li>
-										</ul>
-									</div>
-									<div class="portlet-body">
-										<div class="tab-content">
-											<div class="tab-pane active" id="dataRealTime">
-												<div class="row">
-													<!--<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"-->
-														 <!--style=" display: flex; border: solid red;">-->
-													<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
-													<script>
-														function renderChart() {
-															$('#highchart_1').highcharts({
-																chart : {
-																	style: {
-																		fontFamily: 'Open Sans'
-																	},
-																	events: {
-																		load: function () {
-																			var series = this.series[0];
-																			setInterval(function () {
-																				var x = (new Date()).getTime(), // current time
-																						y = Math.random()*100;
-																				series.addPoint([x, y], true, true);
-																			}, 1000);
-																		}
-																	}
-																},
-																credits: {
-																	enabled: false
-																},
-																title: {
-																	text: 'Consumption',
-																	x: -20 //center
-																},
-																xAxis: {
-																	type: 'datetime',
-																	tickPixelInterval: 150
-																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-																},
-																yAxis: {
-																	min: 0,
-																	title: {
-																		text: 'Consumption (kWh)'
-																	},
-																	plotLines: [{
-																		value: 0,
-																		width: 1,
-																		color: '#808080'
-																	}]
-																},
-																plotOptions: {
-																	area: {
-																		fillColor: {
-																			linearGradient: {
-																				x1: 0,
-																				y1: 0,
-																				x2: 0,
-																				y2: 1
-																			},
-																			stops: [
-																				[0, Highcharts.getOptions().colors[0]],
-																				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
-																			]
-																		},
-																		marker: {
-																			radius: 2
-																		},
-																		lineWidth: 1,
-																		states: {
-																			hover: {
-																				lineWidth: 1
-																			}
-																		},
-																		threshold: null
-																	}
-																},
-																tooltip: {
-																	valueSuffix: ' kWh'
-																},
-																legend: {
-																	enabled: false
-																},
-																series: [{
-																	type: 'area',
-																	name: 'Consumption',
-																	//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-																	data: [
-																		[(new Date()).getTime() - 12000,30],
-																		[(new Date()).getTime() - 11000,31],
-																		[(new Date()).getTime() - 10000,30],
-																		[(new Date()).getTime() - 9000,27],
-																		[(new Date()).getTime() - 8000,23],
-																		[(new Date()).getTime() - 7000,20],
-																		[(new Date()).getTime() - 6000,15],
-																		[(new Date()).getTime() - 5000,10],
-																		[(new Date()).getTime() - 4000,13],
-																		[(new Date()).getTime() - 3000,15],
-																		[(new Date()).getTime() - 2000,14],
-																		[(new Date()).getTime() - 1000,13],
-																		[(new Date()).getTime(),14]
-																	]
-																}]
-															});
-														}
-													</script>
-													<!--</div>-->
-													<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+													<!--END Mode Control Box-->
 
-														<div >
-															<span class="topic">Status:</span>
-															<span class="value">On</span>
+													<!--BEGIN Fan Mode Control Box-->
+													<div class="colors-form">
+														<div class="sub-title">Fan Mode</div>
+														<div style="width:100%; display: flex;" >
+															<div class="row" style="margin: auto">
+															<style>
+															.btc {
+																margin:10px;width: auto;border:3px solid #EEE;background-color: white;
+															}
+															</style>
+															<button id="c-d" onclick="setColor('#ffffff')" type="button" class="btc clr btn btn-circle btn-group-sm  col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																 Default
+															</button>
+															<button id="c-ww" onclick="setColor('#ffffee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																Warm White
+															</button>
+															<button id="c-cw" onclick="setColor('#eeeeff')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																Cool White
+															</button>
+															<button id="c-dl" onclick="setColor('#ffeeee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																Daylight
+															</button>
+															</div>
 														</div>
 														<br>
 														<div class="row">
-
-															<div class="  col-lg-6 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">On now for:</div>
-																<div class="value">7 h 15 min</div>
+															<div class="col-md-offset-3 col-md-6 col-lg-6" style="height: auto;">
+																<div style="border: 3px solid #eee;box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
+																	<input id="colorSelector" id="hidden-input" type="hidden" value="#000">
 															</div>
-															<div  class=" eachData col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-																<div class="topic">Since:</div>
-																<div class="value">8:51 pm</div>
-															</div>
-
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Today on:</div>
-																<div class="value">8 h 34 min</div>
-															</div>
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Now:</div>
-																<div class="value">15.58 W</div>
-															</div>
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Today's Consumption</div>
-																<div class="value">3.57 kWh</div>
-															</div>
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Estimated Daily Cost:</div>
-																<div class="value">11.25 $</div>
-															</div>
+															<!--BEGIN Fan Mode Control Script  -->
+															<script>
+																function setColor(color) {
+																	$("#colorSelector").minicolors('value', color);
+																}
+																function color() {
+																	$("#colorSelector").minicolors({
+																		change: function(value) {
+																			if(value == '#ffffff') {
+																				$(".clr").blur().removeClass("grey");
+																				$("#c-d").addClass("grey");
+																			} else if(value == '#ffffee') {
+																				$(".clr").blur().removeClass("grey");
+																				$("#c-ww").addClass("grey");
+																			} else if(value == '#eeeeff') {
+																				$(".clr").blur().removeClass("grey");
+																				$("#c-cw").addClass("grey");
+																			} else if(value == '#ffeeee') {
+																				$(".clr").blur().removeClass("grey");
+																				$("#c-dl").addClass("grey");
+																			} else {
+																				$(".clr").blur().removeClass("grey");
+																			}
+																			console.log(value);
+																		},
+																		theme: 'bootstrap'
+																	});
+																}
+															</script>
+															<!--END Fan Mode Control Script  -->
+														</div>
 														</div>
 													</div>
+													<!--END Fan Mode Control Box-->
 												</div>
-
+												<!-- BEGIN Right Col -->
 											</div>
-											<div class="tab-pane " id="dataInformation">
-												<div class="row">
-													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
-														<img src="/static/images/devices/light/hues.jpg" alt="" class="img-responsive img-rounded">
-													</div>
-													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
-														 style=" display: flex; ">
-														<table class="table table-responsive">
-															<tr>
-																<td>Nickname:</td>
-																<td class="detail">Lighting</td>
-															</tr>
-															<tr>
-																<td>Vendor:</td>
-																<td class="detail">Loyal Phillips Electronics</td>
-															</tr>
-															<tr>
-																<td>Model:</td>
-																<td class="detail">Phillips Hue bridge 2012</td>
-															</tr>
-															<tr>
-																<td>Serial Number:</td>
-																<td class="detail">123456</td>
-															</tr>
-															<tr>
-																<td>Mac Address:</td>
-																<td class="detail">0017881cab4b</td>
-															</tr>
-															<tr>
-																<td>Date Added On:</td>
-																<td class="detail">Sep 5, 2016, 8.28 am</td>
-															</tr>
-															<tr>
-																<td>Room/Zone:</td>
-																<td class="detail">All Zone</td>
-															</tr>
-															<tr>
-																<td>Approval Status:</td>
-																<td class="detail">Approved</td>
-															</tr>
-															<tr>
-																<td>IP Address:</td>
-																<td class="detail">192.168.1.23</td>
-															</tr>
-															<tr>
-																<td>Device Status:</td>
-																<td class="detail">ONLINE</td>
-															</tr>
-															<tr>
-																<td>Last Offline Time:</td>
-																<td class="detail">Sep 3, 2016, 2.22 pm</td>
-															</tr>
-														</table>
-													</div>
-												</div>
-
-											</div>
-											<div class="tab-pane " id="dataDataLog">
-												<table id="log" class="table table-responsive table-container table-hover  ">
-													<thead class="text-center">
-													<tr class="text-center">
-														<td><strong>Status ID</strong></td>
-														<td><strong>Date</strong></td>
-														<td><strong>Time</strong></td>
-														<td><strong>Duration</strong></td>
-														<td><strong>Status</strong></td>
-
-													</tr>
-													</thead>
-													<tbody class="text-center">
-													<tr>
-														<td>1</td>
-														<td>Sep 5, 2016</td>
-														<td>2.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="dtl-on">On</div>
-														</td>
-													</tr>
-													<tr>
-														<td>2</td>
-														<td>Sep 4, 2016</td>
-														<td>3.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="dtl-off">Off</div>
-														</td>
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>Sep 3, 2016</td>
-														<td>4.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="dtl-online">Online</div>
-														</td>
-													</tr>
-													<tr>
-														<td>4</td>
-														<td>Sep 2, 2016</td>
-														<td>5.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="dtl-offline">Offline</div>
-														</td>
-													</tr>
-													<tr>
-														<td>5</td>
-														<td>Sep 4, 2016</td>
-														<td>6.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="dtl-on">On</div>
-														</td>
-													</tr>
-
-													</tbody>
-												</table>
-
-											</div>
+											<!--END Div Row-->
 										</div>
+										<!--END portlet-body-->
 									</div>
+									<!--END Air Conditioner Controller Box-->
+
+									<!--BEGIN Air Conditioner Data Box-->
+									<div class="portlet-body">
+										<div class="portlet light bordered">
+										<div class="portlet-title tabbable-line">
+											<div class="caption">
+												<span class="caption-subject font-grey-cascade bold ">Air Conditioner Data</span>
+											</div>
+											<!--BEGIN Nav Tab-->
+											<ul class="nav nav-tabs">
+												<li class="active">
+													<a href="#dataRealTime" data-toggle="tab"> Real Time </a>
+												</li>
+												<li>
+													<a href="#dataInformation" data-toggle="tab"> Information </a>
+												</li>
+												<li>
+													<a href="#dataDataLog" data-toggle="tab"> Data Log </a>
+												</li>
+											</ul>
+											<!--END Nav Tab-->
+										</div>
+
+										<div class="portlet-body">
+											<div class="tab-content">
+												<!--BEGIN Real-Time Box-->
+												<div class="tab-pane active" id="dataRealTime">
+													<div class="row">
+
+														<!--BEGIN High Chart Col-->
+														<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+														<!--BEGIN High Chart Col-->
+
+														<!--BEGIN High Chart SCRIPT -->
+														<script>
+															function renderChart() {
+																$('#highchart_1').highcharts({
+																	chart : {
+																		style: {
+																			fontFamily: 'Open Sans'
+																		},
+																		events: {
+																			load: function () {
+																				var series = this.series[0];
+																				setInterval(function () {
+																					var x = (new Date()).getTime(), // current time
+																							y = Math.random()*100;
+																					series.addPoint([x, y], true, true);
+																				}, 1000);
+																			}
+																		}
+																	},
+																	credits: {
+																		enabled: false
+																	},
+																	title: {
+																		text: 'Consumption',
+																		x: -20 //center
+																	},
+																	xAxis: {
+																		type: 'datetime',
+																		tickPixelInterval: 150
+																		//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+																		//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+																	},
+																	yAxis: {
+																		min: 0,
+																		title: {
+																			text: 'Consumption (kWh)'
+																		},
+																		plotLines: [{
+																			value: 0,
+																			width: 1,
+																			color: '#808080'
+																		}]
+																	},
+																	plotOptions: {
+																		area: {
+																			fillColor: {
+																				linearGradient: {
+																					x1: 0,
+																					y1: 0,
+																					x2: 0,
+																					y2: 1
+																				},
+																				stops: [
+																					[0, Highcharts.getOptions().colors[0]],
+																					[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
+																				]
+																			},
+																			marker: {
+																				radius: 2
+																			},
+																			lineWidth: 1,
+																			states: {
+																				hover: {
+																					lineWidth: 1
+																				}
+																			},
+																			threshold: null
+																		}
+																	},
+																	tooltip: {
+																		valueSuffix: ' kWh'
+																	},
+																	legend: {
+																		enabled: false
+																	},
+																	series: [{
+																		type: 'area',
+																		name: 'Consumption',
+																		//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+																		data: [
+																			[(new Date()).getTime() - 12000,30],
+																			[(new Date()).getTime() - 11000,31],
+																			[(new Date()).getTime() - 10000,30],
+																			[(new Date()).getTime() - 9000,27],
+																			[(new Date()).getTime() - 8000,23],
+																			[(new Date()).getTime() - 7000,20],
+																			[(new Date()).getTime() - 6000,15],
+																			[(new Date()).getTime() - 5000,10],
+																			[(new Date()).getTime() - 4000,13],
+																			[(new Date()).getTime() - 3000,15],
+																			[(new Date()).getTime() - 2000,14],
+																			[(new Date()).getTime() - 1000,13],
+																			[(new Date()).getTime(),14]
+																		]
+																	}]
+																});
+															}
+														</script>
+														<!--END High Chart SCRIPT -->
+
+														<!--BEGIN Real-time Data Col-->
+														<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+
+															<div >
+																<span class="topic">Status:</span>
+																<span class="value">On</span>
+															</div>
+															<br>
+															<div class="row">
+
+																<div class="  col-lg-6 col-md-6 col-sm-6 col-xs-6">
+																	<div class="topic">On now for:</div>
+																	<div class="value">7 h 15 min</div>
+																</div>
+																<div  class=" eachData col-lg-6 col-md-6 col-sm-6 col-xs-6" >
+																	<div class="topic">Since:</div>
+																	<div class="value">8:51 pm</div>
+																</div>
+
+																<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																	<div class="topic">Today on:</div>
+																	<div class="value">8 h 34 min</div>
+																</div>
+																<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																	<div class="topic">Now:</div>
+																	<div class="value">15.58 W</div>
+																</div>
+																<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																	<div class="topic">Today's Consumption</div>
+																	<div class="value">3.57 kWh</div>
+																</div>
+																<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																	<div class="topic">Estimated Daily Cost:</div>
+																	<div class="value">11.25 $</div>
+																</div>
+															</div>
+														</div>
+														<!--END Real-time Data Col-->
+													</div>
+												</div>
+												<!--BEGIN Real-Time Box-->
+
+												<!--BEGIN Information Box-->
+												<div class="tab-pane " id="dataInformation">
+													<div class="row">
+
+														<!--BEGIN Device Picture Col-->
+														<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
+															<img src="/static/images/devices/light/hues.jpg" alt="" class="img-responsive img-rounded">
+														</div>
+														<!--END Device Picture Col-->
+
+														<!--BEGIN DeviceInformation Col-->
+														<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
+															 style=" display: flex; ">
+															<table class="table table-responsive">
+																<tr>
+																	<td>Nickname:</td>
+																	<td class="detail">Lighting</td>
+																</tr>
+																<tr>
+																	<td>Vendor:</td>
+																	<td class="detail">Loyal Phillips Electronics</td>
+																</tr>
+																<tr>
+																	<td>Model:</td>
+																	<td class="detail">Phillips Hue bridge 2012</td>
+																</tr>
+																<tr>
+																	<td>Serial Number:</td>
+																	<td class="detail">123456</td>
+																</tr>
+																<tr>
+																	<td>Mac Address:</td>
+																	<td class="detail">0017881cab4b</td>
+																</tr>
+																<tr>
+																	<td>Date Added On:</td>
+																	<td class="detail">Sep 5, 2016, 8.28 am</td>
+																</tr>
+																<tr>
+																	<td>Room/Zone:</td>
+																	<td class="detail">All Zone</td>
+																</tr>
+																<tr>
+																	<td>Approval Status:</td>
+																	<td class="detail">Approved</td>
+																</tr>
+																<tr>
+																	<td>IP Address:</td>
+																	<td class="detail">192.168.1.23</td>
+																</tr>
+																<tr>
+																	<td>Device Status:</td>
+																	<td class="detail">ONLINE</td>
+																</tr>
+																<tr>
+																	<td>Last Offline Time:</td>
+																	<td class="detail">Sep 3, 2016, 2.22 pm</td>
+																</tr>
+															</table>
+														</div>
+														<!--END DeviceInformation Col-->
+													</div>
+												</div>
+												<!--END Information Box-->
+
+												<!--BEGIN Data Log Box-->
+												<div class="tab-pane " id="dataDataLog">
+													<table id="log" class="table table-responsive table-container table-hover  ">
+														<thead class="text-center">
+														<tr class="text-center">
+															<td><strong>Status ID</strong></td>
+															<td><strong>Date</strong></td>
+															<td><strong>Time</strong></td>
+															<td><strong>Duration</strong></td>
+															<td><strong>Status</strong></td>
+
+														</tr>
+														</thead>
+														<tbody class="text-center">
+														<tr>
+															<td>1</td>
+															<td>Sep 5, 2016</td>
+															<td>2.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="dtl-on">On</div>
+															</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>Sep 4, 2016</td>
+															<td>3.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="dtl-off">Off</div>
+															</td>
+														</tr>
+														<tr>
+															<td>3</td>
+															<td>Sep 3, 2016</td>
+															<td>4.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="dtl-online">Online</div>
+															</td>
+														</tr>
+														<tr>
+															<td>4</td>
+															<td>Sep 2, 2016</td>
+															<td>5.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="dtl-offline">Offline</div>
+															</td>
+														</tr>
+														<tr>
+															<td>5</td>
+															<td>Sep 4, 2016</td>
+															<td>6.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="dtl-on">On</div>
+															</td>
+														</tr>
+
+														</tbody>
+													</table>
+												</div>
+												<!--End Data Log Box-->
+											</div>
+											<!--END tab-content-->
+										</div>
+										<!--END portlet-body-->
+									</div>
+									</div>
+									<!--END Air Conditioner Data Box-->
 								</div>
-								</div>
+
 							</div>
 							<!-- END PORTLET-->
 						</div>
-					</div>
 					</div>
                     
                 </div>
@@ -854,7 +969,8 @@ a:hover {
             </div>
             <!-- END CONTENT -->
         </div>
-        <!-- END CONTAINER -->
+        <!-- END PAGE CONTAINER -->
+
         <!--[if lt IE 9]>
 <script src="/static/newassets/global/plugins/respond.min.js"></script>
 <script src="/static/newassets/global/plugins/excanvas.min.js"></script>
