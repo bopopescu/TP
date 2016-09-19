@@ -10,7 +10,7 @@
         <meta content="PEA Smart Home" name="description">
         <meta content="" name="author">
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+{#        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">#}
         <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
         <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -597,12 +597,12 @@ a:hover {
 												<div class="col-lg-3 col-md-5 col-sm-4 col-xs-12 ">
 													<div class="device-status-form">
 														<div class="sub-title">Status</div>
-														<div style="display: flex; "><i class="fa fa-lightbulb-o"
+														<div  style="display: flex; "><i class="fa fa-lightbulb-o"
 																						style="margin: auto;line-height: 85px;font-size: 85px; height:100px;color: lightskyblue;"></i></div>
-														<div style="display: flex ">
+														<div id="div_sw" name ="div_sw" style="display: flex ">
 															<div style=" margin: auto;  ">
 
-																<input type="checkbox" class="make-switch" checked data-size="small"
+																<input id ="plug_sw" name ="plug_sw" type="checkbox" class="make-switch" checked data-size="small"
 																   data-on-color="success" data-on-text="ON" data-off-color="default"
 																   data-off-text="OFF">
 
@@ -932,6 +932,7 @@ a:hover {
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+        <script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
 		<script src="/static/newassets/global/plugins/nouislider/wNumb.min.js" type="text/javascript"></script>
@@ -952,65 +953,8 @@ a:hover {
         <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
+        <script src="/static/app_js/plugload.js" type="text/javascript"></script>
 
-        <script type="text/javascript">
-
-          function startTime() {
-            var now = new Date();
-            var monthNames = [
-              "January", "February", "March",
-              "April", "May", "June", "July",
-              "August", "September", "October",
-              "November", "December"
-            ];
-
-            var date = new Date();
-            var day = now.getDate();
-            var monthIndex = now.getMonth();
-            var year = now.getFullYear();
-
-            var h = now.getHours();
-            var m = now.getMinutes();
-            var s = now.getSeconds();
-            var ampm = h >= 12 ? 'PM' : 'AM';
-            h = h % 12;
-            h = h ? h : 12;
-            h = checkTime(h);
-            m = checkTime(m);
-            s = checkTime(s);
-            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
-            var t = setTimeout(startTime, 500);
-          }
-          function checkTime(i) {
-            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-            return i;
-          }
-
-          function update_Username(Username) {
-            $("#Username").text(String(Username));
-          }
-
-          function update_Cur_rate(Cur_rate) {
-            $("#Cur_rate").text(String(Cur_rate));
-            $("#Cur_rate2").text(String(Cur_rate));
-          }
-
-          window.onload = function () {
-            startTime();
-            setValue();
-{#			brightness();#}
-{#			color();#}
-			renderChart();
-			$('#log').DataTable({
-				"order": [
-					[0, "desc"]
-				]
-			});
-            //renderCP1();
-            //renderCP2();
-            //renderGauge();
-          }
-        </script>
     </body>
 
 </html>
