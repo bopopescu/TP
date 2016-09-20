@@ -37,7 +37,8 @@
         <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
-        <script>
+        <link href="/static/newassets/custom/side_nav_alldevices.css" rel="stylesheet" type="text/css">
+		<script>
 function setValue() {
   //User Information
   update_Username("admin");
@@ -171,11 +172,11 @@ function setValue() {
 
 
 .brightness-slider {
-    background: rgba(54,198,211,1); /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* Standard syntax */
+    background: rgba(53,152,220,1); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* Standard syntax */
 }
 
 .progress{
@@ -229,7 +230,7 @@ function setValue() {
     line-height: 20px;
     background: rgba(0,0,0,0.2);
 	border-radius: 50%!important;
-	border-style: solid;
+	/*border-style: solid;*/
 	border-color: #aaaaaa;
 }
 
@@ -356,66 +357,15 @@ a:hover {
       </head>
     <!-- END HEAD -->
 
-    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed page-sidebar-closed">
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
         <!-- BEGIN HEADER -->
-        <div class="page-header navbar navbar-fixed-top">
-            <!-- BEGIN HEADER INNER -->
-            <div class="page-header-inner">
-                <!-- BEGIN LOGO -->
-                <div class="page-logo">
-                    <a href="/">
-                    <img src="/static/images/pea/PEA.png" width="57" height="66" alt="logo" class="logo-default" style="
-                    margin-top: 5px;">
-                    </a>
-                    <!--<div class="menu-toggler sidebar-toggler">-->
-                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    <!--</div>-->
-                </div>
-                <!-- END LOGO -->
-                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-                <!-- END RESPONSIVE MENU TOGGLER -->
-                <!-- BEGIN PAGE TOP -->
-                <div class="page-top">
-                    <!-- BEGIN TOP NAVIGATION MENU -->
-                    <div class="top-menu">
-                        <ul class="nav navbar-nav pull-right">
-                            <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                                <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
-                                  <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
-                                    <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
-                                    <span class="" style="color:#eeeeee">Current Rate </span>
-                                    <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
-                                  </span>
-                                </a>
-                            </li>-->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username"> Signed in as <span id="Username"></span> </span>
-                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <img alt="" class="img-circle"> </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <a href="/user_settings"><i class="icon-user"></i> My Profile </a>
-                                        <a href="/logout"><i class="icon-key"></i> Log Out </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END USER LOGIN DROPDOWN -->
-                        </ul>
-                    </div>
-                    <!-- END TOP NAVIGATION MENU -->
-                </div>
-                <!-- END PAGE TOP -->
-            </div>
-            <!-- END HEADER INNER -->
-        </div>
+        {% include 'top_nav.html' %}
         <!-- END HEADER -->
+
         <!-- BEGIN HEADER & CONTENT DIVIDER -->
         <div class="clearfix"> </div>
         <!-- END HEADER & CONTENT DIVIDER -->
+
         <!-- BEGIN CONTAINER -->
         <div class="page-container">
             {% include 'sidebar.html' %}
@@ -424,156 +374,18 @@ a:hover {
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content" style="min-height: 981px;">
-                    <div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
-                      <div class="col-md-4 col-sm-4 col-xs-12">
-                        <ul class="page-breadcrumb">
-                            <li>
-                                <i class="icon-home"></i>
-                                <a href="/">Home</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <span>Dashboard</span>
-                            </li>
-                        </ul>
-                      </div>
-                      <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
-                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
-                      </div>
-                      <div class="col-md-8 col-sm-8 visible-xs-block">
-                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
-                      </div>
-
-                    </div>
+                    <!-- BEGIN page_breadcrumb -->
+                    {% include 'page_breadcrumb.html' %}
+                    <!-- END page_breadcrumb -->
                     <br>
 					
 					<div class="row ">
 						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 hidden-xs">
 							<!-- BEGIN PORTLET-->
-							<div class="portlet light bordered">
-								<div class="portlet-title tabbable-line">
-									<div class="caption">
-										<i class="icon-bar-chart font-dark hide"></i>
-										<span class="caption-subject font-dark bold uppercase">Load Devices</span>
-									</div>
-
-
-								</div>
-								<div class="portlet-body">
-									<div class="tab-content">
-										<div class="scroller">
-											<div class="widget-thumb widget-bg-color-white  margin-bottom-20 bordered" style="padding: 0;">
-												<a href="/light/0017881cab4b">
-													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;background-color:#dddddd">
-														<div class="col-lg-10 col-sm-10 col-xs-10">
-															<span class="info-box-icon" style="background-color: white"><i class="icon-bulb" style="color:black"></i> </span>
-															<div class="info-box-content ">
-																<div class="device-name">Light</div>
-																<div class="device-consumption ">
-																	<div class="device-watt">
-																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
-																	</div>
-																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-lg-2 col-sm-2 col-xs-2">
-															<div class="float_r">
-																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
-																<div style="text-align: center;"> On</div>
-															</div>
-														</div>
-													</div>
-												</a>
-												<a href="/plug/221520K010067C">
-													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
-														<div class="col-lg-10 col-sm-10 col-xs-10">
-															<span class="info-box-icon" style="background-color: white"><i class="fa fa-plug" style="font-size:35px;margin-top:23px;color:black"></i> </span>
-															<div class="info-box-content ">
-																<div class="device-name">Plug</div>
-																<div class="device-consumption ">
-																	<div class="device-watt">
-																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
-																	</div>
-																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-lg-2 col-sm-2 col-xs-2">
-															<div class="float_r" style="color: #666666">
-																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
-																<div style="text-align: center;"> Off</div>
-															</div>
-														</div>
-													</div>
-												</a>
-												<a href="/light/0017881cab4bd">
-													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
-														<div class="col-lg-10 col-sm-10 col-xs-10">
-															<span class="info-box-icon" style="background-color: white"><i class="flaticon-thermometer" style="color:black"></i> </span>
-															<div class="info-box-content ">
-																<div class="device-name">Air Conditioner</div>
-																<div class="device-consumption ">
-																	<div class="device-watt">
-																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
-																	</div>
-																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-lg-2 col-sm-2 col-xs-2">
-															<div class="float_r" style="color: #666666">
-																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
-																<div style="text-align: center;"> Off</div>
-															</div>
-														</div>
-													</div>
-												</a>
-												<a href="./zone_devices_all.html">
-													<div class="widget-thumb-wrap" style=" padding-top: 15px; border-bottom: #EEE 1px solid;">
-														<div class="col-lg-10 col-sm-10 col-xs-10">
-															<span class="info-box-icon" style="background-color: white"><i class="flaticon-wind-mill" style="color:black"></i> </span>
-															<div class="info-box-content ">
-																<div class="device-name">Fan</div>
-																<div class="device-consumption ">
-																	<div class="device-watt">
-																		<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>15.59 W
-																	</div>
-																	<div class="device-hour-usage "><i class="fa fa-clock-o"></i> 7 h 15 min ago
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-lg-2 col-sm-2 col-xs-2">
-															<div class="float_r" style="color: #666666">
-																<div class="device-btt-status"><br><i class="fa fa-power-off"></i></div>
-																<div style="text-align: center;"> Off</div>
-															</div>
-														</div>
-													</div>
-												</a>
-												
-
-											</div>
-										</div>
-										<div class="add-device-form">
-											<a href="addDevice.html">
-												<span><i class="fa fa-plus-circle"></i></span>
-												<span class="add-text">Add device</span>
-											</a>
-										</div>
-									</div>
-
-
-								</div>
-
-							</div>
+							{% include 'side_nav_alldevices.html' %}
 							<!-- END PORTLET-->
 						</div>
-						<div class="col-lg-8 col-md-7  col-sm-7 col-xs-12">
+						<div class="col-lg-8 col-md-7  col-sm-12 col-xs-12">
 							<!-- BEGIN PORTLET-->
 							<div class="portlet light bordered">
 								<div class="portlet-title">
@@ -597,12 +409,15 @@ a:hover {
 												<div class="col-lg-3 col-md-5 col-sm-4 col-xs-12 ">
 													<div class="device-status-form">
 														<div class="sub-title">Status</div>
-														<div style="display: flex; "><i class="fa fa-lightbulb-o"
-																						style="margin: auto;line-height: 85px;font-size: 85px; height:100px;color: lightskyblue;"></i></div>
+														<br>
+														<div style="display: flex; ">
+															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/lighting_b.png"></img>
+														</div>
+														<br>
 														<div style="display: flex ">
 															<div style=" margin: auto;  ">
 
-																<input type="checkbox" class="make-switch" checked data-size="small"
+																<input type="checkbox" class="make-switch" checked data-size="medium"
 																   data-on-color="success" data-on-text="ON" data-off-color="default"
 																   data-off-text="OFF">
 
@@ -914,7 +729,7 @@ a:hover {
 														<td>2.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-on">On</div>
+															<div class="label label-sm label-info">On</div>
 														</td>
 													</tr>
 													<tr>
@@ -923,7 +738,7 @@ a:hover {
 														<td>3.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-off">Off</div>
+															<div class="label label-sm label-default">Off</div>
 														</td>
 													</tr>
 													<tr>
@@ -932,7 +747,7 @@ a:hover {
 														<td>4.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-online">Online</div>
+															<div class="label label-sm label-success">Online</div>
 														</td>
 													</tr>
 													<tr>
@@ -941,7 +756,7 @@ a:hover {
 														<td>5.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-offline">Offline</div>
+															<div class="label label-sm label-danger">Offline</div>
 														</td>
 													</tr>
 													<tr>
@@ -950,7 +765,7 @@ a:hover {
 														<td>6.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-on">On</div>
+															<div class="label label-sm label-warning">Edited</div>
 														</td>
 													</tr>
 
@@ -1014,64 +829,7 @@ a:hover {
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 		<script src="/static/app_js/lighting.js" type="text/javascript"></script>
 
-        <!--<script type="text/javascript">-->
 
-          <!--function startTime() {-->
-            <!--var now = new Date();-->
-            <!--var monthNames = [-->
-              <!--"January", "February", "March",-->
-              <!--"April", "May", "June", "July",-->
-              <!--"August", "September", "October",-->
-              <!--"November", "December"-->
-            <!--];-->
-
-            <!--var date = new Date();-->
-            <!--var day = now.getDate();-->
-            <!--var monthIndex = now.getMonth();-->
-            <!--var year = now.getFullYear();-->
-
-            <!--var h = now.getHours();-->
-            <!--var m = now.getMinutes();-->
-            <!--var s = now.getSeconds();-->
-            <!--var ampm = h >= 12 ? 'PM' : 'AM';-->
-            <!--h = h % 12;-->
-            <!--h = h ? h : 12;-->
-            <!--h = checkTime(h);-->
-            <!--m = checkTime(m);-->
-            <!--s = checkTime(s);-->
-            <!--$('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);-->
-            <!--var t = setTimeout(startTime, 500);-->
-          <!--}-->
-          <!--function checkTime(i) {-->
-            <!--if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10-->
-            <!--return i;-->
-          <!--}-->
-
-          <!--function update_Username(Username) {-->
-            <!--$("#Username").text(String(Username));-->
-          <!--}-->
-
-          <!--function update_Cur_rate(Cur_rate) {-->
-            <!--$("#Cur_rate").text(String(Cur_rate));-->
-            <!--$("#Cur_rate2").text(String(Cur_rate));-->
-          <!--}-->
-
-          <!--window.onload = function () {-->
-            <!--startTime();-->
-            <!--setValue();-->
-			<!--brightness();-->
-			<!--color();-->
-			<!--renderChart();-->
-			<!--$('#log').DataTable({-->
-				<!--"order": [-->
-					<!--[0, "desc"]-->
-				<!--]-->
-			<!--});-->
-            <!--//renderCP1();-->
-            <!--//renderCP2();-->
-            <!--//renderGauge();-->
-          <!--}-->
-        <!--</script>-->
     </body>
 
 </html>

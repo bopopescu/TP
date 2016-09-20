@@ -2,7 +2,9 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en"><!--<![endif]--><!-- BEGIN HEAD --><head>
+<html lang="en"><!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
         <meta charset="utf-8">
         <title>PEA Smart Home</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -171,11 +173,11 @@ function setValue() {
 
 
 .brightness-slider {
-    background: rgba(54,198,211,1); /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* Standard syntax */
+	background: rgba(53,152,220,1); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* Standard syntax */
 }
 
 .progress{
@@ -229,7 +231,7 @@ function setValue() {
     line-height: 20px;
     background: rgba(0,0,0,0.2);
 	border-radius: 50%!important;
-	border-style: solid;
+	/*border-style: solid;*/
 	border-color: #aaaaaa;
 }
 
@@ -356,66 +358,15 @@ a:hover {
       </head>
     <!-- END HEAD -->
 
-    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed page-sidebar-closed">
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
         <!-- BEGIN HEADER -->
-        <div class="page-header navbar navbar-fixed-top">
-            <!-- BEGIN HEADER INNER -->
-            <div class="page-header-inner">
-                <!-- BEGIN LOGO -->
-                <div class="page-logo">
-                    <a href="/">
-                    <img src="/static/images/pea/PEA.png" width="57" height="66" alt="logo" class="logo-default" style="
-                    margin-top: 5px;">
-                    </a>
-                    <!--<div class="menu-toggler sidebar-toggler">-->
-                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    <!--</div>-->
-                </div>
-                <!-- END LOGO -->
-                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-                <!-- END RESPONSIVE MENU TOGGLER -->
-                <!-- BEGIN PAGE TOP -->
-                <div class="page-top">
-                    <!-- BEGIN TOP NAVIGATION MENU -->
-                    <div class="top-menu">
-                        <ul class="nav navbar-nav pull-right">
-                            <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                                <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
-                                  <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
-                                    <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
-                                    <span class="" style="color:#eeeeee">Current Rate </span>
-                                    <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
-                                  </span>
-                                </a>
-                            </li>-->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username"> Signed in as <span id="Username"></span> </span>
-                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <img alt="" class="img-circle"> </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <a href="/user_settings"><i class="icon-user"></i> My Profile </a>
-                                        <a href="/logout"><i class="icon-key"></i> Log Out </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END USER LOGIN DROPDOWN -->
-                        </ul>
-                    </div>
-                    <!-- END TOP NAVIGATION MENU -->
-                </div>
-                <!-- END PAGE TOP -->
-            </div>
-            <!-- END HEADER INNER -->
-        </div>
+        {% include 'top_nav.html' %}
         <!-- END HEADER -->
+
         <!-- BEGIN HEADER & CONTENT DIVIDER -->
         <div class="clearfix"> </div>
         <!-- END HEADER & CONTENT DIVIDER -->
+
         <!-- BEGIN CONTAINER -->
         <div class="page-container">
             {% include 'sidebar.html' %}
@@ -424,40 +375,24 @@ a:hover {
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content" style="min-height: 981px;">
-                    <div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
-                      <div class="col-md-4 col-sm-4 col-xs-12">
-                        <ul class="page-breadcrumb">
-                            <li>
-                                <i class="icon-home"></i>
-                                <a href="/">Home</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <span>Dashboard</span>
-                            </li>
-                        </ul>
-                      </div>
-                      <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
-                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
-                      </div>
-                      <div class="col-md-8 col-sm-8 visible-xs-block">
-                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
-                      </div>
-
-                    </div>
+                    <!-- BEGIN page_breadcrumb -->
+                    {% include 'page_breadcrumb.html' %}
+                    <!-- END page_breadcrumb -->
                     <br>
 					
 					<div class="row ">
 						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 hidden-xs">
+							<!-- BEGIN PORTLET-->
 							{% include 'side_nav_alldevices.html' %}
+							<!-- END PORTLET-->
 						</div>
-						<div class="col-lg-8 col-md-7  col-sm-7 col-xs-12">
+						<div class="col-lg-8 col-md-7  col-sm-12 col-xs-12">
 							<!-- BEGIN PORTLET-->
 							<div class="portlet light bordered">
 								<div class="portlet-title">
 									<div class="caption">
 										<i class="icon-share font-red-sunglo hide"></i>
-										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Lighting</strong></span>
+										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Air Conditioner</strong></span>
 										<!--<span class="caption-helper">monthly stats...</span>-->
 									</div>
 
@@ -466,7 +401,7 @@ a:hover {
 									<div class="portlet light bordered" style="padding-top: 0;">
 										<div class="portlet-title ">
 											<div class="caption">
-												<span class="caption-subject font-grey-cascade bold">Lighting Controllers</span>
+												<span class="caption-subject font-grey-cascade bold">Air Conditioner Controllers</span>
 
 											</div>
 										</div>
@@ -475,12 +410,15 @@ a:hover {
 												<div class="col-lg-3 col-md-5 col-sm-4 col-xs-12 ">
 													<div class="device-status-form">
 														<div class="sub-title">Status</div>
-														<div style="display: flex; "><i class="fa fa-lightbulb-o"
-																						style="margin: auto;line-height: 85px;font-size: 85px; height:100px;color: lightskyblue;"></i></div>
+														<br>
+														<div style="display: flex; ">
+															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/airconditioner_b.png"></img>
+														</div>
+														<br>
 														<div style="display: flex ">
 															<div style=" margin: auto;  ">
 
-																<input type="checkbox" class="make-switch" checked data-size="small"
+																<input type="checkbox" class="make-switch" checked data-size="medium"
 																   data-on-color="success" data-on-text="ON" data-off-color="default"
 																   data-off-text="OFF">
 
@@ -492,8 +430,8 @@ a:hover {
 													</div>
 												</div>
 												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
-													<div class="brightness-form">
-														<div class="sub-title hidden-xs">Brightness</div>
+													<div class="airCond-row1-form">
+														<div class="sub-title hidden-xs">Temperature Control</div>
 														<div style="display: flex;width:100%;">
 															<div class="row" style="margin: auto">
 																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
@@ -501,24 +439,13 @@ a:hover {
 																</button>
 																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
 																	25%
-																</button>
-																<button id="b-50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	50%
-																</button>
-																<button id="b-75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	75%
-																</button>
-																<button id="b-100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	100%
-																</button>
-
 															</div>
 														</div>
 														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
 
 													</div>
 													<div class="colors-form">
-														<div class="sub-title">Colors</div>
+														<div class="sub-title">Mode Control</div>
 														<div style="width:100%; display: flex;" >
 															<div class="row" style="margin: auto">
 															<style>
@@ -550,6 +477,31 @@ a:hover {
 														</div>
 													</div>
 												</div>
+													<div class="brightness-form">
+														<div class="sub-title hidden-xs">Fan Control</div>
+														<div style="display: flex;width:100%;">
+															<div class="row" style="margin: auto">
+																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	0%
+																</button>
+																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	25%
+																</button>
+																<button id="b-50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	50%
+																</button>
+																<button id="b-75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	75%
+																</button>
+																<button id="b-100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	100%
+																</button>
+
+															</div>
+														</div>
+														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
+
+													</div>
 											</div>
 										</div>
 									</div>
@@ -558,7 +510,7 @@ a:hover {
 									<div class="portlet light bordered">
 									<div class="portlet-title tabbable-line">
 										<div class="caption">
-											<span class="caption-subject font-grey-cascade bold ">Lighting Data</span>
+											<span class="caption-subject font-grey-cascade bold ">Air Conditioner Data</span>
 										</div>
 										<ul class="nav nav-tabs">
 											<li class="active">
@@ -726,19 +678,19 @@ a:hover {
 														<table class="table table-responsive">
 															<tr>
 																<td>Nickname:</td>
-																<td class="detail">Lighting</td>
+																<td class="detail">Air Conditioner Living Room 1</td>
 															</tr>
 															<tr>
 																<td>Vendor:</td>
-																<td class="detail">Loyal Phillips Electronics</td>
+																<td class="detail">SAIJO DENKI</td>
 															</tr>
 															<tr>
 																<td>Model:</td>
-																<td class="detail">Phillips Hue bridge 2012</td>
+																<td class="detail">TURBO A.P.S-19</td>
 															</tr>
 															<tr>
 																<td>Serial Number:</td>
-																<td class="detail">123456</td>
+																<td class="detail">1607S00016219</td>
 															</tr>
 															<tr>
 																<td>Mac Address:</td>
@@ -792,7 +744,7 @@ a:hover {
 														<td>2.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-on">On</div>
+															<div class="label label-sm label-info">On</div>
 														</td>
 													</tr>
 													<tr>
@@ -801,7 +753,7 @@ a:hover {
 														<td>3.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-off">Off</div>
+															<div class="label label-sm label-default">Off</div>
 														</td>
 													</tr>
 													<tr>
@@ -810,7 +762,7 @@ a:hover {
 														<td>4.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-online">Online</div>
+															<div class="label label-sm label-success">Online</div>
 														</td>
 													</tr>
 													<tr>
@@ -819,7 +771,7 @@ a:hover {
 														<td>5.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-offline">Offline</div>
+															<div class="label label-sm label-danger">Offline</div>
 														</td>
 													</tr>
 													<tr>
@@ -828,7 +780,7 @@ a:hover {
 														<td>6.22 pm</td>
 														<td>2 h 14 min</td>
 														<td>
-															<div class="dtl-on">On</div>
+															<div class="label label-sm label-warning">Edited</div>
 														</td>
 													</tr>
 
