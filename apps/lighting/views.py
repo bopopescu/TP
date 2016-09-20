@@ -86,32 +86,35 @@ def lighting(request, mac):
         request.session['visits'] = 1
     
     mac = mac.encode('ascii', 'ignore')
+    print "lighting request from mac: {}".format(mac)
 
-    device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
-    print device_metadata
-    device_id = device_metadata[0]['device_id']
-    controller_type = device_metadata[0]['device_model_id']
-    controller_type = controller_type.device_model_id
+    # device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
+    # print device_metadata
+    # device_id = device_metadata[0]['device_id']
+    # controller_type = device_metadata[0]['device_model_id']
+    # controller_type = controller_type.device_model_id
+    #
+    # device_status = [ob.data_as_json() for ob in Lighting.objects.filter(lighting_id=device_id)]
+    # device_zone = device_status[0]['zone']['id']
+    # device_nickname = device_status[0]['nickname']
+    # zone_nickname = device_status[0]['zone']['zone_nickname']
+    #
+    # _data = _helper.get_page_load_data(device_id, 'lighting', controller_type)
+    #
+    # device_list_side_nav = get_device_list_side_navigation()
+    # context.update(device_list_side_nav)
+    # active_al = get_notifications()
+    # context.update({'active_al':active_al})
+    # bemoss_not = general_notifications()
+    # context.update({'b_al': bemoss_not})
 
-    device_status = [ob.data_as_json() for ob in Lighting.objects.filter(lighting_id=device_id)]
-    device_zone = device_status[0]['zone']['id']
-    device_nickname = device_status[0]['nickname']
-    zone_nickname = device_status[0]['zone']['zone_nickname']
-
-    _data = _helper.get_page_load_data(device_id, 'lighting', controller_type)
-
-    device_list_side_nav = get_device_list_side_navigation()
-    context.update(device_list_side_nav)
-    active_al = get_notifications()
-    context.update({'active_al':active_al})
-    bemoss_not = general_notifications()
-    context.update({'b_al': bemoss_not})
 
     return render_to_response(
         'lighting/lighting.html',
-        {'type': controller_type, 'device_data': _data, 'device_id': device_id, 'device_zone': device_zone,
-         'device_type': controller_type, 'mac_address': mac, 'zone_nickname': zone_nickname,
-         'device_nickname': device_nickname}, context)
+        # {'type': controller_type, 'device_data': _data, 'device_id': device_id, 'device_zone': device_zone,
+        #  'device_type': controller_type, 'mac_address': mac, 'zone_nickname': zone_nickname,
+        #  'device_nickname': device_nickname}, context)
+        {'type': "lighting"}, context)
 
 
 #Update lighting controller status
