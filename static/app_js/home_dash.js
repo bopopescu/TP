@@ -46,12 +46,19 @@ under Contract DE-EE0006352
 #__lastUpdated__ = "2016-03-14 11:23:33"
 
 **/
+//current energy consumption update picture
 var img_grid = 0;
 var img_solar = 0 ;
 var img_ev = 0;
 var G = 0;
 var S = 0;
 var E = 0;
+//Mode update picture
+var M = 0;
+var img_mode = 0;
+//weather update picture
+var W = 0;
+var img_weather = 0;
 
           window.CPT_kwh = 0;
           window.CPT_max = 0;
@@ -459,8 +466,20 @@ $( document ).ready(function() {
             update_LT3_comp(_message.daily_bill_plug_compare_percent);
             update_LT4_baht(_message.daily_bill_EV);
             update_LT4_comp(_message.daily_bill_EV_compare_percent);
-            update_AEC_use(_message.netzero_onsite_generation);
-            update_AEC_gen(_message.netzero_energy_consumption);
+            update_CPM_kwh(_message.monthly_energy_usage);
+            update_CPM_baht(_message.monthly_electricity_bill);
+            update_CPM_comp(_message.last_month_bill_compare);
+            update_CPM_max(_message.last_month_energy_usage);
+            update_LM1_baht(_message.monthly_bill_light);
+            update_LM1_comp(_message.monthly_bill_light_compare_percent);
+            update_LM2_baht(_message.monthly_bill_AC);
+            update_LM2_comp(_message.monthly_bill_AC_compare_percent);
+            update_LM3_baht(_message.monthly_bill_plug);
+            update_LM3_comp(_message.monthly_bill_plug_compare_percent);
+            update_LM4_baht(_message.monthly_bill_EV);
+            update_LM4_comp(_message.monthly_bill_EV_compare_percent);
+            update_AEC_use(_message.netzero_energy_consumption);
+            update_AEC_gen(_message.netzero_onsite_generation);
 
          } else if (_headers.data_source == 'EVApp') {
              update_EV_percent(_message.percentage_charge);
@@ -472,6 +491,8 @@ $( document ).ready(function() {
          }  else if (_headers.data_source == 'modeApp') {
             update_MODE(_message.home_mode);
             update_MODE_baht(_message.ECO_saving_cost);
+            img_mode = _message.home_mode;
+            console.log("Mode = "+ img_mode);
 
          } else if (_headers.data_source == 'devicesStatus') {
             update_LOAD1_on(_message.number_lamp_working);
@@ -482,12 +503,16 @@ $( document ).ready(function() {
             update_LOAD3_all(_message.total_plug);
          }
          console.log("Update function");
-         img_grid = 101 ;
-         img_solar = null ;
-         img_ev = 10 ;
+         //Test change current energy consumption image
+         // img_grid = 100 ;
+         // img_solar = 0.100 ;
+         // img_ev = 0 ;
          update_ENERGY_pic(img_grid, img_solar, img_ev);
          $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png')
-
+         //Test change mode image
+         // img_mode = 'COMFORT' ;
+         update_MODE_pic(img_mode);
+         $('#MODE_pic').attr('src', '../static/images/Mode/' + img_mode + '.png')
 
 
          // document.getElementById("SOLAR_kw").innerHTML = _message.solar_activePower;
@@ -505,7 +530,7 @@ $( document ).ready(function() {
      };
 
 
-<!-- BEGIN Current Energy Consumption Pictures-->
+// <!-- BEGIN Current Energy Consumption Pictures-->
     function update_ENERGY_pic(G, S, E){
     console.log("G = " + G , "S = " + S , "E = " + E );
      if (typeof G == "undefined"){
@@ -536,11 +561,39 @@ $( document ).ready(function() {
          }
      }
     console.log("G = " + G , "S = " + S , "E = " + E );
-    console.log("image changed to : " + img_grid + img_solar + img_ev)
+    console.log("image changed to : " + img_grid + img_solar + img_ev);
 
     }
 // <!--END Current Energy Consumption Pictures-->
+// <!-- BEGIN Mode Pictures-->
+    function update_MODE_pic(M){
+    console.log("M = " + M);
+        if (M == 'COMFORT'){
+           img_mode = 'comfort_mode';}
+        else if(M == 'ECO'){
+            img_mode = 'eco_mode';
+        }else if(M == 'DR'){
+            img_mode = 'dr_mode';
+        }
+    // console.log("Mode = " + M );
+    console.log("image mode  : " + img_mode);
+}
+// <!--END Mode Pictures-->
 
+// // Begin Weather picture
+//    function update_WEATHER_pic(W){
+//     console.log("W = " + W);
+//         if (W == 'SUNNY'){
+//            img_weather = 'sun';}
+//         else if(M == 'RAINNY'){
+//             img_weather = 'rain-1';
+//         }else if(M == 'CLOUNDY'){
+//             img_weather = 'cloudy';
+//         }
+//     // console.log("Mode = " + M );
+//     console.log("image weather  : " + img_weather);
+//
+// // End Weather picture
 
     function update_discovery_status(message){
         if (role == 'admin' || zone == uzone){
