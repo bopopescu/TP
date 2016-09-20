@@ -96,6 +96,8 @@ urlpatterns = patterns('',
     (r'^hue/$', 'lighting.views.philipshue'),
     #lighting controller
     (r'^light/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.lighting.views.lighting'),
+    #air controller
+    (r'^airconditioner/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.airconditioner.views.airconditioner'),
     #lighting controller update device 
     (r'^update_light/$', 'apps.lighting.views.update_device_light'),
     #lighting controller update device 
