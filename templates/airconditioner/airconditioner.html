@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"><!--<![endif]--><!-- BEGIN HEAD --><head>
+        <meta charset="utf-8">
+        <title>PEA Smart Home</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="PEA Smart Home" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+{#        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">#}
+        <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+		<link rel="stylesheet" href="/static/newassets/global/plugins/nouislider/nouislider.min.css" type="text/css">
+		<link rel="stylesheet" href="/static/newassets/global/plugins/nouislider/nouislider.pips.css" type="text/css">
+		<link href="/static/newassets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css">
+		<link href="/static/newassets/global/plugins/jquery-minicolors/jquery.minicolors.css" rel="stylesheet" type="text/css">
+		<link href="/static/newassets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="/static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/static/newassets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="/static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
+
+        <link href="/static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+        <script>
+function setValue() {
+  //User Information
+  update_Username("admin");
+
+  //Current Rate
+  update_Cur_rate("4.32");
+}
+        </script>
+		<style>
+		
+/*--Basic style*/
+.h10{ height:10px;  }
+.h20{ height:20px;  }
+.h30{ height:30px;  }
+.h40{ height:40px;  }
+.h50{ height:50px;  }
+
+.sub-title {
+    font-weight: bold;
+    color: darkslategrey;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.information-image{
+    height: 75%; display: flex;
+}
+
+.information-image img{
+    height: 100%; width: 100%; margin: auto
+}
+
+/*-- load device stylesheet*/
+.device-name{
+    padding-bottom: 7px;
+    padding-top: 0 ;
+    color: darkslategrey ;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+
+
+.device-consumption{
+    color: #999     ;
+    height: 50px;
+}
+.device-watt, .device-hour-usage{
+    font-size: 11px;
+    /*height: 50px;*/
+    padding-bottom: 0;
+}
+
+.widget-thumb-wrap:hover{
+    background-color: #eee;
+}
+
+.widget-thumb-wrap a{
+    color: #000;
+}
+
+
+.float_r{
+    float: right;
+}
+
+.float_l{
+    float: left;
+}
+
+.device-btt-status, .add-device-form{
+    line-height: 15px;
+    padding-bottom: 5px;
+}
+
+.add-device-form .addDevice-text{
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.device-btt-status, .add-device-form i{
+    font-size: 25px;
+}
+
+/*--  Lighting Controller--*/
+.device-status-form{
+    width:100%;
+    border: 1px solid #EEE;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding:10px;
+}
+
+
+
+.device-controller-form {
+    background-color: white;
+    color :grey;
+    border:1px #EEE solid;
+    padding:10px;
+    height:auto;
+}
+
+.set-schedule-form{
+    color:blue;
+    background-color: skyblue;
+    width:100%;
+    padding-left: 0;
+    border: 1px solid blue;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding-bottom: 5px;
+    display: flex;
+}
+
+
+
+
+
+.brightness-form, .colors-form, .airCond-row1-form, .airCond-row2-form, .ac-temperature-form, .ac-swing-form
+, .fan-row1-form, .fan-row2-form, .fan-row3-form, .fan-row4-form{
+    margin-bottom: 15px;
+    min-height: 102px;
+    height: auto;
+    border: 1px #EEE solid;
+    padding:10px;
+}
+
+
+
+
+
+.brightness-slider {
+    background: rgba(54,198,211,1); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(54,198,211,0.2), rgba(54,198,211,1)); /* Standard syntax */
+}
+
+.progress{
+    height: 20px !important;
+}
+
+.progress .sr-only{
+    position: relative;}
+
+/*-------Lighting Data--------*/
+
+
+.row table{
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 0;
+    color: grey;
+    border:none;
+}
+
+.row table .detail {
+    font-weight: bold;
+    color: darkslategrey;
+}
+
+
+
+.topic {
+    font-size: 13px;
+    color: lightslategray;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.value {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+/*-------------Pong's Stylesheet-----------------*/
+
+
+.info-box-icon {
+    display: block;
+    float: left;
+    height: 65px;
+    width: 65px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 20px;
+    background: rgba(0,0,0,0.2);
+	border-radius: 50%!important;
+	border-style: solid;
+	border-color: #aaaaaa;
+}
+
+.info-box-icon i{
+    line-height: 65px;
+    font-size: 40px;
+}
+
+
+
+.info-box-content {
+    padding: 0 10px;
+    margin-left: 70px;
+}
+
+.progress-description, .info-box-text1 {
+    display: block;
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.progress-description, .info-box-text2 {
+    display: block;
+    color: #666666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info-box-number {
+    display: block;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.info-box-number small {
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.info-box-number span {
+    font-size: 18px;
+}
+
+
+/******* Add Device StyleSheet*******/
+
+.dtl-on{ width: 100%; background-color: skyblue; color: white;}
+.dtl-off{width: 100%; background-color: lightgrey; color: white;}
+.dtl-online{width: 100%; background-color: lightgreen; color: white;}
+.dtl-offline{width: 100%; background-color: red; color: white;}
+
+
+.device-data{
+
+}
+
+.device-data table tbody tr td {
+    padding: 5px;
+    border:none;
+}
+
+.device-data table tbody tr td input{
+    width:100%;
+    width:100%;
+}
+
+
+/*-----air conditioner stylesheet------*/
+
+
+.ac-mode-setting, .ac-fanSpeed-setting {
+    border: 1px #EEE solid;
+    padding:10px;
+    min-height: 51px;
+    margin-bottom: 15px;
+    display: flex;
+
+}
+
+.forAC-btt button{
+    width:auto;
+}
+
+.ac-temperature-setting, .ac-swing-setting {
+    padding: 10px;
+    /*display: flex;*/
+    min-height: 150px;
+    height: auto;
+    /*width:100%;*/
+    border: 1px     #EEE solid;
+    margin-bottom: 15px;
+
+}
+
+
+
+.ac-swing-arrow{
+    min-height:60px;
+}
+
+.ac-swing-arrow button{
+    margin:4px;
+    width: auto;
+    border:3px solid #EEE;
+    background-color: white;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before {
+	font-size: 45px;
+}
+
+/**----------Standing Fan StyleSheet-------------*/
+
+
+		</style>
+      </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed page-sidebar-closed">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="/">
+                    <img src="/static/images/pea/PEA.png" width="57" height="66" alt="logo" class="logo-default" style="
+                    margin-top: 5px;">
+                    </a>
+                    <!--<div class="menu-toggler sidebar-toggler">-->
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    <!--</div>-->
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                                <a href="/realtime_price" class="dropdown-toggle" style="padding-top: 20px;padding-bottom: 15px;">
+                                  <span class="badge" style="height:43px;padding-top: 15px;padding-bottom: 15px;background-color: #5B5Fa1;font-size:13px!important">
+                                    <i class="glyphicon glyphicon-flash" style="color:#eeeeee"></i>
+                                    <span class="" style="color:#eeeeee">Current Rate </span>
+                                    <span class="" style="color:#ffffaa"><span id="Cur_rate"></span> ฿/kWh</span>
+                                  </span>
+                                </a>
+                            </li>-->
+                            <!-- BEGIN USER LOGIN DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username"> Signed in as <span id="Username"></span> </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <img alt="" class="img-circle"> </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="/user_settings"><i class="icon-user"></i> My Profile </a>
+                                        <a href="/logout"><i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            {% include 'sidebar.html' %}
+			
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height: 981px;">
+                    <div class="row" style="background-color: white;padding:10px 0px 10px 0px;margin-left:0px;margin-right:0px">
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="/">Home</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Dashboard</span>
+                            </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-8 col-sm-8 hidden-xs" style="text-align:right">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 visible-xs-block">
+                        <span class="font-blue"><span class="fa fa-money"></span> Current Rate: <b id="Cur_rate2"></b> ฿/kWh</span>&nbsp; <span class="current_time"></span>
+                      </div>
+
+                    </div>
+                    <br>
+					
+					<div class="row ">
+						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 hidden-xs">
+							{% include 'side_nav_alldevices.html' %}
+						</div>
+						<div class="col-lg-8 col-md-7  col-sm-7 col-xs-12">
+							<!-- BEGIN PORTLET-->
+							<div class="portlet light bordered">
+								<div class="portlet-title">
+									<div class="caption">
+										<i class="icon-share font-red-sunglo hide"></i>
+										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Lighting</strong></span>
+										<!--<span class="caption-helper">monthly stats...</span>-->
+									</div>
+
+								</div>
+								<div class="portlet-body">
+									<div class="portlet light bordered" style="padding-top: 0;">
+										<div class="portlet-title ">
+											<div class="caption">
+												<span class="caption-subject font-grey-cascade bold">Lighting Controllers</span>
+
+											</div>
+										</div>
+										<div class="portlet-body">
+											<div class="row">
+												<div class="col-lg-3 col-md-5 col-sm-4 col-xs-12 ">
+													<div class="device-status-form">
+														<div class="sub-title">Status</div>
+														<div style="display: flex; "><i class="fa fa-lightbulb-o"
+																						style="margin: auto;line-height: 85px;font-size: 85px; height:100px;color: lightskyblue;"></i></div>
+														<div style="display: flex ">
+															<div style=" margin: auto;  ">
+
+																<input type="checkbox" class="make-switch" checked data-size="small"
+																   data-on-color="success" data-on-text="ON" data-off-color="default"
+																   data-off-text="OFF">
+
+															 </div>
+														</div>
+													</div>
+													<div class="btn btn-default" style="width: 100%">
+														<i class="fa fa-clock-o clockSchedule"></i> Set Schedule
+													</div>
+												</div>
+												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
+													<div class="brightness-form">
+														<div class="sub-title hidden-xs">Brightness</div>
+														<div style="display: flex;width:100%;">
+															<div class="row" style="margin: auto">
+																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	0%
+																</button>
+																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	25%
+																</button>
+																<button id="b-50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	50%
+																</button>
+																<button id="b-75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	75%
+																</button>
+																<button id="b-100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																	100%
+																</button>
+
+															</div>
+														</div>
+														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
+
+													</div>
+													<div class="colors-form">
+														<div class="sub-title">Colors</div>
+														<div style="width:100%; display: flex;" >
+															<div class="row" style="margin: auto">
+															<style>
+															.btc {
+																margin:10px;width: auto;border:3px solid #EEE;background-color: white;
+															}
+															</style>
+															<button id="c-d" onclick="setColor('#ffffff')" type="button" class="btc clr btn btn-circle btn-group-sm  col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																 Default
+															</button>
+															<button id="c-ww" onclick="setColor('#ffffee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																Warm White
+															</button>
+															<button id="c-cw" onclick="setColor('#eeeeff')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																Cool White
+															</button>
+															<button id="c-dl" onclick="setColor('#ffeeee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+																Daylight
+															</button>
+															</div>
+														</div>
+														<br>
+														<div class="row">
+															<div class="col-md-offset-3 col-md-6 col-lg-6" style="height: auto;">
+																<div style="border: 3px solid #eee;box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
+																	<input id="colorSelector" id="hidden-input" type="hidden" value="#000">
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<div class="portlet light bordered">
+									<div class="portlet-title tabbable-line">
+										<div class="caption">
+											<span class="caption-subject font-grey-cascade bold ">Lighting Data</span>
+										</div>
+										<ul class="nav nav-tabs">
+											<li class="active">
+												<a href="#dataRealTime" data-toggle="tab"> Real Time </a>
+											</li>
+											<li>
+												<a href="#dataInformation" data-toggle="tab"> Information </a>
+											</li>
+											<li>
+												<a href="#dataDataLog" data-toggle="tab"> Data Log </a>
+											</li>
+										</ul>
+									</div>
+									<div class="portlet-body">
+										<div class="tab-content">
+											<div class="tab-pane active" id="dataRealTime">
+												<div class="row">
+													<!--<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"-->
+														 <!--style=" display: flex; border: solid red;">-->
+													<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+													<script>
+														function renderChart() {
+															$('#highchart_1').highcharts({
+																chart : {
+																	style: {
+																		fontFamily: 'Open Sans'
+																	},
+																	events: {
+																		load: function () {
+																			var series = this.series[0];
+																			setInterval(function () {
+																				var x = (new Date()).getTime(), // current time
+																						y = Math.random()*100;
+																				series.addPoint([x, y], true, true);
+																			}, 1000);
+																		}
+																	}
+																},
+																credits: {
+																	enabled: false
+																},
+																title: {
+																	text: 'Consumption',
+																	x: -20 //center
+																},
+																xAxis: {
+																	type: 'datetime',
+																	tickPixelInterval: 150
+																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+																},
+																yAxis: {
+																	min: 0,
+																	title: {
+																		text: 'Consumption (kWh)'
+																	},
+																	plotLines: [{
+																		value: 0,
+																		width: 1,
+																		color: '#808080'
+																	}]
+																},
+																plotOptions: {
+																	area: {
+																		fillColor: {
+																			linearGradient: {
+																				x1: 0,
+																				y1: 0,
+																				x2: 0,
+																				y2: 1
+																			},
+																			stops: [
+																				[0, Highcharts.getOptions().colors[0]],
+																				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
+																			]
+																		},
+																		marker: {
+																			radius: 2
+																		},
+																		lineWidth: 1,
+																		states: {
+																			hover: {
+																				lineWidth: 1
+																			}
+																		},
+																		threshold: null
+																	}
+																},
+																tooltip: {
+																	valueSuffix: ' kWh'
+																},
+																legend: {
+																	enabled: false
+																},
+																series: [{
+																	type: 'area',
+																	name: 'Consumption',
+																	//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+																	data: [
+																		[(new Date()).getTime() - 12000,30],
+																		[(new Date()).getTime() - 11000,31],
+																		[(new Date()).getTime() - 10000,30],
+																		[(new Date()).getTime() - 9000,27],
+																		[(new Date()).getTime() - 8000,23],
+																		[(new Date()).getTime() - 7000,20],
+																		[(new Date()).getTime() - 6000,15],
+																		[(new Date()).getTime() - 5000,10],
+																		[(new Date()).getTime() - 4000,13],
+																		[(new Date()).getTime() - 3000,15],
+																		[(new Date()).getTime() - 2000,14],
+																		[(new Date()).getTime() - 1000,13],
+																		[(new Date()).getTime(),14]
+																	]
+																}]
+															});
+														}
+													</script>
+													<!--</div>-->
+													<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+
+														<div >
+															<span class="topic">Status:</span>
+															<span class="value">On</span>
+														</div>
+														<br>
+														<div class="row">
+
+															<div class="  col-lg-6 col-md-6 col-sm-6 col-xs-6">
+																<div class="topic">On now for:</div>
+																<div class="value">7 h 15 min</div>
+															</div>
+															<div  class=" eachData col-lg-6 col-md-6 col-sm-6 col-xs-6" >
+																<div class="topic">Since:</div>
+																<div class="value">8:51 pm</div>
+															</div>
+
+															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																<div class="topic">Today on:</div>
+																<div class="value">8 h 34 min</div>
+															</div>
+															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																<div class="topic">Now:</div>
+																<div class="value">15.58 W</div>
+															</div>
+															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																<div class="topic">Today's Consumption</div>
+																<div class="value">3.57 kWh</div>
+															</div>
+															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																<div class="topic">Estimated Daily Cost:</div>
+																<div class="value">11.25 $</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+											<div class="tab-pane " id="dataInformation">
+												<div class="row">
+													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
+														<img src="/static/images/devices/light/hues.jpg" alt="" class="img-responsive img-rounded">
+													</div>
+													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
+														 style=" display: flex; ">
+														<table class="table table-responsive">
+															<tr>
+																<td>Nickname:</td>
+																<td class="detail">Lighting</td>
+															</tr>
+															<tr>
+																<td>Vendor:</td>
+																<td class="detail">Loyal Phillips Electronics</td>
+															</tr>
+															<tr>
+																<td>Model:</td>
+																<td class="detail">Phillips Hue bridge 2012</td>
+															</tr>
+															<tr>
+																<td>Serial Number:</td>
+																<td class="detail">123456</td>
+															</tr>
+															<tr>
+																<td>Mac Address:</td>
+																<td class="detail">0017881cab4b</td>
+															</tr>
+															<tr>
+																<td>Date Added On:</td>
+																<td class="detail">Sep 5, 2016, 8.28 am</td>
+															</tr>
+															<tr>
+																<td>Room/Zone:</td>
+																<td class="detail">All Zone</td>
+															</tr>
+															<tr>
+																<td>Approval Status:</td>
+																<td class="detail">Approved</td>
+															</tr>
+															<tr>
+																<td>IP Address:</td>
+																<td class="detail">192.168.1.23</td>
+															</tr>
+															<tr>
+																<td>Device Status:</td>
+																<td class="detail">ONLINE</td>
+															</tr>
+															<tr>
+																<td>Last Offline Time:</td>
+																<td class="detail">Sep 3, 2016, 2.22 pm</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+											</div>
+											<div class="tab-pane " id="dataDataLog">
+												<table id="log" class="table table-responsive table-container table-hover  ">
+													<thead class="text-center">
+													<tr class="text-center">
+														<td><strong>Status ID</strong></td>
+														<td><strong>Date</strong></td>
+														<td><strong>Time</strong></td>
+														<td><strong>Duration</strong></td>
+														<td><strong>Status</strong></td>
+
+													</tr>
+													</thead>
+													<tbody class="text-center">
+													<tr>
+														<td>1</td>
+														<td>Sep 5, 2016</td>
+														<td>2.22 pm</td>
+														<td>2 h 14 min</td>
+														<td>
+															<div class="dtl-on">On</div>
+														</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>Sep 4, 2016</td>
+														<td>3.22 pm</td>
+														<td>2 h 14 min</td>
+														<td>
+															<div class="dtl-off">Off</div>
+														</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>Sep 3, 2016</td>
+														<td>4.22 pm</td>
+														<td>2 h 14 min</td>
+														<td>
+															<div class="dtl-online">Online</div>
+														</td>
+													</tr>
+													<tr>
+														<td>4</td>
+														<td>Sep 2, 2016</td>
+														<td>5.22 pm</td>
+														<td>2 h 14 min</td>
+														<td>
+															<div class="dtl-offline">Offline</div>
+														</td>
+													</tr>
+													<tr>
+														<td>5</td>
+														<td>Sep 4, 2016</td>
+														<td>6.22 pm</td>
+														<td>2 h 14 min</td>
+														<td>
+															<div class="dtl-on">On</div>
+														</td>
+													</tr>
+
+													</tbody>
+												</table>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+							<!-- END PORTLET-->
+						</div>
+					</div>
+					</div>
+                    
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!--[if lt IE 9]>
+<script src="/static/newassets/global/plugins/respond.min.js"></script>
+<script src="/static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+		<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+		<script src="/static/newassets/global/plugins/nouislider/wNumb.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/nouislider/nouislider.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/jquery-minicolors/jquery.minicolors.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts-3d.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts-more.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/scripts/datatable.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
+		<script src="/static/app_js/lighting.js" type="text/javascript"></script>
+
+        <!--<script type="text/javascript">-->
+
+          <!--function startTime() {-->
+            <!--var now = new Date();-->
+            <!--var monthNames = [-->
+              <!--"January", "February", "March",-->
+              <!--"April", "May", "June", "July",-->
+              <!--"August", "September", "October",-->
+              <!--"November", "December"-->
+            <!--];-->
+
+            <!--var date = new Date();-->
+            <!--var day = now.getDate();-->
+            <!--var monthIndex = now.getMonth();-->
+            <!--var year = now.getFullYear();-->
+
+            <!--var h = now.getHours();-->
+            <!--var m = now.getMinutes();-->
+            <!--var s = now.getSeconds();-->
+            <!--var ampm = h >= 12 ? 'PM' : 'AM';-->
+            <!--h = h % 12;-->
+            <!--h = h ? h : 12;-->
+            <!--h = checkTime(h);-->
+            <!--m = checkTime(m);-->
+            <!--s = checkTime(s);-->
+            <!--$('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);-->
+            <!--var t = setTimeout(startTime, 500);-->
+          <!--}-->
+          <!--function checkTime(i) {-->
+            <!--if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10-->
+            <!--return i;-->
+          <!--}-->
+
+          <!--function update_Username(Username) {-->
+            <!--$("#Username").text(String(Username));-->
+          <!--}-->
+
+          <!--function update_Cur_rate(Cur_rate) {-->
+            <!--$("#Cur_rate").text(String(Cur_rate));-->
+            <!--$("#Cur_rate2").text(String(Cur_rate));-->
+          <!--}-->
+
+          <!--window.onload = function () {-->
+            <!--startTime();-->
+            <!--setValue();-->
+			<!--brightness();-->
+			<!--color();-->
+			<!--renderChart();-->
+			<!--$('#log').DataTable({-->
+				<!--"order": [-->
+					<!--[0, "desc"]-->
+				<!--]-->
+			<!--});-->
+            <!--//renderCP1();-->
+            <!--//renderCP2();-->
+            <!--//renderGauge();-->
+          <!--}-->
+        <!--</script>-->
+    </body>
+
+</html>

@@ -219,7 +219,8 @@ INSTALLED_APPS = (
     'tablib',
     '_utils',
     '_utils.dos_secure',
-    'apps.discovery'
+    'apps.discovery',
+    'apps.airconditioner'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
