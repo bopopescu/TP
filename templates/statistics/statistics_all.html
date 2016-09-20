@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"><!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+        <meta charset="utf-8">
+        <title>PEA Smart Home</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="PEA Smart Home" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="/static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/static/newassets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="/static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
+
+        <link href="/static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+        <script>
+function setValue() {
+  //User Information
+  update_Username("admin");
+
+  //Current Rate
+  update_Cur_rate("4.32");
+
+}
+        </script>
+      </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
+        <!-- BEGIN HEADER -->
+        {% include 'top_nav.html' %}
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            {% include 'sidebar.html' %}
+			
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height: 981px;">
+                    <!-- BEGIN page_breadcrumb -->
+                    {% include 'page_breadcrumb.html' %}
+                    <!-- END page_breadcrumb -->
+                    <br>
+                    
+					<div class="row">
+
+						<div class="col-md-12">
+							<div class="portlet light portlet bordered">
+								<div class="portlet-title">
+									<div class="caption">
+										<span class="caption-subject  bold ">All Load Devices</span>
+									</div>
+									<div class="actions">
+										<div class="btn-group btn-group-devided" data-toggle="buttons">
+											<label class="btn btn-transparent blue btn-outline btn-circle btn-sm active">
+												<input type="radio" name="options" class="toggle" id="option1">kWh</label>
+											<label class="btn btn-transparent blue btn-outline btn-circle btn-sm">
+												<input type="radio" name="options" class="toggle" id="option2">Baht</label>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="portlet-title tabbable-line">
+								<script>
+									function selectOption(i) {
+										$(current).highcharts().series.forEach(function (s, ii) {
+											if(i == ii)
+												s.show();
+											else
+												s.hide();
+										});
+									}
+								</script>
+								  <button onclick="selectOption(0)" type="button" class="btn blue-hoki" style="background-color:#6285D1;border-color:#6285D1">Lighting</button>
+								  <button onclick="selectOption(1)" type="button" class="btn blue-hoki" style="background-color:#E7505A;border-color:#E7505A">A/C</button>
+								  <button onclick="selectOption(2)" type="button" class="btn blue-hoki" style="background-color:#B4E340;border-color:#B4E340" >Plug</button>
+								  <button onclick="selectOption(3)" type="button" class="btn blue-hoki" style="background-color:#796799;border-color:#796799" >EV Car</button>
+									<ul class="nav nav-tabs">
+										<li class="active">
+											<a href="#tab_1_1" id="t7d" data-toggle="tab">7 Days</a>
+										</li>
+										<li>
+											<a href="#tab_1_2" id="t4w"data-toggle="tab">4 Weeks</a>
+										</li>
+										<li>
+											<a href="#tab_1_3" id="t12m" data-toggle="tab">12 Months</a>
+										</li>
+
+									</ul>
+								</div>
+								<div class="tab-content">
+
+									<div class="tab-pane active" id="tab_1_1">
+									  <div class="portlet light portlet-fit bordered">
+
+										  <div class="portlet-body">
+											<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+											<div class="portlet box blue">
+												<div class="portlet-title">
+													<div class="caption">
+													  Totals</div>
+												</div>
+											</div>
+										  <div class="table-responsive">
+											  <table class="table">
+												<thead>
+													<tr>
+														<th>All</th>
+														<th> Avg.Daily(kWh)</th>
+														<th> Total Consumption(kWh)</th>
+
+													</tr>
+
+												</thead>
+												  <tbody>
+													<tr>
+													  <td>All</td>
+													  <td>54.21</td>
+													  <td>500</td>
+													</tr>
+
+
+												  </tbody>
+											  </table>
+										  </div>
+										</div>
+									</div>
+								  </div>
+
+									  <div class="tab-pane" id="tab_1_2">
+										<div class="portlet light portlet-fit bordered">
+
+											<div class="portlet-body">
+											  <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+											  <div class="portlet box blue">
+												  <div class="portlet-title">
+													  <div class="caption">
+														Totals</div>
+												  </div>
+											  </div>
+											  <div class="table-responsive">
+												  <table class="table">
+													<thead>
+														<tr>
+															<th>All</th>
+															<th> Avg.Daily(kWh)</th>
+															<th> Total Consumption(kWh)</th>
+
+														</tr>
+
+													</thead>
+													  <tbody>
+
+														<tr>
+														  <td>All</td>
+														  <td>54.21</td>
+														  <td>500</td>
+														</tr>
+
+													  </tbody>
+												  </table>
+											  </div>
+
+											</div>
+										</div>
+									  </div>
+									  <div class="tab-pane" id="tab_1_3">
+										<div class="portlet light portlet-fit bordered">
+
+											<div class="portlet-body">
+											  <div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+											  <div class="portlet box blue">
+												  <div class="portlet-title">
+													  <div class="caption">
+														Totals</div>
+												  </div>
+											  </div>
+											  <div class="table-responsive">
+												  <table class="table">
+													<thead>
+														<tr>
+															<th>All</th>
+															<th> Avg.Daily(kWh)</th>
+															<th> Total Consumption(kWh)</th>
+
+														</tr>
+
+													</thead>
+													  <tbody>
+														<tr>
+														  <td>All</td>
+														  <td>54.21</td>
+														  <td>500</td>
+														</tr>
+
+
+													  </tbody>
+												  </table>
+											  </div>
+
+											</div>
+										</div>
+									  </div>
+								  </div>
+							</div>
+						</div>
+					  </div>
+					
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!--[if lt IE 9]>
+<script src="/static/newassets/global/plugins/respond.min.js"></script>
+<script src="/static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/highcharts/js/highcharts-3d.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/highcharts/js/highcharts-more.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+
+		<script>
+		current = "#container";
+		
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          if($(e.target).attr('id') == 't7d')
+          {
+            renderBarDays();
+			current = "#container";
+          }
+          else if($(e.target).attr('id') == 't4w')
+          {
+            renderBarWeeks();
+			current = "#container2";
+          }
+          else if($(e.target).attr('id') == 't12m')
+          {
+            renderBarMonths();
+			current = "#container3";
+          }
+          //window.dispatchEvent(new Event('resize'));
+        });
+              function renderBarDays() {
+              $('#container').highcharts({
+              chart: {
+              type: 'column',
+              spacingBottom: 50
+              },
+
+              credits: {
+              enabled: false
+              },
+              title: {
+                text: null
+              },
+
+              xAxis: {
+              categories: ['Mon', 'Tue', 'Wed', 'Thr', 'Fri','Sat','Sun']
+              },
+              yAxis: {
+              min: 0,
+              title: {
+                text: 'kWh'
+              },
+              stackLabels: {
+                enabled: false,
+                style: {
+                  fontWeight: 'bold',
+                  color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+              }
+              },
+              legend: {
+              align: 'center',
+              x: -50,
+              verticalAlign: 'bottom',
+              y: 35,
+              floating: true,
+              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+              borderColor: '#CCC',
+              borderWidth: 1,
+              shadow: false
+              },
+              tooltip: {
+              headerFormat: '<b>{point.x}</b><br/>',
+              pointFormat: '{series.name}: {point.y} kWh<br/>Total: {point.stackTotal} kWh'
+              },
+              plotOptions: {
+              column: {
+                stacking: 'normal',
+                dataLabels: {
+                  enabled: false,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                    textShadow: '0 0 3px black'
+                  }
+                }
+              }
+              },
+
+              series: [{
+              name: 'Lighting',
+              data: [5, 3, 4, 7, 2,4,5],color:'#6285D1'
+              }, {
+              name: 'A/C',
+              data: [2, 2, 3, 2, 1,3,6],color:'#E7505A'
+              }, {
+              name: 'Plug',
+              data: [3, 4, 4, 2, 5,9,2],color:'#B4E340'
+              }, {
+              name: 'EV Car',
+              data: [5, 3, 4, 7, 2,3,4],color:'#796799'
+              },]
+              });
+              }
+</script>
+                <script>
+                              function renderBarWeeks() {
+                  $('#container2').highcharts({
+                    chart: {
+                      type: 'column',
+                      spacingBottom: 50
+                    },
+
+                    credits: {
+                      enabled: false
+                    },
+
+                    title: {
+                      text: null
+                    },
+
+                    xAxis: {
+                      categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4']
+                    },
+                    yAxis: {
+                      min: 0,
+                      title: {
+                        text: 'kWh'
+                      },
+                      stackLabels: {
+                        enabled: false,
+                        style: {
+                          fontWeight: 'bold',
+                          color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                      }
+                    },
+                    legend: {
+                      align: 'center',
+                      x: -50,
+                      verticalAlign: 'bottom',
+                      y: 35,
+                      floating: true,
+                      backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                      borderColor: '#CCC',
+                      borderWidth: 1,
+                      shadow: false
+                    },
+                    tooltip: {
+                      headerFormat: '<b>{point.x}</b><br/>',
+                      pointFormat: '{series.name}: {point.y} kWh<br/>Total: {point.stackTotal} kWh'
+                    },
+                    plotOptions: {
+                      column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                          enabled: false,
+                          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                          style: {
+                            textShadow: '0 0 3px black'
+                          }
+                        }
+                      }
+                    },
+
+                    series: [{
+                      name: 'Lighting',
+                      data: [5, 3, 4,4],color:'#6285D1'
+                    }, {
+                      name: 'A/C',
+                      data: [2, 2, 3, 2],color:'#E7505A'
+                    }, {
+                      name: 'Plug',
+                      data: [3, 4, 4, 2],color:'#B4E340'
+                    }, {
+                      name: 'EV Car',
+                      data: [5, 3, 4, 7],color:'#796799'
+                    },]
+                  });
+                }
+                </script>
+                <script>
+                      function renderBarMonths() {
+                      $('#container3').highcharts({
+                      chart: {
+                      type: 'column',
+                      spacingBottom: 50
+                      },
+
+                      credits: {
+                      enabled: false
+                      },
+                      title: {
+                        text: null
+                      },
+
+                      xAxis: {
+                      categories: ['Jan', 'Fab', 'Mar', 'Apr', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+                      },
+                      yAxis: {
+                      min: 0,
+                      title: {
+                        text: 'kWh'
+                      },
+                      stackLabels: {
+                        enabled: false,
+                        style: {
+                          fontWeight: 'bold',
+                          color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                      }
+                      },
+                      legend: {
+                      align: 'center',
+                      x: -50,
+                      verticalAlign: 'bottom',
+                      y: 35,
+                      floating: true,
+                      backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                      borderColor: '#CCC',
+                      borderWidth: 1,
+                      shadow: false
+                      },
+                      tooltip: {
+                      headerFormat: '<b>{point.x}</b><br/>',
+                      pointFormat: '{series.name}: {point.y} kWh<br/>Total: {point.stackTotal} kWh'
+                      },
+                      plotOptions: {
+                      column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                          enabled: false,
+                          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                          style: {
+                            textShadow: '0 0 3px black'
+                          }
+                        }
+                      }
+                      },
+
+                      series: [{
+                      name: 'Lighting',
+                      data: [5, 3, 4, 7, 2,4,5,5, 3, 4, 7, 2],color:'#6285D1'
+                      }, {
+                      name: 'A/C',
+                      data: [2, 2,5, 3, 4, 7, 2, 3, 2, 1,3,6],color:'#E7505A'
+                      }, {
+                      name: 'Plug',
+                      data: [3, 4, 4, 2,5, 3, 4, 7, 2, 5,9,2],color:'#B4E340'
+                      }, {
+                      name: 'EV Car',
+                      data: [5, 3,5, 3, 4, 7, 2, 4, 7, 2,3,4],color:'#796799'
+                      },]
+                      });
+                      }
+                </script>
+
+              <script>
+              renderBarDays();
+              </script>
+		
+   </body>
+
+</html>
