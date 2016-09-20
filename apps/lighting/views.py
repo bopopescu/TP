@@ -135,8 +135,9 @@ def update_device_light(request):
         _data.pop('device_info')
         content_type = "application/json"
         fromUI = "UI"
-
-        device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
+        print(device_info)
+        #print(type(device_info))
+        #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
         lighting_update_send_topic = '/ui/agent/'+device_info[1]+'/update/bemoss/'+device_info[0]+'/'+device_info[2]
         print lighting_update_send_topic

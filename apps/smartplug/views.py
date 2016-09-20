@@ -136,7 +136,7 @@ def submit_changes(request):
         fromUI = "UI"
         print "created instance of the zmqpub class"
 
-        device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
+        #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
         plugload_update_send_topic = '/ui/agent/'+device_info[1]+'/update/bemoss/'+device_info[0]+'/'+device_info[2]
         print plugload_update_send_topic
@@ -157,7 +157,7 @@ def get_plugload_current_status(request):
 
         info_required = "Update Hue data"
 
-        device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
+        #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
         plugload_update_send_topic = '/ui/agent/'+device_info[1]+'/device_status/bemoss/'+device_info[0]+'/'+device_info[2]
         print plugload_update_send_topic

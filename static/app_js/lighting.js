@@ -46,173 +46,322 @@ under Contract DE-EE0006352
 #__lastUpdated__ = "2016-03-14 11:23:33"
 
 **/
-
+var lamp_id ='2HUE0017881cab4b';
 var _values_on_submit_lighting = {};
+var test_values = {
+		    "status": "ON",
+		    //"saturation": parseFloat($( "#saturation_value" ).val().replace("%","")),
+		    "device_info": ["999", "lighting", lamp_id]
+		    };
+var Is_off = false;
 
-//Modify status	 when clicked
-$( "#light_on" ).click(function() {
-	if ($("#light_on").css('background-color') == "green") {
-	} else {
-		$(this).css('background-color','green');
-		$("#light_off").css('background-color','rgba(222, 222, 222, 0.55)');
-		status = 'ON';
-        $('#brightness').slider('value', '100');
-        $('#brightness').slider('enable');
-        $('#brightness_value').val('100%');
-	}
-});
+// //Modify status	 when clicked
+// $( "#light_on" ).click(function() {
+// 	if ($("#light_on").css('background-color') == "green") {
+// 	} else {
+// 		$(this).css('background-color','green');
+// 		$("#light_off").css('background-color','rgba(222, 222, 222, 0.55)');
+// 		status = 'ON';
+//         $('#brightness').slider('value', '100');
+//         $('#brightness').slider('enable');
+//         $('#brightness_value').val('100%');
+// 	}
+// });
+//
+// $( "#light_off" ).click(function() {
+// 	if ($("#light_off").css('background-color') == "green") {
+// 	} else {
+// 		$(this).css('background-color','green');
+// 		$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
+// 		status = 'OFF';
+//         $('#brightness').slider('value', '0');
+//         $('#brightness').slider('disable');
+//         $('#brightness_value').val('0%');
+// 	}
+// });
+// $(function() {
+//
+//     $("#brightness").slider({
+//         value: brightness,
+//         orientation: "horizontal",
+//         range: "min",
+//         animate: true,
+//         min: 0,
+//         max: 100,
+//         slide: function (event, ui) {
+//             $("#brightness_value").val(ui.value + "%");
+//         }
+//     });
+//
+//
+//     $("#brightness_value").val($("#brightness").slider("value") + "%");
+//     $(".slider").slider("float");
+//
+//
+//     if (_type == '2WL') {
+//         $('#brightness').slider("disable");
+//         $("#brightness_value").val('');
+//         $('#dim_container').css('background-color', 'rgba(255, 255, 255, 0.4)');
+//     }
+//
+//
+//     if (_type == '2HUE') {
+//         $('#color_container').show();
+//         if (role != 'tenant') {
+//             $('.color-box').colpick({
+//                 colorScheme:'dark',
+//                 layout:'rgbhex',
+//                 color:color,
+//                 submit:0,
+//                 onChange:function(hsb,hex,rgb,el) {
+//                     $(el).css('background-color', 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')');
+//                 }
+//             })
+//             .css('background-color', color);
+//         } else {
+//             $('#color_container').css('background-color', color);
+//         }
+//     } else {
+//         $('#color_container').css('background-color','rgba(255, 255, 255, 0.4)');
+//     }
+//
+//      if (role == 'tenant') {
+//          $('#brightness').slider("disable");
+//
+//     }
+// });
+          function startTime() {
+            var now = new Date();
+            var monthNames = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ];
 
-$( "#light_off" ).click(function() {
-	if ($("#light_off").css('background-color') == "green") {
-	} else {
-		$(this).css('background-color','green');
-		$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
-		status = 'OFF';
-        $('#brightness').slider('value', '0');
-        $('#brightness').slider('disable');
-        $('#brightness_value').val('0%');
-	}
-});
-$(function() {
+            var date = new Date();
+            var day = now.getDate();
+            var monthIndex = now.getMonth();
+            var year = now.getFullYear();
 
-    $("#brightness").slider({
-        value: brightness,
-        orientation: "horizontal",
-        range: "min",
-        animate: true,
-        min: 0,
-        max: 100,
-        slide: function (event, ui) {
-            $("#brightness_value").val(ui.value + "%");
-        }
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            h = checkTime(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+            var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+          }
+
+          function update_Username(Username) {
+            $("#Username").text(String(Username));
+          }
+
+          function update_Cur_rate(Cur_rate) {
+            $("#Cur_rate").text(String(Cur_rate));
+            $("#Cur_rate2").text(String(Cur_rate));
+          }
+         function setB(amount) {
+             softSlider.noUiSlider.set(amount);
+         }
+         function brightness() {
+             softSlider = document.getElementById('brightness');
+
+             noUiSlider.create(softSlider, {
+                 start: 50,
+                 step: 1,
+                 connect: 'lower',
+                 range: {
+                     min: 0,
+                     max: 100
+                 },
+                 pips: {
+                     mode: 'values',
+                     values: [0, 25, 50, 75, 100],
+                     density: 5
+                 }
+             });
+
+             softSlider.noUiSlider.on('set', function ( values, handle ) {
+                 if(values[handle] == 0) {
+                     $(".brght").blur().removeClass("grey");
+                     $("#b-0").addClass("grey");
+                 } else if(values[handle] == 25) {
+                     $(".brght").blur().removeClass("grey");
+                     $("#b-25").addClass("grey");
+                 } else if(values[handle] == 50) {
+                     $(".brght").blur().removeClass("grey");
+                     $("#b-50").addClass("grey");
+                 } else if(values[handle] == 75) {
+                     $(".brght").blur().removeClass("grey");
+                     $("#b-75").addClass("grey");
+                 } else if(values[handle] == 100) {
+                     $(".brght").blur().removeClass("grey");
+                     $("#b-100").addClass("grey");
+                 } else {
+                     $(".brght").blur().removeClass("grey");
+                 }
+                 console.log(values[handle]);
+                 var lamp_send = {"method" : "brightness", "value": values[handle]}
+                 submit_lighting_data(lamp_send);
+             });
+         }
+function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
     });
 
-
-    $("#brightness_value").val($("#brightness").slider("value") + "%");
-    $(".slider").slider("float");
-
-
-    if (_type == '2WL') {
-        $('#brightness').slider("disable");
-        $("#brightness_value").val('');
-        $('#dim_container').css('background-color', 'rgba(255, 255, 255, 0.4)');
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+function setColor(color) {
+        $("#colorSelector").minicolors('value', color);
     }
-
-
-    if (_type == '2HUE') {
-        $('#color_container').show();
-        if (role != 'tenant') {
-            $('.color-box').colpick({
-                colorScheme:'dark',
-                layout:'rgbhex',
-                color:color,
-                submit:0,
-                onChange:function(hsb,hex,rgb,el) {
-                    $(el).css('background-color', 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')');
+function color() {
+        $("#colorSelector").minicolors({
+            change: function(value) {
+                if(value == '#ffffff') {
+                    $(".clr").blur().removeClass("grey");
+                    $("#c-d").addClass("grey");
+                } else if(value == '#ffffee') {
+                    $(".clr").blur().removeClass("grey");
+                    $("#c-ww").addClass("grey");
+                } else if(value == '#eeeeff') {
+                    $(".clr").blur().removeClass("grey");
+                    $("#c-cw").addClass("grey");
+                } else if(value == '#ffeeee') {
+                    $(".clr").blur().removeClass("grey");
+                    $("#c-dl").addClass("grey");
+                } else {
+                    $(".clr").blur().removeClass("grey");
                 }
-            })
-            .css('background-color', color);
-        } else {
-            $('#color_container').css('background-color', color);
-        }
-    } else {
-        $('#color_container').css('background-color','rgba(255, 255, 255, 0.4)');
-    }
+                console.log(value + " --> (" + hexToRgb(value).r + "," + hexToRgb(value).g + "," + hexToRgb(value).b + ")");
+                var _color = "(" + hexToRgb(value).r + "," + hexToRgb(value).g + "," + hexToRgb(value).b + ")" ;
 
-     if (role == 'tenant') {
-         $('#brightness').slider("disable");
-
-    }
-});
+                var lamp_send = {"method" : "color", "value": _color};
+                submit_lighting_data(lamp_send);
+            },
+            theme: 'bootstrap'
+        });
+}
 
 $( document ).ready(function() {
-$.csrftoken();
+    $.csrftoken();
+
+            startTime();
+            setValue();
+			brightness();
+			color();
+			renderChart();
+			$('#log').DataTable({
+				"order": [
+					[0, "desc"]
+				]
+			});
+    $('.bootstrap-switch-container').on( "click", function() {
+        //alert( "SW ON/OFF" ); // jQuery 1.3+
+        var lamp_send = {"method" : "status", "value": 0}
+        submit_lighting_data(lamp_send);
+        });
+    //console.log("ws://" + window.location.host + "/socket_lighting");
+});
+    // var ws = new WebSocket("ws://" + window.location.host + "/socket_lighting");
+    // console.log("websocket connection established");
+    //  ws.onopen = function () {
+    //      ws.send("WS opened from html page");
+    //  };
+    //
+    //  ws.onmessage = function (event) {
+    //      var _data = event.data;
+    //      _data = $.parseJSON(_data);
+    //      var topic = _data['topic'];
+    //      // ["", "agent", "ui", device_type, command, building_name, zone_id, agent_id]
+    //      if (topic) {
+    //          topic = topic.split('/');
+    //          console.log(topic);
+    //          if (topic[7] == device_id && topic[4] == 'device_status_response') {
+    //              if ($.type( _data['message'] ) === "string"){
+    //                  var _message = $.parseJSON(_data['message']);
+    //                  if ($.type(_message) != "object"){
+    //                      _message = $.parseJSON(_message)
+    //                  }
+    //                  change_lighting_values(_message);
+    //              } else if ($.type( _data['message'] ) === "object"){
+    //                  change_lighting_values(_data['message']);
+    //              }
+    //
+    //          }
+    //          if (topic[7] == device_id && topic[4] == 'update_response') {
+    //               var message_upd = _data['message'];
+    //              var popup = false
+    //              if ($.type( _data['message'] ) === "string"){
+    //                 if (message_upd.indexOf('success') > -1) {
+    //                     popup = true
+    //                     }
+    //              } else if ($.type( _data['message'] ) === "object") {
+    //                 if (message_upd['message'].indexOf('success') > -1){
+    //                     popup = true
+    //                     }
+    //              }
+    //
+    //              if (popup) {
+    //                  change_lighting_values(_values_on_submit_lighting);
+    //                  $('.bottom-right').notify({
+    //                     message: { text: 'The changes made at '+update_time+" are now updated in the device!"},
+    //                     type: 'blackgloss',
+    //
+    //                      fadeOut: { enabled: true, delay: 5000 }
+    //                   }).show();
+    //              }
+    //          }
+    //      }
+    //  };
 
 
-    console.log("ws://" + window.location.host + "/socket_lighting");
-    var ws = new WebSocket("ws://" + window.location.host + "/socket_lighting");
-    console.log("websocket connection established");
-     ws.onopen = function () {
-         ws.send("WS opened from html page");
-     };
-
-     ws.onmessage = function (event) {
-         var _data = event.data;
-         _data = $.parseJSON(_data);
-         var topic = _data['topic'];
-         // ["", "agent", "ui", device_type, command, building_name, zone_id, agent_id]
-         if (topic) {
-             topic = topic.split('/');
-             console.log(topic);
-             if (topic[7] == device_id && topic[4] == 'device_status_response') {
-                 if ($.type( _data['message'] ) === "string"){
-                     var _message = $.parseJSON(_data['message']);
-                     if ($.type(_message) != "object"){
-                         _message = $.parseJSON(_message)
-                     }
-                     change_lighting_values(_message);
-                 } else if ($.type( _data['message'] ) === "object"){
-                     change_lighting_values(_data['message']);
-                 }
-
-             }
-             if (topic[7] == device_id && topic[4] == 'update_response') {
-                  var message_upd = _data['message'];
-                 var popup = false
-                 if ($.type( _data['message'] ) === "string"){
-                    if (message_upd.indexOf('success') > -1) {
-                        popup = true
-                        }
-                 } else if ($.type( _data['message'] ) === "object") {
-                    if (message_upd['message'].indexOf('success') > -1){
-                        popup = true
-                        }
-                 }
-
-                 if (popup) {
-                     change_lighting_values(_values_on_submit_lighting);
-                     $('.bottom-right').notify({
-                        message: { text: 'The changes made at '+update_time+" are now updated in the device!"},
-                        type: 'blackgloss',
-
-                         fadeOut: { enabled: true, delay: 5000 }
-                      }).show();
-                 }
-             }
-         }
-     };
-
-
-    function change_lighting_values(data) {
-        if (data.status == 'ON') {
-            $("#light_on").css('background-color', 'green');
-            $("#light_off").css('background-color', 'rgba(222, 222, 222, 0.55)');
-            if (data.brightness) {
-                if ($("#brightness").slider("option", "disabled", true) && (role != 'tenant')) {
-                    $('#brightness').slider('enable');
-                }
-            }
-            status = 'ON';
-		} else {
-			$("#light_off").css('background-color','green');
-			$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
-            status = 'OFF';
-            $('#brightness').slider('disable');
-		}
-
-        if (data.brightness) {
-            $('#brightness').slider({ value: data.brightness });
-            $("#brightness_value").val(data.brightness + "%");
-        }
-
-
-        if (data.color && _type == '2HUE') {
-            var _color = data.color;
-            _color = _color.toString(); //should be in hex #rrggbb format
-            $('.color-box').colpick({ color: _color });
-            $('.color-box').css('background-color', _color);
-        }
-    }
+    // function change_lighting_values(data) {
+    //     if (data.status == 'ON') {
+    //         $("#light_on").css('background-color', 'green');
+    //         $("#light_off").css('background-color', 'rgba(222, 222, 222, 0.55)');
+    //         if (data.brightness) {
+    //             if ($("#brightness").slider("option", "disabled", true) && (role != 'tenant')) {
+    //                 $('#brightness').slider('enable');
+    //             }
+    //         }
+    //         status = 'ON';
+		// } else {
+		// 	$("#light_off").css('background-color','green');
+		// 	$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
+    //         status = 'OFF';
+    //         $('#brightness').slider('disable');
+		// }
+    //
+    //     if (data.brightness) {
+    //         $('#brightness').slider({ value: data.brightness });
+    //         $("#brightness_value").val(data.brightness + "%");
+    //     }
+    //
+    //
+    //     if (data.color && _type == '2HUE') {
+    //         var _color = data.color;
+    //         _color = _color.toString(); //should be in hex #rrggbb format
+    //         $('.color-box').colpick({ color: _color });
+    //         $('.color-box').css('background-color', _color);
+    //     }
+    // }
 
 $( "#submit_lighting_data" ).click(function(evt) {
 	evt.preventDefault();
@@ -258,7 +407,39 @@ $( "#submit_lighting_data" ).click(function(evt) {
 
 
 function submit_lighting_data(values) {
-    var jsonText = JSON.stringify(values);
+    // topic ="ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
+    var status = "";
+    var lamp_val = "";
+        jjstatus = values.method;
+        lamp_val    = values.value ;
+    if (values.method == "status"){
+        if (Is_off)
+    {
+        Is_off = false;
+        lamp_val = "OFF";
+    }else {
+        Is_off = true;
+        lamp_val = "ON";
+    }
+    }
+/*
+    var lt_color =  '#eb2323';
+    lt_color = lt_color.replace('rgb','');
+            if (lt_color.indexOf('a(') > -1) {
+                lt_color = '(255,255,255)';
+            }
+    console.log(lt_color)
+    */
+    console.log("Method  " + jjstatus + "  Vales " + lamp_val);
+     test_values[jjstatus] =  lamp_val ;
+     //test_values['color'] = '(220,0,0)'
+
+     test_values["device_info"] =  ["999", "lighting", lamp_id];
+
+     //test_values["device_info"] = ["999", "lighting", lamp_id]
+    // var vaule = {"topic" : topic, "message": status_on}
+    //var device_info = ["999", "lighing", value]
+    var jsonText = JSON.stringify(test_values);
     console.log(jsonText);
 	$.ajax({
 		  url : '/update_light/',
@@ -266,6 +447,7 @@ function submit_lighting_data(values) {
 		  data: jsonText,
 		  dataType: 'json',
 		  success : function(data) {
+		     // change_lighting_values(data)
 			//lighting_data_updated();
 		  	/*$('.bottom-right').notify({
 		  	    message: { text: 'Your settings will be updated shortly' },
@@ -283,4 +465,3 @@ function submit_lighting_data(values) {
 		 });
 }
 
-});

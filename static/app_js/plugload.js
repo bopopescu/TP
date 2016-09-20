@@ -47,9 +47,13 @@ under Contract DE-EE0006352
 
 **/
 
+var plug_id ='3WSP221520K010067C';
+var device_info = ["999", "plugload", plug_id];
+		    //"saturation": parseFloat($( "#saturation_value" ).val().replace("%","")
 
 var _values_on_submit_plugload = {};
-
+var Is_off = false;
+var Is_human_click = false;
 $( "#sp_on" ).click(function() {
 	if ($("#sp_on").css('background-color') == "green") {
 	} else {
@@ -67,16 +71,99 @@ $( "#sp_off" ).click(function() {
 		status = 'OFF';
 	}
 });
+          function startTime() {
+            var now = new Date();
+            var monthNames = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ];
 
+            var date = new Date();
+            var day = now.getDate();
+            var monthIndex = now.getMonth();
+            var year = now.getFullYear();
+
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            h = h ? h : 12;
+            h = checkTime(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+            var t = setTimeout(startTime, 500);
+          }
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+          }
+
+          function update_Username(Username) {
+            $("#Username").text(String(Username));
+          }
+
+          function update_Cur_rate(Cur_rate) {
+            $("#Cur_rate").text(String(Cur_rate));
+            $("#Cur_rate2").text(String(Cur_rate));
+          }
 
 $( document ).ready(function() {
 	$.csrftoken();
+            startTime();
+            setValue();
+			$('#log').DataTable({
+				"order": [
+					[0, "desc"]
+				]
+			});
+	var plug_action;
+        $("#div_sw").mouseover(function(){
+            Is_human_click = true;
+        });
+        $("#div_sw").mouseout(function(){
+            Is_human_click = false;
+        });
+    //get_plug_stat(test_values);,
+    //$('.bootstrap-switch-container').on( "click", function() {
+    $('.make-switch').on('switchChange.bootstrapSwitch', function (event, state) {
+    //$('.make-switch').on('click', function (event, state)
+        //alert(this);
+        // alert(event);
+        //alert(state);
 
-    if (device_type_id != '3WSP') {
-        var gauge_target = document.getElementById("chart_9");
-        var gauge = new Gauge(gauge_target);
-    }
+        //alert( "SW ON/OFF" ); // jQuery 1.3+
+        var plug_send = {};
+		if (Is_off)
+		{
+			Is_off = false;
+			plug_action = "ON";
+            console.log("Send ON");
+		}else {
+			Is_off = true;
+			plug_action = "OFF";
+            console.log("Send OFF");
+		}
+        plug_send['device_info'] = device_info
+		plug_send['status'] = plug_action ;
 
+            //submit_plugload_data(plug_send);
+
+		console.log("test SW b Human");
+        // if (Is_human_click)
+        // {
+             submit_plugload_data(plug_send);
+        // }
+
+        });
+    // if (device_type_id != '3WSP') {
+     //    var gauge_target = document.getElementById("chart_9");
+     //    var gauge = new Gauge(gauge_target);
+    // }
+    //
     var ws = new WebSocket("ws://" + window.location.host + "/socket_plugload");
 
      ws.onopen = function () {
@@ -84,104 +171,119 @@ $( document ).ready(function() {
      };
 
      ws.onmessage = function (event) {
-         var _data = event.data;
+         var _data = event.data.trim();
          _data = $.parseJSON(_data);
          var topic = _data['topic'];
+        var  msg = $.parseJSON(_data['message']);
+
+		 //console.log(_data['message'])
+         console.log('status' + msg['status']);
+         Is_human_click = false;
+         if (msg['status'] == "ON")
+         {
+             Is_off = false;
+             $('.make-switch').bootstrapSwitch('state', true, true);
+         } else if (msg['status'] == "OFF")
+         {
+             Is_off = true;
+             $('.make-switch').bootstrapSwitch('state', false, true);
+         }
+		 var topic =  false;
          // ["", "agent", "ui", device_type, command, building_name, zone_id, agent_id]
          if (topic) {
              topic = topic.split('/');
              console.log(topic);
-             if (topic[7] == device_id && topic[4] == 'device_status_response') {
-                 if ($.type( _data['message'] ) === "string"){
-                     var _message = $.parseJSON(_data['message']);
-                     if ($.type(_message) != "object"){
-                         _message = $.parseJSON(_message)
-                     }
-                     change_plugload_values(_message);
-                 } else if ($.type( _data['message'] ) === "object"){
-                     change_plugload_values(_data['message']);
-                 }
+             // if (topic[7] == device_id && topic[4] == 'device_status_response') {
+             //     if ($.type( _data['message'] ) === "string"){
+             //         var _message = $.parseJSON(_data['message']);
+             //         if ($.type(_message) != "object"){
+             //             _message = $.parseJSON(_message)
+             //         }
+             //         change_plugload_values(_message);
+             //     } else if ($.type( _data['message'] ) === "object"){
+             //         change_plugload_values(_data['message']);
+             //     }
+             //
+             // }
+             // if (topic[7] == device_id && topic[4] == 'update_response') {
+             //     var message_upd = _data['message'];
+             //     var popup = false
+             //     if ($.type( _data['message'] ) === "string"){
+             //        if (message_upd.indexOf('success') > -1) {
+             //            popup = true
+             //            }
+             //     } else if ($.type( _data['message'] ) === "object") {
+             //        if (message_upd['message'].indexOf('success') > -1){
+             //            popup = true
+             //            }
+             //     }
 
-             }
-             if (topic[7] == device_id && topic[4] == 'update_response') {
-                 var message_upd = _data['message'];
-                 var popup = false
-                 if ($.type( _data['message'] ) === "string"){
-                    if (message_upd.indexOf('success') > -1) {
-                        popup = true
-                        }
-                 } else if ($.type( _data['message'] ) === "object") {
-                    if (message_upd['message'].indexOf('success') > -1){
-                        popup = true
-                        }
-                 }
-
-                 if (popup) {
-                     change_plugload_values_on_success(_values_on_submit_plugload);
-                     $('.bottom-right').notify({
-                        message: { text: 'The changes made at '+update_time+" are now updated in the device!"},
-                        type: 'blackgloss',
-
-                         fadeOut: { enabled: true, delay: 5000 }
-                      }).show();
-                 }
+                 // if (popup) {
+                 //     change_plugload_values_on_success(_values_on_submit_plugload);
+                 //     $('.bottom-right').notify({
+                 //        message: { text: 'The changes made at '+update_time+" are now updated in the device!"},
+                 //        type: 'blackgloss',
+                 //
+                 //         fadeOut: { enabled: true, delay: 5000 }
+                 //      }).show();
+                 // }
              }
          }
-     };
 
 
-    var popts = {
-        lines: 12, // The number of lines to draw
-        angle: 0.0, // The length of each line
-        lineWidth: 0.2, // The line thickness2
-        pointer: {
-            length: 0.8, // The radius of the inner circle
-            strokeWidth: 0.03, // The rotation offset
-            color: '#00000' // Fill color
-        },
-        limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
-        colorStart: '#6FADCF',   // Colors
-        colorStop: '#8FC0DA',    // just experiment with them
-        strokeColor: '#E0E0E0',   // to see which ones work best for you
-        generateGradient: true,
-        percentColors: [
-            [0, "#a9d70b" ],
-            [500, "#f9c802"],
-            [1000, "#ff0000"]
-        ],
-        //animationSpeed: 30,
-        fontSize: 20
-    };
-
-
-    if (device_type_id != '3WSP') {
-        if (power != "") {
-            //var power_val = [power];
-            //var power_meter = $.jqplot('chart9', [power_val], options);
-            $("#power_val").text(power);
-            var power_val = parseInt(power);
-            gauge.setTextField(document.getElementById("9-textfield"));
-            gauge.setOptions(popts);
-            gauge.maxValue = 1000;
-            gauge.set(1);
-            gauge.set(power_val);
-
-
-        } else {
-
-        }
-    }
-
-    function change_plugload_values_on_success(data) {
-		if (data.status == 'ON') {
-			$("#sp_on").css('background-color','green');
-			$("#sp_off").css('background-color','rgba(222, 222, 222, 0.55)');
-		} else {
-			$("#sp_off").css('background-color','green');
-			$("#sp_on").css('background-color','rgba(222, 222, 222, 0.55)');
-		}
-	}
-
+    //
+    // var popts = {
+     //    lines: 12, // The number of lines to draw
+     //    angle: 0.0, // The length of each line
+     //    lineWidth: 0.2, // The line thickness2
+     //    pointer: {
+     //        length: 0.8, // The radius of the inner circle
+     //        strokeWidth: 0.03, // The rotation offset
+     //        color: '#00000' // Fill color
+     //    },
+     //    limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
+     //    colorStart: '#6FADCF',   // Colors
+     //    colorStop: '#8FC0DA',    // just experiment with them
+     //    strokeColor: '#E0E0E0',   // to see which ones work best for you
+     //    generateGradient: true,
+     //    percentColors: [
+     //        [0, "#a9d70b" ],
+     //        [500, "#f9c802"],
+     //        [1000, "#ff0000"]
+     //    ],
+     //    //animationSpeed: 30,
+     //    fontSize: 20
+    // };
+    //
+    //
+    // if (device_type_id != '3WSP') {
+     //    if (power != "") {
+     //        //var power_val = [power];
+     //        //var power_meter = $.jqplot('chart9', [power_val], options);
+     //        $("#power_val").text(power);
+     //        var power_val = parseInt(power);
+     //        gauge.setTextField(document.getElementById("9-textfield"));
+     //        gauge.setOptions(popts);
+     //        gauge.maxValue = 1000;
+     //        gauge.set(1);
+     //        gauge.set(power_val);
+    //
+    //
+     //    } else {
+    //
+     //    }
+    // }
+    //
+    // function change_plugload_values_on_success(data) {
+	// 	if (data.status == 'ON') {
+	// 		$("#sp_on").css('background-color','green');
+	// 		$("#sp_off").css('background-color','rgba(222, 222, 222, 0.55)');
+	// 	} else {
+	// 		$("#sp_off").css('background-color','green');
+	// 		$("#sp_on").css('background-color','rgba(222, 222, 222, 0.55)');
+	// 	}
+	// }
+});
 	function change_plugload_values(data) {
 		if (data.status == 'ON') {
 			$("#sp_on").css('background-color','green');
@@ -214,7 +316,7 @@ $( document ).ready(function() {
 					"status":status,
 					"device_info":device_info
 			};
-		_values_on_submit_plugload = values;
+		// _values_on_submit_plugload = values;
         submit_plugload_data(values)
 	});
 
@@ -222,25 +324,28 @@ $( document ).ready(function() {
         var jsonText = JSON.stringify(values);
 	    console.log(jsonText);
 		$.ajax({
-			  url : '/update_plugload/',
-			  type: 'POST',
-			  data: jsonText,
-			  dataType: 'json',
-			  success : function(data) {
-			  	/*$('.bottom-right').notify({
-			  	    message: { text: 'Your changes will be updated shortly' },
-			  	    type: 'blackgloss'
-			  	  }).show();*/
-			  },
-			  error: function(data) {
-                  submit_plugload_data(values);
-				  $('.bottom-right').notify({
-				  	    message: { text: 'Something went wrong when submitting the thermostat data. Please try again.' },
-				  	    type: 'blackgloss',
-                      fadeOut: { enabled: true, delay: 5000 }
-				  	}).show();
-			  }
+            url: '/update_plugload/',
+            type: 'POST',
+            data: jsonText,
+            dataType: 'json',
+            success: function (data) {
+                /*$('.bottom-right').notify({
+                 message: { text: 'Your changes will be updated shortly' },
+                 type: 'blackgloss'
+                 }).show();*/
+                console.log(data.event)
+            }/*,
+             error: function(data) {
+             submit_plugload_data(values);
+             $('.bottom-right').notify({
+             message: { text: 'Something went wrong when submitting the thermostat data. Please try again.' },
+             type: 'blackgloss',
+             fadeOut: { enabled: true, delay: 5000 }
+             }).show();
+             }
+             */
+
 			 });
     }
 
-});
+
