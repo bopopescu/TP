@@ -220,7 +220,8 @@ INSTALLED_APPS = (
     '_utils',
     '_utils.dos_secure',
     'apps.discovery',
-    'apps.airconditioner'
+    'apps.airconditioner',
+    'apps.tv'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
