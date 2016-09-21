@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+#Database models for Philips Hue and Other Lighting Devices
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from apps.dashboard.models import Building_Zone, DeviceMetadata
 
-
-#Plugload device information - for all plugload controllers in BEMOSS
-class Fan(models.Model):
-    fan = models.ForeignKey(DeviceMetadata, primary_key=True, max_length=50)
-    status = models.CharField(max_length=3, null=True, blank=True)
-    power = models.FloatField(null=True, blank=True)
+#AC device information - for all airconditioner controllers in BEMOSS
+class Refrigerator(models.Model):
+    refrigerator = models.ForeignKey(DeviceMetadata, primary_key=True, max_length=50)
+    current_temperature = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True, blank=True)
+    set_temperature = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True, blank=True)
     energy = models.FloatField(null=True, blank=True)
     ip_address = models.IPAddressField(null=True, blank=True)
     nickname = models.CharField(max_length=30, null=True, blank=True)
@@ -18,49 +19,49 @@ class Fan(models.Model):
     last_offline_time = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        db_table = "fan"
+        db_table = "refrigerator"
 
     def __unicode__(self):
-        return self.fan_id
-
-    def get_zone(self):
-        zone_req = Building_Zone.as_json(self.zone)
-        return zone_req
+        return self.refrigerator_id
 
     def data_as_json(self):
         zone_req = Building_Zone.as_json(self.zone)
-        device_info = DeviceMetadata.objects.get(device_id=self.fan_id)
+        device_info = DeviceMetadata.objects.get(device_id=self.refrigerator_id)
         metadata = DeviceMetadata.data_as_json(device_info)
         return dict(
-            id=self.fan_id,
+            id=self.refrigerator_id,
             status=self.status,
-            power=self.power,
-            energy=self.energy,
+            current_temperature=self. current_temperature,
+            set_temperature=self.set_temperature,
+            current_humidity=self.current_humidity,
+            set_humidity=self.set_humidity,
+            mode=self.mode,
+            fan_speed=self.fan_speed,
+            fan_angle=self.fan_angle,
             zone=zone_req,
             nickname=self.nickname.encode('utf-8').title() if self.nickname else '',
             device_type=metadata['device_type'].encode('utf-8') if metadata['device_type'] else '',
             device_model_id=metadata['device_model_id'],
-            # bemoss=metadata['bemoss'],
             identifiable=metadata['identifiable'],
-            mac_address=metadata['mac_address'].encode('utf-8') if metadata['mac_address'] else '',
-            vendor_name=metadata['vendor_name'].encode('utf-8') if metadata['vendor_name'] else '',
             device_model=metadata['device_model'].encode('utf-8') if metadata['device_model'] else '',
+            vendor_name=metadata['vendor_name'].encode('utf-8') if metadata['vendor_name'] else '',
+            mac_address=metadata['mac_address'].encode('utf-8') if metadata['mac_address'] else '',
             approval_status=metadata['approval_status'],
             approval_status_choices=metadata['approval_status_choices'])
 
     def device_status(self):
         zone_req = Building_Zone.as_json(self.zone)
-        device_info = DeviceMetadata.objects.get(device_id=self.fan_id)
+        device_info = DeviceMetadata.objects.get(device_id=self.refrigerator_id)
         metadata = DeviceMetadata.data_as_json(device_info)
         return dict(
-            id=self.fan_id,
+            id=self.refrigerator_id,
             nickname=self.nickname.encode('utf-8').title() if self.nickname else '',
             device_model=metadata['device_model'],
             date_added=metadata['date_added'],
             zone=zone_req,
             #bemoss=metadata['bemoss'],
-            network_status=self.network_status.capitalize(),
             zone_nickname=zone_req['zone_nickname'],
+            network_status=self.network_status.capitalize(),
             last_scanned=self.last_scanned_time,
             last_offline=self.last_offline_time,
             approval_status=metadata['approval_status'],
@@ -68,10 +69,10 @@ class Fan(models.Model):
 
     def data_dashboard(self):
         zone_req = Building_Zone.as_json(self.zone)
-        device_info = DeviceMetadata.objects.get(device_id=self.fan_id)
+        device_info = DeviceMetadata.objects.get(device_id=self.refrigerator_id)
         metadata = DeviceMetadata.data_as_json(device_info)
         return dict(
-            device_id=self.fan_id,
+            device_id=self.refrigerator_id,
             device_type=metadata['device_type'].encode('utf-8') if metadata['device_type'] else '',
             vendor_name=metadata['vendor_name'].encode('utf-8') if metadata['vendor_name'] else '',
             device_model=metadata['device_model'].encode('utf-8') if metadata['device_model'] else '',
@@ -90,10 +91,10 @@ class Fan(models.Model):
 
     def data_side_nav(self):
         zone_req = Building_Zone.as_json(self.zone)
-        device_info = DeviceMetadata.objects.get(device_id=self.fan_id)
+        device_info = DeviceMetadata.objects.get(device_id=self.refrigerator_id)
         metadata = DeviceMetadata.data_as_json(device_info)
         return dict(
-            device_id=self.fan_id,
+            device_id=self.refrigerator_id,
             device_model_id=metadata['device_model_id'],
             mac_address=metadata['mac_address'].encode('utf-8') if metadata['mac_address'] else '',
             nickname=self.nickname.encode('utf-8').title() if self.nickname else '',
@@ -103,5 +104,3 @@ class Fan(models.Model):
             network_status=self.network_status.capitalize(),
             approval_status=metadata['approval_status'],
             approval_status_choices=metadata['approval_status_choices'])
-
-
