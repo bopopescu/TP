@@ -414,13 +414,11 @@ a:hover {
 															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/lighting_b.png"></img>
 														</div>
 														<br>
-														<div style="display: flex ">
-															<div style=" margin: auto;  ">
-
-																<input type="checkbox" class="make-switch" checked data-size="medium"
-																   data-on-color="success" data-on-text="ON" data-off-color="default"
-																   data-off-text="OFF">
-
+														<div style="display: flex">
+															<div style="margin: auto;">
+																<div class="device_power">
+																	<button id="device_power_disp" data-toggle="button" class="btn btn-circle blue device_power" type="button" aria-pressed="false">ON</button>
+																</div>
 															 </div>
 														</div>
 													</div>
@@ -431,21 +429,21 @@ a:hover {
 												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
 													<div class="brightness-form">
 														<div class="sub-title hidden-xs">Brightness</div>
-														<div style="display: flex;width:100%;">
-															<div class="row" style="margin: auto">
-																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
+														<div style="display: flex">
+															<div style="margin: auto;">
+																<button id="device_bri_0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
 																	0%
 																</button>
-																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																<button id="device_bri_25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
 																	25%
 																</button>
-																<button id="b-50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																<button id="device_bri_50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
 																	50%
 																</button>
-																<button id="b-75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																<button id="device_bri_75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
 																	75%
 																</button>
-																<button id="b-100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
+																<button id="device_bri_100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
 																	100%
 																</button>
 
@@ -456,23 +454,23 @@ a:hover {
 													</div>
 													<div class="colors-form">
 														<div class="sub-title">Colors</div>
-														<div style="width:100%; display: flex;" >
-															<div class="row" style="margin: auto">
+														<div style="display: flex">
+															<div style="margin: auto;">
 															<style>
 															.btc {
 																margin:10px;width: auto;border:3px solid #EEE;background-color: white;
 															}
 															</style>
-															<button id="c-d" onclick="setColor('#ffffff')" type="button" class="btc clr btn btn-circle btn-group-sm  col-lg-3 col-md-6 col-sm-6 col-xs-3">
+															<button id="device_color_def" onclick="setColor('#ffffff')" type="button" class="btc clr btn btn-circle btn-group-sm">
 																 Default
 															</button>
-															<button id="c-ww" onclick="setColor('#ffffee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+															<button id="device_color_warm" onclick="setColor('#ffffee')" type="button" class="btc clr btn btn-circle btn-group-sm">
 																Warm White
 															</button>
-															<button id="c-cw" onclick="setColor('#eeeeff')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+															<button id="device_color_cool" onclick="setColor('#eeeeff')" type="button" class="btc clr btn btn-circle btn-group-sm">
 																Cool White
 															</button>
-															<button id="c-dl" onclick="setColor('#ffeeee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
+															<button id="device_color_day" onclick="setColor('#ffeeee')" type="button" class="btc clr btn btn-circle btn-group-sm">
 																Daylight
 															</button>
 															</div>

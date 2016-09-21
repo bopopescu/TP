@@ -417,19 +417,21 @@ a:hover {
 													<div class="device-status-form">
 														<div class="sub-title">Status</div>
 														<br>
-														<div style="display: flex; ">
+														<div style="display: flex;">
 															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/air-conditioner_b.png"></img>
 														</div>
 														<br>
-														<div style="display: flex ">
-															<div style=" margin: auto;  ">
 
-																<input type="checkbox" class="make-switch" checked data-size="medium"
-																   data-on-color="success" data-on-text="ON" data-off-color="default"
-																   data-off-text="OFF">
 
+														<div style="display: flex">
+															<div style="margin: auto;">
+																<div class="device_power">
+																	<button id="device_power_disp" data-toggle="button" class="btn btn-circle blue device_power" type="button" aria-pressed="false"></button>
+																</div>
 															 </div>
 														</div>
+
+
 													</div>
 													<div class="btn btn-default" style="width: 100%">
 														<i class="fa fa-clock-o clockSchedule"></i> Set Schedule
@@ -442,7 +444,7 @@ a:hover {
 														<div class="row">
 															<div style="display: flex;width:100%;">
 																<div class="row" style="margin: auto">
-																	<span id="temp" style="font-size: 65px; color: #3598dc">
+																	<span id="device_set_temp" style="font-size: 65px; color: #3598dc">
 																		<strong>22.0</strong>
 																	</span>
 																	<span style="font-size: 50px; color: #ACB5C3 ">
@@ -452,7 +454,7 @@ a:hover {
 															</div>
 															<br>
 															<div style="padding: 0px 20px 0px 20px;">
-																<div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div>
+																<div id="device_set_temp_slide" class="noUi-primary margin-bottom-40 brightness-slider"></div>
 															</div>
 														</div>
 													</div>
@@ -460,45 +462,42 @@ a:hover {
 													<!--BEGIN Mode Control-->
 													<div class="airCond-row1-form">
 														<div class="sub-title">Mode Control</div>
-														<div style="width:100%; display: flex;" >
-															<div class="row" style="margin: auto">
+														<div style="display: flex">
+															<div style="margin: auto;">
 															<style>
 															.btc {
 																margin:15px;width: auto;border:0px solid #EEE;background-color: white;
 															}
 															</style>
-															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-															<button id="m-auto" onclick="setMode('m-auto')" data-spinner-color="#333"
+
+															<button id="device_mode_auto" onclick="setMode('device_mode_auto')" data-spinner-color="#333"
 																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
 																	type="button" style="border: 0px">
                                                     			<img class="img-responsive" src="../../static/images/icon-png/auto_b.png" style=""></img>
 																<br><span>Auto</span>
                                                 			</button>
-															</div>
-															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-															<button id="m-cool" onclick="setMode('m-cool')" data-spinner-color="#333"
+
+															<button id="device_mode_cool" onclick="setMode('device_mode_cool')" data-spinner-color="#333"
 																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle c"
 																	type="button" style="border: 0px">
                                                     			<img class="img-responsive" src="../../static/images/icon-png/snowflake_b.png"></img>
 																<br><span>Cool</span>
                                                 			</button>
-															</div>
-															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-															<button id="m-dry" onclick="setMode('m-dry')" data-spinner-color="#333"
+
+															<button id="device_mode_dry" onclick="setMode('device_mode_dry')" data-spinner-color="#333"
 																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
 																	type="button" style="border: 0px">
                                                     			<img class="img-responsive" src="../../static/images/icon-png/water_b.png"></img>
 																<br><span>Dry</span>
                                                 			</button>
-															</div>
-															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-															<button id="m-fan" onclick="setMode('m-fan')" data-spinner-color="#333"
+
+															<button id="device_mode_fan" onclick="setMode('device_mode_fan')" data-spinner-color="#333"
 																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
 																	type="button" style="border: 0px">
                                                     			<img class="img-responsive" src="../../static/images/icon-png/ac_b.png"></img>
 																<br><span>Fan</span>
                                                 			</button>
-															</div>
+
 																</div>
 														</div>
 														<br>
@@ -506,55 +505,49 @@ a:hover {
 													</div>
 													<!--END Mode Control-->
 													<!--BEGIN Fan Speed-->
-													<div class="airCond-row1-form">
-														<div class="sub-title">Fan Speed</div>
-														<div style="width:100%; display: flex;" >
-															<div class="row" style="margin: auto">
-															<style>
-															.btc {
-																margin:10px;width: auto;border:1px solid #EEE;background-color: white;
-															}
-															</style>
-															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-															<button	 id="fs-low" onclick="setMode('fs-auto')" data-spinner-color="#333"
-																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle c"
+													<div class="clearfix">
+														<div class="airCond-row1-form">
+														<h4 class="block">Fan Speed</h4>
+															<div style="display: flex">
+															<div style="margin: auto;">
+														<!--<div style="width:100%; display: flex;" >-->
+															<!--<div class="block" style="margin: auto">-->
+															<!--<style>-->
+															<!--.btc {-->
+																<!--margin:10px;width: auto;border:1px solid #EEE;background-color: white;-->
+															<!--}-->
+															<!--</style>-->
+															<p>
+															<button	 id="device_fs_auto" onclick="setMode('device_fs_auto')" class="btn btn-circle blue btn-outline"
 																	type="button">
-																	<span>Auto</span>
+																	Auto
 															</button>
-															</div>
-															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-															<button id="fs-low" onclick="setMode('fs-low')" data-spinner-color="#333"
-																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle c"
-																	type="button">
-																	<span>Low</span>
 
+															<button id="device_fs_low" onclick="setMode('device_fs_low')" class="btn btn-circle blue btn-outline"
+																	type="button">
+																	Low
 															</button>
-															</div>
-															<div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
-															<button id="fs-medium" onclick="setMode('fs-medium')" data-spinner-color="#333"
-																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+
+															<button id="device_fs_medium" onclick="setMode('device_fs_medium')" data-spinner-color="#333"
+																	class="btn btn-circle blue btn-outline"
 																	type="button">
-																	<span>Medium</span>
+																	Medium
                                                 			</button>
-															</div>
-															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-															<button id="fs-high" onclick="setMode('fs-high')" data-spinner-color="#333"
-																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+
+															<button id="device_fs_high" onclick="setMode('device_fs_high')" class="btn btn-circle blue btn-outline"
 																	type="button">
-																	<span>High</span>
+																	High
                                                 			</button>
-															</div>
-															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-															<button id="fs-turbo" onclick="setMode('fs-turbo')" data-spinner-color="#333"
-																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+
+															<button id="device_fs_turbo" onclick="setMode('device_fs_turbo')" class="btn btn-circle blue btn-outline"
 																	type="button">
-																	<span>Turbo</span>
+																	Turbo
                                                 			</button>
-															</div>
+															</p>
 																</div>
 														</div>
-														<br>
 
+														</div>
 													</div>
 													<!--END Mode Control-->
 										</div>
