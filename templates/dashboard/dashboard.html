@@ -198,7 +198,7 @@ function setValue() {
                                                 <div class="info-box">
                                                   <span class="info-box-icon bg-blue">
 {#                                                      <i class="glyphicon glyphicon-flash font-white"></i></span>#}
-                                                      <img class style="font-size:5px" src="../static/images/icon-png/transmission-tower_w.png" class="img-responsive">
+                                                      <img class " style="font-size:5px" src="../static/images/icon-png/transmission-tower_w.png" class="img-responsive">
                                                   </span>
                                                 <div class="info-box-content">
                                                     <span class="info-box-text1">Grid</span>
@@ -227,7 +227,7 @@ function setValue() {
                                               <!-- BEGIN Load Consumption -->
                                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
                                                 <div class="info-box">
-                                                  <span class="info-box-icon bg-red">
+                                                  <span class="info-box-icon bg-yellow-gold">
 {#                                                      <i class="fa fa-sun-o font-white"></i></span>#}
                                                   <img class style="font-size:5px" src="../static/images/icon-png/plug-load_w.png" class="img-responsive">
                                                       </span>
@@ -289,35 +289,40 @@ function setValue() {
                                     </div>
                                     <ul class="nav nav-tabs">
                                         <li class="active">
-                                            <a href="#portlet_load_1" data-toggle="tab" aria-expanded="true"> Today </a>
+                                            <a data-toggle="tab" href="#tab_load_1" aria-expanded="true"> Today </a>
                                         </li>
                                         <li class="">
-                                            <a href="#portlet_load_2" data-toggle="tab" aria-expanded="false"> This Month </a>
+                                            <a data-toggle="tab" href="#tab_load_2" aria-expanded="false"> This Month </a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="tab-content">
                                         <!-- BEGIN Today Load Consumption -->
-                                        <div class="tab-pane active" id="portlet_load_1">
+                                        <div id="tab_load_1" class="tab-pane active" >
                                           <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="dashboard-stat2 bordered">
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
-                                                            <small>Lightings</small>
-                                                            <h3 class="font-green-sharp" style="font-size: 25px">
+{#                                                          <small>LIGHTINGS</small>#}
+                                                            <span class ="caption-subject bold front-dark uppercase"> Lightings </span>
+                                                            <h3 class="font-red-flamingo" style="font-size: 25px">
                                                                 <span id="LT1_baht"></span>
-                                                                <span class="font-green-sharp">฿</span>
+                                                                <span class="font-red-flamingo">฿</span>
                                                             </h3>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="icon-bulb font-green-sharp" style="font-size:36px"></i>
+{#                                                            <i class="icon-bulb font-red-flamingo" style="font-size:36px"></i>#}
+                                                            <img src="../static/images/icon-png/dash_light.png" class="img-responsive" width="40" height="40">
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
                                                         <div class="status" style="margin-top:0px">
-                                                            <div class="status-title"> <i id="LT1_comp_direction" class="glyphicon"></i> <span id="LT1_comp"></span>% from yesterday </div>
+                                                            <div class="status-title font-black">
+                                                                <i id="LT1_comp_direction" class="glyphicon"></i>
+                                                                <span id="LT1_comp" ></span>% from yesterday
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -326,19 +331,23 @@ function setValue() {
                                                 <div class="dashboard-stat2 bordered">
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
-                                                            <small>Air Condition</small>
-                                                            <h3 class="font-red-haze" style="font-size: 25px">
+{#                                                            <small>Air Condition</small>#}
+                                                            <span class ="caption-subject bold front-dark uppercase"> Air Condition </span>
+                                                            <h3 class="font-blue" style="font-size: 25px">
                                                               <span id="LT2_baht"></span>
-                                                              <span class="font-red-haze">฿</span>
+                                                              <span class="font-blue">฿</span>
                                                             </h3>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>
+{#                                                            <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>#}
+                                                            <img src="../static/images/icon-png/dash_ac.png" class="img-responsive" width="40" height="40">
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
                                                         <div class="status" style="margin-top:0px">
-                                                            <div class="status-title"> <i id="LT2_comp_direction" class="glyphicon"></i> <span id="LT2_comp"></span>% from yesterday </div>
+                                                            <div class="status-title">
+                                                                <i id="LT2_comp_direction" class="glyphicon"></i>
+                                                                <span id="LT2_comp"></span>% from yesterday </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -347,14 +356,16 @@ function setValue() {
                                                 <div class="dashboard-stat2 bordered">
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
-                                                            <small>Plug (Appliances)</small>
-                                                            <h3 class="font-blue-sharp" style="font-size: 25px">
+{#                                                            <small>Plug (Appliances)</small>#}
+                                                            <span class ="caption-subject bold front-dark uppercase"> Plug (appliances) </span>
+                                                            <h3 class="font-green-jungle" style="font-size: 25px">
                                                               <span id="LT3_baht"></span>
-                                                              <span class="font-blue-sharp">฿</span>
+                                                              <span class="font-green-jungle">฿</span>
                                                             </h3>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-plug font-blue-sharp" style="font-size:36px"></i>
+{#                                                            <i class="fa fa-plug font-green-jungle" style="font-size:36px"></i>#}
+                                                            <img src="../static/images/icon-png/dash_plug1.png" class="img-responsive" width="40" height="40">
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
@@ -368,14 +379,17 @@ function setValue() {
                                                 <div class="dashboard-stat2 bordered">
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
-                                                            <small>EV Car</small>
-                                                            <h3 class="font-purple-soft" style="font-size: 25px">
+{#                                                            <small>EV Car</small>#}
+                                                            <span class ="caption-subject bold front-dark uppercase"> EV car </span>
+                                                            <h3 class="font-purple" style="font-size: 25px">
                                                               <span id="LT4_baht"></span>
-                                                              <span class="font-purple-soft">฿</span>
+                                                              <span class="font-purple">฿</span>
                                                             </h3>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fa fa-car font-purple-soft" style="font-size:36px"></i>
+{#                                                           <i class="fa fa-car font-purple" style="font-size:36px"></i>#}
+                                                            <img src="../static/images/icon-png/dash_ev.png" class="img-responsive" width="40" height="40">
+
                                                         </div>
                                                     </div>
                                                     <div class="progress-info">
@@ -388,25 +402,29 @@ function setValue() {
                                           </div>
                                         </div>
                                         <!-- BEGIN This Month Load Consumption -->
-                                         <div class="tab-pane" id="portlet_load_2">
+                                         <div id="tab_load_2" class="tab-pane" >
                                             <div class="row">
                                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                   <div class="dashboard-stat2 bordered">
                                                       <div class="display" style="margin-bottom:0px">
                                                           <div class="number">
-                                                              <small>Lightings</small>
-                                                              <h3 class="font-green-sharp" style="font-size: 25px">
+{#                                                              <small>Lightings</small>#}
+                                                              <span class ="caption-subject bold front-dark uppercase"> Lightings </span>
+                                                              <h3 class="font-red-flamingo" style="font-size: 25px">
                                                                   <span id="LM1_baht"></span>
-                                                                  <span class="font-green-sharp">฿</span>
+                                                                  <span class="font-red-flamingo">฿</span>
                                                               </h3>
                                                           </div>
                                                           <div class="icon">
-                                                              <i class="icon-bulb font-green-sharp" style="font-size:36px"></i>
+{#                                                              <i class="icon-bulb font-red-flamingo" style="font-size:36px"></i>#}
+                                                              <img src="../static/images/icon-png/dash_light.png" class="img-responsive" width="40" height="40">
                                                           </div>
                                                       </div>
                                                       <div class="progress-info">
-                                                          <div class="status" style="margin-top:0px">
-                                                              <div class="status-title"> <i id="LM1_comp_direction" class="glyphicon"></i> <span id="LM1_comp"></span>% from last month </div>
+                                                          <div class="status font-black" style="margin-top:0px">
+                                                              <div class="status-title">
+                                                                  <i id="LM1_comp_direction" class="glyphicon"></i>
+                                                                  <span id="LM1_comp"></span>% from last month </div>
                                                           </div>
                                                       </div>
                                                   </div>
@@ -415,19 +433,24 @@ function setValue() {
                                                   <div class="dashboard-stat2 bordered">
                                                       <div class="display" style="margin-bottom:0px">
                                                           <div class="number">
-                                                              <small>Air Condition</small>
-                                                              <h3 class="font-red-haze" style="font-size: 25px">
+{#                                                              <small>Air Condition</small>#}
+                                                              <span class ="caption-subject bold front-dark uppercase"> Air Condition </span>
+                                                              <h3 class="font-blue" style="font-size: 25px">
                                                                 <span id="LM2_baht"></span>
-                                                                <span class="font-red-haze">฿</span>
+                                                                <span class="font-blue">฿</span>
                                                               </h3>
                                                           </div>
                                                           <div class="icon">
-                                                              <i class="fa fa-asterisk font-red-haze" style="font-size:36px"></i>
+{#                                                            <i class="fa fa-asterisk font-blue" style="font-size:36px"></i>#}
+                                                              <img src="../static/images/icon-png/dash_ac.png" class="img-responsive" width="40" height="40">
                                                           </div>
                                                       </div>
                                                       <div class="progress-info">
                                                           <div class="status" style="margin-top:0px">
-                                                              <div class="status-title"> <i id="LM2_comp_direction" class="glyphicon"></i> <span id="LM2_comp"></span>% from last month </div>
+                                                              <div class="status-title">
+                                                                  <i id="LM2_comp_direction" class="glyphicon"></i>
+                                                                  <span id="LM2_comp"></span>% from last month
+                                                              </div>
                                                           </div>
                                                       </div>
                                                   </div>
@@ -436,19 +459,24 @@ function setValue() {
                                                   <div class="dashboard-stat2 bordered">
                                                       <div class="display" style="margin-bottom:0px">
                                                           <div class="number">
-                                                              <small>Plug (Appliances)</small>
-                                                              <h3 class="font-blue-sharp" style="font-size: 25px">
+{#                                                              <small>Plug (Appliances)</small>#}
+                                                              <span class ="caption-subject bold front-dark uppercase"> Plug (appliances) </span>
+                                                              <h3 class="font-green-jungle" style="font-size: 25px">
                                                                 <span id="LM3_baht"></span>
-                                                                <span class="font-blue-sharp">฿</span>
+                                                                <span class="font-green-jungle">฿</span>
                                                               </h3>
                                                           </div>
                                                           <div class="icon">
-                                                              <i class="fa fa-plug font-blue-sharp" style="font-size:36px"></i>
+{#                                                              <i class="fa fa-plug green-jungle" style="font-size:36px"></i>#}
+                                                              <img src="../static/images/icon-png/dash_plug1.png" class="img-responsive" width="40" height="40">
                                                           </div>
                                                       </div>
                                                       <div class="progress-info">
                                                           <div class="status" style="margin-top:0px">
-                                                              <div class="status-title"> <i id="LM3_comp_direction" class="glyphicon"></i> <span id="LM3_comp"></span>% from last month </div>
+                                                              <div class="status-title">
+                                                                  <i id="LM3_comp_direction" class="glyphicon"></i>
+                                                                  <span id="LM3_comp"></span>% from last month
+                                                              </div>
                                                           </div>
                                                       </div>
                                                   </div>
@@ -457,19 +485,24 @@ function setValue() {
                                                   <div class="dashboard-stat2 bordered">
                                                       <div class="display" style="margin-bottom:0px">
                                                           <div class="number">
-                                                              <small>EV Car</small>
-                                                              <h3 class="font-purple-soft" style="font-size: 25px">
+{#                                                              <small>EV Car</small>#}
+                                                              <span class ="caption-subject bold front-dark uppercase"> EV car </span>
+                                                              <h3 class="font-purple" style="font-size: 25px">
                                                                 <span id="LM4_baht"></span>
-                                                                <span class="font-purple-soft">฿</span>
+                                                                <span class="font-purple">฿</span>
                                                               </h3>
                                                           </div>
                                                           <div class="icon">
-                                                              <i class="fa fa-car font-purple-soft" style="font-size:36px"></i>
+{#                                                              <i class="fa fa-car font-purple" style="font-size:36px"></i>#}
+                                                              <img src="../static/images/icon-png/dash_ev.png" class="img-responsive" width="40" height="40">
                                                           </div>
                                                       </div>
                                                       <div class="progress-info">
                                                           <div class="status" style="margin-top:0px">
-                                                              <div class="status-title"> <i id="LM4_comp_direction" class="glyphicon"></i> <span id="LM4_comp"></span>% from last month </div>
+                                                              <div class="status-title">
+                                                                  <i id="LM4_comp_direction" class="glyphicon"></i>
+                                                                  <span id="LM4_comp"></span>% from last month
+                                                              </div>
                                                           </div>
                                                       </div>
                                                   </div>
@@ -502,7 +535,6 @@ function setValue() {
                                                 <div class="icon">
                                                     <br><br>
                                                     <img style="font-size:50px" src="../static/images/Mode/eco_mode.png" id="MODE_pic" class="img-responsive">
-{#                                                    <i class="icon-bulb font-green-sharp" style="font-size:50px" src = "../static/images/Mode/eco_mode.png"></i>#}
                                                 </div>
                                             </div>
                                         </div>
@@ -521,8 +553,7 @@ function setValue() {
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <div class="icon">
                                                     <br><br>
-{#                                                    <i class="icon-bulb font-blue-sharp" style="font-size:50px"></i>#}
-                                                    <img style="font-size:50px" src="../static/images/Weather/cloudy.png" id="WEATHER_pic" class="img-responsive">
+                                                    <img class= "" width ="60" height = "60" src="../static/images/Weather/cloudy.png" id="WEATHER_pic" class="img-responsive">
                                                 </div>
                                             </div>
                                         </div>
@@ -576,9 +607,10 @@ function setValue() {
                                                                  radius = Math.min(width, height) / 2;
 
 
-                                                         var color = d3.scale.ordinal().range(["#5C9BD1", "white","lightgreen"]);
+                                                         var color = d3.scale.ordinal().range(["#E87E04", "white","lightgreen"]);
                                                          //d3.scale.ordinal()
                                                          // .range(["#2DA7E2"]);
+                                                         // Old color = #5C9BD1 , NEW color = #E87E04
 
                                                          var pie = d3.layout.pie()
                                                                  .sort(null);
@@ -718,7 +750,7 @@ function setValue() {
                                                                  radius = Math.min(width, height) / 2;
 
 
-                                                         var color = d3.scale.ordinal().range(["#5C9BD1", "white","lightgreen"]);
+                                                         var color = d3.scale.ordinal().range(["#E87E04", "white","lightgreen"]);
                                                          //d3.scale.ordinal()
                                                          // .range(["#2DA7E2"]);
 
@@ -846,17 +878,18 @@ function setValue() {
                                         <i class="icon-directions font-green hide"></i>
                                         <span class="caption-subject bold font-dark uppercase "> Total Annual Energy Consumption</span>
                                     </div>
-
                                 </div>
                                 <div class="portlet-body">
-                                  <div class="row">
+                                <div class="row">
                                     <div class="col-md-5 col-sm-5">
                                       <div class="chart-gauge"></div>
                                     </div>
                                     <div class="col-md-7 col-sm-7" style="font-size:30px">
                                       <div style="display:table;margin: 10px auto">
                                         <div style="display:inline-block">
-                                          <span class="flaticon-plug icon-size-big font-red"></span>
+                                          <span>
+                                              <img class="" src="../static/images/icon-png/AEC_plug3.png" style="responsive" height="50" width="50" ></img>
+                                          </span>
                                           <div style="display:inline-block">
                                             <span style="font-size:20px;font-weight:600">Consumption</span>
                                             <span style="font-size:20px;display:block"><span id="AEC_use"></span> kWh</span>
@@ -864,7 +897,9 @@ function setValue() {
                                         </div>
                                         <br>
                                         <div style="display:inline-block">
-                                          <span class="flaticon-sunlight icon-size-big font-green"></span>
+                                          <span>
+                                              <img class="" src="../static/images/icon-png/AEC_gen3.png" style="responsive" height="50" width="50" ></img>
+                                          </span>
                                           <div style="display:inline-block">
                                             <span style="font-size:20px;font-weight:600">Generation</span>
                                             <span style="font-size:20px;display:block"><span id="AEC_gen"></span> kWh</span>
@@ -989,12 +1024,16 @@ function setValue() {
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <!-- BEGIN WIDGET THUMB -->
                                             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
-                                                <h4 class="widget-thumb-heading">Lightings</h4>
-                                                <div class="widget-thumb-wrap" style="">
-                                                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
+                                                <h4 class="widget-thumb-heading font-dark">Lightings</h4>
+                                                 <div class="widget-thumb-wrap" style="">
+                                                    <i class="widget-thumb-icon bg-red-flamingo">
+                                                       <img class="" src="../static/images/icon-png/lighting_w.png" style="responsive" height="40" width="40" >
+                                                    </i>
                                                     <div class="widget-thumb-body">
                                                         <span class="widget-thumb-subtitle">Active</span>
-                                                        <span class="widget-thumb-body-stat" style="font-size: 20px"><span id="LOAD1_on"></span>/<span id="LOAD1_all"></span></span>
+                                                        <span class="widget-thumb-body-stat" style="font-size: 20px">
+                                                            <span id="LOAD1_on"></span>/<span id="LOAD1_all"></span>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1005,9 +1044,11 @@ function setValue() {
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <!-- BEGIN WIDGET THUMB -->
                                             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
-                                                <h4 class="widget-thumb-heading">Air Condition</h4>
+                                                <h4 class="widget-thumb-heading font-dark">Air Condition</h4>
                                                 <div class="widget-thumb-wrap">
-                                                    <i class="widget-thumb-icon bg-purple fa fa-asterisk"></i>
+                                                    <i class="widget-thumb-icon bg-blue">
+                                                        <img class="" src="../static/images/icon-png/air-conditioner_w.png" style="responsive" height="40" width="40" >
+                                                    </i>
                                                     <div class="widget-thumb-body">
                                                         <span class="widget-thumb-subtitle">Active</span>
                                                         <span class="widget-thumb-body-stat" style="font-size: 20px"><span id="LOAD2_on"></span>/<span id="LOAD2_all"></span></span>
@@ -1022,9 +1063,11 @@ function setValue() {
                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                             <!-- BEGIN WIDGET THUMB -->
                                             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
-                                                <h4 class="widget-thumb-heading">Appliances</h4>
+                                                <h4 class="widget-thumb-heading font-dark ">Appliances</h4>
                                                 <div class="widget-thumb-wrap">
-                                                    <i class="widget-thumb-icon bg-blue fa fa-plug"></i>
+                                                    <i class="widget-thumb-icon bg-green-jungle">
+                                                       <img class="" src="../static/images/icon-png/plug2.png" style="responsive" height="40" width="40" >
+                                                    </i>
                                                     <div class="widget-thumb-body">
                                                         <span class="widget-thumb-subtitle">Active</span>
                                                         <span class="widget-thumb-body-stat" style="font-size: 20px"><span id="LOAD3_on"></span>/<span id="LOAD3_all"></span></span>
