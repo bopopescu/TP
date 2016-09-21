@@ -87,9 +87,8 @@ def smartplug(request, mac):
         request.session['last_visit'] = str(datetime.now())
         request.session['visits'] = 1
 
-    print type(mac)
     mac = mac.encode('ascii', 'ignore')
-    print type(mac)
+    print 'request inside plugload view from mac: {}'.format(mac)
 
     device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
     print device_metadata
@@ -128,8 +127,9 @@ def submit_changes(request):
         print _data
 
         device_info = _data['device_info']
-        #_data = {"status": _data['status']}
+        mac_address = '3WIS'+_data['mac_address']
         _data.pop('device_info')
+        _data.pop('mac_address')
         print _data
         print device_info
         content_type = "application/json"
@@ -138,8 +138,9 @@ def submit_changes(request):
 
         #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
-        plugload_update_send_topic = '/ui/agent/'+device_info[1]+'/update/bemoss/'+device_info[0]+'/'+device_info[2]
-        print plugload_update_send_topic
+        plugload_update_send_topic = '/ui/agent/'+device_info[1]+'/update/bemoss/'+device_info[0]+'/'+mac_address
+        print "topic sent: {}".format(plugload_update_send_topic)
+        print "message sent: {}".format(_data)
         zmq_pub.sendToAgent(plugload_update_send_topic, _data, content_type, fromUI)
         print "success in sending message to agent"
 

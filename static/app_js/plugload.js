@@ -147,8 +147,9 @@ $( document ).ready(function() {
 			plug_action = "OFF";
             console.log("Send OFF");
 		}
-        plug_send['device_info'] = device_info
+        plug_send['device_info'] = device_info;
 		plug_send['status'] = plug_action ;
+        plug_send['mac_address'] = mac_address ;
 
             //submit_plugload_data(plug_send);
 
@@ -174,25 +175,31 @@ $( document ).ready(function() {
          var _data = event.data.trim();
          _data = $.parseJSON(_data);
          var topic = _data['topic'];
-        var  msg = $.parseJSON(_data['message']);
+         var msg = $.parseJSON(_data['message']);
 
-		 //console.log(_data['message'])
+         //console.log(_data['message'])
          console.log('status' + msg['status']);
          Is_human_click = false;
-         if (msg['status'] == "ON")
-         {
-             Is_off = false;
-             $('.make-switch').bootstrapSwitch('state', true, true);
-         } else if (msg['status'] == "OFF")
-         {
-             Is_off = true;
-             $('.make-switch').bootstrapSwitch('state', false, true);
+         console.log("this device mac_address: " + mac_address);
+         console.log("message sent device_id: " + msg['device_id']);
+         if (('3WIS' + mac_address) == msg['device_id']) {
+             if (msg['status'] == "ON") {
+                 Is_off = false;
+                 $('.make-switch').bootstrapSwitch('state', true, true);
+             } else if (msg['status'] == "OFF") {
+                 Is_off = true;
+                 $('.make-switch').bootstrapSwitch('state', false, true);
+             }
+             console.log("plug status updated")
+         } else {
+             console.log("this message is not for me")
          }
-		 var topic =  false;
+     };
+		 // var topic =  false;
          // ["", "agent", "ui", device_type, command, building_name, zone_id, agent_id]
-         if (topic) {
-             topic = topic.split('/');
-             console.log(topic);
+         // if (topic) {
+         //     topic = topic.split('/');
+         //     console.log(topic);
              // if (topic[7] == device_id && topic[4] == 'device_status_response') {
              //     if ($.type( _data['message'] ) === "string"){
              //         var _message = $.parseJSON(_data['message']);
@@ -227,8 +234,8 @@ $( document ).ready(function() {
                  //         fadeOut: { enabled: true, delay: 5000 }
                  //      }).show();
                  // }
-             }
-         }
+         //     }
+         // }
 
 
     //
@@ -304,6 +311,7 @@ $( document ).ready(function() {
 
 	$( "#confirm_change" ).click(function(evt) {
 		evt.preventDefault();
+        console.log("confirm change")
 		update_time = new Date();
 		update_time = update_time.toLocaleTimeString();
 		var status;
@@ -314,7 +322,8 @@ $( document ).ready(function() {
 		
 			values = {
 					"status":status,
-					"device_info":device_info
+					"device_info":device_info,
+                    "mac_address": mac_address
 			};
 		// _values_on_submit_plugload = values;
         submit_plugload_data(values)
@@ -322,7 +331,7 @@ $( document ).ready(function() {
 
     function submit_plugload_data(values) {
         var jsonText = JSON.stringify(values);
-	    console.log(jsonText);
+	    console.log("jsonText" + jsonText);
 		$.ajax({
             url: '/update_plugload/',
             type: 'POST',
@@ -333,7 +342,7 @@ $( document ).ready(function() {
                  message: { text: 'Your changes will be updated shortly' },
                  type: 'blackgloss'
                  }).show();*/
-                console.log(data.event)
+                console.log(data.event);
             }/*,
              error: function(data) {
              submit_plugload_data(values);
