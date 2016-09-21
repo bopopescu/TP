@@ -72,8 +72,8 @@ def airconditioner(request, mac):
 
 # Update lighting controller status
 @login_required(login_url='/login/')
-def update_device_light(request):
-    print 'inside lighting update device method'
+def update_device_air(request):
+    print 'inside Aircond update device method'
     if request.POST:
         _data = request.body
         _data = json.loads(_data)
@@ -95,8 +95,7 @@ def update_device_light(request):
         # print(type(device_info))
         # device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
-        lighting_update_send_topic = '/ui/agent/' + device_info[1] + '/update/bemoss/' + device_info[0] + '/' + \
-                                     device_info[2]
+        lighting_update_send_topic = '/ui/agent/' + device_info[1] + '/update/bemoss/' + device_info[0] + '/1TH' + device_info[2]
         print lighting_update_send_topic
 
         zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)

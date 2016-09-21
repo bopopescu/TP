@@ -104,6 +104,7 @@ def main():
             (r"/socket_thermostat_scheduler", ThermostatSchedulerHandler),
             (r"/socket_powermeter", PowermeterEventHandler),
             (r"/socket_dashboard", DashboardEventHandler),
+            (r"/socket_weather", WeatherEventHandler),
             (r"/socket_airconditioner", AirconditionerEventHandler),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': PROJECT_DIR +
                                                                       "/static/"}),
@@ -249,6 +250,9 @@ class DashboardEventHandler(MainHandler):
     def zmq_subscribe(self):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/dashboard')
 
+class WeatherEventHandler(MainHandler):
+    def zmq_subscribe(self):
+        self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/Weathers/')
 class AirconditionerEventHandler(MainHandler):
     def zmq_subscribe(self):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/airconditioner')
@@ -267,6 +271,7 @@ application = web.Application([
     (r"/socket_thermostat_scheduler", ThermostatSchedulerHandler),
     (r"/socket_powermeter", PowermeterEventHandler),
     (r"/socket_dashboard", DashboardEventHandler),
+    (r"/socket_weather", WeatherEventHandler),
     (r"/socket_airconditioner", AirconditionerEventHandler),
 ])
 
