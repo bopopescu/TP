@@ -46,14 +46,22 @@ under Contract DE-EE0006352
 #__lastUpdated__ = "2016-03-14 11:23:33"
 
 **/
-var lamp_id ='2HUE0017881cab4b';
-var _values_on_submit_lighting = {};
-var test_values = {
-		    "status": "ON",
-		    //"saturation": parseFloat($( "#saturation_value" ).val().replace("%","")),
-		    "device_info": ["999", "lighting", lamp_id]
-		    };
-var Is_off = false;
+var is_on = true;
+$( "#device_power_disp" ).click(function() {
+    console.log("button click");
+
+    if ($("#device_power_disp").text() == "ON") {
+        document.getElementById("device_power_disp").innerHTML = "OFF";
+        is_on = false;
+        console.log($("#device_power_disp").text());
+    } else if ($("#device_power_disp").text() == "OFF") {
+        document.getElementById("device_power_disp").innerHTML = "ON";
+        is_on = true;
+        console.log($("#device_power_disp").text());
+    }
+    submit_fan_data("send");
+});
+
 
 // //Modify status	 when clicked
 // $( "#light_on" ).click(function() {
@@ -405,57 +413,35 @@ $( "#submit_lighting_data" ).click(function(evt) {
 
 });
 
+function submit_fan_data(values) {
+    console.log("values " +values);
+    console.log("values " + values.value);
 
-function submit_lighting_data(values) {
-    // topic ="ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
-    var status = "";
-    var lamp_val = "";
-        jjstatus = values.method;
-        lamp_val    = values.value ;
-    if (values.method == "status"){
-        if (Is_off)
-    {
-        Is_off = false;
-        lamp_val = "OFF";
-    }else {
-        Is_off = true;
-        lamp_val = "ON";
+    var  _data_sent= {};
+    if (is_on == true){
+        _data_sent["status"]  = "ON";
+    } else if (is_on == false) {
+        _data_sent["status"]  = "OFF";
     }
-    }
-/*
-    var lt_color =  '#eb2323';
-    lt_color = lt_color.replace('rgb','');
-            if (lt_color.indexOf('a(') > -1) {
-                lt_color = '(255,255,255)';
-            }
-    console.log(lt_color)
-    */
-    console.log("Method  " + jjstatus + "  Vales " + lamp_val);
-     test_values[jjstatus] =  lamp_val ;
-     //test_values['color'] = '(220,0,0)'
 
-     test_values["device_info"] =  ["999", "lighting", lamp_id];
+    _data_sent["mac_address"]  = mac_address;
 
-     //test_values["device_info"] = ["999", "lighting", lamp_id]
-    // var vaule = {"topic" : topic, "message": status_on}
-    //var device_info = ["999", "lighing", value]
-    var jsonText = JSON.stringify(test_values);
-    console.log(jsonText);
+    console.log("_data_sent" + _data_sent);
+    console.log(_data_sent['status']);
+    console.log(typeof(_data_sent));
+
+    var jsonText = JSON.stringify(_data_sent);
+    console.log(_data_sent);
 	$.ajax({
-		  url : '/update_light/',
+		  url : '/update_fan/',
 		  type: 'POST',
 		  data: jsonText,
 		  dataType: 'json',
 		  success : function(data) {
-		     // change_lighting_values(data)
-			//lighting_data_updated();
-		  	/*$('.bottom-right').notify({
-		  	    message: { text: 'Your settings will be updated shortly' },
-		  	    type: 'blackgloss'
-		  	  }).show();*/
+              console.log("done changing fan status");
 		  },
 		  error: function(data) {
-              // submit_lighting_data(values);
+              console.log("error changing fan status");
 			  $('.bottom-right').notify({
 			  	    message: { text: 'Something went wrong when submitting the data. Please try again.' },
 			  	    type: 'blackgloss',
@@ -464,4 +450,3 @@ function submit_lighting_data(values) {
 		  }
 		 });
 }
-

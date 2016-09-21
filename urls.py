@@ -118,6 +118,8 @@ urlpatterns = patterns('',
     (r'^update_light/$', 'apps.lighting.views.update_device_light'),
     #tv controller update device
     (r'^update_tv/$', 'apps.tv.views.update_device_tv'),
+    #fan controller update device
+    (r'^update_fan/$', 'apps.fan.views.update_device_fan'),
     #lighting controller update device 
     (r'^update_light_device_status/$', 'apps.lighting.views.update_device_agent_status'),
     #get light status realtime
