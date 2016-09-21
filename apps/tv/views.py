@@ -38,7 +38,7 @@ def tv(request, mac):
         request.session['visits'] = 1
 
     mac = mac.encode('ascii', 'ignore')
-    print "unside tv view for mac: {}".format(mac)
+    print "inside tv view for mac: {}".format(mac)
 
     # device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
     # print device_metadata
@@ -65,8 +65,7 @@ def tv(request, mac):
         # {'device_data': _data, 'device_id': device_id, 'device_zone': device_zone, 'zone_nickname': zone_nickname,
         #  'mac_address': mac, 'device_nickname': device_nickname, 'device_type_id': device_type_id},
         # context)
-        {'device_type': "tv"},
-        context)
+        {'device_type': "tv", 'mac_address': mac}, context)
 
 @login_required(login_url='/login/')
 def submit_changes(request):
@@ -116,3 +115,22 @@ def get_tv_current_status(request):
         jsonresult = {'status': 'sent'}
         if request.is_ajax():
             return HttpResponse(json.dumps(jsonresult), mimetype='application/json')
+
+
+#Update lighting controller status
+@login_required(login_url='/login/')
+def update_device_tv(request):
+    print 'inside tv update device method'
+    if request.POST:
+        _data = request.body
+        _data = json.loads(_data)
+        print _data['status']
+        device_id = '1LG' + _data['mac_address']
+        content_type = "application/json"
+        fromUI = "UI"
+        lighting_update_send_topic = '/ui/agent/tv/update/bemoss/999/'+device_id
+        print lighting_update_send_topic
+        zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
+
+    if request.is_ajax():
+            return HttpResponse(json.dumps(_data), mimetype='application/json')
