@@ -203,7 +203,9 @@ function setValue() {
                                                 <div class="info-box-content">
                                                     <span class="info-box-text1">Grid</span>
                                                     <span class="info-box-text2" id="GRID_status"></span>
-                                                    <span class="info-box-number"><span class="glyphicon" id="GRID_kw_direction"></span> <span id="GRID_kw"></span> <small>W</small></span>
+                                                    <span class="info-box-number">
+                                                        <span id="GRID_kw"></span> <small>W</small>
+                                                    </span>
                                                   </div>
                                                 </div>
                                               </div>
@@ -219,7 +221,9 @@ function setValue() {
                                                   <div class="info-box-content">
                                                     <span class="info-box-text1">Solar Generation</span>
                                                     <span class="info-box-text2" id="SOLAR_status"></span>
-                                                    <span class="info-box-number"><span class="glyphicon" id="SOLAR_kw_direction"></span> <span id="SOLAR_kw"></span> <small>W</small></span>
+                                                    <span class="info-box-number">
+                                                        <span id="SOLAR_kw"></span> <small>W</small>
+                                                    </span>
                                                   </div>
                                                 </div>
                                               </div>
@@ -236,8 +240,8 @@ function setValue() {
                                                     <span class="info-box-text1">Load</span>
                                                     <span class="info-box-text2" id="LOAD_status"></span>
                                                     <span class="info-box-number">
-                                                        <span class="glyphicon" id="LOAD_kw_direction"></span>
-                                                        <span id="LOAD_kw"></span> <small>W</small></span>
+                                                         <span id="LOAD_kw"></span> <small>W</small>
+                                                    </span>
                                                   </div>
                                                 </div>
                                               </div>
@@ -267,8 +271,8 @@ function setValue() {
                                                     <span class="info-box-text1">EV Car</span>
                                                     <span class="info-box-text2" id="EV_status"></span>
                                                     <span class="info-box-number">
-                                                        <span class="glyphicon" id="EV_percent_direction"></span>
-                                                        <span id="EV_percent"></span> <small>%</small></span>
+                                                        <span id="EV_percent"></span> <small>%</small>
+                                                    </span>
                                                   </div>
                                                 </div>
                                               </div>
@@ -523,7 +527,9 @@ function setValue() {
                             <!-- BEGIN 1st Row -->
                             <div class="row">
                                 <!-- BEGIN Mode -->
+
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <!--Test Modal -->
                                     <div class="m-heading-1 border-green m-bordered">
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -538,22 +544,94 @@ function setValue() {
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
+                                        <div class= "clearfix">
+                                            <!-- Modal1 -->
+                                            <button type="button" class="btn btn-circle btn-success" data-toggle="modal" data-target="#myModal">Select Mode</button>
+                                                <div class="modal fade" id="myModal" role="dialog">
+                                                    <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Mode Selection</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p>Please select mode</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle red" data-dismiss="modal">Comfort Mode</button>
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Eco Mode</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <!-- Modal2 -->
+                                            <button type="button" class="btn btn-circle btn-success" data-toggle="modal" data-target="#myModal1">Info</button>
+                                                <div class="modal fade" id="myModal1" role="dialog">
+                                                    <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Mode Information</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p>Comfort mode : </p>
+                                                    <p>Eco mode : </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">OK</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <!--End of Modal 2-->
+                                            <!-- Modal 3 -->
+                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#DR_Modal">Test DR</button>
+                                                <div class="modal fade" id="DR_Modal" role="dialog">
+                                                    <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Mode Information</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p> Do you agree to select DR Mode? : </p>
+                                                    <p> DR Mode is ......... </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Yes, I Agree</button>
+                                                    <button type="button" class="btn btn-circle red" data-dismiss="modal">No, I disagree</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+
+
+
+                                            <!-- End of Modal 3 -->
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- END Mode -->
+
+
                                 <!-- BEGIN Weather -->
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="m-heading-1 border-blue m-bordered">
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                <h3 style="font-size: 25px";>WEATHER</h3>
-                                                <div style="font-size: 15px">location</div>
-                                                <span style="font-size: 25px"></span> C
+                                                <h3 id="WEA_title" style="font-size: 25px";></h3>
+                                                <div id="WEA_humid" style="font-size: 15px"></div>
+                                                <span style="font-size: 25px" id = "WEA_temp"></span> C
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <div class="icon">
                                                     <br><br>
-                                                    <img class= "" width ="60" height = "60" src="../static/images/Weather/cloudy.png" id="WEATHER_pic" class="img-responsive">
+                                                    <img class= "" id="WEATHER_pic" width ="60" height = "60" class="img-responsive">
                                                 </div>
                                             </div>
                                         </div>
