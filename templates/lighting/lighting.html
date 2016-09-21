@@ -517,6 +517,24 @@ a:hover {
 														 <!--style=" display: flex; border: solid red;">-->
 													<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
 													<script>
+
+                                                        var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_lighting");
+                                                        var status = '';
+                                                         ws_dashboard.onopen = function () {
+                                                             ws_dashboard.send("WS opened from html page");
+                                                         };
+
+                                                         ws_dashboard.onmessage = function (event) {
+                                                             var _data = event.data;
+                                                             _data = $.parseJSON(_data);
+                                                             var _topic = _data['topic'];
+                                                             console.log(_topic);
+                                                             var _message = $.parseJSON(_data['message']);
+                                                             console.log("_message "+_message);
+                                                             console.log("_message status "+_message.status);
+                                                             status = _message.status;
+                                                         };
+
 														function renderChart() {
 															$('#highchart_1').highcharts({
 																chart : {
@@ -527,8 +545,12 @@ a:hover {
 																		load: function () {
 																			var series = this.series[0];
 																			setInterval(function () {
-																				var x = (new Date()).getTime(), // current time
-																						y = Math.random()*100;
+																				var x = (new Date()).getTime(); // current time
+                                                                                if (status == "OFF") {
+                                                                                    y = 0;
+                                                                                } else {
+                                                                                    y = 8.5*13 + Math.random()*10;
+                                                                                }
 																				series.addPoint([x, y], true, true);
 																			}, 1000);
 																		}
