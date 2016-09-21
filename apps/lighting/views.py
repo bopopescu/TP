@@ -114,7 +114,7 @@ def lighting(request, mac):
         # {'type': controller_type, 'device_data': _data, 'device_id': device_id, 'device_zone': device_zone,
         #  'device_type': controller_type, 'mac_address': mac, 'zone_nickname': zone_nickname,
         #  'device_nickname': device_nickname}, context)
-        {'type': "lighting"}, context)
+        {'type': "lighting", 'mac_address': mac}, context)
 
 
 #Update lighting controller status
@@ -124,8 +124,8 @@ def update_device_light(request):
     if request.POST:
         _data = request.body
         _data = json.loads(_data)
-        device_info = _data['device_info']
-        if 'color' in str(_data):
+        # device_info = _data['device_info']
+        if 'color' in _data:
             lt_color = _data['color']
             if 'a(' in str(lt_color):
                 lt_color = '(0,0,0)'
@@ -135,16 +135,20 @@ def update_device_light(request):
                 lt_color = '(0,0,0)'
             _data['color'] = lt_color
 
-        _data.pop('device_info')
-        content_type = "application/json"
-        fromUI = "UI"
-        print(device_info)
+        # _data.pop('device_info')
+
+        # print(device_info)
         #print(type(device_info))
         #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
-        lighting_update_send_topic = '/ui/agent/'+device_info[1]+'/update/bemoss/'+device_info[0]+'/'+device_info[2]
-        print lighting_update_send_topic
+        # topic = "ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
 
+        print _data['status']
+        device_id = '2HUE' + _data['mac_address']
+        content_type = "application/json"
+        fromUI = "UI"
+        lighting_update_send_topic = '/ui/agent/lighting/update/bemoss/999/'+device_id
+        print lighting_update_send_topic
         zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
 
     if request.is_ajax():
