@@ -355,6 +355,12 @@ a:hover {
 
 
 		</style>
+
+<script>
+    var mac_address = "{{ mac_address }}";
+    console.log("this ac mac_address is "+mac_address)
+</script>
+
       </head>
     <!-- END HEAD -->
 
@@ -580,6 +586,26 @@ a:hover {
 														 <!--style=" display: flex; border: solid red;">-->
 													<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
 													<script>
+                                                        var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_airconditioner");
+                                                        var status = '';
+                                                        var message_mac_address = '';
+                                                        var holdvalue = true;
+                                                         ws_dashboard.onopen = function () {
+                                                             ws_dashboard.send("WS opened from html page");
+                                                         };
+
+                                                         ws_dashboard.onmessage = function (event) {
+                                                             var _data = event.data;
+                                                             _data = $.parseJSON(_data);
+                                                             var _topic = _data['topic'];
+                                                             console.log(_topic);
+                                                             var _message = $.parseJSON(_data['message']);
+                                                             console.log("_message "+_message);
+                                                             console.log("_message status "+_message.status);
+                                                             status = _message.status;
+                                                             message_mac_address = _message.macaddress;
+                                                         };
+
 														function renderChart() {
 															$('#highchart_1').highcharts({
 																chart : {
@@ -590,9 +616,46 @@ a:hover {
 																		load: function () {
 																			var series = this.series[0];
 																			setInterval(function () {
-																				var x = (new Date()).getTime(), // current time
-																						y = Math.random()*100;
-																				series.addPoint([x, y], true, true);
+                                                                                var x = (new Date()).getTime(); // current time
+
+                                                                                if (mac_address == "20000000000003") {
+                                                                                    y = 800 + Math.random() * 50;
+                                                                                } else {
+                                                                                    y = 1500 + Math.random() * 100;
+                                                                                }
+
+                                                                                if (message_mac_address == mac_address) {
+                                                                                    if (status == "OFF") {
+                                                                                        y = 0;
+                                                                                        holdvalue = true;
+                                                                                    } else if (status == "ON") {
+                                                                                        holdvalue = false;
+                                                                                    }
+                                                                                }
+
+                                                                                if (holdvalue == true) {
+                                                                                    y = 0;
+                                                                                }
+                                                                                series.addPoint([x, y], true, true);
+                                                                                console.log("chart is updated for mac "+mac_address);
+{#                                                                                #}
+{#                                                                                if (message_mac_address == mac_address){#}
+{#                                                                                    if (status == "OFF") {#}
+{#                                                                                        y = 0;#}
+{#                                                                                    } else {#}
+{#                                                                                        if (mac_address == "20000000000003") {#}
+{#                                                                                            y = 800 + Math.random() * 50;#}
+{#                                                                                        } else {#}
+{#                                                                                            y = 1500 + Math.random() * 100;#}
+{#                                                                                        }#}
+{#                                                                                    }#}
+{#                                                                                    holdvalue = y;#}
+{#                                                                                    console.log("chart is updated for mac "+mac_address);#}
+{#                                                                                    series.addPoint([x, y], true, true);#}
+{#                                                                                } else {#}
+{#                                                                                    series.addPoint([x, holdvalue], true, true);#}
+{#                                                                                    console.log("chart is not updated");#}
+{#                                                                                }#}
 																			}, 1000);
 																		}
 																	}
