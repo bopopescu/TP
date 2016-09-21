@@ -53,8 +53,11 @@ var test_values = {
 		    //"saturation": parseFloat($( "#saturation_value" ).val().replace("%","")),
 		    "device_info": ["999", "lighting", lamp_id]
 		    };
-var Is_off = false;
-
+var is_on = true;
+var brightness_level = 0;
+var send_brightness = false;
+var color_level = 0;
+var send_color = false;
 // //Modify status	 when clicked
 // $( "#light_on" ).click(function() {
 // 	if ($("#light_on").css('background-color') == "green") {
@@ -67,7 +70,23 @@ var Is_off = false;
 //         $('#brightness_value').val('100%');
 // 	}
 // });
-//
+
+$( "#device_power_disp" ).click(function() {
+    console.log("button click");
+    console.log($("#device_power_disp").text());
+
+    if ($("#device_power_disp").text() == "ON") {
+        document.getElementById("device_power_disp").innerHTML = "OFF";
+        is_on = false;
+
+    } else if ($("#device_power_disp").text() == "OFF") {
+        document.getElementById("device_power_disp").innerHTML = "ON";
+        is_on = true;
+
+    }
+    submit_lighting_data("send");
+});
+
 // $( "#light_off" ).click(function() {
 // 	if ($("#light_off").css('background-color') == "green") {
 // 	} else {
@@ -209,8 +228,10 @@ var Is_off = false;
                  } else {
                      $(".brght").blur().removeClass("grey");
                  }
-                 console.log(values[handle]);
-                 var lamp_send = {"method" : "brightness", "value": values[handle]}
+                 console.log("values[handle]" + values[handle]);
+                 brightness_level = parseInt(values[handle]);
+                 send_brightness = true;
+                 var lamp_send = {"method" : "brightness", "value": values[handle]};
                  submit_lighting_data(lamp_send);
              });
          }
@@ -251,7 +272,8 @@ function color() {
                 }
                 console.log(value + " --> (" + hexToRgb(value).r + "," + hexToRgb(value).g + "," + hexToRgb(value).b + ")");
                 var _color = "(" + hexToRgb(value).r + "," + hexToRgb(value).g + "," + hexToRgb(value).b + ")" ;
-
+                color_level = _color;
+                send_color = true;
                 var lamp_send = {"method" : "color", "value": _color};
                 submit_lighting_data(lamp_send);
             },
@@ -405,57 +427,43 @@ $( "#submit_lighting_data" ).click(function(evt) {
 
 });
 
-
 function submit_lighting_data(values) {
-    // topic ="ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
-    var status = "";
-    var lamp_val = "";
-        jjstatus = values.method;
-        lamp_val    = values.value ;
-    if (values.method == "status"){
-        if (Is_off)
-    {
-        Is_off = false;
-        lamp_val = "OFF";
-    }else {
-        Is_off = true;
-        lamp_val = "ON";
-    }
-    }
-/*
-    var lt_color =  '#eb2323';
-    lt_color = lt_color.replace('rgb','');
-            if (lt_color.indexOf('a(') > -1) {
-                lt_color = '(255,255,255)';
-            }
-    console.log(lt_color)
-    */
-    console.log("Method  " + jjstatus + "  Vales " + lamp_val);
-     test_values[jjstatus] =  lamp_val ;
-     //test_values['color'] = '(220,0,0)'
+    console.log("values " +values);
+    console.log("values " + values.value);
 
-     test_values["device_info"] =  ["999", "lighting", lamp_id];
+    var  _data_sent= {};
+    if (is_on == true){
+        _data_sent["status"]  = "ON";
+    } else if (is_on == false) {
+        _data_sent["status"]  = "OFF";
+    }
+    if (send_brightness) {
+        _data_sent["brightness"]  = brightness_level;
+        send_brightness = false
+    }
+    if (send_color) {
+        _data_sent["color"]  = color_level;
+        send_color = false
+    }
 
-     //test_values["device_info"] = ["999", "lighting", lamp_id]
-    // var vaule = {"topic" : topic, "message": status_on}
-    //var device_info = ["999", "lighing", value]
-    var jsonText = JSON.stringify(test_values);
-    console.log(jsonText);
+    _data_sent["mac_address"]  = mac_address;
+
+    console.log("_data_sent" + _data_sent);
+    console.log(_data_sent['status']);
+    console.log(typeof(_data_sent));
+
+    var jsonText = JSON.stringify(_data_sent);
+    console.log(_data_sent);
 	$.ajax({
 		  url : '/update_light/',
 		  type: 'POST',
 		  data: jsonText,
 		  dataType: 'json',
 		  success : function(data) {
-		     // change_lighting_values(data)
-			//lighting_data_updated();
-		  	/*$('.bottom-right').notify({
-		  	    message: { text: 'Your settings will be updated shortly' },
-		  	    type: 'blackgloss'
-		  	  }).show();*/
+              console.log("done changing light status");
 		  },
 		  error: function(data) {
-              // submit_lighting_data(values);
+              console.log("error changing light status");
 			  $('.bottom-right').notify({
 			  	    message: { text: 'Something went wrong when submitting the data. Please try again.' },
 			  	    type: 'blackgloss',
