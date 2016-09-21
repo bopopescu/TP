@@ -412,7 +412,7 @@ a:hover {
 														<div class="sub-title">Status</div>
 														<br>
 														<div style="display: flex; ">
-															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/airconditioner_b.png"></img>
+															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/air-conditioner_b.png"></img>
 														</div>
 														<br>
 														<div style="display: flex ">
@@ -430,79 +430,127 @@ a:hover {
 													</div>
 												</div>
 												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
+													<!--Begin Temperature-->
 													<div class="airCond-row1-form">
-														<div class="sub-title hidden-xs">Temperature Control</div>
-														<div style="display: flex;width:100%;">
-															<div class="row" style="margin: auto">
-																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	0%
-																</button>
-																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	25%
+														<div class="sub-title hidden-xs">Temperature</div>
+														<div class="row">
+															<div style="display: flex;width:100%;">
+																<div class="row" style="margin: auto">
+																	<span id="temp" style="font-size: 65px; color: #3598dc">
+																		<strong>22.0</strong>
+																	</span>
+																	<span style="font-size: 50px; color: #ACB5C3 ">
+																		<small>&#8451</small>
+																	</span>
+																</div>
+															</div>
+															<br>
+															<div style="padding: 0px 20px 0px 20px;">
+																<div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div>
 															</div>
 														</div>
-														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
-
 													</div>
-													<div class="colors-form">
+													<!--END Temperature-->
+													<!--BEGIN Mode Control-->
+													<div class="airCond-row1-form">
 														<div class="sub-title">Mode Control</div>
 														<div style="width:100%; display: flex;" >
 															<div class="row" style="margin: auto">
 															<style>
 															.btc {
-																margin:10px;width: auto;border:3px solid #EEE;background-color: white;
+																margin:15px;width: auto;border:0px solid #EEE;background-color: white;
 															}
 															</style>
-															<button id="c-d" onclick="setColor('#ffffff')" type="button" class="btc clr btn btn-circle btn-group-sm  col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																 Default
-															</button>
-															<button id="c-ww" onclick="setColor('#ffffee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																Warm White
-															</button>
-															<button id="c-cw" onclick="setColor('#eeeeff')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																Cool White
-															</button>
-															<button id="c-dl" onclick="setColor('#ffeeee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																Daylight
-															</button>
+															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+															<button id="m-auto" onclick="setMode('m-auto')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+																	type="button" style="border: 0px">
+                                                    			<img class="img-responsive" src="../../static/images/icon-png/auto_b.png" style=""></img>
+																<br><span>Auto</span>
+                                                			</button>
 															</div>
+															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+															<button id="m-cool" onclick="setMode('m-cool')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle c"
+																	type="button" style="border: 0px">
+                                                    			<img class="img-responsive" src="../../static/images/icon-png/snowflake_b.png"></img>
+																<br><span>Cool</span>
+                                                			</button>
+															</div>
+															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+															<button id="m-dry" onclick="setMode('m-dry')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+																	type="button" style="border: 0px">
+                                                    			<img class="img-responsive" src="../../static/images/icon-png/water_b.png"></img>
+																<br><span>Dry</span>
+                                                			</button>
+															</div>
+															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+															<button id="m-fan" onclick="setMode('m-fan')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+																	type="button" style="border: 0px">
+                                                    			<img class="img-responsive" src="../../static/images/icon-png/ac_b.png"></img>
+																<br><span>Fan</span>
+                                                			</button>
+															</div>
+																</div>
 														</div>
 														<br>
-														<div class="row">
-															<div class="col-md-offset-3 col-md-6 col-lg-6" style="height: auto;">
-																<div style="border: 3px solid #eee;box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
-																	<input id="colorSelector" id="hidden-input" type="hidden" value="#000">
-															</div>
 
-														</div>
 													</div>
-												</div>
-													<div class="brightness-form">
-														<div class="sub-title hidden-xs">Fan Control</div>
-														<div style="display: flex;width:100%;">
+													<!--END Mode Control-->
+													<!--BEGIN Fan Speed-->
+													<div class="airCond-row1-form">
+														<div class="sub-title">Fan Speed</div>
+														<div style="width:100%; display: flex;" >
 															<div class="row" style="margin: auto">
-																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	0%
-																</button>
-																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	25%
-																</button>
-																<button id="b-50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	50%
-																</button>
-																<button id="b-75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	75%
-																</button>
-																<button id="b-100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	100%
-																</button>
-
+															<style>
+															.btc {
+																margin:10px;width: auto;border:1px solid #EEE;background-color: white;
+															}
+															</style>
+															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+															<button	 id="fs-low" onclick="setMode('fs-auto')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle c"
+																	type="button">
+																	<span>Auto</span>
+															</button>
 															</div>
+															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+															<button id="fs-low" onclick="setMode('fs-low')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle c"
+																	type="button">
+																	<span>Low</span>
+
+															</button>
+															</div>
+															<div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
+															<button id="fs-medium" onclick="setMode('fs-medium')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+																	type="button">
+																	<span>Medium</span>
+                                                			</button>
+															</div>
+															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+															<button id="fs-high" onclick="setMode('fs-high')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+																	type="button">
+																	<span>High</span>
+                                                			</button>
+															</div>
+															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+															<button id="fs-turbo" onclick="setMode('fs-turbo')" data-spinner-color="#333"
+																	class="btn blue mt-ladda-btn ladda-button btn-outline btn-circle "
+																	type="button">
+																	<span>Turbo</span>
+                                                			</button>
+															</div>
+																</div>
 														</div>
-														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
+														<br>
 
 													</div>
-											</div>
+													<!--END Mode Control-->
 										</div>
 									</div>
 								</div>
@@ -844,64 +892,7 @@ a:hover {
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 		<script src="/static/app_js/lighting.js" type="text/javascript"></script>
 
-        <!--<script type="text/javascript">-->
 
-          <!--function startTime() {-->
-            <!--var now = new Date();-->
-            <!--var monthNames = [-->
-              <!--"January", "February", "March",-->
-              <!--"April", "May", "June", "July",-->
-              <!--"August", "September", "October",-->
-              <!--"November", "December"-->
-            <!--];-->
-
-            <!--var date = new Date();-->
-            <!--var day = now.getDate();-->
-            <!--var monthIndex = now.getMonth();-->
-            <!--var year = now.getFullYear();-->
-
-            <!--var h = now.getHours();-->
-            <!--var m = now.getMinutes();-->
-            <!--var s = now.getSeconds();-->
-            <!--var ampm = h >= 12 ? 'PM' : 'AM';-->
-            <!--h = h % 12;-->
-            <!--h = h ? h : 12;-->
-            <!--h = checkTime(h);-->
-            <!--m = checkTime(m);-->
-            <!--s = checkTime(s);-->
-            <!--$('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);-->
-            <!--var t = setTimeout(startTime, 500);-->
-          <!--}-->
-          <!--function checkTime(i) {-->
-            <!--if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10-->
-            <!--return i;-->
-          <!--}-->
-
-          <!--function update_Username(Username) {-->
-            <!--$("#Username").text(String(Username));-->
-          <!--}-->
-
-          <!--function update_Cur_rate(Cur_rate) {-->
-            <!--$("#Cur_rate").text(String(Cur_rate));-->
-            <!--$("#Cur_rate2").text(String(Cur_rate));-->
-          <!--}-->
-
-          <!--window.onload = function () {-->
-            <!--startTime();-->
-            <!--setValue();-->
-			<!--brightness();-->
-			<!--color();-->
-			<!--renderChart();-->
-			<!--$('#log').DataTable({-->
-				<!--"order": [-->
-					<!--[0, "desc"]-->
-				<!--]-->
-			<!--});-->
-            <!--//renderCP1();-->
-            <!--//renderCP2();-->
-            <!--//renderGauge();-->
-          <!--}-->
-        <!--</script>-->
     </body>
 
 </html>
