@@ -66,7 +66,7 @@ def fan(request, mac):
         # {'device_data': _data, 'device_id': device_id, 'device_zone': device_zone, 'zone_nickname': zone_nickname,
         #  'mac_address': mac, 'device_nickname': device_nickname, 'device_type_id': device_type_id},
         # context)
-        {'device_type': 'fan'}, context)
+        {'device_type': 'fan', 'mac_address': mac}, context)
 
 
 @login_required(login_url='/login/')
@@ -117,3 +117,21 @@ def get_plugload_current_status(request):
         jsonresult = {'status': 'sent'}
         if request.is_ajax():
             return HttpResponse(json.dumps(jsonresult), mimetype='application/json')
+
+#Update lighting controller status
+@login_required(login_url='/login/')
+def update_device_fan(request):
+    print 'inside fan update device method'
+    if request.POST:
+        _data = request.body
+        _data = json.loads(_data)
+        print _data['status']
+        device_id = '1FN' + _data['mac_address']
+        content_type = "application/json"
+        fromUI = "UI"
+        lighting_update_send_topic = '/ui/agent/fan/update/bemoss/999/'+device_id
+        print lighting_update_send_topic
+        zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
+
+    if request.is_ajax():
+            return HttpResponse(json.dumps(_data), mimetype='application/json')
