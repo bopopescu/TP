@@ -108,6 +108,8 @@ urlpatterns = patterns('',
     (r'^multisensor/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.multisensor.views.multisensor'),
     #speaker
     (r'^speaker/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.speaker.views.speaker'),
+    #powermeter
+    (r'^powermeter/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.powermeter.views.powermeter'),
     #add devices
     (r'^adddevices/$', 'apps.adddevices.views.adddevices'),
     #lighting controller update device 
