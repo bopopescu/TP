@@ -252,6 +252,11 @@ urlpatterns = patterns('',
     (r'^vav_smap_get_stat/$', 'apps.charts.views.get_statistics_datetime_vav'),
     (r'^rtu_smap_get_stat/$', 'apps.charts.views.get_statistics_datetime_rtu'),
 
+
+    # Go to statistics pages
+    (r'^source_statistics/$', 'apps.statistics.views.source_statistics'),
+    (r'^load_statistics/$', 'apps.statistics.views.load_statistics'),
+
     #Manual discovery
     (r'^mdiscover/', 'apps.discovery.views.discover_devices'),
     (r'^mdiscover_more/', 'apps.discovery.views.discover_new_devices'),
