@@ -197,6 +197,10 @@ urlpatterns = patterns('',
     (r'^home/$', 'apps.dashboard.views.bemoss_home'),
     #change global settings
     (r'^change_global_settings/$', 'apps.dashboard.views.change_global_settings'),
+    #select_eco_mode
+    (r'^select_eco_mode/$', 'apps.dashboard.views.select_eco_mode'),
+    #select_comfort_mode
+    (r'^select_comfort_mode/$', 'apps.dashboard.views.select_comfort_mode'),
     #dashboard_devices_in_zone
     (r'^devices/(?P<zone_dev>[a-zA-Z0-9_]+)$', 'apps.dashboard.views.zone_device_listing'),
     (r'^all_devices/(?P<zone_dev>[a-zA-Z0-9_]+)$', 'apps.dashboard.views.zone_device_all_listing'),

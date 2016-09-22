@@ -874,4 +874,66 @@ $( document ).ready(function() {
 
     });
 
+    $( "#select_comfort_mode" ).click(function() {
+    console.log("comfort mode selected");
+    var values = {};
+    values['event'] = 'comfort';
+    values['status'] = 'enable';
+    var jsonText = JSON.stringify(values);
+
+    $.ajax({
+			  url : '/select_comfort_mode/',
+			  type: 'GET',
+			  // data: jsonText,
+			  // contentType: "application/json; charset=utf-8",
+			  dataType: 'json',
+			  success : function(data) {
+				//window.location.reload(true);
+			  	$('.bottom-right').notify({
+			  	    message: { text: 'Your changes were updated in the system.' },
+			  	    type: 'blackgloss',
+                    fadeOut: { enabled: true, delay: 5000 }
+			  	  }).show();
+			  },
+			  error: function(data) {
+				  $('.bottom-right').notify({
+				  	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
+				  	    type: 'blackgloss',
+                      fadeOut: { enabled: true, delay: 5000 }
+				  	}).show();
+			  }
+	});
+});
+
+$( "#select_eco_mode" ).click(function() {
+    console.log("eco mode selected");
+    var values = {};
+    values['event'] = 'eco';
+    values['status'] = 'enable';
+    var jsonText = JSON.stringify(values);
+    $.ajax({
+			  url : '/select_eco_mode/',
+			  type: 'GET',
+			  // data: jsonText,
+			  // contentType: "application/json; charset=utf-8",
+			  dataType: 'json',
+			  success : function(data) {
+				//window.location.reload(true);
+			  	$('.bottom-right').notify({
+			  	    message: { text: 'Your changes were updated in the system.' },
+			  	    type: 'blackgloss',
+                    fadeOut: { enabled: true, delay: 5000 }
+			  	  }).show();
+			  },
+			  error: function(data) {
+				  $('.bottom-right').notify({
+				  	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
+				  	    type: 'blackgloss',
+                      fadeOut: { enabled: true, delay: 5000 }
+				  	}).show();
+			  }
+	});
+
+});
+
 });
