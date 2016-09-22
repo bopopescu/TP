@@ -926,13 +926,19 @@ a:hover {
               }
         </script>
         <script>
+            console.log("mac_address: "+mac_address);
             if (mac_address == "221445K1200321") {
-                console.log("mac_address: "+mac_address);
                 document.getElementById("plugheader").innerHTML = "EV Charger";
                 document.getElementById("plugsubheader").innerHTML = "EV Charger Controller";
                 document.getElementById("row2header").innerHTML = "EV Charger";
-            } else {
-                console.log("This is not EV")
+            } else if (mac_address == "221520K010067C") {
+                document.getElementById("plugheader").innerHTML = "Set Top Box";
+                document.getElementById("plugsubheader").innerHTML = "Set Top Box Controller";
+                document.getElementById("row2header").innerHTML = "Set Top Box";
+            } else if (mac_address == "221418K120031E") {
+                document.getElementById("plugheader").innerHTML = "Computer";
+                document.getElementById("plugsubheader").innerHTML = "Computer Controller";
+                document.getElementById("row2header").innerHTML = "Computer";
             }
         </script>
 		<script src="/static/app_js/sidenav.js" type="text/javascript"></script>

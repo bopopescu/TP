@@ -126,19 +126,21 @@ def submit_changes(request):
         _data = json.loads(_data)
         print _data
 
-        device_info = _data['device_info']
-        mac_address = '3WIS'+_data['mac_address']
-        _data.pop('device_info')
-        _data.pop('mac_address')
+        # device_info = _data['device_info']
+        device_id = '3WIS'+_data['mac_address']
+        if _data['mac_address'] == "221520K010067C":
+            device_id = '3WSP' + _data['mac_address']
+        # _data.pop('device_info')
+        # _data.pop('mac_address')
         print _data
-        print device_info
+        # print device_info
         content_type = "application/json"
         fromUI = "UI"
         print "created instance of the zmqpub class"
 
         #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # TODO fix building name -> should be changeable from 'bemoss'
-        plugload_update_send_topic = '/ui/agent/'+device_info[1]+'/update/bemoss/'+device_info[0]+'/'+mac_address
+        plugload_update_send_topic = '/ui/agent/plugload/update/bemoss/999/'+device_id
         print "topic sent: {}".format(plugload_update_send_topic)
         print "message sent: {}".format(_data)
         zmq_pub.sendToAgent(plugload_update_send_topic, _data, content_type, fromUI)
