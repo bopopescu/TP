@@ -392,7 +392,7 @@ a:hover {
 									<div class="caption">
 										<i class="icon-share font-red-sunglo hide"></i>
 										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Power Meter</strong></span>
-										<!--<span class="caption-helper">monthly stats...</span>-->
+										<span id="device_name"> </span>
 									</div>
 
 								</div>
@@ -411,7 +411,7 @@ a:hover {
 														<div class="sub-title">Status</div>
 														<br>
 														<div style="display: flex; ">
-															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/lighting_b.png"></img>
+															<img id="device_power_icon" class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/lighting_b.png"></img>
 														</div>
 														<br>
 														<div style="display: flex">
@@ -491,7 +491,7 @@ a:hover {
 																yAxis: {
 																	min: 0,
 																	title: {
-																		text: 'Consumption (kWh)'
+																		text: 'Consumption (W)'
 																	},
 																	plotLines: [{
 																		value: 0,
@@ -526,7 +526,7 @@ a:hover {
 																	}
 																},
 																tooltip: {
-																	valueSuffix: ' kWh'
+																	valueSuffix: ' W'
 																},
 																legend: {
 																	enabled: false
@@ -587,7 +587,7 @@ a:hover {
 															</div>
 															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
 																<div class="topic">Estimated Daily Cost:</div>
-																<div class="value">11.25 $</div>
+																<div class="value">11.25 THB</div>
 															</div>
 														</div>
 													</div>
