@@ -392,7 +392,7 @@ a:hover {
 									<div class="caption">
 										<i class="icon-share font-red-sunglo hide"></i>
 										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Multi-sensor</strong></span>
-										<!--<span class="caption-helper">monthly stats...</span>-->
+										<span id="device_name"> </span>
 									</div>
 
 								</div>
@@ -411,7 +411,7 @@ a:hover {
 														<div class="sub-title">Status</div>
 														<br>
 														<div style="display: flex; ">
-															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/sensor_b.png"></img>
+															<img id="device_power_icon" class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/sensor_b.png"></img>
 														</div>
 														<br>
 														<div style="display: flex">
@@ -491,7 +491,7 @@ a:hover {
 																yAxis: {
 																	min: 0,
 																	title: {
-																		text: 'Consumption (kWh)'
+																		text: 'Consumption (W)'
 																	},
 																	plotLines: [{
 																		value: 0,
@@ -526,7 +526,7 @@ a:hover {
 																	}
 																},
 																tooltip: {
-																	valueSuffix: ' kWh'
+																	valueSuffix: ' W'
 																},
 																legend: {
 																	enabled: false
@@ -587,7 +587,7 @@ a:hover {
 															</div>
 															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
 																<div class="topic">Estimated Daily Cost:</div>
-																<div class="value">11.25 $</div>
+																<div class="value">11.25 THB</div>
 															</div>
 														</div>
 													</div>
@@ -597,7 +597,7 @@ a:hover {
 											<div class="tab-pane " id="dataInformation">
 												<div class="row">
 													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
-														<img src="/static/images/devices/light/hues.jpg" alt="" class="img-responsive img-rounded">
+														<img src="../../static/images/devices/multisensor_fibaro.png" alt="" class="img-responsive img-rounded">
 													</div>
 													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
 														 style=" display: flex; ">
@@ -608,15 +608,15 @@ a:hover {
 															</tr>
 															<tr>
 																<td>Vendor:</td>
-																<td class="detail">Loyal Phillips Electronics</td>
+																<td class="detail">FIBARO</td>
 															</tr>
 															<tr>
 																<td>Model:</td>
-																<td class="detail">Phillips Hue bridge 2012</td>
+																<td class="detail">fibaro</td>
 															</tr>
 															<tr>
 																<td>Serial Number:</td>
-																<td class="detail">123456</td>
+																<td class="detail">N/A</td>
 															</tr>
 															<tr>
 																<td>Mac Address:</td>

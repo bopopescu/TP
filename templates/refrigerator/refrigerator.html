@@ -393,7 +393,7 @@ a:hover {
 									<div class="caption">
 										<i class="icon-share font-red-sunglo hide"></i>
 										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Refrigerator</strong></span>
-										<!--<span class="caption-helper">monthly stats...</span>-->
+										<span id="device_name"> </span>
 									</div>
 
 								</div>
@@ -412,7 +412,7 @@ a:hover {
 														<div class="sub-title">Status</div>
 														<br>
 														<div style="display: flex; ">
-															<img class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/refrigerator_b.png"></img>
+															<img id="device_power_icon" class="img-responsive" style="margin: auto;" src="../../static/images/icon-png/refrigerator_b.png"></img>
 														</div>
 														<br>
 														<div style="display: flex">
@@ -428,78 +428,7 @@ a:hover {
 													</div>
 												</div>
 												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
-													<div class="airCond-row1-form">
-														<div class="sub-title hidden-xs">Temperature Control</div>
-														<div style="display: flex;width:100%;">
-															<div class="row" style="margin: auto">
-																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	0%
-																</button>
-																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	25%
-															</div>
-														</div>
-														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
 
-													</div>
-													<div class="colors-form">
-														<div class="sub-title">Mode Control</div>
-														<div style="width:100%; display: flex;" >
-															<div class="row" style="margin: auto">
-															<style>
-															.btc {
-																margin:10px;width: auto;border:3px solid #EEE;background-color: white;
-															}
-															</style>
-															<button id="c-d" onclick="setColor('#ffffff')" type="button" class="btc clr btn btn-circle btn-group-sm  col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																 Default
-															</button>
-															<button id="c-ww" onclick="setColor('#ffffee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																Warm White
-															</button>
-															<button id="c-cw" onclick="setColor('#eeeeff')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																Cool White
-															</button>
-															<button id="c-dl" onclick="setColor('#ffeeee')" type="button" class="btc clr btn btn-circle btn-group-sm   col-lg-3 col-md-6 col-sm-6 col-xs-3">
-																Daylight
-															</button>
-															</div>
-														</div>
-														<br>
-														<div class="row">
-															<div class="col-md-offset-3 col-md-6 col-lg-6" style="height: auto;">
-																<div style="border: 3px solid #eee;box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
-																	<input id="colorSelector" id="hidden-input" type="hidden" value="#000">
-															</div>
-
-														</div>
-													</div>
-												</div>
-													<div class="brightness-form">
-														<div class="sub-title hidden-xs">Fan Control</div>
-														<div style="display: flex;width:100%;">
-															<div class="row" style="margin: auto">
-																<button id="b-0" type="button" onclick="setB(0)" class="btc brght btn btn-circle btn-group-sm  col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	0%
-																</button>
-																<button id="b-25" type="button" onclick="setB(25)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	25%
-																</button>
-																<button id="b-50" type="button" onclick="setB(50)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	50%
-																</button>
-																<button id="b-75" type="button" onclick="setB(75)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	75%
-																</button>
-																<button id="b-100" type="button" onclick="setB(100)" class="btc brght btn btn-circle btn-group-sm   col-lg-2 col-md-4 col-sm-4 col-xs-2">
-																	100%
-																</button>
-
-															</div>
-														</div>
-														 <div style="padding: 0px 20px 0px 20px;"><div id="brightness" class="noUi-primary margin-bottom-40 brightness-slider"></div></div>
-
-													</div>
 											</div>
 										</div>
 									</div>
@@ -563,7 +492,7 @@ a:hover {
 																yAxis: {
 																	min: 0,
 																	title: {
-																		text: 'Consumption (kWh)'
+																		text: 'Consumption (W)'
 																	},
 																	plotLines: [{
 																		value: 0,
@@ -598,7 +527,7 @@ a:hover {
 																	}
 																},
 																tooltip: {
-																	valueSuffix: ' kWh'
+																	valueSuffix: ' W'
 																},
 																legend: {
 																	enabled: false
@@ -659,7 +588,7 @@ a:hover {
 															</div>
 															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
 																<div class="topic">Estimated Daily Cost:</div>
-																<div class="value">11.25 $</div>
+																<div class="value">11.25 THB</div>
 															</div>
 														</div>
 													</div>
@@ -669,30 +598,30 @@ a:hover {
 											<div class="tab-pane " id="dataInformation">
 												<div class="row">
 													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
-														<img src="/static/images/devices/light/hues.jpg" alt="" class="img-responsive img-rounded">
+														<img src="../../static/images/devices/refrigerator_mr-f21h.png" alt="" class="img-responsive img-rounded">
 													</div>
 													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
 														 style=" display: flex; ">
 														<table class="table table-responsive">
 															<tr>
 																<td>Nickname:</td>
-																<td class="detail">Refrigerator Living Room 1</td>
+																<td class="detail">Refrigerator</td>
 															</tr>
 															<tr>
 																<td>Vendor:</td>
-																<td class="detail">SAIJO DENKI</td>
+																<td class="detail">Mitsubishi Electric</td>
 															</tr>
 															<tr>
 																<td>Model:</td>
-																<td class="detail">TURBO A.P.S-19</td>
+																<td class="detail">MR-F21H</td>
 															</tr>
 															<tr>
 																<td>Serial Number:</td>
-																<td class="detail">1607S00016219</td>
+																<td class="detail">N/A</td>
 															</tr>
 															<tr>
 																<td>Mac Address:</td>
-																<td class="detail">0017881cab4b</td>
+																<td class="detail">221445K1200111</td>
 															</tr>
 															<tr>
 																<td>Date Added On:</td>
@@ -840,7 +769,7 @@ a:hover {
         <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
-		<script src="/static/app_js/lighting.js" type="text/javascript"></script>
+		<script src="/static/app_js/refrigerator.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             window.onload = function () {
