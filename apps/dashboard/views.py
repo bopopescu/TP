@@ -646,9 +646,8 @@ def select_comfort_mode(request):
         # print "message sent: {}".format(_data)
         # zmq_pub.sendToAgent(plugload_update_send_topic, _data, content_type, fromUI)
         # print "success in sending message to agent"
-        update_send_topic = '/ui/agent/mode/'
+        update_send_topic = '/ui/agent/select_mode/'
         _data = {"mode": "comfort", "status": "enable"}
-        _data = json.dumps(_data)
         content_type = "application/json"
         fromUI = "UI"
         print "topic sent: {}".format(update_send_topic)
@@ -687,9 +686,8 @@ def select_eco_mode(request):
         #
         # #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
         # # TODO fix building name -> should be changeable from 'bemoss'
-        update_send_topic = '/ui/agent/mode/'
+        update_send_topic = '/ui/agent/select_mode/'
         _data = {"mode":"eco", "status":"enable"}
-        _data = json.dumps(_data)
         content_type = "application/json"
         fromUI = "UI"
         print "topic sent: {}".format(update_send_topic)
