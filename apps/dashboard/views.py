@@ -699,6 +699,38 @@ def select_eco_mode(request):
             return HttpResponse(json.dumps(_data), mimetype='application/json')
 
 
+def agree_dr(request):
+    print 'inside agree_dr method*********************************'
+    print 'inside agree_dr method*********************************'
+    if request.method == 'GET':
+        # # TODO fix building name -> should be changeable from 'bemoss'
+        update_send_topic = '/ui/agent/select_mode/'
+        _data = {"mode":"dr", "status":"enable"}
+        content_type = "application/json"
+        fromUI = "UI"
+        print "topic sent: {}".format(update_send_topic)
+        print "message sent: {}".format(_data)
+        zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
+        print "success in sending message to agent"
+    if request.is_ajax():
+            return HttpResponse(json.dumps(_data), mimetype='application/json')
+
+def disagree_dr(request):
+    print 'inside disagree_dr method*********************************'
+    print 'inside disagree_dr method*********************************'
+    if request.method == 'GET':
+        # # TODO fix building name -> should be changeable from 'bemoss'
+        update_send_topic = '/ui/agent/select_mode/'
+        _data = {"mode":"dr", "status":"disable"}
+        content_type = "application/json"
+        fromUI = "UI"
+        print "topic sent: {}".format(update_send_topic)
+        print "message sent: {}".format(_data)
+        zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
+        print "success in sending message to agent"
+    if request.is_ajax():
+            return HttpResponse(json.dumps(_data), mimetype='application/json')
+
 
 @login_required(login_url='/login/')
 def zone_device_listing(request, zone_dev):
