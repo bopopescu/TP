@@ -547,13 +547,13 @@ function setValue() {
                                         <br>
                                         <div class= "clearfix">
                                             <!-- Modal1 -->
-                                            <button type="button" class="btn btn-circle btn-success" data-toggle="modal" data-target="#myModal">Select Mode</button>
-                                                <div class="modal fade" id="myModal" role="dialog">
+                                            <button type="button" class="btn btn-circle btn-success" data-toggle="modal" data-target="#Mode_Modal">Select Mode</button>
+                                                <div class="modal fade" id="Mode_Modal" role="dialog">
                                                     <div class="modal-dialog">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="close " data-dismiss="modal">X</button>
                                                     <h4 class="modal-title">Mode Selection</h4>
                                                     </div>
                                                     <div class="modal-body">
@@ -600,8 +600,9 @@ function setValue() {
                                                     </div>
                                                 </div>
                                                 </div>
-                                            <!-- Modal 3 -->
-                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#DR_Modal">Test DR</button>
+                                            <!--End of Modal1-->
+                                            <!-- Begin of Modal 2 -->
+{#                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#DR_Modal">Test DR</button>#}
                                                 <div class="modal fade" id="DR_Modal" role="dialog">
                                                     <div class="modal-dialog">
                                                     <!-- Modal content-->
@@ -621,12 +622,71 @@ function setValue() {
                                                     </div>
                                                 </div>
                                                 </div>
-
-
-
-
+                                            <!-- End of Modal 2 -->
+                                            <!-- Begin of Modal 3 -->
+{#                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Leakage_Modal">ILeak</button>#}
+                                                <div class="modal fade" id="Leakage_Modal" role="dialog">
+                                                    <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Leakage Current Testing</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p> Warning !! </p>
+                                                    <p> Leakage Current : </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             <!-- End of Modal 3 -->
-                                        </div>
+                                            <!-- Begin of Modal 4 trigger Comfort Mode Graph -->
+                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Comfort_Modal">Test</button>
+                                                <div class="modal fade" id="Comfort_Modal" role="dialog"">
+                                                    <div class="modal-dialog modal-lg">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Load Consumption</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p> Load Consumption Graph </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <!-- End of Modal 4 -->
+                                            <!-- Modal 5 trigger ECO Mode Graph -->
+{#                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Eco_Modal">Test</button>#}
+                                                <div class="modal fade" id="Eco_Modal" role="dialog" style="display: none;">
+                                                    <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Load Consumption</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p> Load Consumption Graph </p>
+                                                    <p> xxxxxx </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <!-- End of Modal 5 -->
+
+                                     </div>
                                     </div>
                                 </div>
                                 <!-- END Mode -->
