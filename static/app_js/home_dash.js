@@ -433,6 +433,41 @@ $( document ).ready(function() {
          // }
      };
 
+
+     var ws_weahter = new WebSocket("ws://" + window.location.host + "/socket_weather");
+
+     ws_weahter.onopen = function () {
+         ws.send("WS Weather connected");
+     };
+
+     ws_weahter.onmessage = function (event) {
+
+         var _data = event.data;
+         _data = $.parseJSON(_data);
+         console.log("WEATHER DATA: " + _data);
+         var _topic = _data['topic'];
+         console.log(_topic);
+         var _headers = _data['headers'];
+         console.log(_headers);
+         var _message = $.parseJSON(_data['message']);
+         console.log(_message);
+         console.log('---------------------------------')
+
+         // var _data = event.data.trim();
+         // _data = $.parseJSON(_data);
+         // var topic = _data['topic'];
+         // var msg = $.parseJSON(_data['message']);
+         // console.log ("WEATHER DATA: "+ msg);
+         // console.log(msg);
+         // console.log(msg['temp_c']);
+         $('#WEATHER_pic').attr("src" , _message.icon);
+         $('#WEA_temp').text(String(_message.temp_c));
+         $('#WEA_humid').text(String(_message.humidity));
+         $('#WEA_title').text(String(_message.weather))
+         // //$('#WEA_title').text("123456");
+
+     };
+
      var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
 
      ws_dashboard.onopen = function () {
@@ -528,28 +563,29 @@ $( document ).ready(function() {
          //     }
          // }
      };
-    var ws_weahter = new WebSocket("ws://" + window.location.host + "/socket_weather");
 
-     ws_weahter .onopen = function () {
-         ws.send("WS Weather connected");
-     };
-
-     ws_weahter .onmessage = function (event) {
-         var _data = event.data.trim();
-         _data = $.parseJSON(_data);
-         var topic = _data['topic'];
-         var msg = $.parseJSON(_data['message']);
-
-         console.log(msg);
-         console.log(msg['temp_c']);
-         $('#WEATHER_pic').attr("src" , msg['icon']);
-
-         $('#WEA_temp').text(String(msg.temp_c));
-         $('#WEA_humid').text(String(msg.humidity));
-         $('#WEA_title').text(String(msg['weather']))
-         // //$('#WEA_title').text("123456");
-
-     }
+    // var ws_weahter = new WebSocket("ws://" + window.location.host + "/socket_weather");
+    //
+    //  ws_weahter .onopen = function () {
+    //      ws.send("WS Weather connected");
+    //  };
+    //
+    //  ws_weahter .onmessage = function (event) {
+    //      var _data = event.data.trim();
+    //      _data = $.parseJSON(_data);
+    //      var topic = _data['topic'];
+    //      var msg = $.parseJSON(_data['message']);
+    //
+    //      console.log(msg);
+    //      console.log(msg['temp_c']);
+    //      $('#WEATHER_pic').attr("src" , msg['icon']);
+    //
+    //      $('#WEA_temp').text(String(msg.temp_c));
+    //      $('#WEA_humid').text(String(msg.humidity));
+    //      $('#WEA_title').text(String(msg['weather']))
+    //      // //$('#WEA_title').text("123456");
+    //
+    //  }
 
 // <!-- BEGIN Current Energy Consumption Pictures-->
     function update_ENERGY_pic(G, S, E){
