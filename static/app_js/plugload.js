@@ -52,8 +52,58 @@ var device_info = ["999", "plugload", plug_id];
 		    //"saturation": parseFloat($( "#saturation_value" ).val().replace("%","")
 
 var _values_on_submit_plugload = {};
-var Is_off = false;
 var Is_human_click = false;
+
+var is_on = true;
+
+$( "#device_power_disp" ).click(function() {
+    console.log("button click");
+    if ($("#device_power_disp").text() == "ON") {
+        document.getElementById("device_power_disp").innerHTML = "OFF";
+        is_on = false;
+
+    } else if ($("#device_power_disp").text() == "OFF") {
+        document.getElementById("device_power_disp").innerHTML = "ON";
+        is_on = true;
+
+    }
+    console.log($("#device_power_disp").text());
+    submit_plug_data("send");
+});
+
+function submit_plug_data(values) {
+    console.log("values " +values);
+    console.log("values " + values.value);
+
+    var  _data_sent= {};
+    if (is_on == true){
+        _data_sent["status"]  = "ON";
+    } else if (is_on == false) {
+        _data_sent["status"]  = "OFF";
+    }
+    _data_sent["mac_address"]  = mac_address;
+    console.log("_data_sent" + _data_sent);
+    var jsonText = JSON.stringify(_data_sent);
+    console.log(_data_sent);
+	$.ajax({
+		  url : '/update_plugload/',
+		  type: 'POST',
+		  data: jsonText,
+		  dataType: 'json',
+		  success : function(data) {
+              console.log("done changing plug status");
+		  },
+		  error: function(data) {
+              console.log("error changing plug status");
+			  $('.bottom-right').notify({
+			  	    message: { text: 'Something went wrong when submitting the data. Please try again.' },
+			  	    type: 'blackgloss',
+                  fadeOut: { enabled: true, delay: 5000 }
+			  	}).show();
+		  }
+		 });
+}
+
 $( "#sp_on" ).click(function() {
 	if ($("#sp_on").css('background-color') == "green") {
 	} else {
