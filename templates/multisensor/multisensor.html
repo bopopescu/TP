@@ -354,8 +354,14 @@ a:hover {
 
 
 		</style>
-      </head>
-    <!-- END HEAD -->
+
+<script>
+    var mac_address = "{{ mac_address }}";
+    console.log("this ac mac_address is "+mac_address)
+</script>
+
+</head>
+<!-- END HEAD -->
 
     <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
         <!-- BEGIN HEADER -->
@@ -379,34 +385,51 @@ a:hover {
                     <!-- END page_breadcrumb -->
                     <br>
 
-					<div class="row ">
+					<!--BEGIN Main Content-->
+					<div class="row">
+						<!--BEGIN Side nav all devices-->
 						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 hidden-xs">
 							<!-- BEGIN PORTLET-->
 							{% include 'side_nav_alldevices.html' %}
 							<!-- END PORTLET-->
 						</div>
+						<!--END Side nav all devices-->
+
+						<!--BEGIN Device Controller and Data-->
 						<div class="col-lg-8 col-md-7  col-sm-12 col-xs-12">
-							<!-- BEGIN PORTLET-->
+							<!-- BEGIN PORTLET Bordered-->
 							<div class="portlet light bordered">
+								<!--BEGIN Device Name Header-->
 								<div class="portlet-title">
 									<div class="caption">
 										<i class="icon-share font-red-sunglo hide"></i>
-										<span class=" font-dark bold "><a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline"><i class="fa fa-arrow-left"></i> Back</a> <strong>Multi-sensor</strong></span>
+										<span class=" font-dark bold ">
+											<a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline">
+												<i class="fa fa-arrow-left"></i> Back</a>
+											<strong><span id="device_header"> Multi-sensor</span></strong>
+										</span>
 										<span id="device_name"> </span>
 									</div>
-
 								</div>
+								<!--END Device Name Header-->
+
 								<div class="portlet-body">
 									<div class="portlet light bordered" style="padding-top: 0;">
+										<!--BEGIN Device Control Header-->
 										<div class="portlet-title ">
 											<div class="caption">
-												<span class="caption-subject font-grey-cascade bold">Multi-sensor</span>
+												<span class="caption-subject font-grey-cascade bold" id="device_subheader">Multi-sensor</span>
 
 											</div>
 										</div>
+										<!--END Device Control Header-->
+
+										<!--BEGIN Device Control Body-->
 										<div class="portlet-body">
 											<div class="row">
+												<!--BEGIN Left Col-->
 												<div class="col-lg-3 col-md-5 col-sm-4 col-xs-12 ">
+													<!--BEGIN Device ON/OFF-->
 													<div class="device-status-form">
 														<div class="sub-title">Status</div>
 														<br>
@@ -422,42 +445,57 @@ a:hover {
 															 </div>
 														</div>
 													</div>
+													<!--END Device ON/OFF-->
+
+													<!--BEGIN Set Schedule-->
 													<div class="btn btn-default" style="width: 100%">
 														<i class="fa fa-clock-o clockSchedule"></i> Set Schedule
 													</div>
+													<!--END Set Schedule-->
 												</div>
-												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
+												<!--END Left Col-->
 
+												<!--BEGIN Right Col-->
+												<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12 bordered">
+												</div>
+												<!--END Right Col-->
 											</div>
 										</div>
+										<!--END Device Control Body-->
 									</div>
-								</div>
+
+								<!--BEGIN Device Data Box-->
 								<div class="portlet-body">
 									<div class="portlet light bordered">
-									<div class="portlet-title tabbable-line">
+										<!--BEGIN Tab Header-->
+										<div class="portlet-title tabbable-line">
 										<div class="caption">
-											<span class="caption-subject font-grey-cascade bold ">Multi-sensor Data</span>
+											<span class="caption-subject font-grey-cascade bold" id="device_data_header">Multi-sensor</span>
+											<span class="caption-subject font-grey-cascade bold ">Data</span>
 										</div>
-										<ul class="nav nav-tabs">
-											<li class="active">
-												<a href="#dataRealTime" data-toggle="tab"> Real Time </a>
-											</li>
-											<li>
-												<a href="#dataInformation" data-toggle="tab"> Information </a>
-											</li>
-											<li>
-												<a href="#dataDataLog" data-toggle="tab"> Data Log </a>
-											</li>
-										</ul>
-									</div>
-									<div class="portlet-body">
-										<div class="tab-content">
-											<div class="tab-pane active" id="dataRealTime">
-												<div class="row">
-													<!--<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"-->
-														 <!--style=" display: flex; border: solid red;">-->
-													<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
-													<script>
+											<ul class="nav nav-tabs">
+												<li class="active">
+													<a href="#dataRealTime" data-toggle="tab"> Real Time </a>
+												</li>
+												<li>
+													<a href="#dataInformation" data-toggle="tab"> Information </a>
+												</li>
+												<li>
+													<a href="#dataDataLog" data-toggle="tab"> Data Log </a>
+												</li>
+											</ul>
+										</div>
+										<!--BEGIN Tab Header-->
+
+										<!--BEGIN Device Data-->
+										<div class="portlet-body">
+											<div class="tab-content">
+												<!--BEGIN Real Time Data-->
+												<div class="tab-pane active" id="dataRealTime">
+													<div class="row">
+														<!--BEGIN HIGHCHART Col-->
+														<div id="highchart_1"  class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+														<script>
 														function renderChart() {
 															$('#highchart_1').highcharts({
 																chart : {
@@ -554,183 +592,201 @@ a:hover {
 															});
 														}
 													</script>
-													<!--</div>-->
-													<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+														<!--END HIGHCHART Col-->
 
-														<div >
-															<span class="topic">Status:</span>
-															<span class="value">On</span>
-														</div>
-														<br>
-														<div class="row">
+														<!--BEGIN Real-time Data Col-->
+														<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+																<div >
+																	<span class="topic">Status:</span>
+																	<span class="value" id="device_data_time_status">On</span>
+																</div>
+																<br>
+																<div class="row">
 
-															<div class="  col-lg-6 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">On now for:</div>
-																<div class="value">7 h 15 min</div>
-															</div>
-															<div  class=" eachData col-lg-6 col-md-6 col-sm-6 col-xs-6" >
-																<div class="topic">Since:</div>
-																<div class="value">8:51 pm</div>
-															</div>
+																	<div class="  col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">On now for:</div>
+																		<span class="value" id="device_data_time_duration">7 h 15 min</span>
+																	</div>
+																	<div  class=" eachData col-lg-12 col-md-6 col-sm-6 col-xs-6" >
+																		<div class="topic">Since:</div>
+																		<span class="value" id="device_data_time_since">8:51 pm</span>
+																	</div>
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Today on:</div>
+																		<span class="value" id="device_data_time_today">8 h 34 min</span>
+																	</div>
+																	<br>
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Now:</div>
+																		<span class="value" id="device_data_time_power">15.58</span><small> W</small>
+																	</div>
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Today's Consumption</div>
+																		<span class="value" id="device_data_time_energy">3.57</span><small> kWh</small>
+																	</div>
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Estimated Daily Cost:</div>
+																		<span class="value" id="device_data_time_cost">11.25</span><small> THB</small>
 
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Today on:</div>
-																<div class="value">8 h 34 min</div>
+																	</div>
+																</div>
 															</div>
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Now:</div>
-																<div class="value">15.58 W</div>
-															</div>
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Today's Consumption</div>
-																<div class="value">3.57 kWh</div>
-															</div>
-															<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
-																<div class="topic">Estimated Daily Cost:</div>
-																<div class="value">11.25 THB</div>
-															</div>
-														</div>
+														<!--END Real-time Data Col-->
 													</div>
 												</div>
+												<!--END Real Time Data-->
 
-											</div>
-											<div class="tab-pane " id="dataInformation">
-												<div class="row">
-													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
-														<img src="../../static/images/devices/multisensor_fibaro.png" alt="" class="img-responsive img-rounded">
-													</div>
-													<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
-														 style=" display: flex; ">
-														<table class="table table-responsive">
-															<tr>
-																<td>Nickname:</td>
-																<td class="detail">Multi-sensor</td>
-															</tr>
-															<tr>
-																<td>Vendor:</td>
-																<td class="detail">FIBARO</td>
-															</tr>
-															<tr>
-																<td>Model:</td>
-																<td class="detail">fibaro</td>
-															</tr>
-															<tr>
-																<td>Serial Number:</td>
-																<td class="detail">N/A</td>
-															</tr>
-															<tr>
-																<td>Mac Address:</td>
-																<td class="detail">0017881cab4b</td>
-															</tr>
-															<tr>
-																<td>Date Added On:</td>
-																<td class="detail">Sep 5, 2016, 8.28 am</td>
-															</tr>
-															<tr>
-																<td>Room/Zone:</td>
-																<td class="detail">All Zone</td>
-															</tr>
-															<tr>
-																<td>Approval Status:</td>
-																<td class="detail">Approved</td>
-															</tr>
-															<tr>
-																<td>IP Address:</td>
-																<td class="detail">192.168.1.23</td>
-															</tr>
-															<tr>
-																<td>Device Status:</td>
-																<td class="detail">ONLINE</td>
-															</tr>
-															<tr>
-																<td>Last Offline Time:</td>
-																<td class="detail">Sep 3, 2016, 2.22 pm</td>
-															</tr>
-														</table>
+												<!--BEGIN Information Data-->
+												<div class="tab-pane " id="dataInformation">
+													<div class="row">
+														<!--BEGIN Device image-->
+														<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
+															<img id="device_data_info_img" src="../../static/images/devices/multisensor_fibaro.png"
+																 alt="" class="img-responsive img-rounded">
+														</div>
+														<!--END Device image-->
+
+														<!--BEGIN Device information-->
+														<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 table-responsive"
+															 style=" display: flex; ">
+															<table id="device_data_info_tbl" class="table table-responsive">
+																<tr>
+																	<td>Nickname:</td>
+																	<td class="detail">Multi-sensor</td>
+																</tr>
+																<tr>
+																	<td>Vendor:</td>
+																	<td class="detail">FIBARO</td>
+																</tr>
+																<tr>
+																	<td>Model:</td>
+																	<td class="detail">fibaro</td>
+																</tr>
+																<tr>
+																	<td>Serial Number:</td>
+																	<td class="detail">N/A</td>
+																</tr>
+																<tr>
+																	<td>Mac Address:</td>
+																	<td class="detail">0017881cab4b</td>
+																</tr>
+																<tr>
+																	<td>Date Added On:</td>
+																	<td class="detail">Sep 5, 2016, 8.28 am</td>
+																</tr>
+																<tr>
+																	<td>Room/Zone:</td>
+																	<td class="detail">All Zone</td>
+																</tr>
+																<tr>
+																	<td>Approval Status:</td>
+																	<td class="detail">Approved</td>
+																</tr>
+																<tr>
+																	<td>IP Address:</td>
+																	<td class="detail">192.168.1.23</td>
+																</tr>
+																<tr>
+																	<td>Device Status:</td>
+																	<td class="detail">ONLINE</td>
+																</tr>
+																<tr>
+																	<td>Last Offline Time:</td>
+																	<td class="detail">Sep 3, 2016, 2.22 pm</td>
+																</tr>
+															</table>
+														</div>
+														<!--END Device information-->
 													</div>
 												</div>
+												<!--END Information Data-->
 
-											</div>
-											<div class="tab-pane " id="dataDataLog">
-												<table id="log" class="table table-responsive table-container table-hover  ">
-													<thead class="text-center">
-													<tr class="text-center">
-														<td><strong>Status ID</strong></td>
-														<td><strong>Date</strong></td>
-														<td><strong>Time</strong></td>
-														<td><strong>Duration</strong></td>
-														<td><strong>Status</strong></td>
-
-													</tr>
-													</thead>
-													<tbody class="text-center">
-													<tr>
-														<td>1</td>
-														<td>Sep 5, 2016</td>
-														<td>2.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="label label-sm label-info">On</div>
-														</td>
-													</tr>
-													<tr>
-														<td>2</td>
-														<td>Sep 4, 2016</td>
-														<td>3.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="label label-sm label-default">Off</div>
-														</td>
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>Sep 3, 2016</td>
-														<td>4.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="label label-sm label-success">Online</div>
-														</td>
-													</tr>
-													<tr>
-														<td>4</td>
-														<td>Sep 2, 2016</td>
-														<td>5.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="label label-sm label-danger">Offline</div>
-														</td>
-													</tr>
-													<tr>
-														<td>5</td>
-														<td>Sep 4, 2016</td>
-														<td>6.22 pm</td>
-														<td>2 h 14 min</td>
-														<td>
-															<div class="label label-sm label-warning">Edited</div>
-														</td>
-													</tr>
-
-													</tbody>
-												</table>
-
+												<!--BEGIN Data Log-->
+												<div class="tab-pane" id="dataDataLog">
+													<table id="log" class="table table-responsive table-container table-hover">
+														<!--BEGIN Data Log Table Header-->
+														<thead class="text-center">
+														<tr class="text-center">
+															<td><strong>Status ID</strong></td>
+															<td><strong>Date</strong></td>
+															<td><strong>Time</strong></td>
+															<td><strong>Duration</strong></td>
+															<td><strong>Status</strong></td>
+														</tr>
+														</thead>
+														<!--END Data Log Table Header-->
+														<tbody class="text-center">
+														<tr>
+															<td>1</td>
+															<td>Sep 5, 2016</td>
+															<td>2.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-info">On</div>
+															</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>Sep 4, 2016</td>
+															<td>3.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-default">Off</div>
+															</td>
+														</tr>
+														<tr>
+															<td>3</td>
+															<td>Sep 3, 2016</td>
+															<td>4.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-success">Online</div>
+															</td>
+														</tr>
+														<tr>
+															<td>4</td>
+															<td>Sep 2, 2016</td>
+															<td>5.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-danger">Offline</div>
+															</td>
+														</tr>
+														<tr>
+															<td>5</td>
+															<td>Sep 4, 2016</td>
+															<td>6.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-warning">Edited</div>
+															</td>
+														</tr>
+														</tbody>
+													</table>
+												</div>
+												<!--END Data Log-->
 											</div>
 										</div>
+										<!--END Device Data-->
 									</div>
+									</div>
+									<!--END Device Data Box-->
 								</div>
-								</div>
+								<!-- END PORTLET-->
 							</div>
-							<!-- END PORTLET-->
+							<!-- END PORTLET Bordered-->
 						</div>
+						<!--END Device Controller and Data-->
 					</div>
-					</div>
-
+					<!--END Main Content-->
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
             <!-- END CONTENT -->
         </div>
         <!-- END CONTAINER -->
-        <!--[if lt IE 9]>
+
+<!--[if lt IE 9]>
 <script src="/static/newassets/global/plugins/respond.min.js"></script>
 <script src="/static/newassets/global/plugins/excanvas.min.js"></script>
 <script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
@@ -769,6 +825,8 @@ a:hover {
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 		<script src="/static/app_js/multisensor.js" type="text/javascript"></script>
+		<script src="/static/app_js/sidenav.js" type="text/javascript"></script
+
         <script type="text/javascript">
             window.onload = function () {
                 startTime();
@@ -781,7 +839,7 @@ a:hover {
                 });
               }
         </script>
-		<script src="/static/app_js/sidenav.js" type="text/javascript"></script>
+		>
 
     </body>
 
