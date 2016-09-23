@@ -201,6 +201,10 @@ urlpatterns = patterns('',
     (r'^select_eco_mode/$', 'apps.dashboard.views.select_eco_mode'),
     #select_comfort_mode
     (r'^select_comfort_mode/$', 'apps.dashboard.views.select_comfort_mode'),
+    #agree dr selected
+    (r'^agree_dr/$', 'apps.dashboard.views.agree_dr'),
+    #disagree dr selected
+    (r'^disagree_dr/$', 'apps.dashboard.views.disagree_dr'),
     #dashboard_devices_in_zone
     (r'^devices/(?P<zone_dev>[a-zA-Z0-9_]+)$', 'apps.dashboard.views.zone_device_listing'),
     (r'^all_devices/(?P<zone_dev>[a-zA-Z0-9_]+)$', 'apps.dashboard.views.zone_device_all_listing'),

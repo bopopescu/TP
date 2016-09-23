@@ -536,6 +536,8 @@ $( document ).ready(function() {
             update_LOAD2_all(_message.total_AC);
             update_LOAD3_on(_message.number_plug_working);
             update_LOAD3_all(_message.total_plug);
+         } else if (_headers.data_source == 'netpiebutton') {
+             $('#DR_Modal').modal('show');
          }
          console.log("Update function");
          //Test change current energy consumption image
@@ -543,11 +545,11 @@ $( document ).ready(function() {
          // img_solar = 0.100 ;
          // img_ev = 0 ;
          update_ENERGY_pic(img_grid, img_solar, img_ev);
-         $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png')
+         $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
          //Test change mode image
          // img_mode = 'COMFORT' ;
          update_MODE_pic(img_mode);
-         $('#MODE_pic').attr('src', '../static/images/Mode/' + img_mode + '.png')
+         $('#MODE_pic').attr('src', '../static/images/Mode/' + img_mode + '.png');
 
 
          // document.getElementById("SOLAR_kw").innerHTML = _message.solar_activePower;
@@ -918,7 +920,7 @@ $( "#select_eco_mode" ).click(function() {
 			  // contentType: "application/json; charset=utf-8",
 			  dataType: 'json',
 			  success : function(data) {
-				//window.location.reload(true);
+				// window.location.reload(true);
 			  	$('.bottom-right').notify({
 			  	    message: { text: 'Your changes were updated in the system.' },
 			  	    type: 'blackgloss',
@@ -933,7 +935,78 @@ $( "#select_eco_mode" ).click(function() {
 				  	}).show();
 			  }
 	});
+    var delay = 500;
+    setTimeout(function() {
+        $('#DR_Modal').modal('show');
+    },delay);
+});
 
+$( "#agree_dr" ).click(function() {
+    console.log("agree_dr selected");
+    var values = {};
+    values['event'] = 'dr';
+    values['status'] = 'enable';
+    var jsonText = JSON.stringify(values);
+    $.ajax({
+			  url : '/agree_dr/',
+			  type: 'GET',
+			  // data: jsonText,
+			  // contentType: "application/json; charset=utf-8",
+			  dataType: 'json',
+			  success : function(data) {
+				//window.location.reload(true);
+			  	$('.bottom-right').notify({
+			  	    message: { text: 'Your changes were updated in the system.' },
+			  	    type: 'blackgloss',
+                    fadeOut: { enabled: true, delay: 5000 }
+			  	  }).show();
+			  },
+			  error: function(data) {
+				  $('.bottom-right').notify({
+				  	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
+				  	    type: 'blackgloss',
+                      fadeOut: { enabled: true, delay: 5000 }
+				  	}).show();
+			  }
+    });
+    // var delay = 500;
+    // setTimeout(function() {
+    //     $('#DR_Modal').modal('show');
+    // },delay);
+});
+
+$( "#disagree_dr" ).click(function() {
+    console.log("disagree_dr selected");
+    var values = {};
+    values['event'] = 'dr';
+    values['status'] = 'disable';
+    var jsonText = JSON.stringify(values);
+    $.ajax({
+			  url : '/disagree_dr/',
+			  type: 'GET',
+			  // data: jsonText,
+			  // contentType: "application/json; charset=utf-8",
+			  dataType: 'json',
+			  success : function(data) {
+				//window.location.reload(true);
+			  	$('.bottom-right').notify({
+			  	    message: { text: 'Your changes were updated in the system.' },
+			  	    type: 'blackgloss',
+                    fadeOut: { enabled: true, delay: 5000 }
+			  	  }).show();
+			  },
+			  error: function(data) {
+				  $('.bottom-right').notify({
+				  	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
+				  	    type: 'blackgloss',
+                      fadeOut: { enabled: true, delay: 5000 }
+				  	}).show();
+			  }
+    });
+    // var delay = 500;
+    // setTimeout(function() {
+    //     $('#DR_Modal').modal('show');
+    // },delay);
 });
 
 });
