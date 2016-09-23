@@ -538,6 +538,8 @@ $( document ).ready(function() {
             update_LOAD3_all(_message.total_plug);
          } else if (_headers.data_source == 'netpiebutton') {
              $('#DR_Modal').modal('show');
+         } else if (_headers.data_source == 'camera') {
+             document.getElementById("occupant").innerHTML = _message.occupant
          }
          console.log("Update function");
          //Test change current energy consumption image

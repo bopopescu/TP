@@ -68,7 +68,8 @@ from apps.lighting.models import Lighting
 from apps.VAV.models import VAV
 from apps.RTU.models import RTU
 from apps.admin.models import NetworkStatus
-
+from volttron.platform.messaging import headers as headers_mod
+import datetime
 
 import _utils.defaults as __
 
@@ -738,19 +739,24 @@ def occupant(request):
     print 'inside occupant method*********************************'
     if request.method == 'POST':
         _data = request.body
-        print "occupant data : {}".format(_data)
         _data = json.loads(_data)
         print "occupant data : {}".format(_data)
-
-        # update_send_topic = '/ui/agent/select_mode/'
-        _return_data =  {"status":200, "message":"data received"}
-        # content_type = "application/json"
-        # fromUI = "UI"
-        # print "topic sent: {}".format(update_send_topic)
-        # print "message sent: {}".format(_data)
-        # zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
+        topic = "/agent/ui/dashboard"
+        now = datetime.datetime.utcnow().isoformat(' ') + 'Z'
+        headers = {
+            'AgentID': "camera_agent",
+            headers_mod.CONTENT_TYPE: headers_mod.CONTENT_TYPE.PLAIN_TEXT,
+            headers_mod.DATE: now,
+            'data_source': "camera",
+        }
+        content_type = "application/json"
+        fromUI = "UI"
+        print "topic sent: {}".format(topic)
+        print "headers: {}".format(headers)
+        print "message sent: {}".format(_data)
+        zmq_pub.sendToAgent(topic, _data, content_type, fromUI, headers)
         # print "success in sending message to agent"
-
+        _return_data = {"status": 200, "message": "data received"}
     if request.is_ajax():
             return HttpResponse(json.dumps(_return_data), mimetype='application/json')
     else:

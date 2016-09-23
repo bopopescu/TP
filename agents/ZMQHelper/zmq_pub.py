@@ -61,17 +61,18 @@ class ZMQ_PUB(PublishMixin, BaseAgent):
         #self.connectToZMQ()
 
     #Send message to agent
-    def sendToAgent(self,topic, message, content_type, fromUI):
+    def sendToAgent(self,topic, message, content_type, fromUI, headers=None):
         print os.path.basename(__file__)+"inside sock"
         #sock = self.connectToZMQ();
         #while True:
         #message = constructMessage(topic, message,  content_type, fromUI);
         print os.path.basename(__file__)+"inside sock create connecttoZMQ"
         now = datetime.utcnow().isoformat(' ') + 'Z'
-        headers = {
-            headers_mod.CONTENT_TYPE: content_type,
-            headers_mod.DATE: now,
-        }
+        if (headers == None):
+            headers = {
+                headers_mod.CONTENT_TYPE: content_type,
+                headers_mod.DATE: now,
+            }
         print "created headers"
         #if isinstance(message, dict):
             #message = str(message)
