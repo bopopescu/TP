@@ -110,6 +110,8 @@ urlpatterns = patterns('',
     (r'^multisensor/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.multisensor.views.multisensor'),
     #speaker
     (r'^speaker/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.speaker.views.speaker'),
+    #camera
+    (r'^camera/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.camera.views.camera'),
     #powermeter
     (r'^powermeter/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.powermeter.views.powermeter'),
     #add devices
@@ -205,6 +207,10 @@ urlpatterns = patterns('',
     (r'^agree_dr/$', 'apps.dashboard.views.agree_dr'),
     #disagree dr selected
     (r'^disagree_dr/$', 'apps.dashboard.views.disagree_dr'),
+    #count occupant
+    (r'^occupant/$', 'apps.dashboard.views.occupant'),
+    #kmitl plug leagage
+    (r'^kmitl_plug_leakage/$', 'apps.dashboard.views.kmitl_plug_leakage'),
     #dashboard_devices_in_zone
     (r'^devices/(?P<zone_dev>[a-zA-Z0-9_]+)$', 'apps.dashboard.views.zone_device_listing'),
     (r'^all_devices/(?P<zone_dev>[a-zA-Z0-9_]+)$', 'apps.dashboard.views.zone_device_all_listing'),

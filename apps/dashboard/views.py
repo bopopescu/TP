@@ -51,6 +51,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_exempt
 import json
 import ast
 import re
@@ -731,6 +732,54 @@ def disagree_dr(request):
     if request.is_ajax():
             return HttpResponse(json.dumps(_data), mimetype='application/json')
 
+@csrf_exempt
+def occupant(request):
+    print 'inside occupant method*********************************'
+    print 'inside occupant method*********************************'
+    if request.method == 'POST':
+        _data = request.body
+        print "occupant data : {}".format(_data)
+        _data = json.loads(_data)
+        print "occupant data : {}".format(_data)
+
+        # update_send_topic = '/ui/agent/select_mode/'
+        _return_data =  {"status":200, "message":"data received"}
+        # content_type = "application/json"
+        # fromUI = "UI"
+        # print "topic sent: {}".format(update_send_topic)
+        # print "message sent: {}".format(_data)
+        # zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
+        # print "success in sending message to agent"
+
+    if request.is_ajax():
+            return HttpResponse(json.dumps(_return_data), mimetype='application/json')
+    else:
+        return HttpResponse(json.dumps(_return_data), mimetype='application/json')
+
+
+@csrf_exempt
+def kmitl_plug_leakage(request):
+    print 'inside kmitl_plug_leakage method*********************************'
+    print 'inside kmitl_plug_leakage method*********************************'
+    if request.method == 'POST':
+        _data = request.body
+        print "occupant data : {}".format(_data)
+        _data = json.loads(_data)
+        print "occupant data : {}".format(_data)
+
+        # update_send_topic = '/ui/agent/select_mode/'
+        _return_data =  {"status":200, "message":"data received"}
+        # content_type = "application/json"
+        # fromUI = "UI"
+        # print "topic sent: {}".format(update_send_topic)
+        # print "message sent: {}".format(_data)
+        # zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
+        # print "success in sending message to agent"
+
+    if request.is_ajax():
+            return HttpResponse(json.dumps(_return_data), mimetype='application/json')
+    else:
+        return HttpResponse(json.dumps(_return_data), mimetype='application/json')
 
 @login_required(login_url='/login/')
 def zone_device_listing(request, zone_dev):
