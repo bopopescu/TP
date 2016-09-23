@@ -905,6 +905,10 @@ $( document ).ready(function() {
 				  	}).show();
 			  }
 	});
+    var delay = 500;
+    setTimeout(function() {
+        $('#Comfort_Modal').modal('show');
+    },delay);
 });
 
 $( "#select_eco_mode" ).click(function() {
@@ -937,7 +941,7 @@ $( "#select_eco_mode" ).click(function() {
 	});
     var delay = 500;
     setTimeout(function() {
-        $('#DR_Modal').modal('show');
+        $('#Eco_Modal').modal('show');
     },delay);
 });
 
@@ -969,10 +973,10 @@ $( "#agree_dr" ).click(function() {
 				  	}).show();
 			  }
     });
-    // var delay = 500;
-    // setTimeout(function() {
-    //     $('#DR_Modal').modal('show');
-    // },delay);
+    var delay = 500;
+    setTimeout(function() {
+        $('#Agree_DR').modal('show');
+    },delay);
 });
 
 $( "#disagree_dr" ).click(function() {
@@ -1003,10 +1007,10 @@ $( "#disagree_dr" ).click(function() {
 				  	}).show();
 			  }
     });
-    // var delay = 500;
-    // setTimeout(function() {
-    //     $('#DR_Modal').modal('show');
-    // },delay);
+    var delay = 500;
+    setTimeout(function() {
+        $('#DisAgree_DR').modal('show');
+    },delay);
 });
 
 });
