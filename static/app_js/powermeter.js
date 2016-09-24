@@ -13,7 +13,7 @@ disclaimer in the documentation and/or other materials provided with the distrib
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
 INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMICur_rate(Cur_rate)TED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -279,6 +279,27 @@ $( document ).ready(function() {
         });
     //console.log("ws://" + window.location.host + "/socket_lighting");
 });
+
+var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
+
+     ws_dashboard.onopen = function () {
+         ws_dashboard.send("WS opened from html page");
+     };
+
+     ws_dashboard.onmessage = function (event) {
+         var _data = event.data;
+         _data = $.parseJSON(_data);
+         console.log(_data);
+         var _topic = _data['topic'];
+         console.log(_topic);
+         var _headers = _data['headers'];
+         console.log(_headers.data_source);
+         var _message = $.parseJSON(_data['message']);
+         if (_headers.data_source == 'gridApp') {
+             console.log(_message.current_electricity_price);
+             update_Cur_rate(_message.current_electricity_price);
+         }
+     };
     // var ws = new WebSocket("ws://" + window.location.host + "/socket_lighting");
     // console.log("websocket connection established");
     //  ws.onopen = function () {

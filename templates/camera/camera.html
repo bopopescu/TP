@@ -649,7 +649,7 @@ a:hover {
 														<div class="row">
 															<!--BEGIN Device image-->
 															<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 information-image">
-																<img id="device_data_info_img" src="../../static/images/devices/lg_lcd_tv_43.jpg"
+																<img id="device_data_info_img" src="../../static/images/devices/camera_samsung.png"
 																	 alt="" class="img-responsive img-rounded">
 															</div>
 															<!--END Device image-->
@@ -659,23 +659,23 @@ a:hover {
 																<table id="device_data_info_tbl" class="table table-responsive">
 																	<tr>
 																		<td>Nickname:</td>
-																		<td class="detail">LCD TV</td>
+																		<td class="detail">IP Camera</td>
 																	</tr>
 																	<tr>
 																		<td>Vendor:</td>
-																		<td class="detail">LG Electronics</td>
+																		<td class="detail">SAMSUNG Electric</td>
 																	</tr>
 																	<tr>
 																		<td>Model:</td>
-																		<td class="detail">43LH590T</td>
+																		<td class="detail">SNH-P6410BN</td>
 																	</tr>
 																	<tr>
 																		<td>Serial Number:</td>
-																		<td class="detail">605VNPA1D840</td>
+																		<td class="detail"N/A</td>
 																	</tr>
 																	<tr>
 																		<td>Mac Address:</td>
-																		<td class="detail">221445K1200137</td>
+																		<td class="detail">00166C89DC7D</td>
 																	</tr>
 																	<tr>
 																		<td>Date Added On:</td>
@@ -842,20 +842,20 @@ a:hover {
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
 		<script src="/static/app_js/camera.js" type="text/javascript"></script>
 		<script src="/static/app_js/sidenav.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/static/app_js/home_dash.js"></script>
 
-        <script type="text/javascript">
+		<script type="text/javascript">
             window.onload = function () {
                 startTime();
                 setValue();
                 renderChart();
-{#                $('#log').DataTable({#}
-{#                    "order": [#}
-{#                        [0, "desc"]#}
-{#                    ]#}
-{#                });#}
+                $('#log').DataTable({
+                    "order": [
+                        [0, "desc"]
+                    ]
+                });
               }
         </script>
-
 
     </body>
 

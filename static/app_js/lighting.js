@@ -211,22 +211,22 @@ $( "#device_power_disp" ).click(function() {
 
              softSlider.noUiSlider.on('set', function ( values, handle ) {
                  if(values[handle] == 0) {
-                     $(".brght").blur().removeClass("grey");
-                     $("#b-0").addClass("grey");
+                     $(".brght").blur().removeClass("blue");
+                     $("#b-0").addClass("blue");
                  } else if(values[handle] == 25) {
-                     $(".brght").blur().removeClass("grey");
-                     $("#b-25").addClass("grey");
+                     $(".brght").blur().removeClass("blue");
+                     $("#b-25").addClass("blue");
                  } else if(values[handle] == 50) {
-                     $(".brght").blur().removeClass("grey");
-                     $("#b-50").addClass("grey");
+                     $(".brght").blur().removeClass("blue");
+                     $("#b-50").addClass("blue");
                  } else if(values[handle] == 75) {
-                     $(".brght").blur().removeClass("grey");
-                     $("#b-75").addClass("grey");
+                     $(".brght").blur().removeClass("blue");
+                     $("#b-75").addClass("blue");
                  } else if(values[handle] == 100) {
-                     $(".brght").blur().removeClass("grey");
-                     $("#b-100").addClass("grey");
+                     $(".brght").blur().removeClass("blue");
+                     $("#b-100").addClass("blue");
                  } else {
-                     $(".brght").blur().removeClass("grey");
+                     $(".brght").blur().removeClass("blue");
                  }
                  console.log("values[handle]" + values[handle]);
                  brightness_level = parseInt(values[handle]);
@@ -256,19 +256,19 @@ function color() {
         $("#colorSelector").minicolors({
             change: function(value) {
                 if(value == '#ffffff') {
-                    $(".clr").blur().removeClass("grey");
-                    $("#c-d").addClass("grey");
+                    $(".clr").blur().removeClass("blue");
+                    $("#c-d").addClass("blue");
                 } else if(value == '#ffffee') {
-                    $(".clr").blur().removeClass("grey");
-                    $("#c-ww").addClass("grey");
+                    $(".clr").blur().removeClass("blue");
+                    $("#c-ww").addClass("blue");
                 } else if(value == '#eeeeff') {
-                    $(".clr").blur().removeClass("grey");
-                    $("#c-cw").addClass("grey");
+                    $(".clr").blur().removeClass("blue");
+                    $("#c-cw").addClass("blue");
                 } else if(value == '#ffeeee') {
-                    $(".clr").blur().removeClass("grey");
-                    $("#c-dl").addClass("grey");
+                    $(".clr").blur().removeClass("blue");
+                    $("#c-dl").addClass("blue");
                 } else {
-                    $(".clr").blur().removeClass("grey");
+                    $(".clr").blur().removeClass("blue");
                 }
                 console.log(value + " --> (" + hexToRgb(value).r + "," + hexToRgb(value).g + "," + hexToRgb(value).b + ")");
                 var _color = "(" + hexToRgb(value).r + "," + hexToRgb(value).g + "," + hexToRgb(value).b + ")" ;
