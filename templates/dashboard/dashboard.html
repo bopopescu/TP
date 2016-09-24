@@ -124,10 +124,6 @@ function setValue() {
   update_EV_percent("62");
 }
         </script>
-    <script>
-        var pb_2_capt = "Dashboard";
-        var pb_2_link = "home";
-    </script>
       </head>
 <!-- END HEAD -->
 
@@ -529,7 +525,7 @@ function setValue() {
                         <section class="col-lg-6">
 
                             <!-- BEGIN 1st Row -->
-                            <div class="row" style="margin-bottom: 10px" >
+                            <div class="row">
                                 <!-- BEGIN Mode -->
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                     <!--Test Modal -->
@@ -609,7 +605,12 @@ function setValue() {
                                                             <tr>
                                                                 <td>LIGHTING</td>
                                                                 <td>MAX</td>
-                                                                <td>DIM</td>
+                                                                <td>DIM BASE ON </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>AMBIENT ILLUMINANCE</td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="font-size: 15px; "><p><b>Please select</b></p></td>
@@ -634,20 +635,157 @@ function setValue() {
                                                     <div class="modal-content">
                                                     <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Mode Information</h4>
+                                                    <h4 class="modal-title">Demand Response signal received from PEA.</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                    <p> Do you agree to select DR Mode? : </p>
-                                                    <p> DR Mode is ......... </p>
+                                                    <p> Would you like to participate in a DR program to get <strong>6 Baht/kWh</strong> reduction rebate? </p>
+{#                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>#}
+{#                                                    <canvas id="myChart" width="400" height="400"></canvas>#}
+{#                                                        <script>#}
+{#                                                        var ctx = document.getElementById("myChart");#}
+{#                                                        var data = {#}
+{#                                                                labels: ["January", "February", "March", "April", "May", "June", "July"],#}
+{#                                                                datasets: [#}
+{#                                                                {#}
+{#                                                                    label: "My First dataset",#}
+{#                                                                    fill: false,#}
+{#                                                                    lineTension: 0.1,#}
+{#                                                                    backgroundColor: "rgba(75,192,192,0.4)",#}
+{#                                                                    borderColor: "rgba(75,192,192,1)",#}
+{#                                                                    borderCapStyle: 'butt',#}
+{#                                                                    borderDash: [],#}
+{#                                                                    borderDashOffset: 0.0,#}
+{#                                                                    borderJoinStyle: 'miter',#}
+{#                                                                    pointBorderColor: "rgba(75,192,192,1)",#}
+{#                                                                    pointBackgroundColor: "#fff",#}
+{#                                                                    pointBorderWidth: 1,#}
+{#                                                                    pointHoverRadius: 5,#}
+{#                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",#}
+{#                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",#}
+{#                                                                    pointHoverBorderWidth: 2,#}
+{#                                                                    pointRadius: 1,#}
+{#                                                                    pointHitRadius: 10,#}
+{#                                                                    data: [65, 59, 80, 81, 56, 55, 40],#}
+{#                                                                    spanGaps: false,#}
+{#                                                                }#}
+{#                                                            ]#}
+{#                                                         };#}
+{##}
+{#                                                         var options =  {#}
+{#                                                                scales: {#}
+{#                                                                    yAxes: [{#}
+{#                                                                        ticks: {#}
+{#                                                                            beginAtZero:true#}
+{#                                                                        }#}
+{#                                                                    }]#}
+{#                                                                }#}
+{#                                                            };#}
+{##}
+{#                                                        var myChart = new Chart(ctx, {#}
+{#                                                            type: 'line',#}
+{#                                                            data: data,#}
+{#                                                            options: options#}
+{#                                                        });#}
+{#                                                  </script>#}
+{##}
                                                     </div>
                                                     <div class="modal-footer">
-                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Yes, I Agree</button>
-                                                    <button type="button" class="btn btn-circle red" data-dismiss="modal">No, I disagree</button>
+                                                    <button type="button" id="agree_dr" class="btn btn-circle green" data-dismiss="modal">Yes, I Agree</button>
+                                                    <button type="button" id="disagree_dr" class="btn btn-circle red" data-dismiss="modal">No, I disagree</button>
                                                     </div>
                                                     </div>
                                                 </div>
                                                 </div>
                                             <!-- End of Modal 2 -->
+                                            <!-- Begin agree_dr Modal -->
+                                            <div class="modal fade" id="Agree_DR" role="dialog">
+                                                    <div class="modal-dialog modal-lg" width="400" height="400">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">You agreed to participate in DR program with PEA</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p> Load status: Consuming </p>
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>
+                                                    <canvas id="agree_DR_Chart"></canvas>
+                                                        <script>
+                                                        var ctx = document.getElementById("agree_DR_Chart");
+                                                        var data = {
+                                                                labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],
+                                                                datasets: [
+                                                                {
+                                                                    label: "My First dataset",
+                                                                    fill: false,
+                                                                    lineTension: 0.1,
+                                                                    backgroundColor: "rgba(75,192,192,0.4)",
+                                                                    borderColor: "rgba(75,192,192,1)",
+                                                                    borderCapStyle: 'butt',
+                                                                    borderDash: [],
+                                                                    borderDashOffset: 0.0,
+                                                                    borderJoinStyle: 'miter',
+                                                                    pointBorderColor: "rgba(75,192,192,1)",
+                                                                    pointBackgroundColor: "#fff",
+                                                                    pointBorderWidth: 1,
+                                                                    pointHoverRadius: 5,
+                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                                                    pointHoverBorderWidth: 2,
+                                                                    pointRadius: 1,
+                                                                    pointHitRadius: 10,
+                                                                    data: [65, 59, 80, 81, 56, 55, 40],
+                                                                    spanGaps: false,
+                                                                }
+                                                            ]
+                                                         };
+
+                                                         var options =  {
+                                                                scales: {
+                                                                    yAxes: [{
+                                                                        ticks: {
+                                                                            beginAtZero:true
+                                                                        }
+                                                                    }]
+                                                                }
+                                                            };
+
+                                                        var myChart = new Chart(ctx, {
+                                                            type: 'line',
+                                                            data: data,
+                                                            options: options
+                                                        });
+                                                  </script>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <!-- End of  agree_dr Modal  -->
+
+
+                                            <div class="modal fade" id="DisAgree_DR" role="dialog">
+                                                    <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">You disagree to participate in DR program with PEA</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p> Thanks for your cooperation,  <strong>PEA Demand Response Team</strong></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+
                                             <!-- Begin of Modal 3 -->
 {#                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Leakage_Modal">ILeak</button>#}
                                                 <div class="modal fade" id="Leakage_Modal" role="dialog">
@@ -670,17 +808,93 @@ function setValue() {
                                                 </div>
                                             <!-- End of Modal 3 -->
                                             <!-- Begin of Modal 4 trigger Comfort Mode Graph -->
-                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Comfort_Modal">Test</button>
-                                                <div class="modal fade" id="Comfort_Modal" role="dialog"">
-                                                    <div class="modal-dialog modal-lg">
+{#                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Comfort_Modal">Test</button>#}
+                                                <div class="modal fade" id="Comfort_Modal" role="dialog">
+                                                    <div class="modal-dialog modal-lg" width="400" height="400">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
                                                     <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Load Consumption</h4>
+                                                    <h4 class="modal-title">Comfort Mode Selected</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                     <p> Graph</p>
+                                                     <p> Load status: Consuming </p>
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>
+                                                    <canvas id="comfort_chart"></canvas>
+                                                        <script>
+                                                        var ctx = document.getElementById("comfort_chart");
+                                                        var data = {
+                                                                labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],
+                                                                datasets: [
+                                                                {
+                                                                    label: "Power Consumption (kW)",
+                                                                    fill: false,
+                                                                    lineTension: 0.1,
+                                                                    backgroundColor: "rgba(75,192,192,0.4)",
+                                                                    borderColor: "rgba(75,192,192,1)",
+                                                                    borderCapStyle: 'butt',
+                                                                    borderDash: [],
+                                                                    borderDashOffset: 0.0,
+                                                                    borderJoinStyle: 'miter',
+                                                                    pointBorderColor: "rgba(75,192,192,1)",
+                                                                    pointBackgroundColor: "#fff",
+                                                                    pointBorderWidth: 1,
+                                                                    pointHoverRadius: 5,
+                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                                                    pointHoverBorderWidth: 2,
+                                                                    pointRadius: 1,
+                                                                    pointHitRadius: 10,
+                                                                    data: [65, 59, 80, 81, 56, 55, 40],
+                                                                    spanGaps: false,
+                                                                }
+                                                            ]
+                                                         };
+
+                                                         var data2 = {
+                                                                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                                                                datasets: [
+                                                                {
+                                                                    label: "Power Consumption (kW)",
+                                                                    fill: false,
+                                                                    lineTension: 0.1,
+                                                                    backgroundColor: "rgba(75,192,192,0.4)",
+                                                                    borderColor: "rgba(255,192,192,1)",
+                                                                    borderCapStyle: 'butt',
+                                                                    borderDash: [],
+                                                                    borderDashOffset: 0.0,
+                                                                    borderJoinStyle: 'miter',
+                                                                    pointBorderColor: "rgba(255,192,192,1)",
+                                                                    pointBackgroundColor: "#fff",
+                                                                    pointBorderWidth: 1,
+                                                                    pointHoverRadius: 5,
+                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                                                    pointHoverBorderWidth: 2,
+                                                                    pointRadius: 1,
+                                                                    pointHitRadius: 10,
+                                                                    data: [32, 37, 80, 73, 64, 35, 90],
+                                                                    spanGaps: false,
+                                                                }
+                                                            ]
+                                                         };
+
+                                                         var options =  {
+                                                                scales: {
+                                                                    yAxes: [{
+                                                                        ticks: {
+                                                                            beginAtZero:false
+                                                                        }
+                                                                    }]
+                                                                }
+                                                            };
+
+                                                        var myChart = new Chart(ctx, {
+                                                            type: 'line',
+                                                            data: data,
+                                                            options: options
+                                                        });
+                                                  </script>
                                                     </div>
                                                     <div class="modal-footer">
                                                     <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
@@ -691,17 +905,92 @@ function setValue() {
                                             <!-- End of Modal 4 -->
                                             <!-- Modal 5 trigger ECO Mode Graph -->
 {#                                                <button type="button" class="btn btn-circle btn-default" data-toggle="modal" data-target="#Eco_Modal">Test</button>#}
-                                                <div class="modal fade" id="Eco_Modal" role="dialog" style="display: none;">
-                                                    <div class="modal-dialog">
+                                                <div class="modal fade" id="Eco_Modal" role="dialog">
+                                                    <div class="modal-dialog modal-lg" width="400" height="400">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
                                                     <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Load Consumption</h4>
+                                                    <h4 class="modal-title">Eco Mode Selected</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                    <p> Load Consumption Graph </p>
-                                                    <p> xxxxxx </p>
+                                                    <p> Load status: Consuming </p>
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>
+                                                    <canvas id="eco_chart"></canvas>
+                                                        <script>
+                                                        var ctx = document.getElementById("eco_chart");
+                                                        var data = {
+                                                                labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],
+                                                                datasets: [
+                                                                {
+                                                                    label: "Power Consumption (kW)",
+                                                                    fill: false,
+                                                                    lineTension: 0.1,
+                                                                    backgroundColor: "rgba(75,192,192,0.4)",
+                                                                    borderColor: "rgba(75,192,192,1)",
+                                                                    borderCapStyle: 'butt',
+                                                                    borderDash: [],
+                                                                    borderDashOffset: 0.0,
+                                                                    borderJoinStyle: 'miter',
+                                                                    pointBorderColor: "rgba(75,192,192,1)",
+                                                                    pointBackgroundColor: "#fff",
+                                                                    pointBorderWidth: 1,
+                                                                    pointHoverRadius: 5,
+                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                                                    pointHoverBorderWidth: 2,
+                                                                    pointRadius: 1,
+                                                                    pointHitRadius: 10,
+                                                                    data: [32, 59, 85, 51, 67, 95, 40],
+                                                                    spanGaps: false,
+                                                                }
+                                                            ]
+                                                         };
+
+                                                         var data2 = {
+                                                                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                                                                datasets: [
+                                                                {
+                                                                    label: "Power Consumption (kW)",
+                                                                    fill: false,
+                                                                    lineTension: 0.1,
+                                                                    backgroundColor: "rgba(75,192,192,0.4)",
+                                                                    borderColor: "rgba(255,192,192,1)",
+                                                                    borderCapStyle: 'butt',
+                                                                    borderDash: [],
+                                                                    borderDashOffset: 0.0,
+                                                                    borderJoinStyle: 'miter',
+                                                                    pointBorderColor: "rgba(255,192,192,1)",
+                                                                    pointBackgroundColor: "#fff",
+                                                                    pointBorderWidth: 1,
+                                                                    pointHoverRadius: 5,
+                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                                                    pointHoverBorderWidth: 2,
+                                                                    pointRadius: 1,
+                                                                    pointHitRadius: 10,
+                                                                    data: [32, 37, 80, 73, 64, 35, 90],
+                                                                    spanGaps: false,
+                                                                }
+                                                            ]
+                                                         };
+
+                                                         var options =  {
+                                                                scales: {
+                                                                    yAxes: [{
+                                                                        ticks: {
+                                                                            beginAtZero:false
+                                                                        }
+                                                                    }]
+                                                                }
+                                                            };
+
+                                                        var myChart = new Chart(ctx, {
+                                                            type: 'line',
+                                                            data: data,
+                                                            options: options
+                                                        });
+                                                  </script>
                                                     </div>
                                                     <div class="modal-footer">
                                                     <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
@@ -715,19 +1004,21 @@ function setValue() {
                                     </div>
                                 </div>
                                 <!-- END Mode -->
+
+
                                 <!-- BEGIN Weather -->
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                     <div class="m-heading-1 border-blue m-bordered">
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                 <h3 id="WEA_title" style="font-size: 25px";>CLOUDY</h3><br>
-                                                <div id="WEA_humid" style="font-size: 20px">Humid : </div>
+                                                <div id="WEA_humid" style="font-size: 20px">Humidity : </div>
                                                 <span id = "WEA_temp" style="font-size: 25px">25</span> C
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <div class="icon">
                                                     <br><br>
-                                                    <img class= "" id="WEATHER_pic" width ="70" height = "70" src = "" class="img-responsive">
+                                                    <img class= "" id="WEATHER_pic" width ="60" height = "60" src = "../static/images/Weather/cloudy.png" class="img-responsive">
                                                 </div>
                                             </div>
                                         </div>
@@ -739,10 +1030,10 @@ function setValue() {
                                     <div class="m-heading-1 border-red m-bordered">
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                <h3 id="xxxx" style="font-size: 25px">OCCUPANT</h3>
+                                                <h3 style="font-size: 25px">OCCUPANT</h3>
                                                 <br>
                                                 <div class=""><span>Number</span></div>
-                                                <span id="z" style="font-size: 25px">25</span> persons
+                                                <span id="occupant" style="font-size: 25px">25</span> persons
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <div class="icon">
@@ -772,9 +1063,6 @@ function setValue() {
                             <!-- End of Occupant-->
                             </div>
                             <!-- END 1st Row -->
-                    <div class="clearfix">
-
-                         </div>
 
                             <!-- BEGIN Real-time Price & Energy -->
                             <div class="portlet light bordered">
@@ -1626,16 +1914,11 @@ function setValue() {
             //renderCP1();
             //renderCP2();
             //renderGauge();
-{#              $('#log').DataTable({#}
-{#                    "order": [#}
-{#                        [0, "desc"]#}
-{#                    ]#}
-{#                });#}
           }
         </script>
 
         <script type="text/javascript" src="/static/app_js/home_dash.js"></script>
-{#        <script type="text/javascript" src="/static/app_js/lighting.js"></script>#}
+        <script type="text/javascript" src="/static/app_js/lighting.js"></script>
     </body>
 
 </html>
