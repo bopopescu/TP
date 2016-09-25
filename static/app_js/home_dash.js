@@ -59,6 +59,11 @@ var img_mode = 0;
 //weather update picture
 var W = 0;
 var img_weather = 0;
+var MODE = 'COMFORT'; //'COMFORT'
+var MODE_baht = 50; //50
+var MODE_status = 'estimated cost'; //'estimated cost'
+var MODE_unit ='฿/hr'; //'฿/hr'
+var MODE_pic = "COMFORT"; //"COMFORT"
 
           window.CPT_kwh = 0;
           window.CPT_max = 0;
@@ -376,10 +381,121 @@ var img_weather = 0;
             }
           }
 
+          // <!-- BEGIN Mode Pictures-->
+            function update_MODE_pic(M){
+            console.log("M = " + M);
+                if (M == 'COMFORT'){
+                   img_mode = 'comfort_mode';}
+                else if(M == 'ECO'){
+                    img_mode = 'eco_mode';
+                }else if(M == 'DR'){
+                    img_mode = 'dr_mode';
+                }
+            // console.log("Mode = " + M );
+            $('#MODE_pic').attr('src', '../static/images/Mode/'+img_mode+'.png');
+            console.log("image mode  : " + img_mode);
+        }
+
+        function update_MODE_unit(unit){
+            document.getElementById("MODE_unit").innerHTML = unit;
+        }
+
+function setValue() {
+  //User Information
+  update_Username("admin");
+
+  //Current Rate
+  update_Cur_rate("4.32");
+
+  //Cost Prediction
+  //@CPx_comp can be negative for down symbol
+  //@CPx_kwh <= CPx_max
+  //—Today
+  update_CPT_kwh("22.69");
+  update_CPT_max("23.54");
+  update_CPT_baht("71.25");
+  update_CPT_comp("-16.47");
+  //—This Month
+  update_CPM_kwh("250.48");
+  update_CPM_max("312.24");
+  update_CPM_baht("1200.25");
+  update_CPM_comp("-216.25");
+  //Load consumption
+  //@Lxx_bar value between 0 to 100
+  //@Lxx_comp value between -100 to 100
+  //—Today
+  update_LT1_comp("40");
+  update_LT1_baht("10");
+
+  update_LT2_comp("30");
+  update_LT2_baht("15.75");
+
+  update_LT3_comp("-80");
+  update_LT3_baht("25.25");
+
+  update_LT4_comp("60");
+  update_LT4_baht("20.25");
+
+  //—This month
+  update_LM1_comp("6");
+  update_LM1_baht("12");
+
+  update_LM2_comp("30");
+  update_LM2_baht("18");
+
+  update_LM3_comp("32");
+  update_LM3_baht("23.25");
+
+  update_LM4_comp("20");
+  update_LM4_baht("30.25");
+
+  //Total Annual Energy Consumption
+  update_AEC_gen("2000");
+  update_AEC_use("1000");
+
+  //Load
+  update_LOAD1_on("6");
+  update_LOAD1_all("13");
+
+  update_LOAD2_on("2");
+  update_LOAD2_all("3");
+
+  update_LOAD3_on("6");
+  update_LOAD3_all("13");
+
+  //Grid
+  //@GRID_kw can be negative for down symbol
+  update_GRID_status("Feeding now");
+  update_GRID_kw("20.23");
+
+  //Solar Generation
+  //@SOLAR_kw can be negative for down symbol
+  update_SOLAR_status("Feeding now");
+  update_SOLAR_kw("7.01");
+
+  //Load consumption
+  //@LOAD_kw always positive
+  update_LOAD_status("Consuming");
+  update_LOAD_kw("2.02");
+
+  //Mode
+  //@MODE_baht can be negative for down symbol
+  update_MODE(MODE);
+  update_MODE_status(MODE_status);
+  update_MODE_baht(MODE_baht);
+  update_MODE_pic(MODE_pic);
+  update_MODE_unit(MODE_unit);
+
+  //EV Car
+  //@EV_percent can be negative for down symbol
+  update_EV_status("Charging");
+  update_EV_percent("62");
+}
 
 $( document ).ready(function() {
-                startTime();
-            setValue();
+     startTime();
+     setValue();
+     // renderChart();
     // $.csrftoken();
 
     // var ws = new WebSocket("ws://" + window.location.host + "/socket_misc");
@@ -616,19 +732,24 @@ $( document ).ready(function() {
 
     }
 // <!--END Current Energy Consumption Pictures-->
-// <!-- BEGIN Mode Pictures-->
-    function update_MODE_pic(M){
-    console.log("M = " + M);
-        if (M == 'COMFORT'){
-           img_mode = 'comfort_mode';}
-        else if(M == 'ECO'){
-            img_mode = 'eco_mode';
-        }else if(M == 'DR'){
-            img_mode = 'dr_mode';
-        }
-    // console.log("Mode = " + M );
-    console.log("image mode  : " + img_mode);
-}
+// // <!-- BEGIN Mode Pictures-->
+//     function update_MODE_pic(M){
+//     console.log("M = " + M);
+//         if (M == 'COMFORT'){
+//            img_mode = 'comfort_mode';}
+//         else if(M == 'ECO'){
+//             img_mode = 'eco_mode';
+//         }else if(M == 'DR'){
+//             img_mode = 'dr_mode';
+//         }
+//     // console.log("Mode = " + M );
+//     $('#MODE_pic').attr('src', '../static/images/Mode/'+img_mode+'.png');
+//     console.log("image mode  : " + img_mode);
+// }
+//
+// function update_MODE_unit(unit){
+//     document.getElementById("MODE_unit").innerHTML = unit;
+// }
 // <!--END Mode Pictures-->
 
 // // Begin Weather picture
@@ -887,6 +1008,13 @@ $( document ).ready(function() {
                 update_MODE("COMFORT");
                 document.getElementById("MODE_status").innerHTML = "estimated cost";
                 update_MODE_baht(5.8*7);
+                update_MODE_pic("COMFORT");
+                MODE = "COMFORT";
+                MODE_status = "estimated cost";
+                MODE_baht = 5.8*7;
+                MODE_unit = "฿/hr";
+                MODE_pic = "COMFORT";
+                // $('#MODE_pic').attr('src', '../static/images/Mode/comfort_mode.png');
                 // img_mode = _message.home_mode;
                 // console.log("Mode = "+ img_mode);
 
@@ -929,6 +1057,12 @@ $( "#select_eco_mode" ).click(function() {
                  update_MODE("ECO");
                  document.getElementById("MODE_status").innerHTML = "estimated cost";
                  update_MODE_baht(5.8*4);
+                 update_MODE_pic("ECO");
+                 MODE = "ECO";
+                 MODE_status = "estimated cost";
+                 MODE_baht = 5.8*4;
+                 MODE_unit = "฿/hr";
+                 MODE_pic = "ECO";
 				// window.location.reload(true);
 			  	// $('.bottom-right').notify({
 			  	//     message: { text: 'Your changes were updated in the system.' },
@@ -965,6 +1099,19 @@ $( "#agree_dr" ).click(function() {
 			  dataType: 'json',
 			  success : function(data) {
 				//window.location.reload(true);
+                console.log("DR mode success");
+                document.getElementById("MODE").innerHTML = "DR";
+                update_MODE("DR");
+                document.getElementById("MODE_status").innerHTML = "rebate";
+                update_MODE_baht(6);
+                document.getElementById("MODE_unit").innerHTML = "฿/kWh";
+                update_MODE_pic("DR");
+                MODE = "DR";
+                MODE_status = "rebate";
+                MODE_baht = 6;
+                MODE_unit = "฿/kWh";
+                MODE_pic = "DR";
+
 			  	$('.bottom-right').notify({
 			  	    message: { text: 'Your changes were updated in the system.' },
 			  	    type: 'blackgloss',

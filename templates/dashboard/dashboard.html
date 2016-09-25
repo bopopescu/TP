@@ -114,9 +114,9 @@ function setValue() {
 
   //Mode
   //@MODE_baht can be negative for down symbol
-  update_MODE("Eco mode");
-  update_MODE_status("Saving cost");
-  update_MODE_baht("-57.82");
+{#  update_MODE("Eco mode");#}
+{#  update_MODE_status("Saving cost");#}
+{#  update_MODE_baht("-57.82");#}
 
   //EV Car
   //@EV_percent can be negative for down symbol
@@ -534,7 +534,8 @@ function setValue() {
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                 <h3 id="MODE" style="font-size: 25px";>Eco Mode</h3>
                                                 <div id="MODE_status"></div>
-                                                <span id="MODE_baht" style="font-size: 25px"></span> ฿/hr
+                                                <span id="MODE_baht" style="font-size: 25px"></span>
+                                                <span id="MODE_unit" style="font-size: 25px">฿/hr</span>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <div class="icon">
@@ -819,8 +820,9 @@ function setValue() {
                                                     </div>
                                                     <div class="modal-body">
                                                      <p> Load status: Consuming </p>
-                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>
-                                                    <canvas id="comfort_chart"></canvas>
+                                                     <p> Please wait while we are executing "COMFORT" mode by changing status and set points of your appliances </p>
+{#                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>#}
+{#                                                    <canvas id="comfort_chart"></canvas>#}
                                                         <script>
                                                         var ctx = document.getElementById("comfort_chart");
                                                         var data = {
@@ -897,7 +899,8 @@ function setValue() {
                                                   </script>
                                                     </div>
                                                     <div class="modal-footer">
-                                                    <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
+                                                        <a href="/all_devices/999" class="btn btn-circle blue" role="button">Graph</a>
+                                                        <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -915,84 +918,86 @@ function setValue() {
                                                     </div>
                                                     <div class="modal-body">
                                                     <p> Load status: Consuming </p>
-                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>
-                                                    <canvas id="eco_chart"></canvas>
-                                                        <script>
-                                                        var ctx = document.getElementById("eco_chart");
-                                                        var data = {
-                                                                labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],
-                                                                datasets: [
-                                                                {
-                                                                    label: "Power Consumption (kW)",
-                                                                    fill: false,
-                                                                    lineTension: 0.1,
-                                                                    backgroundColor: "rgba(75,192,192,0.4)",
-                                                                    borderColor: "rgba(75,192,192,1)",
-                                                                    borderCapStyle: 'butt',
-                                                                    borderDash: [],
-                                                                    borderDashOffset: 0.0,
-                                                                    borderJoinStyle: 'miter',
-                                                                    pointBorderColor: "rgba(75,192,192,1)",
-                                                                    pointBackgroundColor: "#fff",
-                                                                    pointBorderWidth: 1,
-                                                                    pointHoverRadius: 5,
-                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                                                                    pointHoverBorderWidth: 2,
-                                                                    pointRadius: 1,
-                                                                    pointHitRadius: 10,
-                                                                    data: [32, 59, 85, 51, 67, 95, 40],
-                                                                    spanGaps: false,
-                                                                }
-                                                            ]
-                                                         };
-
-                                                         var data2 = {
-                                                                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                                                                datasets: [
-                                                                {
-                                                                    label: "Power Consumption (kW)",
-                                                                    fill: false,
-                                                                    lineTension: 0.1,
-                                                                    backgroundColor: "rgba(75,192,192,0.4)",
-                                                                    borderColor: "rgba(255,192,192,1)",
-                                                                    borderCapStyle: 'butt',
-                                                                    borderDash: [],
-                                                                    borderDashOffset: 0.0,
-                                                                    borderJoinStyle: 'miter',
-                                                                    pointBorderColor: "rgba(255,192,192,1)",
-                                                                    pointBackgroundColor: "#fff",
-                                                                    pointBorderWidth: 1,
-                                                                    pointHoverRadius: 5,
-                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                                                                    pointHoverBorderWidth: 2,
-                                                                    pointRadius: 1,
-                                                                    pointHitRadius: 10,
-                                                                    data: [32, 37, 80, 73, 64, 35, 90],
-                                                                    spanGaps: false,
-                                                                }
-                                                            ]
-                                                         };
-
-                                                         var options =  {
-                                                                scales: {
-                                                                    yAxes: [{
-                                                                        ticks: {
-                                                                            beginAtZero:false
-                                                                        }
-                                                                    }]
-                                                                }
-                                                            };
-
-                                                        var myChart = new Chart(ctx, {
-                                                            type: 'line',
-                                                            data: data,
-                                                            options: options
-                                                        });
-                                                  </script>
+                                                     <p> Please wait while we are executing "ECO" mode by changing status and set points of your appliances </p>
+{#                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>#}
+{#                                                    <canvas id="eco_chart"></canvas>#}
+{#                                                        <script>#}
+{#                                                        var ctx = document.getElementById("eco_chart");#}
+{#                                                        var data = {#}
+{#                                                                labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],#}
+{#                                                                datasets: [#}
+{#                                                                {#}
+{#                                                                    label: "Power Consumption (kW)",#}
+{#                                                                    fill: false,#}
+{#                                                                    lineTension: 0.1,#}
+{#                                                                    backgroundColor: "rgba(75,192,192,0.4)",#}
+{#                                                                    borderColor: "rgba(75,192,192,1)",#}
+{#                                                                    borderCapStyle: 'butt',#}
+{#                                                                    borderDash: [],#}
+{#                                                                    borderDashOffset: 0.0,#}
+{#                                                                    borderJoinStyle: 'miter',#}
+{#                                                                    pointBorderColor: "rgba(75,192,192,1)",#}
+{#                                                                    pointBackgroundColor: "#fff",#}
+{#                                                                    pointBorderWidth: 1,#}
+{#                                                                    pointHoverRadius: 5,#}
+{#                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",#}
+{#                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",#}
+{#                                                                    pointHoverBorderWidth: 2,#}
+{#                                                                    pointRadius: 1,#}
+{#                                                                    pointHitRadius: 10,#}
+{#                                                                    data: [32, 59, 85, 51, 67, 95, 40],#}
+{#                                                                    spanGaps: false,#}
+{#                                                                }#}
+{#                                                            ]#}
+{#                                                         };#}
+{##}
+{#                                                         var data2 = {#}
+{#                                                                labels: ["January", "February", "March", "April", "May", "June", "July"],#}
+{#                                                                datasets: [#}
+{#                                                                {#}
+{#                                                                    label: "Power Consumption (kW)",#}
+{#                                                                    fill: false,#}
+{#                                                                    lineTension: 0.1,#}
+{#                                                                    backgroundColor: "rgba(75,192,192,0.4)",#}
+{#                                                                    borderColor: "rgba(255,192,192,1)",#}
+{#                                                                    borderCapStyle: 'butt',#}
+{#                                                                    borderDash: [],#}
+{#                                                                    borderDashOffset: 0.0,#}
+{#                                                                    borderJoinStyle: 'miter',#}
+{#                                                                    pointBorderColor: "rgba(255,192,192,1)",#}
+{#                                                                    pointBackgroundColor: "#fff",#}
+{#                                                                    pointBorderWidth: 1,#}
+{#                                                                    pointHoverRadius: 5,#}
+{#                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",#}
+{#                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",#}
+{#                                                                    pointHoverBorderWidth: 2,#}
+{#                                                                    pointRadius: 1,#}
+{#                                                                    pointHitRadius: 10,#}
+{#                                                                    data: [32, 37, 80, 73, 64, 35, 90],#}
+{#                                                                    spanGaps: false,#}
+{#                                                                }#}
+{#                                                            ]#}
+{#                                                         };#}
+{##}
+{#                                                         var options =  {#}
+{#                                                                scales: {#}
+{#                                                                    yAxes: [{#}
+{#                                                                        ticks: {#}
+{#                                                                            beginAtZero:false#}
+{#                                                                        }#}
+{#                                                                    }]#}
+{#                                                                }#}
+{#                                                            };#}
+{##}
+{#                                                        var myChart = new Chart(ctx, {#}
+{#                                                            type: 'line',#}
+{#                                                            data: data,#}
+{#                                                            options: options#}
+{#                                                        });#}
+{#                                                  </script>#}
                                                     </div>
                                                     <div class="modal-footer">
+                                                    <a href="/all_devices/999" class="btn btn-circle blue" role="button">Graph</a>
                                                     <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
                                                     </div>
                                                     </div>
@@ -1907,14 +1912,14 @@ function setValue() {
             }
           }
 
-          window.onload = function () {
-            startTime();
-            setValue();
-            renderChart();
-            //renderCP1();
-            //renderCP2();
-            //renderGauge();
-          }
+{#          window.onload = function () {#}
+{#            startTime();#}
+{#            setValue();#}
+{#            renderChart();#}
+{#            //renderCP1();#}
+{#            //renderCP2();#}
+{#            //renderGauge();#}
+{#          }#}
         </script>
 
         <script type="text/javascript" src="/static/app_js/home_dash.js"></script>
