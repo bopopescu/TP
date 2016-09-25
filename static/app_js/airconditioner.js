@@ -48,81 +48,8 @@ under Contract DE-EE0006352
 **/
 var Is_power_on = true;
 var Is_device_name = false;
-// //Modify status	 when clicked
-// $( "#light_on" ).click(function() {
-// 	if ($("#light_on").css('background-color') == "green") {
-// 	} else {
-// 		$(this).css('background-color','green');
-// 		$("#light_off").css('background-color','rgba(222, 222, 222, 0.55)');
-// 		status = 'ON';
-//         $('#brightness').slider('value', '100');
-//         $('#brightness').slider('enable');
-//         $('#brightness_value').val('100%');
-// 	}
-// });
-//
-// $( "#light_off" ).click(function() {
-// 	if ($("#light_off").css('background-color') == "green") {
-// 	} else {
-// 		$(this).css('background-color','green');
-// 		$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
-// 		status = 'OFF';
-//         $('#brightness').slider('value', '0');
-//         $('#brightness').slider('disable');
-//         $('#brightness_value').val('0%');
-// 	}
-// });
-// $(function() {
-//
-//     $("#brightness").slider({
-//         value: brightness,
-//         orientation: "horizontal",
-//         range: "min",
-//         animate: true,
-//         min: 0,
-//         max: 100,
-//         slide: function (event, ui) {
-//             $("#brightness_value").val(ui.value + "%");
-//         }
-//     });
-//
-//
-//     $("#brightness_value").val($("#brightness").slider("value") + "%");
-//     $(".slider").slider("float");
-//
-//
-//     if (_type == '2WL') {
-//         $('#brightness').slider("disable");
-//         $("#brightness_value").val('');
-//         $('#dim_container').css('background-color', 'rgba(255, 255, 255, 0.4)');
-//     }
-//
-//
-//     if (_type == '2HUE') {
-//         $('#color_container').show();
-//         if (role != 'tenant') {
-//             $('.color-box').colpick({
-//                 colorScheme:'dark',
-//                 layout:'rgbhex',
-//                 color:color,
-//                 submit:0,
-//                 onChange:function(hsb,hex,rgb,el) {
-//                     $(el).css('background-color', 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')');
-//                 }
-//             })
-//             .css('background-color', color);
-//         } else {
-//             $('#color_container').css('background-color', color);
-//         }
-//     } else {
-//         $('#color_container').css('background-color','rgba(255, 255, 255, 0.4)');
-//     }
-//
-//      if (role == 'tenant') {
-//          $('#brightness').slider("disable");
-//
-//     }
-// });
+var Is_temp_lock  = false;
+
           function startTime() {
             var now = new Date();
             var monthNames = [
@@ -158,10 +85,7 @@ var Is_device_name = false;
             $("#Username").text(String(Username));
           }
 
-          function update_Cur_rate(Cur_rate) {
-            $("#Cur_rate").text(String(Cur_rate));
-            $("#Cur_rate2").text(String(Cur_rate));
-          }
+
          function setB(amount) {
              //softSlider.noUiSlider.set(amount);
              //alert(this.id);
@@ -173,6 +97,12 @@ var Is_device_name = false;
              console.log(this.id);
 
          }
+         function pb_update() {
+            var str ="<li><i class='fa fa-angle-right'></i><a href='all_devices/999'>all device</a></li>";
+             str = str + "<li><i class='fa fa-angle-right'></i>airconditioner</li>";
+             $('.page-breadcrumb').append(str);
+         }
+
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -217,7 +147,7 @@ function color() {
 
 $( document ).ready(function() {
     $.csrftoken();
-
+    pb_update()
     startTime();
     setValue();
     //renderChart();
@@ -238,6 +168,7 @@ $( document ).ready(function() {
             test_values["status"] = "OFF";
         } else {
             test_values["status"] = "ON";
+            Is_temp_lock = false;
         }
         test_values["device_info"] = ["999", "airconditioner", mac_address];
         //alert(test_values['stautss']);
@@ -245,6 +176,92 @@ $( document ).ready(function() {
     });
     $('.btc').on("click", function () {
         console.log(this.id);
+    });
+    $('.device_fs').on("click", function () {
+        $('.device_fs').addClass( "btn-outline" );
+        console.log(this.id);
+        var element = this.id;
+        var fs = '';
+        $("#" + element ).removeClass( "btn-outline" );
+        //console.log("Powr SW");
+        var test_values = {};
+        if (element == 'device_fs_auto')
+        {
+            fs = "0" ;
+
+         } else if (element == 'device_fs_low')
+         {
+            fs = "1" ;
+         } else if (element == 'device_fs_medium')
+         {
+             fs = "2" ;
+
+         } else if (element == 'device_fs_high')
+         {
+            fs = "3" ;
+         } else if (element == 'device_fs_turbo')
+         {
+            fs = "4" ;
+         }
+         test_values["status"] = "ON" ;
+        test_values["fan_speed"] = fs ;
+        test_values["device_info"] = ["999", "airconditioner", mac_address];
+        //alert(test_values['stautss']);
+        console.log(test_values);
+        submit_air_data(test_values);
+        $('#device_power_disp').prop("disabled", true);
+        $('.device_fs').prop("disabled", true);
+    });
+    $('.device_set_temp ').on("click", function () {
+
+        var element = this.id;
+        var temp_now = parseInt($('#device_set_temp').text());
+        Is_temp_lock = true;
+        if (element == 'device_set_temp_down'){
+            temp_now--;
+            console.log( temp_now  );
+            $('#device_set_temp').text(temp_now );
+
+        } else if (element == 'device_set_temp_up'){
+            temp_now++;
+            console.log( temp_now );
+            $('#device_set_temp').text( temp_now );
+        }
+         var test_values = {};
+        test_values["status"] = "ON" ;
+        test_values["temp"] = temp_now ;
+        test_values["device_info"] = ["999", "airconditioner", mac_address];
+        //alert(test_values['stautss']);
+        submit_air_data(test_values);
+    });
+    $('.device_mode').on("click", function () {
+        $('.device_mode').addClass( "btn-outline" );
+        console.log(this.id);
+        var element = this.id;
+        var mode = '';
+        $("#" + element ).removeClass( "btn-outline" );
+        //console.log("Powr SW");
+        var test_values = {};
+        if (element == 'device_mode_cool')
+        {
+            mode = "0" ;
+
+         } else if (element == 'device_mode_fan')
+         {
+            mode = "Fan" ;
+         } else if (element == 'device_mode_dry')
+         {
+             mode = "Dry" ;
+
+         } else if (element == 'device_mode_auto')
+         {
+            mode = "Auto" ;
+         }
+        test_values["status"] = "ON" ;
+        test_values["mode"] = mode ;
+        test_values["device_info"] = ["999", "airconditioner", mac_address];
+        //alert(test_values['stautss']);
+        submit_air_data(test_values);
     });
 });
 
@@ -272,18 +289,36 @@ $( document ).ready(function() {
                  Is_device_name = true;
 
              }
-            $('#device_set_temp').html(msg['set_temperature']);
-            $
+             if(Is_temp_lock ){
+                 if (parseInt(msg['set_temperature']) == parseInt($('#device_set_temp').text())){
+                     $('#device_set_temp').text(msg['set_temperature']);
+                     Is_temp_lock = false;
+                 }
+
+             } else {
+                $('#device_set_temp').text(msg['set_temperature']);
+             }
+
               if (msg['status'] == "ON")
              {
                  Is_power_on = true;
                  $('#device_power_disp').html("ON");
-                 console.log("Device status:" + msg['status'] )
+                 console.log("Device status:" + msg['status'] );
+                 $('.device_fs').prop("disabled", false);
+                 $('.device_mode').prop("disabled", false);
+                 $('.device_set_temp').prop("disabled", false);
+                 $('#device_power_disp').prop("disabled", false);
+
+
              } else if (msg['status'] == "OFF")
              {
-                 console.log("Device status:" + msg['status'] )
+                 console.log("Device status:" + msg['status'] );
                  Is_power_on = false;
                  $('#device_power_disp').html("OFF");
+                 $('.device_fs').prop("disabled", true);
+                 $('.device_mode').prop("disabled", true);
+                 $('.device_set_temp').prop("disabled", true);
+                 $('#device_power_disp').prop("disabled", false);
              }
              if (msg['mode'] == "Cool")
              {
@@ -327,75 +362,13 @@ $( document ).ready(function() {
          //console.log(_data['message'])
 
      };
-    // var ws_plug = new WebSocket("ws://" + window.location.host + "/socket_plugload");
-    //
-    //  ws_plug.onopen = function () {
-    //      ws.send("WS Plug opened from html page");
-    //  };
-    //
-    //  ws_plug.onmessage = function (event) {
-    //      var _data = event.data.trim();
-    //      _data = $.parseJSON(_data);
-    //      var topic = _data['topic'];
-    //      var msg = $.parseJSON(_data['message']);
-    //
-    //      //console.log(_data['message'])
-    //      console.log('status' + msg['status']);
-    //      Is_human_click = false;
-    //      if (msg['status'] == "ON") {
-    //          console.log("Plug status ON")
-    //          $('#sw_status_p1').html("On")
-    //
-    //
-    //      } else if (msg['status'] == "OFF") {
-    //          $('#sw_status_p1').html("Off")
-    //          console.log("Plug status OFF")
-    //
-    //      }
-    //      var topic = false;
-    //      // ["", "agent", "ui", device_type, command, building_name, zone_id, agent_id]
-    //      if (topic) {
-    //          topic = topic.split('/');
-    //          console.log(topic);
-    //
-    //      }
-    //  }
-    // // function change_lighting_values(data) {
-    //     if (data.status == 'ON') {
-    //         $("#light_on").css('background-color', 'green');
-    //         $("#light_off").css('background-color', 'rgba(222, 222, 222, 0.55)');
-    //         if (data.brightness) {
-    //             if ($("#brightness").slider("option", "disabled", true) && (role != 'tenant')) {
-    //                 $('#brightness').slider('enable');
-    //             }
-    //         }
-    //         status = 'ON';
-		// } else {
-		// 	$("#light_off").css('background-color','green');
-		// 	$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
-    //         status = 'OFF';
-    //         $('#brightness').slider('disable');
-		// }
-    //
-    //     if (data.brightness) {
-    //         $('#brightness').slider({ value: data.brightness });
-    //         $("#brightness_value").val(data.brightness + "%");
-    //     }
-    //
-    //
-    //     if (data.color && _type == '2HUE') {
-    //         var _color = data.color;
-    //         _color = _color.toString(); //should be in hex #rrggbb format
-    //         $('.color-box').colpick({ color: _color });
-    //         $('.color-box').css('background-color', _color);
-    //     }
-    // }
+
 
 function submit_air_data(values) {
     // topic ="ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
     console.log("Method  " +  values.method + "  Vales " + values.value);
 
-    var jsonText = JSON.stringify(test_values);
+    var jsonText = JSON.stringify(values);
     console.log(jsonText);
 	$.ajax({
 		  url : '/update_airconditioner/',
