@@ -97,7 +97,8 @@ def update_device_air(request):
         # TODO fix building name -> should be changeable from 'bemoss'
         lighting_update_send_topic = '/ui/agent/' + device_info[1] + '/update/bemoss/' + device_info[0] + '/1TH' + device_info[2]
         print lighting_update_send_topic
-
+        _data['actor'] = 'ui'
+        print _data
         zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
 
     if request.is_ajax():
