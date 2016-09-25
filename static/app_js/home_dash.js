@@ -415,22 +415,12 @@ $( document ).ready(function() {
          console.log(_data);
          var _message = $.parseJSON(_data['message']);
          // console.log(_message.grid_activePower);
-         update_GRID_kw(_message.grid_activePower);
-         update_SOLAR_kw(_message.solar_activePower);
-         update_LOAD_kw(_message.load_activePower);
-         img_grid = _message.grid_activePower;
-         img_solar = _message.solar_activePower;
-         update_ENERGY_pic(img_grid, img_solar, img_ev)
-         // var topic = _data['topic'];
-         // // ["", "ui", "web", "misc", "auto_discovery", "status"]
-         // var message = _data['message'];
-         // if (topic) {
-         //     topic = topic.split('/');
-         //     //console.log(topic);
-         //     if (topic[4] == 'auto_discovery' && topic[5] == 'status') {
-         //         update_discovery_status(message);
-         //     }
-         // }
+         update_GRID_kw(parseInt(_message.grid_activePower));
+         update_SOLAR_kw(parseInt(_message.solar_activePower));
+         update_LOAD_kw(parseInt(_message.load_activePower));
+         img_grid = parseInt(_message.grid_activePower);
+         img_solar = parseInt(_message.solar_activePower);
+         update_ENERGY_pic(img_grid, img_solar, img_ev);
      };
 
 
@@ -893,18 +883,26 @@ $( document ).ready(function() {
 			  dataType: 'json',
 			  success : function(data) {
 				//window.location.reload(true);
-			  	$('.bottom-right').notify({
-			  	    message: { text: 'Your changes were updated in the system.' },
-			  	    type: 'blackgloss',
-                    fadeOut: { enabled: true, delay: 5000 }
-			  	  }).show();
+                console.log("select_comfort_mode success");
+                update_MODE("COMFORT");
+                document.getElementById("MODE_status").innerHTML = "estimated cost";
+                update_MODE_baht(5.8*7);
+                // img_mode = _message.home_mode;
+                // console.log("Mode = "+ img_mode);
+
+			  	// $('.bottom-right').notify({
+			  	//     message: { text: 'Your changes were updated in the system.' },
+			  	//     type: 'blackgloss',
+                   //  fadeOut: { enabled: true, delay: 5000 }
+			  	//   }).show();
 			  },
 			  error: function(data) {
-				  $('.bottom-right').notify({
-				  	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
-				  	    type: 'blackgloss',
-                      fadeOut: { enabled: true, delay: 5000 }
-				  	}).show();
+                  console.error("select_comfort_mode error");
+				  // $('.bottom-right').notify({
+				  // 	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
+				  // 	    type: 'blackgloss',
+                   //    fadeOut: { enabled: true, delay: 5000 }
+				  // 	}).show();
 			  }
 	});
     var delay = 500;
@@ -926,19 +924,25 @@ $( "#select_eco_mode" ).click(function() {
 			  // contentType: "application/json; charset=utf-8",
 			  dataType: 'json',
 			  success : function(data) {
+                 console.log("select_eco_mode success");
+                 document.getElementById("MODE").innerHTML = "ECO";
+                 update_MODE("ECO");
+                 document.getElementById("MODE_status").innerHTML = "estimated cost";
+                 update_MODE_baht(5.8*4);
 				// window.location.reload(true);
-			  	$('.bottom-right').notify({
-			  	    message: { text: 'Your changes were updated in the system.' },
-			  	    type: 'blackgloss',
-                    fadeOut: { enabled: true, delay: 5000 }
-			  	  }).show();
+			  	// $('.bottom-right').notify({
+			  	//     message: { text: 'Your changes were updated in the system.' },
+			  	//     type: 'blackgloss',
+                 //    fadeOut: { enabled: true, delay: 5000 }
+			  	//   }).show();
 			  },
 			  error: function(data) {
-				  $('.bottom-right').notify({
-				  	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
-				  	    type: 'blackgloss',
-                      fadeOut: { enabled: true, delay: 5000 }
-				  	}).show();
+                  console.log("select_eco_mode error");
+				  // $('.bottom-right').notify({
+				  // 	    message: { text: 'The changes could not be updated at the moment. Try again later.' },
+				  // 	    type: 'blackgloss',
+                   //    fadeOut: { enabled: true, delay: 5000 }
+				  // 	}).show();
 			  }
 	});
     var delay = 500;
