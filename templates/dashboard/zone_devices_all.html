@@ -35,13 +35,13 @@
         <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
 
     <script>
-function setValue() {
-  //User Information
-  update_Username("admin");
-
-  //Current Rate
-  update_Cur_rate("4.32");
-}
+{#function setValue() {#}
+{#  //User Information#}
+{#  update_Username("admin");#}
+{##}
+{#  //Current Rate#}
+{#  update_Cur_rate("4.32");#}
+{#}#}
         </script>
 		<style>
 		
@@ -378,6 +378,566 @@ a:hover {
 						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12  ">
 							{% include 'side_nav_alldevices.html' %}
 						</div>
+
+                        <!--BEGIN Device Controller and Data-->
+						<div class="col-lg-8 col-md-7  col-sm-12 col-xs-12">
+							<!-- BEGIN PORTLET Bordered-->
+							<div class="portlet light bordered">
+								<!--BEGIN Device Name Header-->
+								<div class="portlet-title">
+									<div class="caption">
+										<i class="icon-share font-red-sunglo hide"></i>
+										<span class=" font-dark bold ">
+											<a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline">
+											<i class="fa fa-arrow-left"></i> Back</a>
+											<strong><span id="device_header">Real-Time Power Generation/Consumption</span></strong>
+										</span>
+										<span id="device_name"></span>
+									</div>
+								</div>
+								<!--END Device Name Header-->
+								<div class="portlet-body">
+
+								<!--BEGIN Device Data Box-->
+								<div class="portlet-body">
+									<div class="portlet light bordered">
+										<!--BEGIN Tab Header-->
+										<div class="portlet-title tabbable-line">
+											<div class="caption">
+												<span class="caption-subject font-grey-cascade bold " id="device_data_header"> </span>
+												<span class="caption-subject font-grey-cascade bold ">Data</span>
+											</div>
+											<ul class="nav nav-tabs">
+												<li class="active">
+													<a href="#dataRealTime" data-toggle="tab"> Grid </a>
+												</li>
+												<li>
+													<a href="#dataInformation" data-toggle="tab"> Solar PV </a>
+												</li>
+												<li>
+													<a href="#dataDataLog" data-toggle="tab"> Load </a>
+												</li>
+											</ul>
+										</div>
+										<!--END Tab Header-->
+
+										<!--BEGIN Device Data-->
+										<div class="portlet-body">
+											<div class="tab-content">
+												<!--BEGIN Real Time Data-->
+												<div class="tab-pane active" id="dataRealTime">
+													<div class="row">
+														<!--BEGIN HIGHCHART Col-->
+														<div id="highchart_1"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+														<script>
+
+                                                        var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
+                                                        var grid_activePower = 0;
+                                                         ws_dashboard.onopen = function () {
+                                                             ws_dashboard.send("WS opened from html page");
+                                                         };
+
+                                                         ws_dashboard.onmessage = function (event) {
+                                                             var _data = event.data;
+                                                             _data = $.parseJSON(_data);
+                                                             var _topic = _data['topic'];
+                                                             console.log(_topic);
+                                                             var _message = $.parseJSON(_data['message']);
+                                                             console.log("_message "+_message);
+                                                             console.log("_message power "+_message.grid_activePower);
+                                                             grid_activePower = _message.grid_activePower;
+                                                             document.getElementById("grid_activePower").innerHTML = parseInt(grid_activePower);
+                                                         };
+
+														function renderChart() {
+															$('#highchart_1').highcharts({
+																chart : {
+																	style: {
+																		fontFamily: 'Open Sans'
+																	},
+																	events: {
+																		load: function () {
+																			var series = this.series[0];
+																			setInterval(function () {
+																				var x = (new Date()).getTime(); // current time
+                                                                                y = grid_activePower;
+																				series.addPoint([x, y], true, true);
+																			}, 1000);
+																		}
+																	}
+																},
+																credits: {
+																	enabled: false
+																},
+																title: {
+																	text: 'Grid status: Feeding',
+																	x: -20 //center
+																},
+																xAxis: {
+																	type: 'datetime',
+																	tickPixelInterval: 100
+																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+																},
+																yAxis: {
+																	min: 0,
+																	title: {
+																		text: 'Consumption (W)'
+																	},
+																	plotLines: [{
+																		value: 0,
+																		width: 1,
+																		color: '#808080'
+																	}]
+																},
+																plotOptions: {
+																	area: {
+																		fillColor: {
+																			linearGradient: {
+																				x1: 0,
+																				y1: 0,
+																				x2: 0,
+																				y2: 1
+																			},
+																			stops: [
+																				[0, Highcharts.getOptions().colors[0]],
+																				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
+																			]
+																		},
+																		marker: {
+																			radius: 2
+																		},
+																		lineWidth: 1,
+																		states: {
+																			hover: {
+																				lineWidth: 1
+																			}
+																		},
+																		threshold: null
+																	}
+																},
+																tooltip: {
+																	valueSuffix: ' W'
+																},
+																legend: {
+																	enabled: false
+																},
+																series: [{
+																	type: 'area',
+																	name: 'Consumption',
+																	//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+																	data: [
+																	    [(new Date()).getTime() - 14000,0],
+																	    [(new Date()).getTime() - 13000,0],
+																		[(new Date()).getTime() - 12000,0],
+																		[(new Date()).getTime() - 11000,0],
+																		[(new Date()).getTime() - 10000,0],
+																		[(new Date()).getTime() - 9000,0],
+																		[(new Date()).getTime() - 8000,0],
+																		[(new Date()).getTime() - 7000,0],
+																		[(new Date()).getTime() - 6000,0],
+																		[(new Date()).getTime() - 5000,0],
+																		[(new Date()).getTime() - 4000,0],
+																		[(new Date()).getTime() - 3000,0],
+																		[(new Date()).getTime() - 2000,0],
+																		[(new Date()).getTime() - 1000,0],
+																		[(new Date()).getTime(), 0]
+																	]
+																}]
+															});
+														}
+													</script>
+														<!--BEGIN HIGHCHART Col-->
+														<!--BEGIN Real-time Data Col-->
+														<div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+
+																<div >
+{#																	<span class="topic">Status:</span>#}
+{#																	<span class="value" id="device_data_time_status">On</span>#}
+																</div>
+																<br>
+																<div class="row">
+
+{#																	<div  class=" eachData col-lg-12 col-md-6 col-sm-6 col-xs-6" >#}
+{#																		<div class="topic">Since:</div>#}
+{#																		<span class="value" id="device_data_time_since">8:51 pm</span>#}
+{#																	</div>#}
+{#																	<div class="  col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">On now for:</div>#}
+{#																		<span class="value" id="device_data_time_duration">7 h 15 min</span>#}
+{#																	</div>#}
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Today on:</div>#}
+{#																		<span class="value" id="device_data_time_today">8 h 34 min</span>#}
+{#																	</div>#}
+{#																	<br>#}
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Now:</div>
+																		<span class="value" id="grid_activePower">0</span><small> W</small>
+																	</div>
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Today's Consumption</div>#}
+{#																		<span class="value" id="device_data_time_energy">3.57</span><small> kWh</small>#}
+{#																	</div>#}
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Estimated Daily Cost:</div>#}
+{#																		<span class="value" id="device_data_time_cost">11.25</span><small> THB</small>#}
+{##}
+{#																	</div>#}
+																</div>
+															</div>
+														<!--END Real-time Data Col-->
+													</div>
+												</div>
+												<!--END Real Time Data-->
+
+												<!--BEGIN Information Data-->
+												<div class="tab-pane " id="dataInformation">
+												    <div class="row">
+														<!--BEGIN HIGHCHART Col-->
+														<div id="highchart_2"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+														<script>
+
+                                                        var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
+                                                        var solar_activePower = 0;
+                                                         ws_dashboard.onopen = function () {
+                                                             ws_dashboard.send("WS opened from html page");
+                                                         };
+
+                                                         ws_dashboard.onmessage = function (event) {
+                                                             var _data = event.data;
+                                                             _data = $.parseJSON(_data);
+                                                             var _topic = _data['topic'];
+                                                             console.log(_topic);
+                                                             var _message = $.parseJSON(_data['message']);
+                                                             console.log("_message "+_message);
+                                                             console.log("_message solar power "+_message.solar_activePowerr);
+                                                             solar_activePower = _message.solar_activePower;
+                                                             document.getElementById("solar_activePower").innerHTML = parseInt(solar_activePower);
+                                                         };
+
+														function renderChart2() {
+															$('#highchart_2').highcharts({
+																chart : {
+																	style: {
+																		fontFamily: 'Open Sans'
+																	},
+																	events: {
+																		load: function () {
+																			var series = this.series[0];
+																			setInterval(function () {
+																				var x = (new Date()).getTime(); // current time
+                                                                                y = solar_activePower;
+																				series.addPoint([x, y], true, true);
+																			}, 1000);
+																		}
+																	}
+																},
+																credits: {
+																	enabled: false
+																},
+																title: {
+																	text: 'Solar PV status: Feeding',
+																	x: -20 //center
+																},
+																xAxis: {
+																	type: 'datetime',
+																	tickPixelInterval: 100
+																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+																},
+																yAxis: {
+																	min: 0,
+																	title: {
+																		text: 'Consumption (W)'
+																	},
+																	plotLines: [{
+																		value: 0,
+																		width: 1,
+																		color: '#808080'
+																	}]
+																},
+																plotOptions: {
+																	area: {
+																		fillColor: {
+																			linearGradient: {
+																				x1: 0,
+																				y1: 0,
+																				x2: 0,
+																				y2: 1
+																			},
+																			stops: [
+																				[0, Highcharts.getOptions().colors[0]],
+																				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
+																			]
+																		},
+																		marker: {
+																			radius: 2
+																		},
+																		lineWidth: 1,
+																		states: {
+																			hover: {
+																				lineWidth: 1
+																			}
+																		},
+																		threshold: null
+																	}
+																},
+																tooltip: {
+																	valueSuffix: ' W'
+																},
+																legend: {
+																	enabled: false
+																},
+																series: [{
+																	type: 'area',
+																	name: 'Consumption',
+																	//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+																	data: [
+																	    [(new Date()).getTime() - 14000,0],
+																	    [(new Date()).getTime() - 13000,0],
+																		[(new Date()).getTime() - 12000,0],
+																		[(new Date()).getTime() - 11000,0],
+																		[(new Date()).getTime() - 10000,0],
+																		[(new Date()).getTime() - 9000,0],
+																		[(new Date()).getTime() - 8000,0],
+																		[(new Date()).getTime() - 7000,0],
+																		[(new Date()).getTime() - 6000,0],
+																		[(new Date()).getTime() - 5000,0],
+																		[(new Date()).getTime() - 4000,0],
+																		[(new Date()).getTime() - 3000,0],
+																		[(new Date()).getTime() - 2000,0],
+																		[(new Date()).getTime() - 1000,0],
+																		[(new Date()).getTime(), 0]
+																	]
+																}]
+															});
+														}
+													</script>
+														<!--BEGIN HIGHCHART Col-->
+														<!--BEGIN Real-time Data Col-->
+														<div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+
+																<div >
+{#																	<span class="topic">Status:</span>#}
+{#																	<span class="value" id="device_data_time_status">On</span>#}
+																</div>
+																<br>
+																<div class="row">
+
+{#																	<div  class=" eachData col-lg-12 col-md-6 col-sm-6 col-xs-6" >#}
+{#																		<div class="topic">Since:</div>#}
+{#																		<span class="value" id="device_data_time_since">8:51 pm</span>#}
+{#																	</div>#}
+{#																	<div class="  col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">On now for:</div>#}
+{#																		<span class="value" id="device_data_time_duration">7 h 15 min</span>#}
+{#																	</div>#}
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Today on:</div>#}
+{#																		<span class="value" id="device_data_time_today">8 h 34 min</span>#}
+{#																	</div>#}
+{#																	<br>#}
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Now:</div>
+																		<span class="value" id="solar_activePower">0</span><small> W</small>
+																	</div>
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Today's Consumption</div>#}
+{#																		<span class="value" id="device_data_time_energy">3.57</span><small> kWh</small>#}
+{#																	</div>#}
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Estimated Daily Cost:</div>#}
+{#																		<span class="value" id="device_data_time_cost">11.25</span><small> THB</small>#}
+{##}
+{#																	</div>#}
+																</div>
+															</div>
+														<!--END Real-time Data Col-->
+													</div>
+												</div>
+												<!--END Information Data-->
+
+												<!--BEGIN Data Log-->
+												<div class="tab-pane" id="dataDataLog">
+													<div class="row">
+														<!--BEGIN HIGHCHART Col-->
+														<div id="highchart_3"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+														<script>
+
+                                                        var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
+                                                        var load_activePower = 0;
+                                                         ws_dashboard.onopen = function () {
+                                                             ws_dashboard.send("WS opened from html page");
+                                                         };
+
+                                                         ws_dashboard.onmessage = function (event) {
+                                                             var _data = event.data;
+                                                             _data = $.parseJSON(_data);
+                                                             var _topic = _data['topic'];
+                                                             console.log(_topic);
+                                                             var _message = $.parseJSON(_data['message']);
+                                                             console.log("_message "+_message);
+                                                             console.log("_message power "+_message.load_activePower);
+                                                             load_activePower = _message.load_activePower;
+                                                             document.getElementById("load_activePower").innerHTML = parseInt(load_activePower);
+                                                         };
+
+														function renderChart3() {
+															$('#highchart_3').highcharts({
+																chart : {
+																	style: {
+																		fontFamily: 'Open Sans'
+																	},
+																	events: {
+																		load: function () {
+																			var series = this.series[0];
+																			setInterval(function () {
+																				var x = (new Date()).getTime(); // current time
+                                                                                y = load_activePower;
+																				series.addPoint([x, y], true, true);
+																			}, 1000);
+																		}
+																	}
+																},
+																credits: {
+																	enabled: false
+																},
+																title: {
+																	text: 'Load status: Consuming',
+																	x: -20 //center
+																},
+																xAxis: {
+																	type: 'datetime',
+																	tickPixelInterval: 100
+																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+																},
+																yAxis: {
+																	min: 0,
+																	title: {
+																		text: 'Consumption (W)'
+																	},
+																	plotLines: [{
+																		value: 0,
+																		width: 1,
+																		color: '#808080'
+																	}]
+																},
+																plotOptions: {
+																	area: {
+																		fillColor: {
+																			linearGradient: {
+																				x1: 0,
+																				y1: 0,
+																				x2: 0,
+																				y2: 1
+																			},
+																			stops: [
+																				[0, Highcharts.getOptions().colors[0]],
+																				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
+																			]
+																		},
+																		marker: {
+																			radius: 2
+																		},
+																		lineWidth: 2,
+																		states: {
+																			hover: {
+																				lineWidth: 1
+																			}
+																		},
+																		threshold: null
+																	}
+																},
+																tooltip: {
+																	valueSuffix: ' W'
+																},
+																legend: {
+																	enabled: false
+																},
+																series: [{
+																	type: 'area',
+																	name: 'Consumption',
+																	//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+																	data: [
+																	    [(new Date()).getTime() - 14000,0],
+																	    [(new Date()).getTime() - 13000,0],
+																		[(new Date()).getTime() - 12000,0],
+																		[(new Date()).getTime() - 11000,0],
+																		[(new Date()).getTime() - 10000,0],
+																		[(new Date()).getTime() - 9000,0],
+																		[(new Date()).getTime() - 8000,0],
+																		[(new Date()).getTime() - 7000,0],
+																		[(new Date()).getTime() - 6000,0],
+																		[(new Date()).getTime() - 5000,0],
+																		[(new Date()).getTime() - 4000,0],
+																		[(new Date()).getTime() - 3000,0],
+																		[(new Date()).getTime() - 2000,0],
+																		[(new Date()).getTime() - 1000,0],
+																		[(new Date()).getTime(), 0]
+																	]
+																}]
+															});
+														}
+													</script>
+														<!--BEGIN HIGHCHART Col-->
+														<!--BEGIN Real-time Data Col-->
+														<div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+
+																<div >
+{#																	<span class="topic">Status:</span>#}
+{#																	<span class="value" id="device_data_time_status">On</span>#}
+																</div>
+																<br>
+																<div class="row">
+
+{#																	<div  class=" eachData col-lg-12 col-md-6 col-sm-6 col-xs-6" >#}
+{#																		<div class="topic">Since:</div>#}
+{#																		<span class="value" id="device_data_time_since">8:51 pm</span>#}
+{#																	</div>#}
+{#																	<div class="  col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">On now for:</div>#}
+{#																		<span class="value" id="device_data_time_duration">7 h 15 min</span>#}
+{#																	</div>#}
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Today on:</div>#}
+{#																		<span class="value" id="device_data_time_today">8 h 34 min</span>#}
+{#																	</div>#}
+{#																	<br>#}
+																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">
+																		<div class="topic">Now:</div>
+																		<span class="value" id="load_activePower">0</span><small> W</small>
+																	</div>
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Today's Consumption</div>#}
+{#																		<span class="value" id="device_data_time_energy">3.57</span><small> kWh</small>#}
+{#																	</div>#}
+{#																	<div class="eachData col-lg-12 col-md-6 col-sm-6 col-xs-6">#}
+{#																		<div class="topic">Estimated Daily Cost:</div>#}
+{#																		<span class="value" id="device_data_time_cost">11.25</span><small> THB</small>#}
+{##}
+{#																	</div>#}
+																</div>
+															</div>
+														<!--END Real-time Data Col-->
+													</div>
+												</div>
+												<!--END Data Log-->
+											</div>
+										</div>
+										<!--END Device Data-->
+									</div>
+								</div>
+								<!-- END Device Data Box-->
+								</div>
+								<!-- END PORTLET-->
+							</div>
+							<!-- END PORTLET Bordered-->
+						</div>
+						<!--END Device Controller and Data-->
+
+
 					</div>
                     
                 </div>
@@ -407,26 +967,33 @@ a:hover {
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/global/plugins/highcharts/js/highcharts.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts-3d.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts-more.js" type="text/javascript"></script>
         <script src="/static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
         <script src="/static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
         <script src="/static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="/static/app_js/home_dash.js"></script>
+{#        <script type="text/javascript" src="/static/app_js/current_update.js"></script>#}
+
+
 
     <script type="text/javascript">
             window.onload = function () {
-                startTime();
-                setValue();
+{#                startTime();#}
+{#                setValue();#}
                 renderChart();
-                $('#log').DataTable({
-                    "order": [
-                        [0, "desc"]
-                    ]
-                });
+                renderChart2();
+                renderChart3();
+{#                $('#log').DataTable({#}
+{#                    "order": [#}
+{#                        [0, "desc"]#}
+{#                    ]#}
+{#                });#}
               }
-        </script>
+    </script>
 
    </body>
 
