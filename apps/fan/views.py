@@ -131,6 +131,8 @@ def update_device_fan(request):
         fromUI = "UI"
         lighting_update_send_topic = '/ui/agent/fan/update/bemoss/999/'+device_id
         print lighting_update_send_topic
+        _data['actor'] = 'ui'
+        print _data
         zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
 
     if request.is_ajax():

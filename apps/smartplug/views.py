@@ -122,17 +122,11 @@ def submit_changes(request):
     print 'inside plug load update device method'
     if request.POST:
         _data = request.body
-        print _data
         _data = json.loads(_data)
-        print _data
-
         # device_info = _data['device_info']
         device_id = '3WIS'+_data['mac_address']
         if _data['mac_address'] == "221520K010067C":
             device_id = '3WSP' + _data['mac_address']
-        # _data.pop('device_info')
-        # _data.pop('mac_address')
-        print _data
         # print device_info
         content_type = "application/json"
         fromUI = "UI"
@@ -143,6 +137,8 @@ def submit_changes(request):
         plugload_update_send_topic = '/ui/agent/plugload/update/bemoss/999/'+device_id
         print "topic sent: {}".format(plugload_update_send_topic)
         print "message sent: {}".format(_data)
+        _data['actor'] = 'ui'
+        print _data
         zmq_pub.sendToAgent(plugload_update_send_topic, _data, content_type, fromUI)
         print "success in sending message to agent"
 

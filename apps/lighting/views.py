@@ -143,12 +143,13 @@ def update_device_light(request):
         # TODO fix building name -> should be changeable from 'bemoss'
         # topic = "ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
 
-        print _data['status']
         device_id = '2HUE' + _data['mac_address']
         content_type = "application/json"
         fromUI = "UI"
         lighting_update_send_topic = '/ui/agent/lighting/update/bemoss/999/'+device_id
         print lighting_update_send_topic
+        _data['actor'] = 'ui'
+        print _data
         zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
 
     if request.is_ajax():
