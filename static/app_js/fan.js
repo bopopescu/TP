@@ -287,89 +287,26 @@ $( document ).ready(function() {
         });
     //console.log("ws://" + window.location.host + "/socket_lighting");
 });
-    // var ws = new WebSocket("ws://" + window.location.host + "/socket_lighting");
-    // console.log("websocket connection established");
-    //  ws.onopen = function () {
-    //      ws.send("WS opened from html page");
-    //  };
-    //
-    //  ws.onmessage = function (event) {
-    //      var _data = event.data;
-    //      _data = $.parseJSON(_data);
-    //      var topic = _data['topic'];
-    //      // ["", "agent", "ui", device_type, command, building_name, zone_id, agent_id]
-    //      if (topic) {
-    //          topic = topic.split('/');
-    //          console.log(topic);
-    //          if (topic[7] == device_id && topic[4] == 'device_status_response') {
-    //              if ($.type( _data['message'] ) === "string"){
-    //                  var _message = $.parseJSON(_data['message']);
-    //                  if ($.type(_message) != "object"){
-    //                      _message = $.parseJSON(_message)
-    //                  }
-    //                  change_lighting_values(_message);
-    //              } else if ($.type( _data['message'] ) === "object"){
-    //                  change_lighting_values(_data['message']);
-    //              }
-    //
-    //          }
-    //          if (topic[7] == device_id && topic[4] == 'update_response') {
-    //               var message_upd = _data['message'];
-    //              var popup = false
-    //              if ($.type( _data['message'] ) === "string"){
-    //                 if (message_upd.indexOf('success') > -1) {
-    //                     popup = true
-    //                     }
-    //              } else if ($.type( _data['message'] ) === "object") {
-    //                 if (message_upd['message'].indexOf('success') > -1){
-    //                     popup = true
-    //                     }
-    //              }
-    //
-    //              if (popup) {
-    //                  change_lighting_values(_values_on_submit_lighting);
-    //                  $('.bottom-right').notify({
-    //                     message: { text: 'The changes made at '+update_time+" are now updated in the device!"},
-    //                     type: 'blackgloss',
-    //
-    //                      fadeOut: { enabled: true, delay: 5000 }
-    //                   }).show();
-    //              }
-    //          }
-    //      }
-    //  };
+     var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
 
+     ws_dashboard.onopen = function () {
+         ws_dashboard.send("WS opened from html page");
+     };
 
-    // function change_lighting_values(data) {
-    //     if (data.status == 'ON') {
-    //         $("#light_on").css('background-color', 'green');
-    //         $("#light_off").css('background-color', 'rgba(222, 222, 222, 0.55)');
-    //         if (data.brightness) {
-    //             if ($("#brightness").slider("option", "disabled", true) && (role != 'tenant')) {
-    //                 $('#brightness').slider('enable');
-    //             }
-    //         }
-    //         status = 'ON';
-		// } else {
-		// 	$("#light_off").css('background-color','green');
-		// 	$("#light_on").css('background-color','rgba(222, 222, 222, 0.55)');
-    //         status = 'OFF';
-    //         $('#brightness').slider('disable');
-		// }
-    //
-    //     if (data.brightness) {
-    //         $('#brightness').slider({ value: data.brightness });
-    //         $("#brightness_value").val(data.brightness + "%");
-    //     }
-    //
-    //
-    //     if (data.color && _type == '2HUE') {
-    //         var _color = data.color;
-    //         _color = _color.toString(); //should be in hex #rrggbb format
-    //         $('.color-box').colpick({ color: _color });
-    //         $('.color-box').css('background-color', _color);
-    //     }
-    // }
+     ws_dashboard.onmessage = function (event) {
+         var _data = event.data;
+         _data = $.parseJSON(_data);
+         console.log(_data);
+         var _topic = _data['topic'];
+         console.log(_topic);
+         var _headers = _data['headers'];
+         console.log(_headers.data_source);
+         var _message = $.parseJSON(_data['message']);
+         if (_headers.data_source == 'gridApp') {
+             console.log(_message.current_electricity_price);
+             update_Cur_rate(_message.current_electricity_price);
+         }
+     };
 
 $( "#submit_lighting_data" ).click(function(evt) {
 	evt.preventDefault();

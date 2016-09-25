@@ -279,6 +279,28 @@ $( document ).ready(function() {
         });
     //console.log("ws://" + window.location.host + "/socket_lighting");
 });
+
+var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
+
+     ws_dashboard.onopen = function () {
+         ws_dashboard.send("WS opened from html page");
+     };
+
+     ws_dashboard.onmessage = function (event) {
+         var _data = event.data;
+         _data = $.parseJSON(_data);
+         console.log(_data);
+         var _topic = _data['topic'];
+         console.log(_topic);
+         var _headers = _data['headers'];
+         console.log(_headers.data_source);
+         var _message = $.parseJSON(_data['message']);
+         if (_headers.data_source == 'gridApp') {
+             console.log(_message.current_electricity_price);
+             update_Cur_rate(_message.current_electricity_price);
+         }
+     };
+
     // var ws = new WebSocket("ws://" + window.location.host + "/socket_lighting");
     // console.log("websocket connection established");
     //  ws.onopen = function () {
