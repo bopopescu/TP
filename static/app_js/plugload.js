@@ -165,6 +165,7 @@ $( document ).ready(function() {
 	$.csrftoken();
             startTime();
             setValue();
+            pb_update()
 			$('#log').DataTable({
 				"order": [
 					[0, "desc"]
@@ -406,5 +407,33 @@ $( document ).ready(function() {
 
 			 });
     }
-
+            console.log("mac_address: "+mac_address);
+            if (mac_address == "221445K1200321") {
+                document.getElementById("device_header").innerHTML = "EV Charger";
+                document.getElementById("device_subheader").innerHTML = "EV Charger Controller";
+                document.getElementById("device_data_header").innerHTML = "EV Charger";
+            function pb_update() {
+                var str ="<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+                str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>EV Charger</span></li><a></li>";
+                $('.page-breadcrumb').append(str);
+            }
+            } else if (mac_address == "221520K010067C") {
+                document.getElementById("device_header").innerHTML = "Set Top Box";
+                document.getElementById("device_subheader").innerHTML = "Set Top Box Controller";
+                document.getElementById("device_data_header").innerHTML = "Set Top Box";
+            function pb_update() {
+                var str = "<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+                str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Set Top Box</span></li><a></li>";
+                $('.page-breadcrumb').append(str);
+            }
+            } else if (mac_address == "221418K120031E") {
+                document.getElementById("device_header").innerHTML = "Computer";
+                document.getElementById("device_subheader").innerHTML = "Computer Controller";
+                document.getElementById("device_data_header").innerHTML = "Computer";
+            function pb_update() {
+                var str = "<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+                str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Computer</span></li><a></li>";
+                $('.page-breadcrumb').append(str);
+            }
+            }
 
