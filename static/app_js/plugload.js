@@ -435,5 +435,14 @@ $( document ).ready(function() {
                 str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Computer</span></li><a></li>";
                 $('.page-breadcrumb').append(str);
             }
+            }else if (mac_address == "5CAAFD4F8150") {
+                document.getElementById("device_header").innerHTML = "KMITL Smart Plug";
+                document.getElementById("device_subheader").innerHTML = "KMITL Smart Plug Controller";
+                document.getElementById("device_data_header").innerHTML = "KMITL Smart Plug";
+                function pb_update() {
+                    var str = "<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+                    str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>KMITL Smart Plug</span></li><a></li>";
+                    $('.page-breadcrumb').append(str);
+                }
             }
 
