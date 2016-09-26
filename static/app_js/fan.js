@@ -266,14 +266,19 @@ function color() {
             theme: 'bootstrap'
         });
 }
+function pb_update() {
+                var str = "<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+                str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Fan</span></li><a></li>";
+                $('.page-breadcrumb').append(str);
+            }
 
 $( document ).ready(function() {
     $.csrftoken();
-
             startTime();
             setValue();
-			brightness();
+			//brightness();
 			color();
+            pb_update();
 			renderChart();
 			$('#log').DataTable({
 				"order": [
@@ -294,17 +299,22 @@ $( document ).ready(function() {
      };
 
      ws_dashboard.onmessage = function (event) {
-         var _data = event.data;
-         _data = $.parseJSON(_data);
-         console.log(_data);
-         var _topic = _data['topic'];
-         console.log(_topic);
-         var _headers = _data['headers'];
-         console.log(_headers.data_source);
-         var _message = $.parseJSON(_data['message']);
-         if (_headers.data_source == 'gridApp') {
-             console.log(_message.current_electricity_price);
-             update_Cur_rate(_message.current_electricity_price);
+         try {
+             console.log("_data" + _data)
+             var _data = event.data;
+             _data = $.parseJSON(_data);
+             console.log(_data);
+             var _topic = _data['topic'];
+             console.log(_topic);
+             var _headers = _data['headers'];
+             console.log(_headers.data_source);
+             var _message = $.parseJSON(_data['message']);
+             if (_headers.data_source == 'gridApp') {
+                 console.log(_message.current_electricity_price);
+                 update_Cur_rate(_message.current_electricity_price);
+             }
+         } catch (err) {
+            console.error("cannot parse this soccet_dashboard");
          }
      };
 

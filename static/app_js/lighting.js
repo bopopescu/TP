@@ -138,7 +138,7 @@ $( "#device_power_disp" ).click(function() {
 //             })
 //             .css('background-color', color);
 //         } else {
-//             $('#color_container').css('background-color', color);
+//             $('#color_container').css('background-color', color);     if (typeof B == "undefined"){
 //         }
 //     } else {
 //         $('#color_container').css('background-color','rgba(255, 255, 255, 0.4)');
@@ -280,6 +280,11 @@ function color() {
             theme: 'bootstrap'
         });
 }
+         function pb_update() {
+            var str ="<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+             str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Lighting</span></li><a></li>";
+             $('.page-breadcrumb').append(str);
+         }
 
 $( document ).ready(function() {
     $.csrftoken();
@@ -288,6 +293,7 @@ $( document ).ready(function() {
             setValue();
 			brightness();
 			color();
+            pb_update();
 			renderChart();
 			$('#log').DataTable({
 				"order": [

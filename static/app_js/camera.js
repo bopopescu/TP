@@ -273,14 +273,19 @@ function color() {
             theme: 'bootstrap'
         });
 }
-
+         function pb_update() {
+            var str ="<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+             str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Camera</span></li><a></li>";
+             $('.page-breadcrumb').append(str);
+         }
 $( document ).ready(function() {
     $.csrftoken();
 
             startTime();
             setValue();
-			brightness();
+			//brightness();
 			color();
+            pb_update();
 			renderChart();
 			$('#log').DataTable({
 				"order": [

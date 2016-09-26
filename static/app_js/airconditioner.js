@@ -98,11 +98,10 @@ var Is_temp_lock  = false;
 
          }
          function pb_update() {
-            var str ="<li><i class='fa fa-angle-right'></i><a href='all_devices/999'>all device</a></li>";
-             str = str + "<li><i class='fa fa-angle-right'></i>airconditioner</li>";
+            var str ="<li><i class='fa fa-angle-right'></i><a href='/all_devices/999'>Devices</a></li>";
+             str = str + "<li><i class='fa fa-angle-right'></i><a href='#'<span>Airconditioner</span></li><a></li>";
              $('.page-breadcrumb').append(str);
          }
-
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -144,7 +143,6 @@ function color() {
 
 
 }
-
 $( document ).ready(function() {
     $.csrftoken();
     pb_update()
