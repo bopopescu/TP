@@ -53,6 +53,7 @@ var img_ev = 0;
 var G = 0;
 var S = 0;
 var E = 0;
+var Emer_status = 0;
 //Mode update picture
 var M = 0;
 var img_mode = 0;
@@ -586,8 +587,8 @@ $( document ).ready(function() {
          console.log(_data);
          var _topic = _data['topic'];
          console.log(_topic);
-         var _headers = _data['headers'];
-         console.log(_headers.data_source);
+         // var _headers = _data['headers'];
+         // console.log(_headers.data_source);
          var _message = $.parseJSON(_data['message']);
 
 
@@ -650,10 +651,10 @@ $( document ).ready(function() {
          console.log("Update function");
          //Test change current energy consumption image
          // img_grid = 100 ;
-         // img_solar = 0.100 ;
+         // img_solar = 0 ;
          // img_ev = 0 ;
          update_ENERGY_pic(img_grid, img_solar, img_ev);
-         $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
+         //$('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
          //Test change mode image
          // img_mode = 'COMFORT' ;
          update_MODE_pic(img_mode);
@@ -700,35 +701,41 @@ $( document ).ready(function() {
 // <!-- BEGIN Current Energy Consumption Pictures-->
     function update_ENERGY_pic(G, S, E){
     console.log("G = " + G , "S = " + S , "E = " + E );
-     if (typeof G == "undefined"){
-         G = 0; }
-         else{
-         if(G > 0){
-           img_grid = 'G';
-         }else if(G <= 0){
-           img_grid = '-';
-         }
-     }
-     if (typeof S == "undefined"){
-        S = 0;}
-        else {
-        if (S > 0){
-           img_solar = 'S';
-        }else if (S <= 0){
-           img_solar = '-';
+
+        if (typeof G == "undefined") {
+            G = 0;
         }
-     }
-     if (typeof E == "undefined"){
-         E = 0; }
-         else {
-         if (E > 0){
-             img_ev = 'E';
-         } else if (E <= 0){
-            img_ev = '-';
-         }
-     }
+        else {
+            if (G > 0) {
+                img_grid = 'G';
+            } else if (G <= 0) {
+                img_grid = '-';
+            }
+        }
+        if (typeof S == "undefined") {
+            S = 0;
+        }
+        else {
+            if (S > 0) {
+                img_solar = 'S';
+            } else if (S <= 0) {
+                img_solar = '-';
+            }
+        }
+        if (typeof E == "undefined") {
+            E = 0;
+        }
+        else {
+            if (E > 0) {
+                img_ev = 'E';
+            } else if (E <= 0) {
+                img_ev = '-';
+            }
+        }
+
     console.log("G = " + G , "S = " + S , "E = " + E );
     console.log("image changed to : " + img_grid + img_solar + img_ev);
+    $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
 
     }
 // <!--END Current Energy Consumption Pictures-->
