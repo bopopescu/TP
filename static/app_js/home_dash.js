@@ -602,8 +602,8 @@ $( document ).ready(function() {
          console.log(_data);
          var _topic = _data['topic'];
          console.log(_topic);
-         // var _headers = _data['headers'];
-         // console.log(_headers.data_source);
+         var _headers = _data['headers'];
+         console.log(_headers.data_source);
          var _message = $.parseJSON(_data['message']);
 
 
@@ -647,7 +647,7 @@ $( document ).ready(function() {
 
          }  else if (_headers.data_source == 'modeApp') {
             update_MODE(_message.home_mode);
-            update_MODE_baht(_message.ECO_saving_cost);
+            // update_MODE_baht(_message.ECO_saving_cost);
             img_mode = _message.home_mode;
             console.log("Mode = "+ img_mode);
 

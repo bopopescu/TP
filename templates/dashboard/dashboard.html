@@ -657,9 +657,10 @@ function setValue() {
                                                         <h4 class="modal-title">You agreed to participate in DR program with PEA</h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                        <p> Load status: Consuming </p>
+                                                        <p> Load status: Shedding </p>
+                                                        <p> Please wait while we are executing "DEMAND RESPONSE" mode by changing status and set points of your appliances </p>
                                                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>
-                                                        <canvas id="agree_DR_Chart"></canvas>
+{#                                                        <canvas id="agree_DR_Chart"></canvas>#}
                                                             <script>
                                                             var ctx = document.getElementById("agree_DR_Chart");
                                                             var data = {
@@ -709,6 +710,7 @@ function setValue() {
 
                                                         </div>
                                                         <div class="modal-footer">
+                                                        <a href="/all_devices/999" class="btn btn-circle blue" role="button">Graph</a>
                                                         <button type="button" class="btn btn-circle green" data-dismiss="modal">Close</button>
                                                         </div>
                                                         </div>
