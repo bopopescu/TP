@@ -996,7 +996,7 @@ $( document ).ready(function() {
 
     });
 
-    $( "#select_comfort_mode" ).click(function() {
+$( "#select_comfort_mode" ).click(function() {
     console.log("comfort mode selected");
     var values = {};
     values['event'] = 'comfort';
