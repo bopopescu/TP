@@ -409,13 +409,13 @@ a:hover {
 											</div>
 											<ul class="nav nav-tabs">
 												<li class="active">
-													<a href="#dataRealTime" data-toggle="tab"> Grid </a>
+													<a href="#GridRealTime" data-toggle="tab"> Grid </a>
 												</li>
 												<li>
-													<a href="#dataInformation" data-toggle="tab"> Solar PV </a>
+													<a href="#SolarPVRealTime" data-toggle="tab"> Solar PV </a>
 												</li>
 												<li>
-													<a href="#dataDataLog" data-toggle="tab"> Load </a>
+													<a href="#LoadRealTime" data-toggle="tab"> Load </a>
 												</li>
 											</ul>
 										</div>
@@ -424,8 +424,8 @@ a:hover {
 										<!--BEGIN Device Data-->
 										<div class="portlet-body">
 											<div class="tab-content">
-												<!--BEGIN Real Time Data-->
-												<div class="tab-pane active" id="dataRealTime">
+												<!--BEGIN Grid Real Time-->
+												<div class="tab-pane active" id="GridRealTime">
 													<div class="row">
 														<!--BEGIN HIGHCHART Col-->
 														<div id="highchart_1"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
@@ -546,9 +546,9 @@ a:hover {
 																}]
 															});
 														}
-													</script>
+														</script>
 														<!--BEGIN HIGHCHART Col-->
-														<!--BEGIN Real-time Data Col-->
+														<!--BEGIN Grid Real-time Data Col-->
 														<div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
 
 																<div >
@@ -589,10 +589,10 @@ a:hover {
 														<!--END Real-time Data Col-->
 													</div>
 												</div>
-												<!--END Real Time Data-->
+												<!--END Grid Real Time-->
 
-												<!--BEGIN Information Data-->
-												<div class="tab-pane " id="dataInformation">
+												<!--BEGIN Solar PV Time-->
+												<div class="tab-pane active" id="SolarPVRealTime">
 												    <div class="row">
 														<!--BEGIN HIGHCHART Col-->
 														<div id="highchart_2"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
@@ -643,8 +643,7 @@ a:hover {
 																xAxis: {
 																	type: 'datetime',
 																	tickPixelInterval: 100
-																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 																},
 																yAxis: {
 																	min: 0,
@@ -756,131 +755,132 @@ a:hover {
 														<!--END Real-time Data Col-->
 													</div>
 												</div>
-												<!--END Information Data-->
+												<!--END Solar PV Real Time-->
 
-												<!--BEGIN Data Log-->
-												<div class="tab-pane" id="dataDataLog">
+												<!--BEGIN Load Real Time-->
+												<div class="tab-pane active" id="LoadRealTime">
 													<div class="row">
+														<div class="col-lg-10 col-md-6 col-sm-6 col-xs-6">
 														<!--BEGIN HIGHCHART Col-->
-														<div id="highchart_3"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
-														<script>
+															<div id="highchart_3"  class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="padding:0;"></div>
+															<script>
 
-                                                        var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
-                                                        var load_activePower = 0;
-                                                         ws_dashboard.onopen = function () {
-                                                             ws_dashboard.send("WS opened from html page");
-                                                         };
+															var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
+															var load_activePower = 0;
+															 ws_dashboard.onopen = function () {
+																 ws_dashboard.send("WS opened from html page");
+															 };
 
-                                                         ws_dashboard.onmessage = function (event) {
-                                                             var _data = event.data;
-                                                             _data = $.parseJSON(_data);
-                                                             var _topic = _data['topic'];
-                                                             console.log(_topic);
-                                                             var _message = $.parseJSON(_data['message']);
-                                                             console.log("_message "+_message);
-                                                             console.log("_message power "+_message.load_activePower);
-                                                             load_activePower = _message.load_activePower;
-                                                             document.getElementById("load_activePower").innerHTML = parseInt(load_activePower);
-                                                         };
+															 ws_dashboard.onmessage = function (event) {
+																 var _data = event.data;
+																 _data = $.parseJSON(_data);
+																 var _topic = _data['topic'];
+																 console.log(_topic);
+																 var _message = $.parseJSON(_data['message']);
+																 console.log("_message "+_message);
+																 console.log("_message power "+_message.load_activePower);
+																 load_activePower = _message.load_activePower;
+																 document.getElementById("load_activePower").innerHTML = parseInt(load_activePower);
+															 };
 
-														function renderChart3() {
-															$('#highchart_3').highcharts({
-																chart : {
-																	style: {
-																		fontFamily: 'Open Sans'
-																	},
-																	events: {
-																		load: function () {
-																			var series = this.series[0];
-																			setInterval(function () {
-																				var x = (new Date()).getTime(); // current time
-                                                                                y = load_activePower;
-																				series.addPoint([x, y], true, true);
-																			}, 1000);
-																		}
-																	}
-																},
-																credits: {
-																	enabled: false
-																},
-																title: {
-																	text: 'Load status: Consuming',
-																	x: -20 //center
-																},
-																xAxis: {
-																	type: 'datetime',
-																	tickPixelInterval: 100
-																	//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-																	//	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-																},
-																yAxis: {
-																	min: 0,
-																	title: {
-																		text: 'Consumption (W)'
-																	},
-																	plotLines: [{
-																		value: 0,
-																		width: 1,
-																		color: '#808080'
-																	}]
-																},
-																plotOptions: {
-																	area: {
-																		fillColor: {
-																			linearGradient: {
-																				x1: 0,
-																				y1: 0,
-																				x2: 0,
-																				y2: 1
-																			},
-																			stops: [
-																				[0, Highcharts.getOptions().colors[0]],
-																				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
-																			]
+															function renderChart3() {
+																$('#highchart_3').highcharts({
+																	chart : {
+																		style: {
+																			fontFamily: 'Open Sans'
 																		},
-																		marker: {
-																			radius: 2
-																		},
-																		lineWidth: 2,
-																		states: {
-																			hover: {
-																				lineWidth: 1
+																		events: {
+																			load: function () {
+																				var series = this.series[0];
+																				setInterval(function () {
+																					var x = (new Date()).getTime(); // current time
+																					y = load_activePower;
+																					series.addPoint([x, y], true, true);
+																				}, 1000);
 																			}
+																		}
+																	},
+																	credits: {
+																		enabled: false
+																	},
+																	title: {
+																		text: 'Load status: Consuming',
+																		x: -20 //center
+																	},
+																	xAxis: {
+																		type: 'datetime',
+																		tickPixelInterval: 100
+																	},
+																	yAxis: {
+																		min: 0,
+																		title: {
+																			text: 'Consumption (W)'
 																		},
-																		threshold: null
-																	}
-																},
-																tooltip: {
-																	valueSuffix: ' W'
-																},
-																legend: {
-																	enabled: false
-																},
-																series: [{
-																	type: 'area',
-																	name: 'Consumption',
-																	//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-																	data: [
-																	    [(new Date()).getTime() - 14000,0],
-																	    [(new Date()).getTime() - 13000,0],
-																		[(new Date()).getTime() - 12000,0],
-																		[(new Date()).getTime() - 11000,0],
-																		[(new Date()).getTime() - 10000,0],
-																		[(new Date()).getTime() - 9000,0],
-																		[(new Date()).getTime() - 8000,0],
-																		[(new Date()).getTime() - 7000,0],
-																		[(new Date()).getTime() - 6000,0],
-																		[(new Date()).getTime() - 5000,0],
-																		[(new Date()).getTime() - 4000,0],
-																		[(new Date()).getTime() - 3000,0],
-																		[(new Date()).getTime() - 2000,0],
-																		[(new Date()).getTime() - 1000,0],
-																		[(new Date()).getTime(), 0]
-																	]
-																}]
-															});
-														}
-													</script>
+																		plotLines: [{
+																			value: 0,
+																			width: 1,
+																			color: '#808080'
+																		}]
+																	},
+																	plotOptions: {
+																		area: {
+																			fillColor: {
+																				linearGradient: {
+																					x1: 0,
+																					y1: 0,
+																					x2: 0,
+																					y2: 1
+																				},
+																				stops: [
+																					[0, Highcharts.getOptions().colors[0]],
+																					[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.2).get('rgba')]
+																				]
+																			},
+																			marker: {
+																				radius: 2
+																			},
+																			lineWidth: 2,
+																			states: {
+																				hover: {
+																					lineWidth: 1
+																				}
+																			},
+																			threshold: null
+																		}
+																	},
+																	tooltip: {
+																		valueSuffix: ' W'
+																	},
+																	legend: {
+																		enabled: false
+																	},
+																	series: [{
+																		type: 'area',
+																		name: 'Consumption',
+																		//data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+																		data: [
+																			[(new Date()).getTime() - 14000,0],
+																			[(new Date()).getTime() - 13000,0],
+																			[(new Date()).getTime() - 12000,0],
+																			[(new Date()).getTime() - 11000,0],
+																			[(new Date()).getTime() - 10000,0],
+																			[(new Date()).getTime() - 9000,0],
+																			[(new Date()).getTime() - 8000,0],
+																			[(new Date()).getTime() - 7000,0],
+																			[(new Date()).getTime() - 6000,0],
+																			[(new Date()).getTime() - 5000,0],
+																			[(new Date()).getTime() - 4000,0],
+																			[(new Date()).getTime() - 3000,0],
+																			[(new Date()).getTime() - 2000,0],
+																			[(new Date()).getTime() - 1000,0],
+																			[(new Date()).getTime(), 0]
+																		]
+																	}]
+																});
+															}
+															</script>
+														</div>
+
 														<!--BEGIN HIGHCHART Col-->
 														<!--BEGIN Real-time Data Col-->
 														<div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
@@ -923,7 +923,7 @@ a:hover {
 														<!--END Real-time Data Col-->
 													</div>
 												</div>
-												<!--END Data Log-->
+												<!--END Load Real Time-->
 											</div>
 										</div>
 										<!--END Device Data-->
@@ -946,7 +946,8 @@ a:hover {
             <!-- END CONTENT -->
         </div>
         <!-- END CONTAINER -->
-        <!--[if lt IE 9]>
+
+<!--[if lt IE 9]>
 <script src="/static/newassets/global/plugins/respond.min.js"></script>
 <script src="/static/newassets/global/plugins/excanvas.min.js"></script>
 <script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
@@ -976,24 +977,8 @@ a:hover {
         <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
-{#        <script type="text/javascript" src="/static/app_js/current_update.js"></script>#}
-
-
-
-    <script type="text/javascript">
-            window.onload = function () {
-{#                startTime();#}
-{#                setValue();#}
-                renderChart();
-                renderChart2();
-                renderChart3();
-{#                $('#log').DataTable({#}
-{#                    "order": [#}
-{#                        [0, "desc"]#}
-{#                    ]#}
-{#                });#}
-              }
-    </script>
+		<script type="text/javascript" src="/static/app_js/current_update.js"></script>
+		<script type="text/javascript" src="/static/app_js/zone_devices_all.js"></script>
 
    </body>
 
