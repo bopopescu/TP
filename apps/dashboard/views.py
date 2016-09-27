@@ -70,6 +70,7 @@ from apps.RTU.models import RTU
 from apps.admin.models import NetworkStatus
 from volttron.platform.messaging import headers as headers_mod
 import datetime
+import requests
 
 import _utils.defaults as __
 
@@ -632,6 +633,19 @@ def select_comfort_mode(request):
         print "message sent: {}".format(_data)
         zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
         print "success in sending message to agent"
+
+        # send rest to turn on SmartThings comfort button
+        try:
+            print "sending requests put"
+            _data = json.dumps({"command": "on"})
+            _data = _data.encode(encoding='utf_8')
+            r = requests.put(
+                "https://graph.api.smartthings.com/api/smartapps/installations/17244bfb-7963-41dc-beb2-f0acf9f2085c/switches/bbd40583-d0e3-4063-a74e-200634b1deca",
+                headers={"Authorization": "Bearer adc2ff7d-5afe-4614-8590-fea0ad4cffcd"}, data=_data, timeout=20);
+            print(" after send a POST request: {}".format(r.status_code))
+        except:
+            print("ERROR: cannot control smartthings button connection failure! @ setDeviceStatus")
+
     if request.is_ajax():
         return HttpResponse(json.dumps(_data), mimetype='application/json')
 
@@ -652,6 +666,19 @@ def select_eco_mode(request):
         print "message sent: {}".format(_data)
         zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
         print "success in sending message to agent"
+
+        # send rest to turn on SmartThings comfort button
+        try:
+            print "sending requests put"
+            _data = json.dumps({"command": "on"})
+            _data = _data.encode(encoding='utf_8')
+            r = requests.put(
+                "https://graph.api.smartthings.com/api/smartapps/installations/17244bfb-7963-41dc-beb2-f0acf9f2085c/switches/c792d8d2-22e0-4ac0-b60e-15437e3f2fa6",
+                headers={"Authorization": "Bearer adc2ff7d-5afe-4614-8590-fea0ad4cffcd"}, data=_data, timeout=20);
+            print(" after send a POST request: {}".format(r.status_code))
+        except:
+            print("ERROR: cannot control smartthings button connection failure! @ setDeviceStatus")
+
     if request.is_ajax():
         return HttpResponse(json.dumps(_data), mimetype='application/json')
 
