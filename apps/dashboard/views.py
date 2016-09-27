@@ -695,6 +695,19 @@ def agree_dr(request):
         print "message sent: {}".format(_data)
         zmq_pub.sendToAgent(update_send_topic, _data, content_type, fromUI)
         print "success in sending message to agent"
+
+        try:
+            print "sending requests put"
+            _data = json.dumps({"command": "on"})
+            _data = _data.encode(encoding='utf_8')
+            r = requests.put(
+                "https://graph.api.smartthings.com/api/smartapps/installations/17244bfb-7963-41dc-beb2-f0acf9f2085c/switches/39610be9-8b84-4c72-9dad-560281873e1d",
+                headers={"Authorization": "Bearer adc2ff7d-5afe-4614-8590-fea0ad4cffcd"}, data=_data, timeout=20);
+            print(" after send a POST request: {}".format(r.status_code))
+        except:
+            print("ERROR: cannot control smartthings button connection failure! @ setDeviceStatus")
+
+
     if request.is_ajax():
             return HttpResponse(json.dumps(_data), mimetype='application/json')
 
