@@ -532,6 +532,21 @@ $( document ).ready(function() {
          console.log(_data);
          var _message = $.parseJSON(_data['message']);
          // console.log(_message.grid_activePower);
+
+         if (_message.load_activePower < 20) {
+             _message.load_activePower = 0;
+         }
+
+         if (_message.grid_activePower < 20) {
+             _message.grid_activePower = 0;
+             _message.load_activePower = _message.solar_activePower;
+         }
+
+         if (_message.solar_activePower < 20) {
+             _message.solar_activePower = 0;
+             _message.load_activePower = _message.grid_activePower;
+
+         }
          update_GRID_kw(parseInt(_message.grid_activePower));
          update_SOLAR_kw(parseInt(_message.solar_activePower));
          update_LOAD_kw(parseInt(_message.load_activePower));
