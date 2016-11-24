@@ -29,6 +29,8 @@
         <link href="/static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
         <link href="/static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
 
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
         <link href="/static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
         <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
@@ -179,7 +181,7 @@ function setValue() {
                                                       <img class " style="font-size:5px" src="../static/images/icon-png/transmission-tower_w.png" class="img-responsive">
                                                   </span>
                                                 <div class="info-box-content">
-                                                    <span class="info-box-text1">Grid</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Grid</span>
                                                     <span class="info-box-text2" id="GRID_status"></span>
                                                     <span class="info-box-number">
                                                         <span id="GRID_kw"></span> <small>W</small>
@@ -196,7 +198,7 @@ function setValue() {
                                                   </span>
 
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1">Solar Generation</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Solar Generation</span>
                                                     <span class="info-box-text2" id="SOLAR_status"></span>
                                                     <span class="info-box-number">
                                                         <span id="SOLAR_kw"></span> <small>W</small>
@@ -214,7 +216,7 @@ function setValue() {
                                                       </span>
 
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1">Wind Generation</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Wind Generation</span>
                                                     <span class="info-box-text2" id="WIND_status">Disconnected</span>
                                                     <span class="info-box-number">
                                                         <span id="WIND_kw">0</span> <small>W</small>
@@ -232,7 +234,7 @@ function setValue() {
                                                       </span>
 
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1">Battery</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Battery</span>
                                                     <span class="info-box-text2" id="BATTERY_status">Standby</span>
                                                     <span class="info-box-number">
                                                         <span id="BATTERY_percent">100</span> <small>%</small>
@@ -249,7 +251,7 @@ function setValue() {
                                                       </span>
 
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1">Load</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Load</span>
                                                     <span class="info-box-text2" id="LOAD_status"></span>
                                                     <span class="info-box-number">
                                                          <span id="LOAD_kw"></span> <small>W</small>
@@ -267,7 +269,7 @@ function setValue() {
                                                       </span>
 
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1">EV Car</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> EV Car</span>
                                                     <span class="info-box-text2" id="EV_status"></span>
                                                     <span class="info-box-number">
                                                         <span id="EV_percent"></span> <small>%</small>
@@ -310,7 +312,7 @@ function setValue() {
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
 {#                                                          <small>LIGHTINGS</small>#}
-                                                            <span class ="caption-subject bold front-dark uppercase"> Lighting </span>
+                                                            <span class ="caption-subject bold front-dark uppercase"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Lighting </span>
                                                             <h3 class="font-red-flamingo" style="font-size: 25px">
                                                                 <span id="LT1_baht"></span>
                                                                 <span class="font-red-flamingo">฿</span>
@@ -336,7 +338,7 @@ function setValue() {
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
 {#                                                            <small>Air Condition</small>#}
-                                                            <span class ="caption-subject bold front-dark uppercase"> Air Conditioner </span>
+                                                            <span class ="caption-subject bold front-dark uppercase"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Air Conditioner </span>
                                                             <h3 class="font-blue" style="font-size: 25px">
                                                               <span id="LT2_baht"></span>
                                                               <span class="font-blue">฿</span>
@@ -361,7 +363,7 @@ function setValue() {
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
 {#                                                            <small>Plug (Appliances)</small>#}
-                                                            <span class ="caption-subject bold front-dark uppercase"> Plug (Appliances) </span>
+                                                            <span class ="caption-subject bold front-dark uppercase"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Plug (Appliances) </span>
                                                             <h3 class="font-green-jungle" style="font-size: 25px">
                                                               <span id="LT3_baht"></span>
                                                               <span class="font-green-jungle">฿</span>
@@ -384,7 +386,7 @@ function setValue() {
                                                     <div class="display" style="margin-bottom:0px">
                                                         <div class="number">
 {#                                                            <small>EV Car</small>#}
-                                                            <span class ="caption-subject bold front-dark uppercase"> EV car </span>
+                                                            <span class ="caption-subject bold front-dark uppercase"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> EV car </span>
                                                             <h3 class="font-purple" style="font-size: 25px">
                                                               <span id="LT4_baht"></span>
                                                               <span class="font-purple">฿</span>
@@ -532,7 +534,7 @@ function setValue() {
                                     <div class="m-heading-1 border-green m-bordered" style="padding-bottom: 0px; padding-right: 10px; padding-left: 10px;">
                                     <!-- BEGIN WIDGET THUMB -->
                                     <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
-                                        <h3 id="MODE" class="widget-thumb-heading font-dark">ECO Mode</h3>
+                                        <h3 id="MODE" class="widget-thumb-heading font-dark"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> ECO Mode</h3>
                                          <div class="widget-thumb-wrap">
                                             <i class="widget-thumb-icon bg-white">
                                                <img class="img-responsive" id="MODE_pic" src="../static/images/Mode/eco_mode.png">
@@ -775,7 +777,7 @@ function setValue() {
                                                             <script>
                                                             var ctx = document.getElementById("comfort_chart");
                                                             var data = {
-                                                                    labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],
+                                                                    labels: ["15:05" "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],
                                                                     datasets: [
                                                                     {
                                                                         label: "Power Consumption (kW)",
@@ -996,7 +998,63 @@ function setValue() {
                                     <div class="m-heading-1 border-red m-bordered" style="padding-bottom: 0px; padding-right: 10px; padding-left: 10px;">
                                     <!-- BEGIN WIDGET THUMB -->
                                     <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:0px">
-                                        <h4 class="widget-thumb-heading font-dark ">OCCUPANT</h4>
+                                        <a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> OCCOPANT
+
+                                        <div class="modal fade charts-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                          <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                               <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">OCCOPANT</h4>
+                                              </div>
+                                                <div class="js-loading text-center">
+                                                    <h3>Loading...</h3>
+                                                </div>
+                                                <div id="area-example"></div>
+                                                <div class="modal-footer"></div>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+                                        <script>
+                                            $(window).load(function(){
+                                            $('.charts-modal').on('show.bs.modal', function (event) {
+                                                setTimeout(function(){
+                                                    Morris.Area({
+                                                      element: 'area-example',
+                                                      data: [
+                                                        { y: '2006', a: 100, b: 90 },
+                                                        { y: '2007', a: 75,  b: 65 },
+                                                        { y: '2008', a: 50,  b: 40 },
+                                                        { y: '2009', a: 75,  b: 65 },
+                                                        { y: '2010', a: 50,  b: 40 },
+                                                        { y: '2011', a: 75,  b: 65 },
+                                                        { y: '2012', a: 100, b: 90 }
+                                                      ],
+                                                      xkey: 'y',
+                                                      ykeys: ['a', 'b'],
+                                                      labels: ['Series A', 'Series B']
+                                                    });
+                                                    // When you open modal several times Morris charts over loading. So this is for destory to over loades Morris charts.
+                                                    // If you have better way please share it.
+                                                    if($('#area-example').find('svg').length > 1){
+                                                        // Morris Charts creates svg by append, you need to remove first SVG
+                                                        $('#area-example svg:first').remove();
+                                                        // Also Morris Charts created for hover div by prepend, you need to remove last DIV
+                                                        $(".morris-hover:last").remove();
+                                                    }
+                                                    // Smooth Loading
+                                                    $('.js-loading').addClass('hidden');
+                                                },1000);
+                                            });
+                                        });
+
+                                        </script>
+
+
                                         <div class="widget-thumb-wrap">
                                             <i class="widget-thumb-icon bg-white">
                                                <img class="img-responsive" id="occupant_img" src="../static/images/user.png">
@@ -1357,7 +1415,7 @@ function setValue() {
                                               <img class="" src="../static/images/icon-png/AEC_plug3.png" style="responsive" height="50" width="50" ></img>
                                           </span>
                                           <div style="display:inline-block">
-                                            <span style="font-size:20px;font-weight:600">Consumption</span>
+                                            <span style="font-size:20px;font-weight:600"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Consumption</span>
                                             <span style="font-size:20px;display:block"><span id="AEC_use"></span> kWh</span>
                                           </div>
                                         </div>
@@ -1367,7 +1425,7 @@ function setValue() {
                                               <img class="" src="../static/images/icon-png/AEC_gen3.png" style="responsive" height="50" width="50" ></img>
                                           </span>
                                           <div style="display:inline-block">
-                                            <span style="font-size:20px;font-weight:600">Generation</span>
+                                            <span style="font-size:20px;font-weight:600"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Generation</span>
                                             <span style="font-size:20px;display:block"><span id="AEC_gen"></span> kWh</span>
                                           </div>
                                         </div>
@@ -1575,12 +1633,19 @@ function setValue() {
 <script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
 <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
+
+
         <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
         <script src="/static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
         <script src="/static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="/static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- END PAGE LEVEL PLUGINS -->
