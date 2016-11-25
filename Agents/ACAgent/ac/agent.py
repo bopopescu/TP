@@ -93,6 +93,7 @@ def ACAgent(config_path, **kwargs):
     building_name = get_config('building_name')
     zone_id = get_config('zone_id')
     model = get_config('model')
+    air_serial=get_config('air_serial')
     device_type = get_config('type')
     macaddress = get_config('macaddress')
     address_get = get_config('address_get')
@@ -141,8 +142,8 @@ def ACAgent(config_path, **kwargs):
 
     #4.1 initialize AC device object
     AC = apiLib.API(model=model, device_type=device_type, api=api, address=address, macaddress = macaddress, 
-                    agent_id=agent_id, db_host=db_host, db_port=db_port, db_user=db_user, db_password=db_password, 
-                    db_database=db_database, config_path=config_path, device_id=device_id)
+                    agent_id=agent_id,air_serial=air_serial, db_host=db_host, db_port=db_port, db_user=db_user, db_password=db_password,
+                    db_database=db_database, config_path=config_path, device_id=device_id, test="555")
 
     print("{0}agent is initialized for {1} using API={2} at {3}".format(agent_id,
                                                                         AC.get_variable('model'),
@@ -246,7 +247,9 @@ def ACAgent(config_path, **kwargs):
         def deviceMonitorBehavior(self):
 
             try:
+                print "test1"
                 AC.getDeviceStatus()
+                #AC.setDeviceStatus({"temp" : "18","fan_speed": "3",'status':'ON'})
             except Exception as er:
                 print er
                 print "device connection for {} is not successful".format(agent_id)
@@ -265,7 +268,8 @@ def ACAgent(config_path, **kwargs):
             #         return True if 100*abs(value1-value2)/float(value1) deviceMonitorBehavior(self):
 
             try:
-                AC.getDeviceStatus()
+                print"test2"
+                #AC.getDeviceStatus()
             except Exception as er:
                 print er
                 print "device connection for {} is not successful".format(agent_id)
@@ -321,15 +325,16 @@ def ACAgent(config_path, **kwargs):
             #     print 'nothing changed'
             #     return
             #
-            self.updateStatus()
+            print "test3"
+            #self.updateStatus()
             # #step6: debug agent knowledge
             # if debug_agent == True:
             #     print("printing agent's knowledge")
             #     for k, v in self.variables.items():
             #         print (k, v)
             #     print('')
-
-            self.backupSaveData()
+            print "test4"
+            #self.backupSaveData()
 
         def device_offline_detection(self):
             self.cur.execute("SELECT nickname FROM " + db_table_AC + " WHERE AC_id=%s",
@@ -545,8 +550,8 @@ def ACAgent(config_path, **kwargs):
             message = json.dumps(_data)
             message = message.encode(encoding='utf_8')
             self.publish(topic, headers, message)
-            print "message sent from multisensor agent with topic: {}".format(topic)
-            print "message sent from multisensor agent with data: {}".format(message)
+            print "message sent from AC agent with topic: {}".format(topic)
+            print "message sent from AC agent with data: {}".format(message)
 
         # 4. updateUIBehavior (generic behavior)
         @matching.match_exact('/ui/agent/'+device_type+'/device_status/'+_topic_Agent_UI_tail)
@@ -563,10 +568,11 @@ def ACAgent(config_path, **kwargs):
         def deviceControlBehavior(self,topic,headers,message,match):
             print "{} agent got\nTopic: {topic}".format(self.get_variable("agent_id"),topic=topic)
             print "Headers: {headers}".format(headers=headers)
-            print "Message: {message}\n".format(message=message)
+            print "Message by AC Agent : {message}\n".format(message=message)
             #step1: change device status according to the receive message
             if self.isPostmsgValid(message[0]):  # check if the data is valid
-                setDeviceStatusResult = AC.setDeviceStatus(json.loads(message[0]))
+                t1=json.loads(message[0])
+                setDeviceStatusResult = AC.setDeviceStatus(t1)
                 #send reply message back to the UI
                 topic = '/agent/ui/'+device_type+'/update_response/'+_topic_Agent_UI_tail
                 # now = datetime.utcnow().isoformat(' ') + 'Z'
