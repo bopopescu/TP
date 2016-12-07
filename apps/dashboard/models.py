@@ -121,6 +121,7 @@ class DeviceMetadata(models.Model):
         ('3WSP', 'wemo smart plug'),
         ('3MOD', 'modlet smart plug'),
         ('3WP', 'wattstopper plugload'),
+        ('4INV', 'MUST PH3000 Inverter'),
     )
 
     APPROVAL_STATUS_CHOICES = (
