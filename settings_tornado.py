@@ -222,6 +222,7 @@ INSTALLED_APPS = (
     'apps.schedule',
     'apps.VAV',
     'apps.RTU',
+    'apps.inverter',
     'tablib',
     '_utils',
     '_utils.dos_secure',

@@ -102,6 +102,9 @@ wemo_smart_plug.save()
 wattstopper_plugload = DeviceModel(device_model_id='3WP', device_model_name='Wattstopper Plugload')
 wattstopper_plugload.save()
 
+must_ph3000_inveter = DeviceModel(device_model_id='4INV', device_model_name='MUST PH3000 Inverter')
+must_ph3000_inveter.save()
+
 print "device_model table updated with device model information."
 
 zone_999 = Building_Zone(zone_id=999, zone_nickname="BEMOSS Core")
