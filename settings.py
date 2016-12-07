@@ -191,7 +191,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
 )
 
-APPEND_SLASH = True
+APPEND_SLASH = False
 ACCOUNT_ACTIVATION_DAYS = 7
 INSTALLED_APPS = (
     'django.contrib.auth',
