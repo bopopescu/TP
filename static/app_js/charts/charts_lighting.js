@@ -50,10 +50,10 @@ under Contract DE-EE0006352
 
 $(document).ready(function(){
     $.csrftoken();
-
+    $(function ($) {
 
 	  //Plot options
-	  var options = {
+	var options = {
 			    legend: {
 			      show: true,
 			      labels:["Status","Brightness"]
@@ -85,8 +85,8 @@ $(document).ready(function(){
 			        renderer: $.jqplot.DateAxisRenderer,
 			        tickOptions:{formatString:'%m/%d, %H:%M'},
 
-		            min : _status[0][0],
-		            max: _status[_status.length-1][0]
+		            //min : _status[0][0],
+		            //max: _status[_status.length-1][0]
 			      },
 			      yaxis: {
 			        min:0,
@@ -130,8 +130,8 @@ $(document).ready(function(){
 			        renderer: $.jqplot.DateAxisRenderer,
 			        tickOptions:{formatString:'%m/%d, %H:%M'},
 
-		            min : _brightness[0][0],
-		            max: _brightness[_brightness.length-1][0]
+		            //min : _brightness[0][0],
+		            //max: _brightness[_brightness.length-1][0]
 			      },
 			      yaxis: {
 			        min:0,
@@ -144,6 +144,10 @@ $(document).ready(function(){
 
 
 	  //Initialize plot for lighting
+
+      var _status = [0,1,0,1];
+      var _brightness = [10,20,30,40];
+      console.log()
       var data_points = [_status, _brightness];
 	  var plot1 = $.jqplot('chart100', data_points ,options);
       $("#status").attr('checked','checked');
@@ -176,6 +180,8 @@ $(document).ready(function(){
         function update_plot(_data) {
               _status = _data.status;
               _brightness = _data.brightness;
+              console.log('_status: ' + _data.status);
+              console.log('_brightness: ' + _data.brightness);
               var new_data = [];
 
               $.each($('input:checked'), function(index, value){
@@ -187,7 +193,9 @@ $(document).ready(function(){
                    }
                    options.legend.labels.push(this.value);
                    options.axes.xaxis.min = _status[0][0];
+                   console.log('axes.xaxis.min: ' + _status[0][0]);
                    options.axes.xaxis.max = _status[_status.length-1][0];
+                   console.log('axes.xaxis.max: ' + _status[_status.length-1][0]);
               });
               if ($('input:checked').length == 1 && $('input:checked')[0].id == 'brightness') {
                   options_brightness.legend.labels.push('Brightness');
@@ -215,8 +223,6 @@ $(document).ready(function(){
                   plot2.themeEngine.newTheme('uma', temp);
                   plot2.activateTheme('uma');
               }
-
-
 
               console.log('nowww');
               $("#auto_update").attr('disabled','disabled');
@@ -329,6 +335,7 @@ $(document).ready(function(){
       }
 
      $("#get_stat").click(function(evt) {
+        console.log("get stat button is clicked");
         evt.preventDefault();
         var from_date = $("#from_date").val();
         var to_date = $("#to_date").val();
@@ -337,6 +344,7 @@ $(document).ready(function(){
     });
 
     function get_statistics(from_date, to_date) {
+            console.log("get_statistics")
             var values = {
 		        "mac": mac,
                 "from_dt": from_date,
@@ -353,9 +361,8 @@ $(document).ready(function(){
                   dataType: 'json',
 
 				  success : function(data) {
-
-
-
+                      console.log('/lt_smap_get_stat/ success');
+                      console.log('data.status: %s',data.status)
                       if (data.status.length == 0) {
                           $('.bottom-right').notify({
 					  	    message: { text: 'No data found for the selected time period.'},
@@ -363,6 +370,7 @@ $(document).ready(function(){
                           fadeOut: { enabled: true, delay: 5000 }
 					  	  }).show();
                       } else {
+                          console.log('update_plot(data)');
                           update_plot(data);
                           $("#auto_update").removeAttr('disabled');
                           $("#stop_auto_update").attr('disabled', 'disabled');
@@ -383,6 +391,7 @@ $(document).ready(function(){
     }
 
     $("#export_data").click(function(evt) {
+        console.log("export_data is clicked");
         evt.preventDefault();
         var from_date = $("#from_date").val();
         var to_date = $("#to_date").val();
@@ -477,5 +486,5 @@ $(document).ready(function(){
     }
 
 
-
+    });
 });
