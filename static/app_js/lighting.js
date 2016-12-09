@@ -188,9 +188,11 @@ $( "#device_power_disp" ).click(function() {
             $("#Cur_rate").text(String(Cur_rate));
             $("#Cur_rate2").text(String(Cur_rate));
           }
+
          function setB(amount) {
              softSlider.noUiSlider.set(amount);
          }
+
          function brightness() {
              softSlider = document.getElementById('brightness');
 

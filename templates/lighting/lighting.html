@@ -361,7 +361,11 @@ a:hover {
 
         <script>
             var mac_address = "{{ mac_address }}";
-            console.log("this ac mac_address is "+mac_address)
+            var device_status = "{{ device_status }}";
+            var device_brightness = "{{ device_brightness }}";
+            var device_color = "{{ device_color }}";
+            console.log("this lighting mac_address : %s, device_status: %s, device_brightness: %s, device_color: %s ",
+                mac_address, device_status, device_brightness,device_color)
         </script>
 
 
@@ -446,7 +450,7 @@ a:hover {
 														<div style="display: flex">
 															<div style="margin: auto;">
 																<div class="device_power">
-																	<button id="device_power_disp" data-toggle="button" class="btn btn-circle blue device_power" type="button" aria-pressed="false">ON</button>
+																	<button id="device_power_disp" data-toggle="button" class="btn btn-circle blue device_power" type="button" aria-pressed="false">{{ device_status }}</button>
 																</div>
 															</div>
 														</div>

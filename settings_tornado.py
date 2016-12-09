@@ -192,7 +192,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 )
 
-APPEND_SLASH = True
+APPEND_SLASH = False
 
 BANISH_ENABLED = True
 BANISH_EMPTY_UA = False

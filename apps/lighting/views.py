@@ -59,6 +59,7 @@ from apps.dashboard.models import DeviceMetadata
 from apps.lighting.models import Lighting
 import json
 import _utils.defaults as __
+from django.views.decorators.csrf import csrf_exempt
 
 kwargs = {'subscribe_address': __.SUB_SOCKET,
                     'publish_address': __.PUSH_SOCKET}
@@ -88,19 +89,23 @@ def lighting(request, mac):
     mac = mac.encode('ascii', 'ignore')
     print "lighting request from mac: {}".format(mac)
 
-    # device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
-    # print device_metadata
-    # device_id = device_metadata[0]['device_id']
-    # controller_type = device_metadata[0]['device_model_id']
-    # controller_type = controller_type.device_model_id
-    #
-    # device_status = [ob.data_as_json() for ob in Lighting.objects.filter(lighting_id=device_id)]
-    # device_zone = device_status[0]['zone']['id']
-    # device_nickname = device_status[0]['nickname']
-    # zone_nickname = device_status[0]['zone']['zone_nickname']
-    #
+    device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
+    device_id = device_metadata[0]['device_id']
+    controller_type = device_metadata[0]['device_model_id']
+    print("device_metadata: {}".format(device_metadata))
+    device_json = [ob.data_as_json() for ob in Lighting.objects.filter(lighting_id=device_id)]
+    device_status = device_json[0]['status']
+    device_brightness = device_json[0]['brightness']
+    device_color = device_json[0]['color']
+    device_zone = device_json[0]['zone']['id']
+    device_nickname = device_json[0]['nickname']
+    zone_nickname = device_json[0]['zone']['zone_nickname']
+    print("device_status: {}, device_brightness: {}, device_color: {}, device_id: {}, controller_type: {}, device_zone: {}, "
+          "device_nickname: {}, zone_nickname: {}".format(device_status, device_brightness, device_color, device_id, controller_type,
+                                                          device_zone, device_nickname, zone_nickname))
+
     # _data = _helper.get_page_load_data(device_id, 'lighting', controller_type)
-    #
+
     # device_list_side_nav = get_device_list_side_navigation()
     # context.update(device_list_side_nav)
     # active_al = get_notifications()
@@ -114,16 +119,79 @@ def lighting(request, mac):
         # {'type': controller_type, 'device_data': _data, 'device_id': device_id, 'device_zone': device_zone,
         #  'device_type': controller_type, 'mac_address': mac, 'zone_nickname': zone_nickname,
         #  'device_nickname': device_nickname}, context)
-        {'type': "lighting", 'mac_address': mac}, context)
+        {'type': "lighting", 'mac_address': mac, 'device_status': device_status,
+         'device_brightness': device_brightness, 'device_color': device_color}, context)
 
+
+# Functionality for lighting page load
+def lighting_status(request, mac):
+    print 'inside lighting status view method'
+    context = RequestContext(request)
+    username = request.session.get('user')
+    print username
+    if request.session.get('last_visit'):
+        # The session has a value for the last visit
+        last_visit_time = request.session.get('last_visit')
+
+        visits = request.session.get('visits', 0)
+
+        if (datetime.now() - datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days > 0:
+            request.session['visits'] = visits + 1
+    else:
+        # The get returns None, and the session does not have a value for the last visit.
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = 1
+
+    mac = mac.encode('ascii', 'ignore')
+    print "lighting request from mac: {}".format(mac)
+
+    device_metadata = [ob.device_control_page_info() for ob in DeviceMetadata.objects.filter(mac_address=mac)]
+    device_id = device_metadata[0]['device_id']
+    controller_type = device_metadata[0]['device_model_id']
+    print("device_metadata: {}".format(device_metadata))
+    device_json = [ob.data_as_json() for ob in Lighting.objects.filter(lighting_id=device_id)]
+    device_status = device_json[0]['status']
+    device_brightness = device_json[0]['brightness']
+    device_color = device_json[0]['color']
+    device_zone = device_json[0]['zone']['id']
+    device_nickname = device_json[0]['nickname']
+    zone_nickname = device_json[0]['zone']['zone_nickname']
+    print(
+    "device_status: {}, device_brightness: {}, device_color: {}, device_id: {}, controller_type: {}, device_zone: {}, "
+    "device_nickname: {}, zone_nickname: {}".format(device_status, device_brightness, device_color, device_id,
+                                                    controller_type,
+                                                    device_zone, device_nickname, zone_nickname))
+
+    # _data = _helper.get_page_load_data(device_id, 'lighting', controller_type)
+
+    # device_list_side_nav = get_device_list_side_navigation()
+    # context.update(device_list_side_nav)
+    # active_al = get_notifications()
+    # context.update({'active_al':active_al})
+    # bemoss_not = general_notifications()
+    # context.update({'b_al': bemoss_not})
+
+
+    return render_to_response(
+        'lighting/lighting.html',
+        # {'type': controller_type, 'device_data': _data, 'device_id': device_id, 'device_zone': device_zone,
+        #  'device_type': controller_type, 'mac_address': mac, 'zone_nickname': zone_nickname,
+        #  'device_nickname': device_nickname}, context)
+        {'type': "lighting", 'mac_address': mac, 'device_status': device_status,
+         'device_brightness': device_brightness, 'device_color': device_color}, context)
 
 #Update lighting controller status
+@csrf_exempt
 @login_required(login_url='/login/')
 def update_device_light(request):
-    print 'inside lighting update device method'
+    print 'inside lighting update device method2'
+    _data = request.body
+    _data = json.loads(_data)
+    print("_data: {}".format(_data))
     if request.POST:
         _data = request.body
         _data = json.loads(_data)
+        print("_data: {}".format(_data))
         # device_info = _data['device_info']
         if 'color' in _data:
             lt_color = _data['color']
@@ -153,7 +221,57 @@ def update_device_light(request):
         zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
 
     if request.is_ajax():
-            return HttpResponse(json.dumps(_data), mimetype='application/json')
+        return HttpResponse(json.dumps(_data), mimetype='application/json')
+    else:
+        return HttpResponse(json.dumps(_data), mimetype='application/json')
+
+'''
+This is to provide the way for 3rd party software to be able to call and control lighting through an API,
+However this is not the secure way to do it. thus need to revise later
+'''
+# TODO remove csrf_exampt and use django rest framework or Tastypie instead
+@csrf_exempt
+def update_light_status(request):
+    print 'inside update_light_status method'
+    _data = request.body
+    _data = json.loads(_data)
+    print("_data: {}".format(_data))
+    if request.POST:
+        _data = request.body
+        _data = json.loads(_data)
+        print("_data: {}".format(_data))
+        # device_info = _data['device_info']
+        if 'color' in _data:
+            lt_color = _data['color']
+            if 'a(' in str(lt_color):
+                lt_color = '(0,0,0)'
+            try:
+                lt_color = eval(lt_color)
+            except:
+                lt_color = '(0,0,0)'
+            _data['color'] = lt_color
+
+        # _data.pop('device_info')
+
+        # print(device_info)
+        #print(type(device_info))
+        #device_info = device_info.split('/')  # e.g. 999/lighting/1NST18b43017e76a
+        # TODO fix building name -> should be changeable from 'bemoss'
+        # topic = "ui/agent/lighting/update/bemoss/999/2HUE0017881cab4b";
+
+        device_id = '2HUE' + _data['mac_address']
+        content_type = "application/json"
+        fromUI = "UI"
+        lighting_update_send_topic = '/ui/agent/lighting/update/bemoss/999/'+device_id
+        print lighting_update_send_topic
+        _data['actor'] = 'ui'
+        print _data
+        zmq_pub.sendToAgent(lighting_update_send_topic, _data, content_type, fromUI)
+
+    if request.is_ajax():
+        return HttpResponse(json.dumps(_data), mimetype='application/json')
+    else:
+        return HttpResponse(json.dumps(_data), mimetype='application/json')
 
 @login_required(login_url='/login/')
 def get_lighting_current_status(request):
