@@ -41,6 +41,8 @@
         <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
         <link href="/static/newassets/custom/side_nav_alldevices.css" rel="stylesheet" type="text/css">
 
+        <link rel="stylesheet" type="text/css" href="/static/dtpicker/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" type="text/css" href="/static/style/jquery.jqplot.min.css" />
 		<script>
 function setValue() {
   //User Information
@@ -876,12 +878,213 @@ a:hover {
 									</div>
 								</div>
 								<!-- END Device Data Box-->
+
+
+
+                                    
 								</div>
 								<!-- END PORTLET-->
 							</div>
 							<!-- END PORTLET Bordered-->
 						</div>
 						<!--END Device Controller and Data-->
+
+                        <!--BEGIN Real-Time Chart-->
+						<div class="col-lg-8 col-md-7  col-sm-12 col-xs-12">
+							<!-- BEGIN PORTLET Bordered-->
+							<div class="portlet light bordered">
+
+								<div class="portlet-body">
+
+								<!--BEGIN Device Data Box-->
+								<div class="portlet-body">
+									<div class="portlet light bordered">
+
+										<!--BEGIN Tab Header-->
+										<div class="portlet-title tabbable-line">
+											<div class="caption">
+												<span class="caption-subject font-grey-cascade bold " id="device_data_header">Lighting</span>
+												<span class="caption-subject font-grey-cascade bold ">Data</span>
+											</div>
+											<ul class="nav nav-tabs">
+												<li class="active">
+													<a href="#dataRealTime2" data-toggle="tab"> Real Time </a>
+												</li>
+												<li>
+													<a href="#dataInformation2" data-toggle="tab"> Information </a>
+												</li>
+												<li>
+													<a href="#dataDataLog2" data-toggle="tab"> Data Log </a>
+												</li>
+											</ul>
+										</div>
+										<!--END Tab Header-->
+
+										<!--BEGIN Device Data-->
+										<div class="portlet-body">
+											<div class="tab-content">
+												<!--BEGIN Real Time Data-->
+												<div class="tab-pane active" id="dataRealTime2">
+
+														<div class="row">
+                                                          <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="padding:0;">
+                                                              <div class="widget">
+                                                                <div class="widget-content">
+                                                                  <div id="chart100" style="width:100%; height:350px;background-color: #0c91e5"></div>
+                                                                </div>
+                                                              </div>
+                                                          </div>
+
+                                                          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="height: 300px;">
+                                                                <div class="widget">
+                                                                <div class="widget-header"> <div class="text-center">
+                                                                  <h4>Data points</h4></div>
+                                                                </div>
+                                                                <div class="widget-content">
+                                                                    <div class="control-group">
+                                                                        <div class="controls span2">
+                                                                            <label class="checkbox" style="align-items: center">
+                                                                                <input type="checkbox" id="status" value="Status"> Device Status
+                                                                            </label>
+                                                                            <label class="checkbox" style="align-content: center">
+                                                                                <input type="checkbox" id="brightness" value="Brightness"> Brightness
+                                                                            </label>
+
+                                                                                <div class="form-group text-center">
+                                                                                    <button class="btn btn-info" id="stack_chart" >Stack Them on the Chart</button>
+                                                                                </div>
+                                                                                <div class="widget" style="margin-top: -18px;">
+                                                                                  <div class="widget-content text-center">
+                                                                                      <button id="auto_update" class="btn btn-success" >Auto Update</button>
+                                                                                      <button id="stop_auto_update" class="btn btn-danger" disabled>Stop Auto Update</button>
+                                                                                  </div>
+                                                                              </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                              </div>
+                                                        </div>
+
+                                                        <div class ="row">
+                                                          <div class='col-sm-3'>
+                                                                <div class="form-group">
+                                                                    <div class='input-group date' id='from_'>
+                                                                        From: <input type='text' class="form-control" id="from_date" data-date-format="YYYY/MM/DD HH:mm"/>
+                                                                        <span class="input-group-addon"><i class="icon icon-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                          </div>
+                                                          <div class='col-sm-3'>
+                                                                <div class="form-group">
+                                                                    <div class='input-group date' id='to_'>
+                                                                        To: <input type='text' class="form-control" id="to_date" data-date-format="YYYY/MM/DD HH:mm"/>
+                                                                        <span class="input-group-addon"><i class="icon icon-calendar"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          <div class='col-sm-3'>
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-info" id="get_stat" style="width:100%;">Get Statistics</button>
+                                                                </div>
+                                                          </div>
+                                                          <div class='col-sm-3'>
+                                                                <div class="form-group">
+                                                                     <button id="export_data" class="btn btn-success" >Export Data to Spreadsheet</button>
+                                                                </div>
+                                                          </div>
+                                                        </div>
+												</div>
+												<!--END Real Time Data-->
+
+												<!--BEGIN Information Data-->
+												<div class="tab-pane " id="dataInformation2">
+
+												</div>
+												<!--END Information Data-->
+
+												<!--BEGIN Data Log-->
+												<div class="tab-pane" id="dataDataLog2">
+													<table id="log" class="table table-responsive table-container table-hover">
+														<!--BEGIN Data Log Table Header-->
+														<thead class="text-center">
+														<tr class="text-center">
+															<td><strong>Status ID</strong></td>
+															<td><strong>Date</strong></td>
+															<td><strong>Time</strong></td>
+															<td><strong>Duration</strong></td>
+															<td><strong>Status</strong></td>
+														</tr>
+														</thead>
+														<!--END Data Log Table Header-->
+														<tbody class="text-center">
+														<tr>
+															<td>1</td>
+															<td>Sep 5, 2016</td>
+															<td>2.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-info">On</div>
+															</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>Sep 4, 2016</td>
+															<td>3.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-default">Off</div>
+															</td>
+														</tr>
+														<tr>
+															<td>3</td>
+															<td>Sep 3, 2016</td>
+															<td>4.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-success">Online</div>
+															</td>
+														</tr>
+														<tr>
+															<td>4</td>
+															<td>Sep 2, 2016</td>
+															<td>5.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-danger">Offline</div>
+															</td>
+														</tr>
+														<tr>
+															<td>5</td>
+															<td>Sep 4, 2016</td>
+															<td>6.22 pm</td>
+															<td>2 h 14 min</td>
+															<td>
+																<div class="label label-sm label-warning">Edited</div>
+															</td>
+														</tr>
+														</tbody>
+													</table>
+												</div>
+												<!--END Data Log-->
+											</div>
+										</div>
+										<!--END Device Data-->
+									</div>
+								</div>
+								<!-- END Device Data Box-->
+
+								</div>
+								<!-- END PORTLET-->
+							</div>
+							<!-- END PORTLET Bordered-->
+						</div>
+						<!--END Real-Time Chart-->
+
+
 					</div>
 					<!--END Main Content-->
 				</div>
@@ -929,7 +1132,7 @@ a:hover {
         <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
-		<script src="/static/app_js/lighting.js" type="text/javascript"></script>
+{#		<script src="/static/app_js/lighting.js" type="text/javascript"></script>#}
 		<script src="/static/app_js/sidenav.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/static/app_js/current_update.js"></script>
 
@@ -945,6 +1148,58 @@ a:hover {
                 <!--});-->
               <!--}-->
         <!--</script>-->
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+{#        <script src="/static/js/jquery.js"></script>#}
+{#        <script src="/static/js/bootstrap.min.js"></script>#}
+{#        <script type="text/javascript" src="/static/js/left_nav_slider.js"></script>#}
+{#        <script class="include" type="text/javascript" src="/static/javascript/jquery191.min.js"></script>#}
+        <script class="include" type="text/javascript" src="/static/javascript/jquery.jqplot.min.js"></script>
+        <!--switcher html start-->
+        {% include 'theme_changer.html' %}
+        <!-- Additional plugins go here -->
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.barRenderer.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.highlighter.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.cursor.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.pointLabels.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.dateAxisRenderer.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.logAxisRenderer.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.canvasTextRenderer.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/javascript/jqplot.canvasAxisTickRenderer.min.js"></script>
+        <script class="include" language="javascript" type="text/javascript" src="/static/javascript/jqplot.categoryAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="/static/javascript/jqplot.canvasAxisLabelRenderer.min.js"></script>
+        <script type="text/javascript" src="/static/javascript/jqplot.dateAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="/static/javascript/jqplot.canvasOverlay.min.js"></script>
+        <!-- Bootstrap Datetime picker -->
+{#        <script class="include" type="text/javascript" src="/static/dtpicker/bootstrap.min.js"></script>#}
+        <script class="include" type="text/javascript" src="/static/dtpicker/moment.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/dtpicker/bootstrap-datetimepicker.min.js"></script>
+        <script class="include" type="text/javascript" src="/static/app_js/bootstrap-notify.js"></script>
+{#        <script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>#}
+{#        <script class="include" type="text/javascript" src="/static/app_js/charts/charts_lighting.js"></script>#}
+        <script type="text/javascript" src="/static/app_js/make_current.js"></script>
+        <script src="/static/app_js/lighting.js" type="text/javascript"></script>
+        <!-- End additional plugins -->
+        <script type="text/javascript">
+                    $(function () {
+                        $('#from_').datetimepicker({
+                            icons: {
+                                time: "fa fa-clock-o",
+                                date: "fa fa-calendar",
+                                up: "icon icon-chevron-up",
+                                down: "icon icon-chevron-down"
+                            }
+                        });
+                        $('#to_').datetimepicker({
+                            icons: {
+                                time: "fa fa-clock-o",
+                                date: "fa fa-calendar",
+                                up: "icon icon-chevron-up",
+                                down: "icon icon-chevron-down"
+                            }
+                        });
+                    });
+        </script>
 
 
     </body>

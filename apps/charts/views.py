@@ -509,6 +509,9 @@ def get_statistics_datetime_lighting(request):
         rs_status = parse_resultset(data_points, 'status', rs)
         rs_brightness = parse_resultset(data_points, 'brightness', rs)
 
+        print "rs_status: {}".format(rs_status)
+        print "rs_brightness: {}".format(rs_brightness)
+
         json_result = {
             'status': rs_status,
             'brightness': rs_brightness
@@ -542,7 +545,7 @@ def charts_lighting(request, mac):
             'charts/charts_lighting.html',
             {'status': rs_status, 'brightness': rs_brightness,
              'nickname': device_nickname, 'zone_nickname': zone_nickname,
-             'mac': mac}, context)
+             'mac_address': mac}, context)
 
 
 @login_required(login_url='/login/')
