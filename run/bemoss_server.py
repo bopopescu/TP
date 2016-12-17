@@ -106,8 +106,8 @@ def main():
             (r"/socket_dashboard", DashboardEventHandler),
             (r"/socket_weather", WeatherEventHandler),
             (r"/socket_airconditioner", AirconditionerEventHandler),
-            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': PROJECT_DIR +
-                                                                      "/static/"}),
+            (r"/socket_appui", AppUiEventHandler),
+            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': PROJECT_DIR + "/static/"}),
             ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
         ])
     server = tornado.httpserver.HTTPServer(tornado_app)
@@ -256,6 +256,9 @@ class WeatherEventHandler(MainHandler):
 class AirconditionerEventHandler(MainHandler):
     def zmq_subscribe(self):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/airconditioner')
+class AppUiEventHandler(MainHandler):
+    def zmq_subscribe(self):
+        self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/app/ui/')
 
 application = web.Application([
     (r"/", WebHandler),
@@ -273,6 +276,7 @@ application = web.Application([
     (r"/socket_dashboard", DashboardEventHandler),
     (r"/socket_weather", WeatherEventHandler),
     (r"/socket_airconditioner", AirconditionerEventHandler),
+    (r"/socket_appui", AppUiEventHandler),
 ])
 
 
