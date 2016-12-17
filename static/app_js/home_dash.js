@@ -520,6 +520,7 @@ $( document ).ready(function() {
     //      }
     //  };
 
+    // socket powermeter ---------------------------------
      var ws = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
 
      ws.onopen = function () {
@@ -555,7 +556,7 @@ $( document ).ready(function() {
          update_ENERGY_pic(img_grid, img_solar, img_ev);
      };
 
-
+    // socket weather ---------------------------------
      var ws_weahter = new WebSocket("ws://" + window.location.host + "/socket_weather");
 
      ws_weahter.onopen = function () {
@@ -590,6 +591,86 @@ $( document ).ready(function() {
 
      };
 
+     // socket_appui ---------------------------------
+     var ws_appui = new WebSocket("ws://" + window.location.host + "/socket_appui");
+
+     ws_appui.onopen = function () {
+         ws.send("WS Web-UI connected");
+     };
+
+     ws_appui.onmessage = function (event) {
+
+         var _data = event.data;
+         _data = $.parseJSON(_data);
+         console.log("WEB-UI DATA: " + _data);
+         var _topic = _data['topic'];
+         console.log('TOPIC: ' + _topic);
+         var _headers = _data['headers'];
+         console.log('Header AgentID: ' + _headers.AgentID);
+         var _message = $.parseJSON(_data['message']);
+         console.log('Message: ' + _message);
+         console.log('---------------------------------');
+
+         if (_headers.AgentID == 'GridAppAgent') {
+             console.log('current_electricity_price ' +  _message.current_electricity_price);
+             update_Cur_rate(_message.current_electricity_price);
+         } else if (_headers.AgentID == 'EnergyBillApp') {
+             update_CPT_kwh(_message.daily_energy_usage);
+             update_CPT_baht(_message.daily_electricity_bill);
+             update_CPT_comp(_message.last_day_bill_compare);
+             update_CPT_max(_message.last_day_energy_usage);
+             // update_LT1_baht(_message.daily_bill_light);
+             // update_LT1_comp(_message.daily_bill_light_compare_percent);
+             // update_LT2_baht(_message.daily_bill_AC);
+             // update_LT2_comp(_message.daily_bill_AC_compare_percent);
+             // update_LT3_baht(_message.daily_bill_plug);
+             // update_LT3_comp(_message.daily_bill_plug_compare_percent);
+             // update_LT4_baht(_message.daily_bill_EV);
+             // update_LT4_comp(_message.daily_bill_EV_compare_percent);
+             update_CPM_kwh(_message.monthly_energy_usage);
+             update_CPM_baht(_message.monthly_electricity_bill);
+             update_CPM_comp(_message.last_month_bill_compare);
+             update_CPM_max(_message.last_month_energy_usage);
+             // update_LM1_baht(_message.monthly_bill_light);
+             // update_LM1_comp(_message.monthly_bill_light_compare_percent);
+             // update_LM2_baht(_message.monthly_bill_AC);
+             // update_LM2_comp(_message.monthly_bill_AC_compare_percent);
+             // update_LM3_baht(_message.monthly_bill_plug);
+             // update_LM3_comp(_message.monthly_bill_plug_compare_percent);
+             // update_LM4_baht(_message.monthly_bill_EV);
+             // update_LM4_comp(_message.monthly_bill_EV_compare_percent);
+             update_AEC_use(_message.netzero_energy_consumption);
+             update_AEC_gen(_message.netzero_onsite_generation);
+         } else if (_headers.AgentID == 'LightingApp') {
+             update_LT1_baht(_message.daily_bill_lighting);
+             update_LT1_comp(_message.daily_bill_lighting_percent_compare);
+             update_LM1_baht(_message.monthly_bill_lighting);
+             update_LM1_comp(_message.monthly_bill_lighting_percent_compare);
+         } else if (_headers.AgentID == 'ACAPP') {
+             update_LT2_baht(_message.daily_bill_AC);
+             update_LT2_comp(_message.daily_bill_AC_percent_compare);
+             update_LM2_baht(_message.monthly_bill_AC);
+             update_LM2_comp(_message.monthly_bill_AC_percent_compare);
+         } else if (_headers.AgentID == 'PlugloadApp') {
+             update_LT3_baht(_message.daily_bill_plugload);
+             update_LT3_comp(_message.daily_bill_plugload_percent_compare);
+             update_LM3_baht(_message.monthly_bill_plugload);
+             update_LM3_comp(_message.monthly_bill_plugload_percent_compare);
+         } else if (_headers.AgentID == 'EVAPP') {
+             update_LT4_baht(_message.daily_bill_ev);
+             update_LT4_comp(_message.daily_bill_ev_percent_compare);
+             update_LM4_baht(_message.monthly_bill_ev);
+             update_LM4_comp(_message.monthly_bill_ev_percent_compare);
+             update_EV_percent(_message.percentage_charge);
+             update_EV_status(_message.EV_mode);
+             img_ev = _message.percentage_charge;
+             console.log("EV_percentage = "+ img_ev);
+         }
+
+     };
+     //----------------------------------------------------------------------
+
+     // socket dashboard ---------------------------------
      var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
 
      ws_dashboard.onopen = function () {
@@ -638,14 +719,7 @@ $( document ).ready(function() {
             update_AEC_use(_message.netzero_energy_consumption);
             update_AEC_gen(_message.netzero_onsite_generation);
 
-         } else if (_headers.data_source == 'EVApp') {
-             update_EV_percent(_message.percentage_charge);
-             update_EV_status(_message.EV_mode);
-             img_ev = _message.percentage_charge;
-             console.log("EV_percentage = "+ img_ev);
-
-
-         }  else if (_headers.data_source == 'modeApp') {
+         } else if (_headers.data_source == 'modeApp') {
             update_MODE(_message.home_mode);
             // update_MODE_baht(_message.ECO_saving_cost);
             img_mode = _message.home_mode;
@@ -689,31 +763,9 @@ $( document ).ready(function() {
          //     }
          // }
      };
+     //----------------------------------------------------------------------
 
-    // var ws_weahter = new WebSocket("ws://" + window.location.host + "/socket_weather");
-    //
-    //  ws_weahter .onopen = function () {
-    //      ws.send("WS Weather connected");
-    //  };
-    //
-    //  ws_weahter .onmessage = function (event) {
-    //      var _data = event.data.trim();
-    //      _data = $.parseJSON(_data);
-    //      var topic = _data['topic'];
-    //      var msg = $.parseJSON(_data['message']);
-    //
-    //      console.log(msg);
-    //      console.log(msg['temp_c']);
-    //      $('#WEATHER_pic').attr("src" , msg['icon']);
-    //
-    //      $('#WEA_temp').text(String(msg.temp_c));
-    //      $('#WEA_humid').text(String(msg.humidity));
-    //      $('#WEA_title').text(String(msg['weather']))
-    //      // //$('#WEA_title').text("123456");
-    //
-    //  }
-
-// <!-- BEGIN Current Energy Consumption Pictures-->
+    // <!-- BEGIN Current Energy Consumption Pictures-->
     function update_ENERGY_pic(G, S, E){
     console.log("G = " + G , "S = " + S , "E = " + E );
 
@@ -753,41 +805,6 @@ $( document ).ready(function() {
     $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
 
     }
-// <!--END Current Energy Consumption Pictures-->
-// // <!-- BEGIN Mode Pictures-->
-//     function update_MODE_pic(M){
-//     console.log("M = " + M);
-//         if (M == 'COMFORT'){
-//            img_mode = 'comfort_mode';}
-//         else if(M == 'ECO'){
-//             img_mode = 'eco_mode';
-//         }else if(M == 'DR'){
-//             img_mode = 'dr_mode';
-//         }
-//     // console.log("Mode = " + M );
-//     $('#MODE_pic').attr('src', '../static/images/Mode/'+img_mode+'.png');
-//     console.log("image mode  : " + img_mode);
-// }
-//
-// function update_MODE_unit(unit){
-//     document.getElementById("MODE_unit").innerHTML = unit;
-// }
-// <!--END Mode Pictures-->
-
-// // Begin Weather picture
-//    function update_WEATHER_pic(W){
-//     console.log("W = " + W);
-//         if (W == 'SUNNY'){
-//            img_weather = 'sun';}
-//         else if(M == 'RAINNY'){
-//             img_weather = 'rain-1';
-//         }else if(M == 'CLOUNDY'){
-//             img_weather = 'cloudy';
-//         }
-//     // console.log("Mode = " + M );
-//     console.log("image weather  : " + img_weather);
-//
-// // End Weather picture
 
     function update_discovery_status(message){
         if (role == 'admin' || zone == uzone){
