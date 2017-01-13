@@ -124,18 +124,18 @@ var sum_month_b = {};
 var sum_year_b = {};
 week_p['name'] = "Grid";
 week_p['name'] = "Solar";
-// week_p['Grid'] = [106.5,102.5,55.6,100,0,0,0];
-// week_p['Solar'] = [13.6,12.6,6.3,0,0,0,0];
 
 week_p['Grid'] = JSON.parse("["+gridimportenergy+"]")[0];
 week_p['Solar'] = JSON.parse("["+solarenergy+"]")[0];
+week_b['Grid'] = JSON.parse("["+gridimportbill+"]")[0];
+week_b['Solar'] = JSON.parse("["+solarbill+"]")[0];
 
 console.log(week_p['Grid']);
 console.log(week_p['Solar']);
 console.log('sum grid solar '+ (week_p['Grid']+week_p['Solar']));
 
-week_b['Grid'] = [319.5,307.5,166.8,0,0,0,0];
-week_b['Solar'] = [40.8,37.8,18.9,0,0,0,0];
+// week_b['Grid'] = [319.5,307.5,166.8,0,0,0,0];
+// week_b['Solar'] = [40.8,37.8,18.9,0,0,0,0];
 month_p['Grid'] = [681.3,710.7,669.5,662.6];
 month_p['Solar'] = [226.7,222.2,233.5,170.1];
 month_b['Grid'] = [2043.9,2132.1,2008.5,1987.8];
