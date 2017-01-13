@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.http import HttpResponse
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.shortcuts import render_to_response
 from _utils import page_load_utils as _helper
 from agents.ZMQHelper.zmq_pub import ZMQ_PUB
@@ -41,44 +41,33 @@ def source_statistics(request):
         request.session['last_visit'] = str(datetime.now())
         request.session['visits'] = 1
 
-    gridimportenergy = Daily_Consumption.objects.values_list('gridimportenergy')
-    print('gridimportenergy: {}'.format(gridimportenergy))
-    gridimportenergy2 = [float(n[0]) for n in gridimportenergy]
-    print('gridimportenergy2: {}'.format(gridimportenergy2))
+    today = datetime.now()
+    weekday_today = today.weekday()
+    remaining_day = 6 - weekday_today
+    start_date = today - timedelta(days=weekday_today)
 
-    # con = psycopg2.connect(host='localhost', port='5432', database='bemossdb', user='admin',
-    #                             password='admin')
-    # cur = con.cursor()  # open a cursor to perfomm database operations
-    # print("{} connects to the database name {} successfully")
-    #
-    # cur.execute("SELECT gridimportenergy, solarenergy, gridimportbill, solarbill FROM  daily_consumption")
-    # if cur.rowcount != 0:
-    #     print("getting data from daily_consumption table")
-    #     print cur.rowcount
-    #     #print(cur.fetchall())
-    #     all_data = cur.fetchall()
-    #     print("all_data: {}".format(all_data))
-    #     # TODO check date before constructing array
-    #     gridimportenergy = [all_data[i][0] for i in range(0, len(all_data))]
-    #     solarenergy = [all_data[i][1] for i in range(0, len(all_data))]
-    #     gridimportbill = [all_data[i][2] for i in range(0, len(all_data))]
-    #     solarbill = [all_data[i][3] for i in range(0, len(all_data))]
-    #
-    #     print(gridimportenergy, solarenergy, gridimportbill, solarbill)
-    #
-    #     # gridimportenergy.extend([0,0,0])
-    #     # solarenergy.extend([0,0,0])
-    #     # gridimportbill.extend([0,0,0])
-    #     # solarbill.extend([0,0,0])
+    energy_and_bill = Daily_Consumption.objects.values_list('gridimportenergy', 'solarenergy', 'gridimportbill', 'solarbill').filter(date__range=(start_date, today))
+    gridimportenergy = []
+    solarenergy = []
+    gridimportbill = []
+    solarbill = []
+    for i in range(len(energy_and_bill)):
+        gridimportenergy.append(float(energy_and_bill[i][0]))
+        solarenergy.append(float(energy_and_bill[i][1]))
+        gridimportbill.append(float(energy_and_bill[i][2]))
+        solarbill.append(float(energy_and_bill[i][3]))
+    gridimportenergy.extend([0]*remaining_day)
+    solarenergy.extend([0] * remaining_day)
+    gridimportbill.extend([0]*remaining_day)
+    solarbill.extend([0] * remaining_day)
 
     return render_to_response(
         'statistics/statistics_all.html',
         # {'type': controller_type, 'device_data': _data, 'device_id': device_id, 'device_zone': device_zone,
         #  'device_type': controller_type, 'mac_address': mac, 'zone_nickname': zone_nickname,
         #  'device_nickname': device_nickname}, context)
-        # {'type': "source", 'gridimportenergy': gridimportenergy, 'solarenergy': solarenergy,
-        #  'gridimportbill': gridimportbill, 'solarbill': solarbill}, context)
-        {'type': "source"}, context)
+        {'type': "source", 'gridimportenergy': gridimportenergy, 'solarenergy': solarenergy,
+         'gridimportbill': gridimportbill, 'solarbill': solarbill}, context)
 
 def load_statistics(request):
     print 'inside load_statistics view method'
