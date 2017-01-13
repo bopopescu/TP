@@ -223,7 +223,8 @@ INSTALLED_APPS = (
     'apps.discovery',
     'apps.airconditioner',
     'apps.tv',
-    'apps.fan'
+    'apps.fan',
+    'apps.statistics'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
