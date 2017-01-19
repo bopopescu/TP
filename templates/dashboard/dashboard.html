@@ -37,6 +37,7 @@
         <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
         <script type="text/javascript" src="/js/themes/gray.js"></script>
         <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>
 function setValue() {
   //User Information
@@ -104,17 +105,17 @@ function setValue() {
   //Grid
   //@GRID_kw can be negative for down symbol
   update_GRID_status("Feeding now");
-  update_GRID_kw("20.23");
+  update_GRID_kw("0");
 
   //Solar Generation
   //@SOLAR_kw can be negative for down symbol
   update_SOLAR_status("Feeding now");
-  update_SOLAR_kw("7.01");
+  update_SOLAR_kw("0");
 
   //Load consumption
   //@LOAD_kw always positive
   update_LOAD_status("Consuming");
-  update_LOAD_kw("2.02");
+  update_LOAD_kw("0");
 
   //Mode
   //@MODE_baht can be negative for down symbol
@@ -125,7 +126,7 @@ function setValue() {
   //EV Car
   //@EV_percent can be negative for down symbol
   update_EV_status("Charging");
-  update_EV_percent("62");
+  update_EV_percent("0");
 }
         </script>
       </head>
@@ -176,109 +177,176 @@ function setValue() {
                                                         src="../static/images/Current_Energy/GSE.png" style="padding: 20px 10px 30px;">
                                               </div>
                                               <!-- END Current Energy Consumption Status -->
+
                                               <!-- BEGIN Grid Feeding -->
                                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
-                                                <div class="info-box">
-                                                  <span class="info-box-icon bg-blue">
-                                                      <img class " style="font-size:5px" src="../static/images/icon-png/transmission-tower_w.png" class="img-responsive">
-                                                  </span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Grid</span>
-                                                    <span class="info-box-text2" id="GRID_status"></span>
-                                                    <span class="info-box-number">
-                                                        <span id="GRID_kw"></span> <small>W</small>
-                                                    </span>
+                                                  <div class="info-box">
+                                                      <span class="info-box-icon bg-blue">
+                                                            <img class style="font-size:5px" src="../static/images/icon-png/transmission-tower_w.png" class="img-responsive">
+                                                      </span>
+                                                      <div class="info-box-content">
+                                                        <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-grid">
+                                                        <span class="glyphicon glyphicon-signal"></span></a> Grid </span>
+                                                        <!-- TODO correct GRID_status to be able to show actual status-->
+                                                        <span class="info-box-text2" id="GRID_status"></span>
+                                                        <span class="info-box-number">
+                                                            <span id="GRID_kw">Loading...</span> <small>W</small>
+                                                        </span>
+                                                        <div class="modal fade charts-grid" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2">
+                                                          <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                               <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Real-Time Status</h4>
+                                                              </div>
+                                                                <div class="js-loading text-center">
+                                                                    <h3>Loading...</h3>
+                                                                </div>
+                                                                <div id="area-grid"></div>
+                                                                <div class="modal-footer"></div>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
                                                   </div>
-                                                </div>
                                               </div>
                                               <!-- END Grid Feeding -->
+
                                               <!-- BEGIN Solar Generation -->
                                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
-                                                <div class="info-box">
-                                                  <span class="info-box-icon bg-red">
-                                                      <img class style="font-size:5px" src="../static/images/icon-png/sun_w.png" class="img-responsive">
-                                                  </span>
-
-                                                  <div class="info-box-content">
-                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Solar Generation</span>
-                                                    <span class="info-box-text2" id="SOLAR_status"></span>
-                                                    <span class="info-box-number">
-                                                        <span id="SOLAR_kw"></span> <small>W</small>
-                                                    </span>
+                                                  <div class="info-box">
+                                                      <span class="info-box-icon bg-red">
+                                                          <img class style="font-size:5px" src="../static/images/icon-png/sun_w.png" class="img-responsive">
+                                                      </span>
+                                                      <div class="info-box-content">
+                                                        <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-solar"><span class="glyphicon glyphicon-signal"></span></a> Solar </span>
+                                                        <span class="info-box-text2" id="SOLAR_status"></span>
+                                                        <span class="info-box-number">
+                                                            <span id="SOLAR_kw">Loading...</span> <small>W</small>
+                                                        </span>
+                                                        <div class="modal fade charts-solar" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                          <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                               <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Real-Time Status</h4>
+                                                              </div>
+                                                                <div class="js-loading text-center">
+                                                                    <h3>Loading...</h3>
+                                                                </div>
+                                                                <div id="area-solar"></div>
+                                                                <div class="modal-footer"></div>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
                                                   </div>
-                                                </div>
                                               </div>
                                               <!-- END Solar Generation -->
-                                               <!-- BEGIN Wind Generation -->
-                                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
-                                                <div class="info-box">
-                                                  <span class="info-box-icon bg-grey-silver">
 
-                                                    <img class style="font-size:5px" src="../static/images/icon-png/wind_w.png" class="img-responsive">
-                                                      </span>
-
-                                                  <div class="info-box-content">
-                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Wind Generation</span>
-                                                    <span class="info-box-text2" id="WIND_status">Disconnected</span>
-                                                    <span class="info-box-number">
-                                                        <span id="WIND_kw">0</span> <small>W</small>
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                              <!-- BEGIN Wind Generation -->
+{#                                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">#}
+{#                                                <div class="info-box">#}
+{#                                                  <span class="info-box-icon bg-grey-silver">#}
+{##}
+{#                                                    <img class style="font-size:5px" src="../static/images/icon-png/wind_w.png" class="img-responsive">#}
+{#                                                      </span>#}
+{##}
+{#                                                  <div class="info-box-content">#}
+{#                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Wind Generation</span>#}
+{#                                                    <span class="info-box-text2" id="WIND_status">Disconnected</span>#}
+{#                                                    <span class="info-box-number">#}
+{#                                                        <span id="WIND_kw">0</span> <small>W</small>#}
+{#                                                    </span>#}
+{#                                                  </div>#}
+{#                                                </div>#}
+{#                                              </div>#}
                                               <!-- END Wind Generation -->
-                                              <!-- BEGIN Battery Status -->
-                                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
-                                                <div class="info-box">
-                                                  <span class="info-box-icon bg-green-jungle">
 
-                                                    <img class style="font-size:5px" src="../static/images/icon-png/battery_w.png" class="img-responsive">
-                                                      </span>
-
-                                                  <div class="info-box-content">
-                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Battery</span>
-                                                    <span class="info-box-text2" id="BATTERY_status">Standby</span>
-                                                    <span class="info-box-number">
-                                                        <span id="BATTERY_percent">100</span> <small>%</small>
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <!-- END Battery Status -->
                                               <!-- BEGIN Load Consumption -->
                                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
                                                 <div class="info-box">
                                                   <span class="info-box-icon bg-yellow-gold">
-                                                  <img class style="font-size:5px" src="../static/images/icon-png/plug-load_w.png" class="img-responsive">
-                                                      </span>
-
+                                                    <img class style="font-size:5px" src="../static/images/icon-png/plug-load_w.png" class="img-responsive">
+                                                  </span>
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> Load</span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-load"><span class="glyphicon glyphicon-signal"></span></a> Load </span>
                                                     <span class="info-box-text2" id="LOAD_status"></span>
                                                     <span class="info-box-number">
-                                                         <span id="LOAD_kw"></span> <small>W</small>
+                                                         <span id="LOAD_kw">Loading...</span> <small>W</small>
                                                     </span>
+                                                    <div class="modal fade charts-load" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                          <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                               <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Real-Time Status</h4>
+                                                              </div>
+                                                                <div class="js-loading text-center">
+                                                                    <h3>Loading...</h3>
+                                                                </div>
+                                                                <div id="area-load"></div>
+                                                                <div class="modal-footer"></div>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                          </div>
+                                                        </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                              <!-- END Load Consumption -->
-                                              <!-- BEGIN EV Status -->
+
+                                              <!-- BEGIN Battery Status -->
                                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">
                                                 <div class="info-box">
-                                                  <span class="info-box-icon bg-purple">
-
-                                                    <img class style="font-size:5px" src="../static/images/icon-png/ev-w.png" class="img-responsive">
-                                                      </span>
-
+                                                  <span class="info-box-icon bg-green-jungle">
+                                                    <img class style="font-size:5px" src="../static/images/icon-png/battery_w.png" class="img-responsive">
+                                                  </span>
                                                   <div class="info-box-content">
-                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> EV Car</span>
-                                                    <span class="info-box-text2" id="EV_status"></span>
+                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-battery"><span class="glyphicon glyphicon-signal"></span></a> Battery</span>
+                                                    <span class="info-box-text2" id="BATTERY_status">Standby</span>
                                                     <span class="info-box-number">
-                                                        <span id="EV_percent"></span> <small>%</small>
+                                                        <span id="BATTERY_percent">Loading...</span> <small>%</small>
                                                     </span>
+                                                    <div class="modal fade charts-battery" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                          <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                               <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Real-Time Status</h4>
+                                                              </div>
+                                                                <div class="js-loading text-center">
+                                                                    <h3>Loading...</h3>
+                                                                </div>
+                                                                <div id="area-battery"></div>
+                                                                <div class="modal-footer"></div>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                          </div>
+                                                        </div>
                                                   </div>
                                                 </div>
                                               </div>
+                                              <!-- END Battery Status -->
+
+                                              <!-- BEGIN EV Status -->
+{#                                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 20px; padding-right: 20px;">#}
+{#                                                <div class="info-box">#}
+{#                                                  <span class="info-box-icon bg-purple">#}
+{##}
+{#                                                    <img class style="font-size:5px" src="../static/images/icon-png/ev-w.png" class="img-responsive">#}
+{#                                                      </span>#}
+{##}
+{#                                                  <div class="info-box-content">#}
+{#                                                    <span class="info-box-text1"><a href="#" data-toggle="modal" data-target=".charts-modal"><span class="glyphicon glyphicon-signal"></span></a> EV Car</span>#}
+{#                                                    <span class="info-box-text2" id="EV_status"></span>#}
+{#                                                    <span class="info-box-number">#}
+{#                                                        <span id="EV_percent"></span> <small>%</small>#}
+{#                                                    </span>#}
+{#                                                  </div>#}
+{#                                                </div>#}
+{#                                              </div>#}
                                               <!-- END EV Status -->
 
                                           </div>
@@ -871,83 +939,7 @@ function setValue() {
                                                         </div>
                                                         <div class="modal-body">
                                                         <p> Load status: Consuming </p>
-                                                         <p> Please wait while we are executing "ECO" mode by changing status and set points of your appliances </p>
-    {#                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.js"></script>#}
-    {#                                                    <canvas id="eco_chart"></canvas>#}
-    {#                                                        <script>#}
-    {#                                                        var ctx = document.getElementById("eco_chart");#}
-    {#                                                        var data = {#}
-    {#                                                                labels: ["15:05", "15:0", "15:07", "15:08", "15:09", "15:10", "15:11"],#}
-    {#                                                                datasets: [#}
-    {#                                                                {#}
-    {#                                                                    label: "Power Consumption (kW)",#}
-    {#                                                                    fill: false,#}
-    {#                                                                    lineTension: 0.1,#}
-    {#                                                                    backgroundColor: "rgba(75,192,192,0.4)",#}
-    {#                                                                    borderColor: "rgba(75,192,192,1)",#}
-    {#                                                                    borderCapStyle: 'butt',#}
-    {#                                                                    borderDash: [],#}
-    {#                                                                    borderDashOffset: 0.0,#}
-    {#                                                                    borderJoinStyle: 'miter',#}
-    {#                                                                    pointBorderColor: "rgba(75,192,192,1)",#}
-    {#                                                                    pointBackgroundColor: "#fff",#}
-    {#                                                                    pointBorderWidth: 1,#}
-    {#                                                                    pointHoverRadius: 5,#}
-    {#                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",#}
-    {#                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",#}
-    {#                                                                    pointHoverBorderWidth: 2,#}
-    {#                                                                    pointRadius: 1,#}
-    {#                                                                    pointHitRadius: 10,#}
-    {#                                                                    data: [32, 59, 85, 51, 67, 95, 40],#}
-    {#                                                                    spanGaps: false,#}
-    {#                                                                }#}
-    {#                                                            ]#}
-    {#                                                         };#}
-    {##}
-    {#                                                         var data2 = {#}
-    {#                                                                labels: ["January", "February", "March", "April", "May", "June", "July"],#}
-    {#                                                                datasets: [#}
-    {#                                                                {#}
-    {#                                                                    label: "Power Consumption (kW)",#}
-    {#                                                                    fill: false,#}
-    {#                                                                    lineTension: 0.1,#}
-    {#                                                                    backgroundColor: "rgba(75,192,192,0.4)",#}
-    {#                                                                    borderColor: "rgba(255,192,192,1)",#}
-    {#                                                                    borderCapStyle: 'butt',#}
-    {#                                                                    borderDash: [],#}
-    {#                                                                    borderDashOffset: 0.0,#}
-    {#                                                                    borderJoinStyle: 'miter',#}
-    {#                                                                    pointBorderColor: "rgba(255,192,192,1)",#}
-    {#                                                                    pointBackgroundColor: "#fff",#}
-    {#                                                                    pointBorderWidth: 1,#}
-    {#                                                                    pointHoverRadius: 5,#}
-    {#                                                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",#}
-    {#                                                                    pointHoverBorderColor: "rgba(220,220,220,1)",#}
-    {#                                                                    pointHoverBorderWidth: 2,#}
-    {#                                                                    pointRadius: 1,#}
-    {#                                                                    pointHitRadius: 10,#}
-    {#                                                                    data: [32, 37, 80, 73, 64, 35, 90],#}
-    {#                                                                    spanGaps: false,#}
-    {#                                                                }#}
-    {#                                                            ]#}
-    {#                                                         };#}
-    {##}
-    {#                                                         var options =  {#}
-    {#                                                                scales: {#}
-    {#                                                                    yAxes: [{#}
-    {#                                                                        ticks: {#}
-    {#                                                                            beginAtZero:false#}
-    {#                                                                        }#}
-    {#                                                                    }]#}
-    {#                                                                }#}
-    {#                                                            };#}
-    {##}
-    {#                                                        var myChart = new Chart(ctx, {#}
-    {#                                                            type: 'line',#}
-    {#                                                            data: data,#}
-    {#                                                            options: options#}
-    {#                                                        });#}
-    {#                                                  </script>#}
+                                                        <p> Please wait while we are executing "ECO" mode by changing status and set points of your appliances </p>
                                                         </div>
                                                         <div class="modal-footer">
                                                         <a href="/all_devices/999" class="btn btn-circle blue" role="button">Graph</a>
@@ -963,7 +955,6 @@ function setValue() {
                                         </div>
                                     </div>
                                     <!-- END WIDGET THUMB -->
-
 
                                     </div>
                                 </div>
@@ -1019,96 +1010,6 @@ function setValue() {
                                           </div>
                                         </div>
 
-                                        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-
-
-                                        <script>
-                                            $(window).load(function(){
-                                            $('.charts-modal').on('show.bs.modal', function (event) {
-                                                setTimeout(function(){
-                                                    Highcharts.chart('area-example', {
-                                                        chart: {
-                                                            type: 'spline',
-                                                            animation: Highcharts.svg, // don't animate in old IE
-                                                            marginRight: 10,
-                                                            events: {
-                                                                load: function () {
-
-                                                                    // set up the updating of the chart each second
-                                                                    var series = this.series[0];
-                                                                    setInterval(function () {
-                                                                        var x = (new Date()).getTime(), // current time
-                                                                            y = Math.random();
-                                                                        series.addPoint([x, y], true, true);
-                                                                    }, 1000);
-                                                                }
-                                                            }
-                                                        },
-                                                        title: {
-                                                            text: 'Live random data'
-                                                        },
-                                                        xAxis: {
-                                                            type: 'datetime',
-                                                            tickPixelInterval: 150
-                                                        },
-                                                        yAxis: {
-                                                            title: {
-                                                                text: 'Value'
-                                                            },
-                                                            plotLines: [{
-                                                                value: 0,
-                                                                width: 1,
-                                                                color: '#808080'
-                                                            }]
-                                                        },
-                                                        tooltip: {
-                                                            formatter: function () {
-                                                                return '<b>' + this.series.name + '</b><br/>' +
-                                                                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                                                                    Highcharts.numberFormat(this.y, 2);
-                                                            }
-                                                        },
-                                                        legend: {
-                                                            enabled: false
-                                                        },
-                                                        exporting: {
-                                                            enabled: false
-                                                        },
-                                                        series: [{
-                                                            name: 'Random data',
-                                                            data: (function () {
-                                                                // generate an array of random data
-                                                                var data = [],
-                                                                    time = (new Date()).getTime(),
-                                                                    i;
-
-                                                                for (i = -19; i <= 0; i += 1) {
-                                                                    data.push({
-                                                                        x: time + i * 1000,
-                                                                        y: Math.random()
-                                                                    });
-                                                                }
-                                                                return data;
-                                                            }())
-                                                        }]
-                                                    });
-                                                    // When you open modal several times Morris charts over loading. So this is for destory to over loades Morris charts.
-                                                    // If you have better way please share it.
-                                                    if($('#area-example').find('svg').length > 1){
-                                                        // Morris Charts creates svg by append, you need to remove first SVG
-                                                        $('#area-example svg:first').remove();
-                                                        // Also Morris Charts created for hover div by prepend, you need to remove last DIV
-                                                        $(".morris-hover:last").remove();
-                                                    }
-                                                    // Smooth Loading
-                                                    $('.js-loading').addClass('hidden');
-                                                },1000);
-                                            });
-                                        });
-
-                                        </script>
-
-
                                         <div class="widget-thumb-wrap">
                                             <i class="widget-thumb-icon bg-white">
                                                <img class="img-responsive" id="occupant_img" src="../static/images/user.png">
@@ -1128,10 +1029,9 @@ function setValue() {
                                     </div>
                                 </div>
                                 <!-- END Occupant -->
-                                    </div>
+                                </div>
                             </div>
                             <!--END 1st Row-->
-
 
                             <!-- BEGIN Real-time Price & Energy -->
                             <div class="row">
@@ -1444,8 +1344,6 @@ function setValue() {
                                 </div>
                             </div>
                             <!-- END Real-time Price & Energy -->
-
-
 
                             <!-- BEGIN Total Annual Energy Consumption -->
                             <div class="row">

@@ -89,7 +89,7 @@ ALLOWED_HOSTS = ['bemoss.com','localhost','38.68.232.107','127.0.0.1']
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'Asia/Bangkok'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html

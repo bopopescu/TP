@@ -66,340 +66,353 @@ var MODE_status = 'estimated cost'; //'estimated cost'
 var MODE_unit ='฿/hr'; //'฿/hr'
 var MODE_pic = "COMFORT"; //"COMFORT"
 
-          window.CPT_kwh = 0;
-          window.CPT_max = 0;
-          window.CPM_kwh = 0;
-          window.CPM_max = 0;
-          window.AEC_use = 0;
-          window.AEC_gen = 0;
+var grid_activePower = 0;
+var solar_activePower = 0;
+var load_activePower = 0;
 
-          function startTime() {
-            var now = new Date();
-            var monthNames = [
-              "January", "February", "March",
-              "April", "May", "June", "July",
-              "August", "September", "October",
-              "November", "December"
-            ];
+window.CPT_kwh = 0;
+window.CPT_max = 0;
+window.CPM_kwh = 0;
+window.CPM_max = 0;
+window.AEC_use = 0;
+window.AEC_gen = 0;
 
-            var date = new Date();
-            var day = now.getDate();
-            var monthIndex = now.getMonth();
-            var year = now.getFullYear();
+function startTime() {
+var now = new Date();
+var monthNames = [
+  "January", "February", "March",
+  "April", "May", "June", "July",
+  "August", "September", "October",
+  "November", "December"
+];
 
-            var h = now.getHours();
-            var m = now.getMinutes();
-            var s = now.getSeconds();
-            var ampm = h >= 12 ? 'PM' : 'AM';
-            h = h % 12;
-            h = h ? h : 12;
-            h = checkTime(h);
-            m = checkTime(m);
-            s = checkTime(s);
-            $('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
-            var t = setTimeout(startTime, 500);
-          }
-          function checkTime(i) {
-            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-            return i;
-          }
+var date = new Date();
+var day = now.getDate();
+var monthIndex = now.getMonth();
+var year = now.getFullYear();
 
-          function update_Username(Username) {
-            $("#Username").text(String(Username));
-          }
+var h = now.getHours();
+var m = now.getMinutes();
+var s = now.getSeconds();
+var ampm = h >= 12 ? 'PM' : 'AM';
+h = h % 12;
+h = h ? h : 12;
+h = checkTime(h);
+m = checkTime(m);
+s = checkTime(s);
+$('.current_time').html(monthNames[monthIndex] + " " + day + ", " + year + " " + h + ":" + m + ":" + s + " " + ampm);
+var t = setTimeout(startTime, 500);
+}
 
-          function update_Cur_rate(Cur_rate) {
-            $("#Cur_rate").text(String(Cur_rate));
-            $("#Cur_rate2").text(String(Cur_rate));
-          }
+function checkTime(i) {
+if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+return i;
+}
 
-          function update_CPT_kwh(CPT_kwh) {
-            window.CPT_kwh = Number(CPT_kwh);
-            renderCP1();
-          }
+function update_Username(Username) {
+$("#Username").text(String(Username));
+}
 
-          function update_CPT_max(CPT_max) {
-            window.CPT_max = Number(CPT_max);
-            renderCP1();
-          }
+function update_Cur_rate(Cur_rate) {
+$("#Cur_rate").text(String(Cur_rate));
+$("#Cur_rate2").text(String(Cur_rate));
+}
 
-          function update_CPT_baht(CPT_baht) {
-            $("#CPT_baht").text(String(CPT_baht));
-          }
+function update_CPT_kwh(CPT_kwh) {
+window.CPT_kwh = Number(CPT_kwh);
+renderCP1();
+}
 
-          function update_CPT_comp(CPT_comp) {
-            window.CPT_comp = CPT_comp;
-            $("#CPT_comp").text(String(Math.abs(CPT_comp)));
-            if(CPT_comp > 0 ) {
-              $("#CPT_comp_direction").removeClass("up down").addClass("up");
-              $("#CPT_comp_color").css("color", "#e7505a");
-            } else if(CPT_comp < 0) {
-              $("#CPT_comp_direction").removeClass("up down").addClass("down");
-              $("#CPT_comp_color").css("color", "#26C281");
-            }
-            renderCP1();
-          }
+function update_CPT_max(CPT_max) {
+window.CPT_max = Number(CPT_max);
+renderCP1();
+}
 
-          function update_CPM_kwh(CPM_kwh) {
-            window.CPM_kwh = Number(CPM_kwh);
-            renderCP2();
-          }
+function update_CPT_baht(CPT_baht) {
+$("#CPT_baht").text(String(CPT_baht));
+}
 
-          function update_CPM_max(CPM_max) {
-            window.CPM_max = Number(CPM_max);
-            renderCP2();
-          }
+function update_CPT_comp(CPT_comp) {
+window.CPT_comp = CPT_comp;
+$("#CPT_comp").text(String(Math.abs(CPT_comp)));
+if(CPT_comp > 0 ) {
+  $("#CPT_comp_direction").removeClass("up down").addClass("up");
+  $("#CPT_comp_color").css("color", "#e7505a");
+} else if(CPT_comp < 0) {
+  $("#CPT_comp_direction").removeClass("up down").addClass("down");
+  $("#CPT_comp_color").css("color", "#26C281");
+}
+renderCP1();
+}
 
-          function update_CPM_baht(CPM_baht) {
-            $("#CPM_baht").text(String(CPM_baht));
-          }
+function update_CPM_kwh(CPM_kwh) {
+window.CPM_kwh = Number(CPM_kwh);
+renderCP2();
+}
 
-          function update_CPM_comp(CPM_comp) {
-            window.CPM_comp = CPM_comp;
-            $("#CPM_comp").text(String(Math.abs(CPM_comp)));
-            if(CPM_comp > 0 ) {
-              $("#CPM_comp_direction").removeClass("up down").addClass("up");
-              $("#CPM_comp_color").css("color", "#e7505a");
-            } else if(CPM_comp < 0) {
-              $("#CPM_comp_direction").removeClass("up down").addClass("down");
-              $("#CPM_comp_color").css("color", "#26C281");
-            }
-            renderCP2();
-          }
+function update_CPM_max(CPM_max) {
+window.CPM_max = Number(CPM_max);
+renderCP2();
+}
 
-          function update_LT1_comp(LT1_comp) {
-            if(LT1_comp > 0)
-              $("#LT1_comp_direction").removeClass("up down").addClass("up");
-            else if(LT1_comp < 0)
-              $("#LT1_comp_direction").removeClass("up down").addClass("down");
-            $("#LT1_comp").text(String(Math.abs(LT1_comp)));
-          }
+function update_CPM_baht(CPM_baht) {
+$("#CPM_baht").text(String(CPM_baht));
+}
 
-          function update_LT1_baht(LT1_baht) {
-            $("#LT1_baht").text(String(LT1_baht));
-          }
+function update_CPM_comp(CPM_comp) {
+window.CPM_comp = CPM_comp;
+$("#CPM_comp").text(String(Math.abs(CPM_comp)));
+if(CPM_comp > 0 ) {
+  $("#CPM_comp_direction").removeClass("up down").addClass("up");
+  $("#CPM_comp_color").css("color", "#e7505a");
+} else if(CPM_comp < 0) {
+  $("#CPM_comp_direction").removeClass("up down").addClass("down");
+  $("#CPM_comp_color").css("color", "#26C281");
+}
+renderCP2();
+}
 
-          function update_LT2_comp(LT2_comp) {
-            if(Number(LT2_comp) > 0)
-              $("#LT2_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LT2_comp) < 0)
-              $("#LT2_comp_direction").removeClass("up down").addClass("down");
-            $("#LT2_comp").text(String(Math.abs(LT2_comp)));
-          }
+function update_LT1_comp(LT1_comp) {
+if(LT1_comp > 0)
+  $("#LT1_comp_direction").removeClass("up down").addClass("up");
+else if(LT1_comp < 0)
+  $("#LT1_comp_direction").removeClass("up down").addClass("down");
+$("#LT1_comp").text(String(Math.abs(LT1_comp)));
+}
 
-          function update_LT2_baht(LT2_baht) {
-            $("#LT2_baht").text(String(LT2_baht));
-          }
+function update_LT1_baht(LT1_baht) {
+$("#LT1_baht").text(String(LT1_baht));
+}
 
-          function update_LT3_comp(LT3_comp) {
-            if(Number(LT3_comp) > 0)
-              $("#LT3_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LT3_comp) < 0)
-              $("#LT3_comp_direction").removeClass("up down").addClass("down");
-            $("#LT3_comp").text(String(Math.abs(LT3_comp)));
-          }
+function update_LT2_comp(LT2_comp) {
+if(Number(LT2_comp) > 0)
+  $("#LT2_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LT2_comp) < 0)
+  $("#LT2_comp_direction").removeClass("up down").addClass("down");
+$("#LT2_comp").text(String(Math.abs(LT2_comp)));
+}
 
-          function update_LT3_baht(LT3_baht) {
-            $("#LT3_baht").text(String(LT3_baht));
-          }
+function update_LT2_baht(LT2_baht) {
+$("#LT2_baht").text(String(LT2_baht));
+}
 
-          function update_LT4_comp(LT4_comp) {
-            if(Number(LT4_comp) > 0)
-              $("#LT4_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LT4_comp) < 0)
-              $("#LT4_comp_direction").removeClass("up down").addClass("down");
-            $("#LT4_comp").text(String(Math.abs(LT4_comp)));
-          }
+function update_LT3_comp(LT3_comp) {
+if(Number(LT3_comp) > 0)
+  $("#LT3_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LT3_comp) < 0)
+  $("#LT3_comp_direction").removeClass("up down").addClass("down");
+$("#LT3_comp").text(String(Math.abs(LT3_comp)));
+}
 
-          function update_LT4_baht(LT4_baht) {
-            $("#LT4_baht").text(String(LT4_baht));
-          }
+function update_LT3_baht(LT3_baht) {
+$("#LT3_baht").text(String(LT3_baht));
+}
 
-          function update_LM1_comp(LM1_comp) {
-            if(Number(LM1_comp) > 0)
-              $("#LM1_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LM1_comp) < 0)
-              $("#LM1_comp_direction").removeClass("up down").addClass("down");
-            $("#LM1_comp").text(String(Math.abs(LM1_comp)));
-          }
+function update_LT4_comp(LT4_comp) {
+if(Number(LT4_comp) > 0)
+  $("#LT4_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LT4_comp) < 0)
+  $("#LT4_comp_direction").removeClass("up down").addClass("down");
+$("#LT4_comp").text(String(Math.abs(LT4_comp)));
+}
 
-          function update_LM1_baht(LM1_baht) {
-            $("#LM1_baht").text(String(LM1_baht));
-          }
+function update_LT4_baht(LT4_baht) {
+$("#LT4_baht").text(String(LT4_baht));
+}
 
-          function update_LM2_comp(LM2_comp) {
-            if(Number(LM2_comp) > 0)
-              $("#LM2_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LM2_comp) < 0)
-              $("#LM2_comp_direction").removeClass("up down").addClass("down");
-            $("#LM2_comp").text(String(Math.abs(LM2_comp)));
-          }
+function update_LM1_comp(LM1_comp) {
+if(Number(LM1_comp) > 0)
+  $("#LM1_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LM1_comp) < 0)
+  $("#LM1_comp_direction").removeClass("up down").addClass("down");
+$("#LM1_comp").text(String(Math.abs(LM1_comp)));
+}
 
-          function update_LM2_baht(LM2_baht) {
-            $("#LM2_baht").text(String(LM2_baht));
-          }
+function update_LM1_baht(LM1_baht) {
+$("#LM1_baht").text(String(LM1_baht));
+}
 
-          function update_LM3_comp(LM3_comp) {
-            if(Number(LM3_comp) > 0)
-              $("#LM3_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LM3_comp) < 0)
-              $("#LM3_comp_direction").removeClass("up down").addClass("down");
-            $("#LM3_comp").text(String(Math.abs(LM3_comp)));
-          }
+function update_LM2_comp(LM2_comp) {
+if(Number(LM2_comp) > 0)
+  $("#LM2_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LM2_comp) < 0)
+  $("#LM2_comp_direction").removeClass("up down").addClass("down");
+$("#LM2_comp").text(String(Math.abs(LM2_comp)));
+}
 
-          function update_LM3_baht(LM3_baht) {
-            $("#LM3_baht").text(String(LM3_baht));
-          }
+function update_LM2_baht(LM2_baht) {
+$("#LM2_baht").text(String(LM2_baht));
+}
 
-          function update_LM4_comp(LM4_comp) {
-            if(Number(LM4_comp) > 0)
-              $("#LM4_comp_direction").removeClass("up down").addClass("up");
-            else if(Number(LM4_comp) < 0)
-              $("#LM4_comp_direction").removeClass("up down").addClass("down");
-            $("#LM4_comp").text(String(Math.abs(LM4_comp)));
-          }
+function update_LM3_comp(LM3_comp) {
+if(Number(LM3_comp) > 0)
+  $("#LM3_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LM3_comp) < 0)
+  $("#LM3_comp_direction").removeClass("up down").addClass("down");
+$("#LM3_comp").text(String(Math.abs(LM3_comp)));
+}
 
-          function update_LM4_baht(LM4_baht) {
-            $("#LM4_baht").text(String(LM4_baht));
-          }
+function update_LM3_baht(LM3_baht) {
+$("#LM3_baht").text(String(LM3_baht));
+}
 
-          function update_AEC_gen(AEC_gen) {
-            window.AEC_gen = Number(AEC_gen);
-            $("#AEC_gen").text(String(AEC_gen));
-            updateGuage();
-          }
+function update_LM4_comp(LM4_comp) {
+if(Number(LM4_comp) > 0)
+  $("#LM4_comp_direction").removeClass("up down").addClass("up");
+else if(Number(LM4_comp) < 0)
+  $("#LM4_comp_direction").removeClass("up down").addClass("down");
+$("#LM4_comp").text(String(Math.abs(LM4_comp)));
+}
 
-          function update_AEC_use(AEC_use) {
-            window.AEC_use = Number(AEC_use);
-            $("#AEC_use").text(String(AEC_use));
-            updateGuage();
-          }
+function update_LM4_baht(LM4_baht) {
+$("#LM4_baht").text(String(LM4_baht));
+}
 
-          function updateGuage() {
-            var useplusgen = AEC_use+AEC_gen;
-            var overgen = AEC_gen-AEC_use;
-            percent = 0.5 + (overgen/useplusgen)/2;
-            if(percent == 0.5) {
-              AEC_message = "Net Zero";
-              AEC_color = "#26C281";
-            }
-            else if(percent > 0.5) {
-              AEC_message = "Over Generation";
-              AEC_color = "#32c5d2";
-            }
-            else {
-              AEC_message = "Over Consumption";
-              AEC_color = "#e7505a";
-            }
-            renderGauge();
-          }
+function update_AEC_gen(AEC_gen) {
+window.AEC_gen = Number(AEC_gen);
+$("#AEC_gen").text(String(AEC_gen));
+updateGuage();
+}
 
-          function update_LOAD1_on(LOAD1_on) {
-            $("#LOAD1_on").text(String(LOAD1_on));
-          }
-          function update_LOAD1_all(LOAD1_all) {
-            $("#LOAD1_all").text(String(LOAD1_all));
-          }
-          function update_LOAD2_on(LOAD2_on) {
-            $("#LOAD2_on").text(String(LOAD2_on));
-          }
-          function update_LOAD2_all(LOAD2_all) {
-            $("#LOAD2_all").text(String(LOAD2_all));
-          }
-          function update_LOAD3_on(LOAD3_on) {
-            $("#LOAD3_on").text(String(LOAD3_on));
-          }
-          function update_LOAD3_all(LOAD3_all) {
-            $("#LOAD3_all").text(String(LOAD3_all));
-          }
+function update_AEC_use(AEC_use) {
+window.AEC_use = Number(AEC_use);
+$("#AEC_use").text(String(AEC_use));
+updateGuage();
+}
 
-          function update_GRID_status(GRID_status) {
-            $("#GRID_status").text(String(GRID_status));
-          }
+function updateGuage() {
+var useplusgen = AEC_use+AEC_gen;
+var overgen = AEC_gen-AEC_use;
+percent = 0.5 + (overgen/useplusgen)/2;
+if(percent == 0.5) {
+  AEC_message = "Net Zero";
+  AEC_color = "#26C281";
+}
+else if(percent > 0.5) {
+  AEC_message = "Over Generation";
+  AEC_color = "#32c5d2";
+}
+else {
+  AEC_message = "Over Consumption";
+  AEC_color = "#e7505a";
+}
+renderGauge();
+}
 
-          function update_GRID_kw(GRID_kw) {
-            $("#GRID_kw").text(String(Math.abs(Number(GRID_kw))));
-            if(Number(GRID_kw) > 0) {
-              $("#GRID_kw_direction").removeClass("up2 down2").addClass("up2");
-            } else if(Number(GRID_kw) < 0) {
-              $("#GRID_kw_direction").removeClass("up2 down2").addClass("down2");
-            }
-          }
+function update_LOAD1_on(LOAD1_on) {
+$("#LOAD1_on").text(String(LOAD1_on));
+}
 
-          function update_SOLAR_status(SOLAR_status) {
-            $("#SOLAR_status").text(String(SOLAR_status));
-          }
+function update_LOAD1_all(LOAD1_all) {
+$("#LOAD1_all").text(String(LOAD1_all));
+}
 
-          function update_SOLAR_kw(SOLAR_kw) {
-            $("#SOLAR_kw").text(String(Math.abs(Number(SOLAR_kw))));
-            if(Number(SOLAR_kw) > 0) {
-              $("#SOLAR_kw_direction").removeClass("up2 down2").addClass("up2");
-            } else if(Number(SOLAR_kw) < 0) {
-              $("#SOLAR_kw_direction").removeClass("up2 down2").addClass("down2");
-            }
-          }
+function update_LOAD2_on(LOAD2_on) {
+$("#LOAD2_on").text(String(LOAD2_on));
+}
 
-          function update_MODE(MODE) {
-            $("#MODE").text(String(MODE));
-          }
+function update_LOAD2_all(LOAD2_all) {
+$("#LOAD2_all").text(String(LOAD2_all));
+}
 
-          function update_MODE_status(MODE_status) {
-            $("#MODE_status").text(String(MODE_status));
-          }
+function update_LOAD3_on(LOAD3_on) {
+$("#LOAD3_on").text(String(LOAD3_on));
+}
 
-          function update_MODE_baht(MODE_baht) {
-            $("#MODE_baht").text(String(Math.abs(Number(MODE_baht))));
-            if(Number(MODE_baht) > 0) {
-              $("#MODE_baht_direction").removeClass("up2 down2").addClass("up2");
-            } else if(Number(MODE_baht) < 0) {
-              $("#MODE_baht_direction").removeClass("up2 down2").addClass("down2");
-            }
-          }
+function update_LOAD3_all(LOAD3_all) {
+$("#LOAD3_all").text(String(LOAD3_all));
+}
 
-          function update_EV_status(EV_status) {
-            $("#EV_status").text(String(EV_status));
-          }
+function update_GRID_status(GRID_status) {
+$("#GRID_status").text(String(GRID_status));
+}
 
-          function update_EV_percent(EV_percent) {
-            $("#EV_percent").text(String(Math.abs(Number(EV_percent))));
-            if(Number(EV_percent) > 0) {
-              $("#EV_percent_direction").removeClass("up2 down2").addClass("up2");
-            } else if(Number(EV_percent) < 0) {
-              $("#EV_percent_direction").removeClass("up2 down2").addClass("down2");
-            }
-          }
+function update_GRID_kw(GRID_kw) {
+$("#GRID_kw").text(String(Math.abs(Number(GRID_kw))));
+if(Number(GRID_kw) > 0) {
+  $("#GRID_kw_direction").removeClass("up2 down2").addClass("up2");
+} else if(Number(GRID_kw) < 0) {
+  $("#GRID_kw_direction").removeClass("up2 down2").addClass("down2");
+}
+}
 
-          function update_LOAD_status(LOAD_status) {
-            $("#LOAD_status").text(String(LOAD_status));
-          }
+function update_SOLAR_status(SOLAR_status) {
+    $("#SOLAR_status").text(String(SOLAR_status));
+}
 
-          function update_LOAD_kw(LOAD_kw) {
-            $("#LOAD_kw").text(String(Math.abs(Number(LOAD_kw))));
-            if(Number(LOAD_kw) > 0) {
-              $("#LOAD_kw_direction").removeClass("up2 down2").addClass("up2");
-            } else if(Number(LOAD_kw) < 0) {
-              $("#LOAD_kw_direction").removeClass("up2 down2").addClass("down2");
-            }
-          }
+function update_SOLAR_kw(SOLAR_kw) {
+    console.log(SOLAR_kw + "with type" + typeof(SOLAR_kw));
+    //$("#SOLAR_kw").text(String(Math.abs(Number(SOLAR_kw))));
+    $("#SOLAR_kw").text(String(Number(SOLAR_kw)));
+    if(Number(SOLAR_kw) > 0) {
+      $("#SOLAR_kw_direction").removeClass("up2 down2").addClass("up2");
+      update_SOLAR_status("Feeding now");
+    } else if(Number(SOLAR_kw) < 0) {
+      $("#SOLAR_kw_direction").removeClass("up2 down2").addClass("down2");
+      update_SOLAR_status("Consuming now");
+    }
+}
 
-          // <!-- BEGIN Mode Pictures-->
-            function update_MODE_pic(M){
-            console.log("M = " + M);
-                if (M == 'COMFORT'){
-                   img_mode = 'comfort_mode';}
-                else if(M == 'ECO'){
-                    img_mode = 'eco_mode';
-                }else if(M == 'DR'){
-                    img_mode = 'dr_mode';
-                }
-            // console.log("Mode = " + M );
-            $('#MODE_pic').attr('src', '../static/images/Mode/'+img_mode+'.png');
-            console.log("image mode  : " + img_mode);
-        }
+function update_MODE(MODE) {
+$("#MODE").text(String(MODE));
+}
 
-        function update_MODE_unit(unit){
-            document.getElementById("MODE_unit").innerHTML = unit;
-        }
+function update_MODE_status(MODE_status) {
+$("#MODE_status").text(String(MODE_status));
+}
+
+function update_MODE_baht(MODE_baht) {
+$("#MODE_baht").text(String(Math.abs(Number(MODE_baht))));
+if(Number(MODE_baht) > 0) {
+  $("#MODE_baht_direction").removeClass("up2 down2").addClass("up2");
+} else if(Number(MODE_baht) < 0) {
+  $("#MODE_baht_direction").removeClass("up2 down2").addClass("down2");
+}
+}
+
+function update_EV_status(EV_status) {
+$("#EV_status").text(String(EV_status));
+}
+
+function update_EV_percent(EV_percent) {
+$("#EV_percent").text(String(Math.abs(Number(EV_percent))));
+if(Number(EV_percent) > 0) {
+  $("#EV_percent_direction").removeClass("up2 down2").addClass("up2");
+} else if(Number(EV_percent) < 0) {
+  $("#EV_percent_direction").removeClass("up2 down2").addClass("down2");
+}
+}
+
+function update_LOAD_status(LOAD_status) {
+$("#LOAD_status").text(String(LOAD_status));
+}
+
+function update_LOAD_kw(LOAD_kw) {
+$("#LOAD_kw").text(String(Math.abs(Number(LOAD_kw))));
+if(Number(LOAD_kw) > 0) {
+  $("#LOAD_kw_direction").removeClass("up2 down2").addClass("up2");
+} else if(Number(LOAD_kw) < 0) {
+  $("#LOAD_kw_direction").removeClass("up2 down2").addClass("down2");
+}
+}
+
+function update_MODE_pic(M){
+console.log("M = " + M);
+    if (M == 'COMFORT'){
+       img_mode = 'comfort_mode';}
+    else if(M == 'ECO'){
+        img_mode = 'eco_mode';
+    }else if(M == 'DR'){
+        img_mode = 'dr_mode';
+    }
+// console.log("Mode = " + M );
+$('#MODE_pic').attr('src', '../static/images/Mode/'+img_mode+'.png');
+console.log("image mode  : " + img_mode);
+}
+
+function update_MODE_unit(unit){
+document.getElementById("MODE_unit").innerHTML = unit;
+}
 
 function setValue() {
   //User Information
@@ -467,17 +480,17 @@ function setValue() {
   //Grid
   //@GRID_kw can be negative for down symbol
   update_GRID_status("Feeding now");
-  update_GRID_kw("20.23");
+  update_GRID_kw("0");
 
   //Solar Generation
   //@SOLAR_kw can be negative for down symbol
   update_SOLAR_status("Feeding now");
-  update_SOLAR_kw("7.01");
+  //update_SOLAR_kw("0");
 
   //Load consumption
   //@LOAD_kw always positive
   update_LOAD_status("Consuming");
-  update_LOAD_kw("2.02");
+  //update_LOAD_kw("0");
 
   //Mode
   //@MODE_baht can be negative for down symbol
@@ -490,35 +503,64 @@ function setValue() {
   //EV Car
   //@EV_percent can be negative for down symbol
   update_EV_status("Charging");
-  update_EV_percent("62");
+  //update_EV_percent("0");
 }
+
+function update_ENERGY_pic(G, S, E){
+console.log("G = " + G , "S = " + S , "E = " + E );
+
+    if (typeof G == "undefined") {
+        G = 0;
+    }
+    else {
+        if (G > 0) {
+            img_grid = 'G';
+        } else if (G <= 0) {
+            img_grid = '-';
+        }
+    }
+    if (typeof S == "undefined") {
+        S = 0;
+    }
+    else {
+        if (S > 0) {
+            img_solar = 'S';
+        } else if (S <= 0) {
+            img_solar = '-';
+        }
+    }
+    if (typeof E == "undefined") {
+        E = 0;
+    }
+    else {
+        if (E > 0) {
+            img_ev = 'E';
+        } else if (E <= 0) {
+            img_ev = '-';
+        }
+    }
+
+console.log("G = " + G , "S = " + S , "E = " + E );
+console.log("image changed to : " + img_grid + img_solar + img_ev);
+$('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
+
+}
+
+function update_discovery_status(message){
+        if (role == 'admin' || zone == uzone){
+            if (message == 'ON'){
+                 $("#pnp_on").css('display','block');
+                 $("#pnp_off").css('display','none');
+             } else {
+                 $("#pnp_on").css('display','none');
+                 $("#pnp_off").css('display','block');
+             }
+        }
+    }
 
 $( document ).ready(function() {
      startTime();
      setValue();
-     // renderChart();
-    // $.csrftoken();
-
-    // var ws = new WebSocket("ws://" + window.location.host + "/socket_misc");
-    //
-    //  ws.onopen = function () {
-    //      ws.send("WS opened from html page");
-    //  };
-    //
-    //  ws.onmessage = function (event) {
-    //      var _data = event.data;
-    //      _data = $.parseJSON(_data);
-    //      var topic = _data['topic'];
-    //      // ["", "ui", "web", "misc", "auto_discovery", "status"]
-    //      var message = _data['message'];
-    //      if (topic) {
-    //          topic = topic.split('/');
-    //          //console.log(topic);
-    //          if (topic[4] == 'auto_discovery' && topic[5] == 'status') {
-    //              update_discovery_status(message);
-    //          }
-    //      }
-    //  };
 
     // socket powermeter ---------------------------------
      var ws = new WebSocket("ws://" + window.location.host + "/socket_powermeter");
@@ -554,7 +596,375 @@ $( document ).ready(function() {
          img_grid = parseInt(_message.grid_activePower);
          img_solar = parseInt(_message.solar_activePower);
          update_ENERGY_pic(img_grid, img_solar, img_ev);
+         grid_activePower = _message.grid_activePower;
+         solar_activePower = _message.solar_activePower;
+         load_activePower = _message.load_activePower;
      };
+
+     //charts-grid
+     $(window).load(function(){
+        $('.charts-grid').on('show.bs.modal', function (event) {
+            setTimeout(function(){
+                Highcharts.chart('area-grid', {
+                    chart: {
+                        type: 'spline',
+                        animation: Highcharts.svg, // don't animate in old IE
+                        marginRight: 10,
+                        events: {
+                            load: function () {
+                                // set up the updating of the chart each second
+                                var series = this.series[0],
+                                    series2 = this.series[1],
+                                    series3 = this.series[2];
+                                setInterval(function () {
+                                    var d = new Date();
+                                    var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                                    var x = (new Date(utc + (3600000*0))).getTime(); // current time
+                                    series.addPoint([x, load_activePower], true, true);
+                                    series2.addPoint([x, grid_activePower], true, true);
+                                    series3.addPoint([x, solar_activePower], true, true);
+                                }, 1000);
+                            }
+                        }
+                    },
+                    title: {
+                        text: 'Current Power Generation and Consumption',
+                        x: -20 //center
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        tickPixelInterval: 150
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Real Power (W)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 2);
+                        }
+                    },
+                    legend: {
+                        //enabled: false
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderwidth: 0
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Load',
+                        data: (function () {
+                            // generate an array of random data
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: 'Grid',
+                        data: (function () {
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: 'Solar',
+                        data: (function () {
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }]
+                });
+                // Smooth Loading
+                $('.js-loading').addClass('hidden');
+            },1000);
+        });
+     });
+
+     //charts-solar
+     $(window).load(function(){
+        $('.charts-solar').on('show.bs.modal', function (event) {
+            setTimeout(function(){
+                Highcharts.chart('area-solar', {
+                    chart: {
+                        type: 'spline',
+                        animation: Highcharts.svg, // don't animate in old IE
+                        marginRight: 10,
+                        events: {
+                            load: function () {
+                                // set up the updating of the chart each second
+                                var series = this.series[0],
+                                    series2 = this.series[1],
+                                    series3 = this.series[2];
+                                setInterval(function () {
+                                    var d = new Date();
+                                    var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                                    var x = (new Date(utc + (3600000*0))).getTime(); // current time
+                                    series.addPoint([x, load_activePower], true, true);
+                                    series2.addPoint([x, grid_activePower], true, true);
+                                    series3.addPoint([x, solar_activePower], true, true);
+                                }, 1000);
+                            }
+                        }
+                    },
+                    title: {
+                        text: 'Current Power Generation and Consumption',
+                        x: -20 //center
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        tickPixelInterval: 150
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Real Power (W)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 2);
+                        }
+                    },
+                    legend: {
+                        //enabled: false
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderwidth: 0
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Load',
+                        data: (function () {
+                            // generate an array of random data
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: 'Grid',
+                        data: (function () {
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: 'Solar',
+                        data: (function () {
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }]
+                });
+                // Smooth Loading
+                $('.js-loading').addClass('hidden');
+            },1000);
+        });
+     });
+
+     //charts-load
+     $(window).load(function(){
+        $('.charts-load').on('show.bs.modal', function (event) {
+            setTimeout(function(){
+                Highcharts.chart('area-load', {
+                    chart: {
+                        type: 'spline',
+                        animation: Highcharts.svg, // don't animate in old IE
+                        marginRight: 10,
+                        events: {
+                            load: function () {
+                                // set up the updating of the chart each second
+                                var series = this.series[0],
+                                    series2 = this.series[1],
+                                    series3 = this.series[2];
+                                setInterval(function () {
+                                    var d = new Date();
+                                    var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                                    var x = (new Date(utc + (3600000*0))).getTime(); // current time
+                                    series.addPoint([x, load_activePower], true, true);
+                                    series2.addPoint([x, grid_activePower], true, true);
+                                    series3.addPoint([x, solar_activePower], true, true);
+                                }, 1000);
+                            }
+                        }
+                    },
+                    title: {
+                        text: 'Current Power Generation and Consumption',
+                        x: -20 //center
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        tickPixelInterval: 150
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Real Power (W)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 2);
+                        }
+                    },
+                    legend: {
+                        //enabled: false
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderwidth: 0
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Load',
+                        data: (function () {
+                            // generate an array of random data
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: 'Grid',
+                        data: (function () {
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: 'Solar',
+                        data: (function () {
+                            var d = new Date();
+                            var utc = d.getTime() - (d.getTimezoneOffset() * 60000);
+                            var data = [],
+                                time = (new Date(utc + (3600000*0))).getTime(), // current time,
+                                i;
+                            //TODO get data from database for Grid data
+                            for (i = -60; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1,
+                                    y: 0
+                                });
+                            }
+                            return data;
+                        }())
+                    }]
+                });
+                // Smooth Loading
+                $('.js-loading').addClass('hidden');
+            },1000);
+        });
+     });
+
+     //charts-battery
 
     // socket weather ---------------------------------
      var ws_weahter = new WebSocket("ws://" + window.location.host + "/socket_weather");
@@ -668,7 +1078,6 @@ $( document ).ready(function() {
          }
 
      };
-     //----------------------------------------------------------------------
 
      // socket dashboard ---------------------------------
      var ws_dashboard = new WebSocket("ws://" + window.location.host + "/socket_dashboard");
@@ -763,60 +1172,6 @@ $( document ).ready(function() {
          //     }
          // }
      };
-     //----------------------------------------------------------------------
-
-    // <!-- BEGIN Current Energy Consumption Pictures-->
-    function update_ENERGY_pic(G, S, E){
-    console.log("G = " + G , "S = " + S , "E = " + E );
-
-        if (typeof G == "undefined") {
-            G = 0;
-        }
-        else {
-            if (G > 0) {
-                img_grid = 'G';
-            } else if (G <= 0) {
-                img_grid = '-';
-            }
-        }
-        if (typeof S == "undefined") {
-            S = 0;
-        }
-        else {
-            if (S > 0) {
-                img_solar = 'S';
-            } else if (S <= 0) {
-                img_solar = '-';
-            }
-        }
-        if (typeof E == "undefined") {
-            E = 0;
-        }
-        else {
-            if (E > 0) {
-                img_ev = 'E';
-            } else if (E <= 0) {
-                img_ev = '-';
-            }
-        }
-
-    console.log("G = " + G , "S = " + S , "E = " + E );
-    console.log("image changed to : " + img_grid + img_solar + img_ev);
-    $('#ENERGY_pic').attr('src', '../static/images/Current_Energy/' + img_grid + img_solar + img_ev + '.png');
-
-    }
-
-    function update_discovery_status(message){
-        if (role == 'admin' || zone == uzone){
-            if (message == 'ON'){
-                 $("#pnp_on").css('display','block');
-                 $("#pnp_off").css('display','none');
-             } else {
-                 $("#pnp_on").css('display','none');
-                 $("#pnp_off").css('display','block');
-             }
-        }
-    }
 
     //var nick_re = /^[A-Za-z0-9_ ]*[A-Za-z0-9 ][A-Za-z0-9_ ]{5,10}$/;
     var nick_re = /^[A-Za-z0-9_]{6,15}$/;
@@ -839,7 +1194,7 @@ $( document ).ready(function() {
         }
     });
 
-// This button will decrement the heat value till 0
+    // This button will decrement the heat value till 0
     $('body').on('click',"button[id^='hminus-']", function (e) {
         // Stop acting like a button
         e.preventDefault();
@@ -876,7 +1231,7 @@ $( document ).ready(function() {
         }
     });
 
-// This button will decrement the heat value till 0
+    // This button will decrement the heat value till 0
     $('body').on('click',"button[id^='cminus-']", function (e) {
         // Stop acting like a button
         e.preventDefault();
@@ -1028,7 +1383,7 @@ $( document ).ready(function() {
 
     });
 
-$( "#select_comfort_mode" ).click(function() {
+    $("#select_comfort_mode" ).click(function() {
     console.log("comfort mode selected");
     var values = {};
     values['event'] = 'comfort';
@@ -1078,7 +1433,7 @@ $( "#select_comfort_mode" ).click(function() {
     },delay);
 });
 
-$( "#select_eco_mode" ).click(function() {
+    $("#select_eco_mode" ).click(function() {
     console.log("eco mode selected");
     var values = {};
     values['event'] = 'eco';
@@ -1124,7 +1479,7 @@ $( "#select_eco_mode" ).click(function() {
     },delay);
 });
 
-$( "#agree_dr" ).click(function() {
+    $("#agree_dr" ).click(function() {
     console.log("agree_dr selected");
     var values = {};
     values['event'] = 'dr';
@@ -1171,7 +1526,7 @@ $( "#agree_dr" ).click(function() {
     },delay);
 });
 
-$( "#disagree_dr" ).click(function() {
+    $("#disagree_dr" ).click(function() {
     console.log("disagree_dr selected");
     var values = {};
     values['event'] = 'dr';
