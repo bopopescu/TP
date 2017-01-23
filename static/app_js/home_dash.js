@@ -439,16 +439,16 @@ function setValue() {
   //@Lxx_comp value between -100 to 100
   //—Today
   update_LT1_comp("40");
-  update_LT1_baht("10");
+  //update_LT1_baht("10");
 
   update_LT2_comp("30");
-  update_LT2_baht("15.75");
+  //update_LT2_baht("15.75");
 
   update_LT3_comp("-80");
-  update_LT3_baht("25.25");
+  //update_LT3_baht("25.25");
 
   update_LT4_comp("60");
-  update_LT4_baht("20.25");
+  //update_LT4_baht("20.25");
 
   //—This month
   update_LM1_comp("6");
