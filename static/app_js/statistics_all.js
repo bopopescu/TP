@@ -124,18 +124,36 @@ var sum_month_b = {};
 var sum_year_b = {};
 week_p['name'] = "Grid";
 week_p['name'] = "Solar";
-week_p['Grid'] = [106.5,102.5,55.6,0,0,0,0];
-week_p['Solar'] = [13.6,12.6,6.3,0,0,0,0];
-week_b['Grid'] = [319.5,307.5,166.8,0,0,0,0];
-week_b['Solar'] = [40.8,37.8,18.9,0,0,0,0];
-month_p['Grid'] = [681.3,710.7,669.5,662.6];
-month_p['Solar'] = [226.7,222.2,233.5,170.1];
-month_b['Grid'] = [2043.9,2132.1,2008.5,1987.8];
-month_b['Solar'] = [680.1,666.6,700.5,510.3];
-year_p['Grid'] = [0,0,0,0,0,0,0,1362,2724,0,0,0];
-year_p['Solar'] = [0,0,0,0,0,0,0,426.2,852.4,0,0,0];
-year_b['Grid'] = [0,0,0,0,0,0,0,4086,8172,0,0,0];
-year_b['Solar'] = [0,0,0,0,0,0,0,1278.6,2557.2,0,0,0];
+
+week_p['Grid'] = JSON.parse("["+gridimportenergy+"]")[0];
+week_p['Solar'] = JSON.parse("["+solarenergy+"]")[0];
+week_b['Grid'] = JSON.parse("["+gridimportbill+"]")[0];
+week_b['Solar'] = JSON.parse("["+solarbill+"]")[0];
+
+month_p['Grid'] = JSON.parse("["+gridimportenergyweek+"]")[0];
+month_p['Solar'] = JSON.parse("["+solarenergyweek+"]")[0];
+month_b['Grid'] = JSON.parse("["+gridimportbillweek+"]")[0];
+month_b['Solar'] = JSON.parse("["+solarbillweek+"]")[0];
+
+year_p['Grid'] = JSON.parse("["+gridimportenergymonth+"]")[0];
+year_p['Solar'] = JSON.parse("["+solarenergymonth+"]")[0];
+year_b['Grid'] = JSON.parse("["+gridimportbillmonth+"]")[0];
+year_b['Solar'] = JSON.parse("["+solarbillmonth+"]")[0];
+
+// console.log(JSON.parse("["+gridimportenergyweek+"]")[0]);
+// console.log(JSON.parse("["+gridimportenergyweek+"]")[0]);
+// console.log('sum grid solar '+ (week_p['Grid']+week_p['Solar']));
+
+// week_b['Grid'] = [319.5,307.5,166.8,0,0,0,0];
+// week_b['Solar'] = [40.8,37.8,18.9,0,0,0,0];
+// month_p['Grid'] = [681.3,710.7,669.5,662.6];
+// month_p['Solar'] = [226.7,222.2,233.5,170.1];
+// month_b['Grid'] = [2043.9,2132.1,2008.5,1987.8];
+// month_b['Solar'] = [680.1,666.6,700.5,510.3];
+// year_p['Grid'] = [0,0,0,0,0,0,0,1362,2724,0,0,0];
+// year_p['Solar'] = [0,0,0,0,0,0,0,426.2,852.4,0,0,0];
+// year_b['Grid'] = [0,0,0,0,0,0,0,4086,8172,0,0,0];
+// year_b['Solar'] = [0,0,0,0,0,0,0,1278.6,2557.2,0,0,0];
 sum_week_p['All'] = [88.1, 264.4];
 sum_week_p['Grid'] = [77.3, 232];
 sum_week_p['Solar'] = [10.7, 32.3];

@@ -12,13 +12,13 @@
 					<span class="arrow open"></span>
 				</a>
 			</li>
-			<li class="nav-item{% if '/all_devices/' in request.path or '/devices/' in request.path or '/add_device/' in request.path %} active open{% endif %}">
-				<a href="/all_devices/999" class="nav-link nav-toggle">
-					<i class="icon-bulb"></i>
-					<span class="title">Devices</span>
-					<span class="arrow"></span>
-				</a>
-			</li>
+{#			<li class="nav-item{% if '/all_devices/' in request.path or '/devices/' in request.path or '/add_device/' in request.path %} active open{% endif %}">#}
+{#				<a href="/all_devices/999" class="nav-link nav-toggle">#}
+{#					<i class="icon-bulb"></i>#}
+{#					<span class="title">Devices</span>#}
+{#					<span class="arrow"></span>#}
+{#				</a>#}
+{#			</li>#}
 			<li class="nav-item{% if request.path == '/statistics/' or request.path == '/load_statistics/' %} active open{% endif %}">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="icon-graph"></i>
