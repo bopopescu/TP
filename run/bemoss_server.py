@@ -103,6 +103,7 @@ def main():
             (r"/socket_plugload_scheduler", PlugloadSchedulerHandler),
             (r"/socket_thermostat_scheduler", ThermostatSchedulerHandler),
             (r"/socket_powermeter", PowermeterEventHandler),
+            (r"/socket_PVInverter", PVInverterEventHandler),
             (r"/socket_dashboard", DashboardEventHandler),
             (r"/socket_weather", WeatherEventHandler),
             (r"/socket_airconditioner", AirconditionerEventHandler),
@@ -246,6 +247,10 @@ class PowermeterEventHandler(MainHandler):
     def zmq_subscribe(self):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/power_meter/')
 
+class PVInverterEventHandler(MainHandler):
+    def zmq_subscribe(self):
+        self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/PVInverter/')
+
 class DashboardEventHandler(MainHandler):
     def zmq_subscribe(self):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, '/agent/ui/dashboard')
@@ -273,6 +278,7 @@ application = web.Application([
     (r"/socket_plugload_scheduler", PlugloadSchedulerHandler),
     (r"/socket_thermostat_scheduler", ThermostatSchedulerHandler),
     (r"/socket_powermeter", PowermeterEventHandler),
+    (r"/socket_PVInverter", PVInverterEventHandler),
     (r"/socket_dashboard", DashboardEventHandler),
     (r"/socket_weather", WeatherEventHandler),
     (r"/socket_airconditioner", AirconditionerEventHandler),

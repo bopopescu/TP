@@ -99,6 +99,11 @@ urlpatterns = patterns('',
     (r'^light/(?P<mac>[a-zA-Z0-9]+)/status', 'apps.lighting.views.lighting_status'),
     #air controller
     (r'^airconditioner/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.airconditioner.views.airconditioner'),
+
+    # inverter
+    (r'^inverter/(?P<mac>[a-zA-Z0-9]+)/$', 'apps.inverter.views.inverter'),
+
+
     # air controller
     (r'^update_airconditioner/$', 'apps.airconditioner.views.update_device_air'),
     #tv

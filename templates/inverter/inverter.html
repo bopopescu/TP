@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"><!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+        <meta charset="utf-8">
+        <title>PEA Smart Home</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="PEA Smart Home" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+{#        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">#}
+        <link href="/static/newassets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+		<link rel="stylesheet" href="/static/newassets/global/plugins/nouislider/nouislider.min.css" type="text/css">
+		<link rel="stylesheet" href="/static/newassets/global/plugins/nouislider/nouislider.pips.css" type="text/css">
+		<link href="/static/newassets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css">
+		<link href="/static/newassets/global/plugins/jquery-minicolors/jquery.minicolors.css" rel="stylesheet" type="text/css">
+		<link href="/static/newassets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/newassets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/newassets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+        <link href="/static/newassets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/static/newassets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="/static/newassets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css">
+
+        <link href="/static/newassets/custom/font/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="/static/newassets/custom/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"> <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+
+        <script>
+function setValue() {
+  //User Information
+  update_Username("admin");
+
+  //Current Rate
+  update_Cur_rate("4.32");
+}
+        </script>
+		<style>
+		
+/*--Basic style*/
+.h10{ height:10px;  }
+.h20{ height:20px;  }
+.h30{ height:30px;  }
+.h40{ height:40px;  }
+.h50{ height:50px;  }
+
+.sub-title {
+    font-weight: bold;
+    color: darkslategrey;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.information-image{
+    height: 75%; display: flex;
+}
+
+.information-image img{
+    height: 100%; width: 100%; margin: auto
+}
+
+/*-- load device stylesheet*/
+.device-name{
+    padding-bottom: 7px;
+    padding-top: 0 ;
+    color: darkslategrey ;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+
+
+.device-consumption{
+    color: #999     ;
+    height: 50px;
+}
+.device-watt, .device-hour-usage{
+    font-size: 11px;
+    /*height: 50px;*/
+    padding-bottom: 0;
+}
+
+.widget-thumb-wrap:hover{
+    background-color: #eee;
+}
+
+.widget-thumb-wrap a{
+    color: #000;
+}
+
+
+.float_r{
+    float: right;
+}
+
+.float_l{
+    float: left;
+}
+
+.device-btt-status, .add-device-form{
+    line-height: 15px;
+    padding-bottom: 5px;
+}
+
+.add-device-form .addDevice-text{
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.device-btt-status, .add-device-form i{
+    font-size: 25px;
+}
+
+/*--  Lighting Controller--*/
+.device-status-form{
+    width:100%;
+    border: 1px solid #EEE;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding:10px;
+}
+
+
+
+.device-controller-form {
+    background-color: white;
+    color :grey;
+    border:1px #EEE solid;
+    padding:10px;
+    height:auto;
+}
+
+.set-schedule-form{
+    color:blue;
+    background-color: skyblue;
+    width:100%;
+    padding-left: 0;
+    border: 1px solid blue;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding-bottom: 5px;
+    display: flex;
+}
+
+
+
+
+
+.brightness-form, .colors-form, .airCond-row1-form, .airCond-row2-form, .ac-temperature-form, .ac-swing-form
+, .fan-row1-form, .fan-row2-form, .fan-row3-form, .fan-row4-form{
+    margin-bottom: 15px;
+    min-height: 102px;
+    height: auto;
+    border: 1px #EEE solid;
+    padding:10px;
+}
+
+
+
+
+
+.brightness-slider {
+	background: rgba(53,152,220,1); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(53,152,220,0.2), rgba(53,152,220,1)); /* Standard syntax */
+}
+
+.progress{
+    height: 20px !important;
+}
+
+.progress .sr-only{
+    position: relative;}
+
+/*-------Lighting Data--------*/
+
+
+.row table{
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 0;
+    color: grey;
+    border:none;
+}
+
+.row table .detail {
+    font-weight: bold;
+    color: darkslategrey;
+}
+
+
+
+.topic {
+    font-size: 13px;
+    color: lightslategray;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.value {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+/*-------------Pong's Stylesheet-----------------*/
+
+
+.info-box-icon {
+    display: block;
+    float: left;
+    height: 65px;
+    width: 65px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 20px;
+    background: rgba(0,0,0,0.2);
+	border-radius: 50%!important;
+	/*border-style: solid;*/
+	border-color: #aaaaaa;
+}
+
+.info-box-icon i{
+    line-height: 65px;
+    font-size: 40px;
+}
+
+
+
+.info-box-content {
+    padding: 0 10px;
+    margin-left: 70px;
+}
+
+.progress-description, .info-box-text1 {
+    display: block;
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.progress-description, .info-box-text2 {
+    display: block;
+    color: #666666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info-box-number {
+    display: block;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.info-box-number small {
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.info-box-number span {
+    font-size: 18px;
+}
+
+
+/******* Add Device StyleSheet*******/
+
+.dtl-on{ width: 100%; background-color: skyblue; color: white;}
+.dtl-off{width: 100%; background-color: lightgrey; color: white;}
+.dtl-online{width: 100%; background-color: lightgreen; color: white;}
+.dtl-offline{width: 100%; background-color: red; color: white;}
+
+
+.device-data{
+
+}
+
+.device-data table tbody tr td {
+    padding: 5px;
+    border:none;
+}
+
+.device-data table tbody tr td input{
+    width:100%;
+    width:100%;
+}
+
+
+/*-----air conditioner stylesheet------*/
+
+
+.ac-mode-setting, .ac-fanSpeed-setting {
+    border: 1px #EEE solid;
+    padding:10px;
+    min-height: 51px;
+    margin-bottom: 15px;
+    display: flex;
+
+}
+
+.forAC-btt button{
+    width:auto;
+}
+
+.ac-temperature-setting, .ac-swing-setting {
+    padding: 10px;
+    /*display: flex;*/
+    min-height: 150px;
+    height: auto;
+    /*width:100%;*/
+    border: 1px     #EEE solid;
+    margin-bottom: 15px;
+
+}
+
+
+
+.ac-swing-arrow{
+    min-height:60px;
+}
+
+.ac-swing-arrow button{
+    margin:4px;
+    width: auto;
+    border:3px solid #EEE;
+    background-color: white;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before {
+	font-size: 45px;
+}
+
+/**----------Standing Fan StyleSheet-------------*/
+
+
+		</style>
+
+<script>
+    var mac_address = "{{ mac_address }}";
+    console.log("this ac mac_address is "+mac_address)
+</script>
+
+      </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-sidebar-closed-hide-logo page-header-fixed">
+        <!-- BEGIN HEADER -->
+        {% include 'top_nav.html' %}
+        <!-- END HEADER -->
+
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            {% include 'sidebar.html' %}
+			
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content" style="min-height: 981px;">
+                    <!-- BEGIN page_breadcrumb -->
+                    {% include 'page_breadcrumb.html' %}
+                    <!-- END page_breadcrumb -->
+                    <br>
+
+					<!--BEGIN Main Content-->
+					<div class="row ">
+						<!--BEGIN Side nav all devices-->
+						<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 hidden-xs">
+							<!-- BEGIN PORTLET-->
+							{% include 'side_nav_alldevices.html' %}
+							<!-- END PORTLET-->
+						</div>
+						<!--END Side nav all devices-->
+
+						<!--BEGIN Device Controller and Data-->
+						<div class="col-lg-8 col-md-7  col-sm-12 col-xs-12">
+							<!-- BEGIN PORTLET Bordered-->
+							<div class="portlet light bordered">
+								<!--BEGIN Device Name Header-->
+								<div class="portlet-title">
+									<div class="caption">
+										<i class="icon-share font-red-sunglo hide"></i>
+										<span class="font-dark bold">
+											<a href="loadDevice.html" class="btn btn-sm btn-default btn-circle visible-xs-inline">
+											<i class="fa fa-arrow-left"></i> Back</a>
+											<strong><span id="device_header">Inverter</span></strong>
+										</span>
+										<span id="device_name"> </span>
+									</div>
+								</div>
+								<!--BEGIN Device Name Header-->
+
+
+								<div class="portlet-body">
+
+                                    <!--BEGIN Low 1-->
+
+                                            <div class="airCond-row1-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">Inverter_activepower</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="Inverter_activepower" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>W</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">Inverter_reactivepower</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="Inverter_reactivepower" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>VAR</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <!--END Low 1-->
+
+                                    <!--BEGIN Low 2-->
+                                            <div class="airCond-row1-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">grid_activepower</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="grid_activepower" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>W</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">grid_reactivepower</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="grid_reactivepower" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>VAR</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <!--END Low 2-->
+
+                                    <!--BEGIN Low 3-->
+
+                                            <div class="airCond-row1-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">load_activepower</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="load_activepower" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>W</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">load_reactivepower</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="load_reactivepower" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>VAR</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <!--END Low 3-->
+
+                                    <!--BEGIN Low 4-->
+                                            <div class="airCond-row1-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">grid_voltage</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="grid_voltage" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>V</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-6 col-sm-3 col-xs-3" align="center" style="margin-top: 10px; margin-bottom: 10px;">
+                                                        <div class="sub-title hidden-xs">battery_power</div>
+                                                        <div style="display: flex;width:100%;">
+                                                            <div class="row" style="margin: auto">
+                                                                <strong><span id="battery_power" style="font-size: 65px; color: #3598dc;">22.0</span></strong>
+                                                                <span style="font-size: 50px; color: #ACB5C3"><small>W</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <!--END Low 4-->
+
+                                    </div>
+                                </div>
+													<!--END Mode Control-->
+
+
+                            </div>
+												<!--END Right Col-->
+                        </div>
+											<!--END Row-->
+                    </div>
+										<!--END Device Control Body-->
+
+                </div>
+							<!-- BEGIN PORTLET Bordered-->
+						</div>
+						<!--BEGIN Device Controller and Data-->
+					</div>
+					<!--END Main Content-->
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+
+<!--[if lt IE 9]>
+<script src="/static/newassets/global/plugins/respond.min.js"></script>
+<script src="/static/newassets/global/plugins/excanvas.min.js"></script>
+<script src="/static/newassets/global/plugins/ie8.fix.min.js"></script>
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/newassets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/newassets/global/scripts/app.min.js" type="text/javascript"></script>
+		<script class="include" type="text/javascript" src="/static/app_js/jquery.csrftoken.min.js"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+		<script src="/static/newassets/global/plugins/nouislider/wNumb.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/nouislider/nouislider.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/jquery-minicolors/jquery.minicolors.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts-3d.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/highcharts/js/highcharts-more.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/scripts/datatable.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+		<script src="/static/newassets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="/static/newassets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="/static/newassets/global/plugins/d3.min.js" type="text/javascript"></script>
+		<script src="/static/app_js/PVInverter.js" type="text/javascript"></script>
+		<script src="/static/app_js/sidenav.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/static/app_js/current_update.js"></script>
+
+		<script type="text/javascript">
+            window.onload = function () {
+                startTime();
+                setValue();
+                renderChart();
+//                $('#log').DataTable({
+//                    "order": [
+//                        [0, "desc"]
+//                    ]
+//                });
+              }
+        </script>
+
+		<!--<script type="text/javascript">-->
+			<!--window.onload = function () {-->
+				<!--setValue();-->
+				<!--startTime();-->
+                <!--setValue();-->
+			  <!--}-->
+		<!--</script>-->
+
+    </body>
+
+</html>
