@@ -64,7 +64,7 @@ class API:
         self.variables = kwargs
         address_parts = self.get_variable('address').split(':')
         self.set_variable('address',address_parts[0])
-        self.set_variable('slave_id',int(address_parts[1]))
+        self.set_variable('subordinate_id',int(address_parts[1]))
         self.set_variable('offline_count',0)
         self.set_variable('connection_renew_interval',6000) #nothing to renew
         self.client = '1'
